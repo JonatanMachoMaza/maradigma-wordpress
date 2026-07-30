@@ -1,0 +1,59 @@
+{
+  "apiVersion": 3,
+  "name": "maradigma/boat-title",
+  "version": "0.1.0",
+  "title": "Maradigma Boat Title",
+  "category": "maradigma",
+  "icon": "heading",
+  "description": "Boat title/name rendered from the current Maradigma boat context.",
+  "textdomain": "maradigma",
+  "usesContext": [
+    "postId"
+  ],
+  "attributes": {
+    "id": {
+      "type": "string",
+      "default": ""
+    },
+    "slug": {
+      "type": "string",
+      "default": ""
+    },
+    "tag": {
+      "type": "string",
+      "default": "h1"
+    },
+    "show_builder": {
+      "type": "string",
+      "default": "1"
+    },
+    "show_model": {
+      "type": "string",
+      "default": "1"
+    },
+    "show_alias": {
+      "type": "string",
+      "default": "1"
+    },
+    "quote_alias": {
+      "type": "string",
+      "default": "1"
+    },
+    "fallback_service_name": {
+      "type": "string",
+      "default": "1"
+    },
+    "separator": {
+      "type": "string",
+      "default": " "
+    },
+    "fallback": {
+      "type": "string",
+      "default": "",
+      "role": "content"
+    }
+  },
+  "supports": {
+    "html": false
+  }
+}

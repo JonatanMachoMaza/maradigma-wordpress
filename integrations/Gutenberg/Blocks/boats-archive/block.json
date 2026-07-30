@@ -1,0 +1,161 @@
+{
+  "apiVersion": 3,
+  "name": "maradigma/boats-archive",
+  "version": "0.1.0",
+  "title": "Maradigma Boats Archive",
+  "category": "maradigma",
+  "icon": "grid-view",
+  "description": "Boat archive/listing rendered with the existing Maradigma shortcode.",
+  "textdomain": "maradigma",
+  "attributes": {
+    "id_group": {
+      "type": "string",
+      "default": "boats"
+    },
+    "limit_services": {
+      "type": "string",
+      "default": "12"
+    },
+    "offset_services": {
+      "type": "string",
+      "default": "0"
+    },
+    "show_filters": {
+      "type": "string",
+      "default": "0"
+    },
+    "autosubmit_filters": {
+      "type": "string",
+      "default": "1"
+    },
+    "allow_url_filters": {
+      "type": "string",
+      "default": "1"
+    },
+    "order_by": {
+      "type": "string",
+      "default": "0"
+    },
+    "card": {
+      "type": "string",
+      "default": ""
+    },
+    "image_token": {
+      "type": "string",
+      "default": "image_main"
+    },
+    "filters_ui_fields": {
+      "type": "string",
+      "default": "date_start,boat_capacity,min_price,max_price"
+    },
+    "filters_ui_fields_offcanvas": {
+      "type": "string",
+      "default": "boat_type_id,builders,ids_gi"
+    },
+    "filters_ui_layout": {
+      "type": "string",
+      "default": "horizontal"
+    },
+    "filters_ui_submit_mode": {
+      "type": "string",
+      "default": "auto"
+    },
+    "filters_ui_show_reset": {
+      "type": "string",
+      "default": "1"
+    },
+    "show_more_filters_button": {
+      "type": "string",
+      "default": "1"
+    },
+    "more_filters_button_text": {
+      "type": "string",
+      "default": "",
+      "role": "content"
+    },
+    "more_filters_offcanvas_title": {
+      "type": "string",
+      "default": "",
+      "role": "content"
+    },
+    "date_picker_mode": {
+      "type": "string",
+      "default": "range"
+    },
+    "term": {
+      "type": "string",
+      "default": ""
+    },
+    "ids_gi": {
+      "type": "string",
+      "default": ""
+    },
+    "featured": {
+      "type": "string",
+      "default": ""
+    },
+    "ins_book": {
+      "type": "string",
+      "default": ""
+    },
+    "min_price": {
+      "type": "string",
+      "default": ""
+    },
+    "max_price": {
+      "type": "string",
+      "default": ""
+    },
+    "boat_capacity": {
+      "type": "string",
+      "default": ""
+    },
+    "boat_type_id": {
+      "type": "string",
+      "default": ""
+    },
+    "boat_type_id_label": {
+      "type": "string",
+      "default": ""
+    },
+    "builders": {
+      "type": "string",
+      "default": ""
+    },
+    "builders_labels_json": {
+      "type": "string",
+      "default": ""
+    },
+    "ids_gi_labels_json": {
+      "type": "string",
+      "default": ""
+    },
+    "gc_type": {
+      "type": "string",
+      "default": ""
+    },
+    "date_start": {
+      "type": "string",
+      "default": ""
+    },
+    "date_end": {
+      "type": "string",
+      "default": ""
+    },
+    "search_own_managment": {
+      "type": "string",
+      "default": ""
+    },
+    "only_calendarization": {
+      "type": "string",
+      "default": ""
+    },
+    "ignore_date_range": {
+      "type": "string",
+      "default": ""
+    }
+  },
+  "supports": {
+    "html": false
+  }
+}

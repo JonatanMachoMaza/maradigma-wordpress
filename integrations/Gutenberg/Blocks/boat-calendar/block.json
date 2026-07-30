@@ -1,0 +1,58 @@
+{
+  "apiVersion": 3,
+  "name": "maradigma/boat-calendar",
+  "version": "0.1.0",
+  "title": "Maradigma Boat Calendar",
+  "category": "maradigma",
+  "icon": "calendar-alt",
+  "description": "Availability calendar block.",
+  "textdomain": "maradigma",
+  "attributes": {
+    "id": {
+      "type": "string",
+      "default": ""
+    },
+    "slug": {
+      "type": "string",
+      "default": ""
+    },
+    "months": {
+      "type": "string",
+      "default": "12"
+    },
+    "start_month": {
+      "type": "string",
+      "default": "current"
+    },
+    "show_legend": {
+      "type": "string",
+      "default": "1"
+    },
+    "color_available": {
+      "type": "string",
+      "default": "#d4edda"
+    },
+    "color_booked": {
+      "type": "string",
+      "default": "#ffc0bd"
+    },
+    "color_option": {
+      "type": "string",
+      "default": "#ffe8a1"
+    },
+    "option_statuses": {
+      "type": "string",
+      "default": "4"
+    },
+    "include_booking_status": {
+      "type": "string",
+      "default": "1"
+    }
+  },
+  "supports": {
+    "html": false
+  },
+  "usesContext": [
+    "postId"
+  ]
+}

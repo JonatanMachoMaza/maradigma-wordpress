@@ -1,0 +1,31 @@
+{
+  "apiVersion": 3,
+  "name": "maradigma/boat-pax",
+  "version": "0.1.0",
+  "title": "Maradigma Boat Pax",
+  "category": "maradigma",
+  "icon": "groups",
+  "description": "Boat pax/capacity block.",
+  "textdomain": "maradigma",
+  "attributes": {
+    "id": {
+      "type": "string",
+      "default": ""
+    },
+    "slug": {
+      "type": "string",
+      "default": ""
+    },
+    "fallback": {
+      "type": "string",
+      "default": "",
+      "role": "content"
+    }
+  },
+  "supports": {
+    "html": false
+  },
+  "usesContext": [
+    "postId"
+  ]
+}

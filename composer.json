@@ -1,0 +1,36 @@
+{
+  "name": "maradigma/wp-plugin-maradigma",
+  "description": "Development tooling for the Maradigma WordPress plugin.",
+  "type": "wordpress-plugin",
+  "license": "GPL-2.0-or-later",
+  "require": {
+    "php": ">=8.1"
+  },
+  "require-dev": {
+    "phpstan/phpstan": "^2.1",
+    "phpunit/phpunit": "^10.5",
+    "szepeviktor/phpstan-wordpress": "^2.0"
+  },
+  "autoload": {
+    "psr-4": {
+      "Maradigma\\": "includes/",
+      "Maradigma\\Integrations\\": "integrations/"
+    }
+  },
+  "autoload-dev": {
+    "psr-4": {
+      "Maradigma\\Tests\\": "tests/"
+    }
+  },
+  "scripts": {
+    "test": "@php vendor/bin/phpunit",
+    "analyse": "@php vendor/bin/phpstan analyse --memory-limit=2G",
+    "quality": [
+      "@test",
+      "@analyse"
+    ]
+  },
+  "config": {
+    "sort-packages": true
+  }
+}

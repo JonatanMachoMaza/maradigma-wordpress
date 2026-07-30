@@ -1,0 +1,53 @@
+{
+  "apiVersion": 3,
+  "name": "maradigma/boat-equipments",
+  "version": "0.1.0",
+  "title": "Maradigma Boat Equipments",
+  "category": "maradigma",
+  "icon": "yes-alt",
+  "description": "Boat equipments block.",
+  "textdomain": "maradigma",
+  "attributes": {
+    "id": {
+      "type": "string",
+      "default": ""
+    },
+    "slug": {
+      "type": "string",
+      "default": ""
+    },
+    "title": {
+      "type": "string",
+      "default": "Equipments",
+      "role": "content"
+    },
+    "show_title": {
+      "type": "string",
+      "default": "1"
+    },
+    "show_icon": {
+      "type": "string",
+      "default": "0"
+    },
+    "icon_text": {
+      "type": "string",
+      "default": "✓",
+      "role": "content"
+    },
+    "sort": {
+      "type": "string",
+      "default": "1"
+    },
+    "fallback": {
+      "type": "string",
+      "default": "",
+      "role": "content"
+    }
+  },
+  "supports": {
+    "html": false
+  },
+  "usesContext": [
+    "postId"
+  ]
+}

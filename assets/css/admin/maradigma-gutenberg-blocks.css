@@ -1,0 +1,513 @@
+.maradigma-gutenberg-preview {
+    min-height: 48px;
+}
+
+.maradigma-gutenberg-placeholder,
+.maradigma-gutenberg-notice {
+    padding: 12px 14px;
+    border: 1px dashed #bdbdbd;
+    border-radius: 8px;
+    background: #fafafa;
+    color: #1e1e1e;
+}
+
+.maradigma-gutenberg-placeholder--error {
+    border-color: #cc1818;
+    background: #fff5f5;
+}
+
+.maradigma-gutenberg-notice strong {
+    display: block;
+    margin-bottom: 4px;
+}
+
+.maradigma-gutenberg-static-preview {
+    padding: 18px;
+    border: 1px solid #d9e2ec;
+    border-radius: 10px;
+    background: #fff;
+    color: #111827;
+    box-shadow: 0 10px 24px rgba(15, 23, 42, .06);
+}
+
+.maradigma-gutenberg-static-preview h3 {
+    margin: 0 0 12px;
+    font-size: 20px;
+    line-height: 1.25;
+    font-weight: 700;
+}
+
+.maradigma-gutenberg-static-preview p,
+.maradigma-gutenberg-static-preview li {
+    font-size: 14px;
+    line-height: 1.45;
+}
+
+.maradigma-gutenberg-preview-media {
+    position: relative;
+    overflow: hidden;
+    background:
+        linear-gradient(135deg, rgba(14, 116, 144, .16), rgba(15, 23, 42, .02)),
+        linear-gradient(160deg, #dbeafe 0%, #f8fafc 52%, #cbd5e1 100%);
+}
+
+.maradigma-gutenberg-preview-media::before {
+    content: "";
+    position: absolute;
+    inset: auto -12% -34% -12%;
+    height: 62%;
+    background: linear-gradient(180deg, rgba(14, 116, 144, .16), rgba(14, 116, 144, .42));
+    border-radius: 50% 50% 0 0;
+}
+
+.maradigma-gutenberg-preview-media::after {
+    content: "";
+    position: absolute;
+    left: 15%;
+    top: 34%;
+    width: 70%;
+    height: 16%;
+    border-radius: 999px 999px 45% 45%;
+    background: rgba(255, 255, 255, .78);
+    box-shadow: 0 10px 20px rgba(15, 23, 42, .14);
+}
+
+.maradigma-gutenberg-archive-preview {
+    max-width: 1120px;
+    margin: 0 auto;
+}
+
+.maradigma-gutenberg-archive-preview__filters {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 10px;
+    margin: 0 0 18px;
+}
+
+.maradigma-gutenberg-archive-preview__filters span {
+    display: flex;
+    align-items: center;
+    min-height: 42px;
+    padding: 9px 12px;
+    border: 1px solid #d8e1e8;
+    border-radius: 8px;
+    background: #fff;
+    color: #334155;
+    font-size: 13px;
+    font-weight: 600;
+    line-height: 1.2;
+    box-shadow: 0 6px 16px rgba(15, 23, 42, .05);
+}
+
+.maradigma-gutenberg-preview-cards {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 18px;
+    align-items: stretch;
+    width: 100%;
+    max-width: 1120px;
+    margin: 0 auto;
+}
+
+.maradigma-gutenberg-preview-cards .maradigma-boat-card {
+    display: block;
+    min-width: 0;
+    overflow: hidden;
+    border: 1px solid #d8e1e8;
+    border-radius: 8px;
+    background: #fff;
+    box-shadow: 0 10px 24px rgba(15, 23, 42, .08);
+}
+
+.maradigma-gutenberg-preview-cards .maradigma-boat-card__link {
+    display: flex;
+    flex-direction: column;
+    min-height: 100%;
+    color: inherit;
+    text-decoration: none;
+}
+
+.maradigma-gutenberg-preview-cards .maradigma-boat-card__media {
+    position: relative;
+    min-height: 170px;
+}
+
+.maradigma-gutenberg-preview-cards .maradigma-boat-card__badges {
+    position: absolute;
+    top: 12px;
+    left: 12px;
+    z-index: 2;
+}
+
+.maradigma-gutenberg-preview-cards .maradigma-boat-card__badge {
+    display: inline-flex;
+    align-items: center;
+    min-height: 24px;
+    padding: 4px 9px;
+    border-radius: 999px;
+    background: #0f766e;
+    color: #fff;
+    font-size: 11px;
+    font-weight: 700;
+    line-height: 1;
+}
+
+.maradigma-gutenberg-preview-cards .maradigma-boat-card__body {
+    display: flex;
+    flex: 1 1 auto;
+    flex-direction: column;
+    gap: 14px;
+    padding: 16px;
+}
+
+.maradigma-gutenberg-preview-cards .maradigma-boat-card__title,
+.maradigma-gutenberg-preview-cards .maradigma-boat-card__subtitle {
+    margin: 0;
+}
+
+.maradigma-gutenberg-preview-cards .maradigma-boat-card__title {
+    color: #0f172a;
+    font-size: 17px;
+    font-weight: 700;
+    line-height: 1.25;
+}
+
+.maradigma-gutenberg-preview-cards .maradigma-boat-card__subtitle {
+    margin-top: 5px;
+    color: #64748b;
+    font-size: 13px;
+    line-height: 1.35;
+}
+
+.maradigma-gutenberg-preview-cards .maradigma-boat-card__bullets {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 8px;
+}
+
+.maradigma-gutenberg-preview-cards .maradigma-bullet {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 34px;
+    padding: 6px 8px;
+    border-radius: 8px;
+    background: #f1f5f9;
+    color: #334155;
+    font-size: 12px;
+    font-weight: 600;
+    line-height: 1.2;
+    text-align: center;
+}
+
+.maradigma-gutenberg-preview-cards .maradigma-boat-card__footer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    margin-top: auto;
+    padding-top: 2px;
+}
+
+.maradigma-gutenberg-preview-cards .maradigma-boat-card__price {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+}
+
+.maradigma-gutenberg-preview-cards .maradigma-boat-card__price-label {
+    color: #64748b;
+    font-size: 11px;
+    line-height: 1;
+    text-transform: uppercase;
+}
+
+.maradigma-gutenberg-preview-cards .maradigma-boat-card__price-value {
+    color: #0f172a;
+    font-size: 16px;
+    font-weight: 800;
+    line-height: 1.1;
+}
+
+.maradigma-gutenberg-preview-cards .maradigma-boat-card__cta {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 34px;
+    padding: 8px 12px;
+    border-radius: 8px;
+    background: #0f172a;
+    color: #fff;
+    font-size: 12px;
+    font-weight: 700;
+    line-height: 1.1;
+    white-space: nowrap;
+}
+
+.maradigma-gutenberg-preview-gallery .maradigma-boat-gallery__img {
+    min-height: 150px;
+    border-radius: var(--md-gallery-radius, 10px);
+}
+
+.maradigma-gutenberg-preview--boat-pdf-download .maradigma-boat-pdf-download__btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 42px;
+    padding: 10px 18px;
+    border-radius: 10px;
+    background: #111827;
+    color: #fff;
+    font-size: 14px;
+    font-weight: 700;
+    line-height: 1.2;
+    text-decoration: none;
+}
+
+.maradigma-gutenberg-preview--boat-booking .md-booking {
+    display: block;
+}
+
+.maradigma-gutenberg-preview--boat-booking .md-btn.md-btn--primary {
+    min-height: 42px;
+}
+
+.maradigma-gutenberg-booking-preview {
+    max-width: 360px;
+    padding: 24px;
+    border: 1px solid #e5e7eb;
+    border-radius: 18px;
+    background: #fff;
+    box-shadow: 0 18px 46px rgba(15, 23, 42, .12);
+}
+
+.maradigma-gutenberg-booking-preview__price {
+    display: flex;
+    align-items: baseline;
+    gap: 8px;
+    margin-bottom: 16px;
+    color: #6b7280;
+}
+
+.maradigma-gutenberg-booking-preview__price strong {
+    color: #111827;
+    font-size: 24px;
+}
+
+.maradigma-gutenberg-booking-preview__divider {
+    height: 1px;
+    margin: 0 0 18px;
+    background: #e5e7eb;
+}
+
+.maradigma-gutenberg-specs-preview__grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 10px;
+}
+
+.maradigma-gutenberg-specs-preview__item {
+    padding: 12px;
+    border: 1px solid #e5e7eb;
+    border-radius: 8px;
+    background: #f8fafc;
+}
+
+.maradigma-gutenberg-specs-preview__item span {
+    display: block;
+    color: #64748b;
+    font-size: 12px;
+}
+
+.maradigma-gutenberg-specs-preview__item strong {
+    display: block;
+    margin-top: 4px;
+    color: #0f172a;
+    font-size: 15px;
+}
+
+.maradigma-gutenberg-calendar-preview .maradigma-gutenberg-placeholder,
+.maradigma-gutenberg-booking-preview .maradigma-gutenberg-placeholder {
+    padding: 8px 0 0;
+    border: 0;
+    background: transparent;
+    color: #64748b;
+}
+
+.maradigma-gutenberg-boat-binding-panel .components-combobox-control {
+    margin-bottom: 10px;
+}
+
+.maradigma-gutenberg-boat-binding-panel > .components-base-control {
+    margin-bottom: 14px;
+}
+
+.maradigma-gutenberg-boat-binding-panel > .components-base-control:last-child {
+    margin-bottom: 0;
+}
+
+.maradigma-gutenberg-boat-binding-panel > .components-base-control + div .components-combobox-control {
+    margin-top: 14px;
+}
+
+.maradigma-gutenberg-boat-binding-panel .components-combobox-control .components-base-control__label {
+    display: block;
+    margin-bottom: 6px;
+}
+
+.maradigma-gutenberg-boat-binding-panel__clear {
+    margin: 2px 0 16px;
+}
+
+.maradigma-gutenberg-boat-binding-panel__clear + .components-base-control {
+    padding-top: 14px;
+    border-top: 1px solid #e0e0e0;
+}
+
+.maradigma-gutenberg-boat-binding-panel .components-toggle-control {
+    margin-bottom: 0;
+}
+
+.maradigma-gutenberg-boat-binding-panel .components-toggle-control .components-base-control__help {
+    margin-top: 8px;
+    padding-left: 0;
+    color: #757575;
+    line-height: 1.45;
+}
+
+.editor-sidebar .maradigma-remote-select + .select2-container,
+.interface-interface-skeleton__sidebar .maradigma-remote-select + .select2-container {
+    width: 100% !important;
+}
+
+.editor-sidebar .maradigma-remote-select + .select2-container .select2-selection--single,
+.interface-interface-skeleton__sidebar .maradigma-remote-select + .select2-container .select2-selection--single {
+    min-height: 40px;
+    display: flex;
+    align-items: center;
+    border-color: #dcdcde;
+    border-radius: 8px;
+}
+
+.editor-sidebar .maradigma-remote-select + .select2-container .select2-selection--single .select2-selection__rendered,
+.interface-interface-skeleton__sidebar .maradigma-remote-select + .select2-container .select2-selection--single .select2-selection__rendered {
+    line-height: 38px;
+    padding-left: 12px;
+    padding-right: 28px;
+}
+
+.editor-sidebar .maradigma-remote-select + .select2-container .select2-selection--multiple,
+.interface-interface-skeleton__sidebar .maradigma-remote-select + .select2-container .select2-selection--multiple {
+    box-sizing: border-box !important;
+    display: block !important;
+    min-height: 40px;
+    height: auto !important;
+    padding: 4px 8px;
+    background: #fff !important;
+    border: 1px solid #dcdcde !important;
+    border-color: #dcdcde;
+    border-radius: 8px;
+}
+
+.editor-sidebar .maradigma-remote-select + .select2-container .select2-selection--multiple .select2-selection__rendered,
+.interface-interface-skeleton__sidebar .maradigma-remote-select + .select2-container .select2-selection--multiple .select2-selection__rendered {
+    display: flex !important;
+    flex-wrap: wrap;
+    align-items: center;
+    align-content: center;
+    gap: 6px;
+    width: 100%;
+    min-height: 28px;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+.editor-sidebar .maradigma-remote-select + .select2-container .select2-selection--multiple .select2-selection__choice,
+.interface-interface-skeleton__sidebar .maradigma-remote-select + .select2-container .select2-selection--multiple .select2-selection__choice {
+    display: inline-flex;
+    align-items: center;
+    float: none !important;
+    margin: 0 !important;
+    max-width: 100%;
+}
+
+.editor-sidebar .maradigma-remote-select + .select2-container .select2-search--inline,
+.interface-interface-skeleton__sidebar .maradigma-remote-select + .select2-container .select2-search--inline {
+    display: inline-flex;
+    align-items: center;
+    flex: 1 1 auto;
+    min-height: 28px;
+    float: none !important;
+    margin: 0 !important;
+    min-width: 140px;
+    vertical-align: top !important;
+}
+
+.editor-sidebar .maradigma-remote-select + .select2-container .select2-search--inline .select2-search__field,
+.interface-interface-skeleton__sidebar .maradigma-remote-select + .select2-container .select2-search--inline .select2-search__field {
+    display: block !important;
+    box-sizing: border-box !important;
+    width: auto !important;
+    min-width: 140px;
+    max-width: 100%;
+    max-height: 28px !important;
+    height: 28px !important;
+    min-height: 28px !important;
+    border: 0 !important;
+    border-radius: 0 !important;
+    outline: 0 !important;
+    box-shadow: none !important;
+    background: transparent !important;
+    font-size: 13px !important;
+    font-family: inherit !important;
+    margin-top: 0 !important;
+    margin-bottom: 0 !important;
+    margin-left: 0 !important;
+    margin-right: 0 !important;
+    padding: 0 !important;
+    line-height: 28px !important;
+    text-align: left !important;
+    overflow: hidden !important;
+    resize: none !important;
+    white-space: nowrap !important;
+    vertical-align: top !important;
+}
+
+.editor-sidebar .maradigma-remote-select + .select2-container .select2-selection--multiple .select2-selection__placeholder,
+.interface-interface-skeleton__sidebar .maradigma-remote-select + .select2-container .select2-selection--multiple .select2-selection__placeholder {
+    margin: 0 !important;
+    color: #50575e;
+}
+
+.editor-sidebar .maradigma-remote-select + .select2-container .select2-selection__choice__display,
+.interface-interface-skeleton__sidebar .maradigma-remote-select + .select2-container .select2-selection__choice__display {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.editor-sidebar .maradigma-remote-select + .select2-container .select2-selection__choice__remove,
+.interface-interface-skeleton__sidebar .maradigma-remote-select + .select2-container .select2-selection__choice__remove {
+    margin-right: 4px;
+}
+
+.editor-sidebar .maradigma-remote-select + .select2-container .select2-selection--multiple .select2-selection__rendered:empty + .select2-search--inline .select2-search__field,
+.interface-interface-skeleton__sidebar .maradigma-remote-select + .select2-container .select2-selection--multiple .select2-selection__rendered:empty + .select2-search--inline .select2-search__field {
+    width: auto !important;
+    min-width: 140px;
+}
+
+@media (max-width: 900px) {
+    .maradigma-gutenberg-archive-preview__filters,
+    .maradigma-gutenberg-preview-cards {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+}
+
+@media (max-width: 640px) {
+    .maradigma-gutenberg-archive-preview__filters,
+    .maradigma-gutenberg-preview-cards {
+        grid-template-columns: 1fr;
+    }
+}

@@ -1,0 +1,94 @@
+{
+  "apiVersion": 3,
+  "name": "maradigma/boat-price",
+  "version": "0.1.0",
+  "title": "Maradigma Boat Prices",
+  "category": "maradigma",
+  "icon": "money-alt",
+  "description": "Boat season prices rendered as a dynamic Gutenberg block.",
+  "textdomain": "maradigma",
+  "attributes": {
+    "id": {
+      "type": "string",
+      "default": ""
+    },
+    "slug": {
+      "type": "string",
+      "default": ""
+    },
+    "title": {
+      "type": "string",
+      "default": "Prices",
+      "role": "content"
+    },
+    "show_title": {
+      "type": "boolean",
+      "default": true
+    },
+    "layout": {
+      "type": "string",
+      "default": "cards"
+    },
+    "range_mode": {
+      "type": "string",
+      "default": "dates_short"
+    },
+    "order_by": {
+      "type": "string",
+      "default": "date_from_asc"
+    },
+    "fallback": {
+      "type": "string",
+      "default": "Prices not available.",
+      "role": "content"
+    },
+    "show_headers": {
+      "type": "boolean",
+      "default": true
+    },
+    "row_gap": {
+      "type": "string",
+      "default": "10"
+    },
+    "vat_mode": {
+      "type": "string",
+      "default": "included"
+    },
+    "vat_position": {
+      "type": "string",
+      "default": "below"
+    },
+    "vat_text_included": {
+      "type": "string",
+      "default": "VAT included",
+      "role": "content"
+    },
+    "vat_text_excluded": {
+      "type": "string",
+      "default": "+ VAT",
+      "role": "content"
+    },
+    "currency_display": {
+      "type": "string",
+      "default": "symbol"
+    },
+    "decimals_mode": {
+      "type": "string",
+      "default": "auto"
+    },
+    "thousands_sep": {
+      "type": "string",
+      "default": "."
+    },
+    "decimal_sep": {
+      "type": "string",
+      "default": ","
+    }
+  },
+  "supports": {
+    "html": false
+  },
+  "usesContext": [
+    "postId"
+  ]
+}

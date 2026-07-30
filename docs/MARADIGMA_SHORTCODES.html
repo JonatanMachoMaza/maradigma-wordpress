@@ -1,0 +1,1232 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<base href="about:srcdoc">
+<title>MARADIGMA Shortcodes</title>
+<style>
+:root{
+  --bg:#0b1220;
+  --panel:#111827;
+  --panel-2:#0f172a;
+  --text:#e5e7eb;
+  --muted:#9ca3af;
+  --line:#243041;
+  --chip:#172036;
+  --good:#0f5132;
+  --good-bg:#d1e7dd;
+  --code:#0b1020;
+  --anchor-offset:18px;
+}
+
+*,
+*::before,
+*::after{
+  box-sizing:border-box;
+}
+
+html{
+  scroll-behavior:smooth;
+}
+
+html,
+body{
+  max-width:100%;
+  overflow-x:hidden;
+}
+
+body{
+  margin:0;
+  font:15px/1.55 Inter,Segoe UI,Arial,sans-serif;
+  background:#09111f;
+  color:var(--text);
+}
+
+img,
+svg,
+iframe,
+video{
+  max-width:100%;
+  height:auto;
+}
+
+code,
+pre{
+  max-width:100%;
+}
+
+.wrap{
+  width:100%;
+  max-width:1400px;
+  margin:0 auto;
+  padding:32px;
+}
+
+.hero,
+.panel{
+  background:linear-gradient(180deg,var(--panel),var(--panel-2));
+  border:1px solid var(--line);
+  border-radius:18px;
+  box-shadow:0 10px 30px rgba(0,0,0,.18);
+}
+
+.hero{
+  padding:28px 30px;
+  margin-bottom:24px;
+}
+
+.hero h1{
+  margin:0 0 8px;
+  font-size:32px;
+  line-height:1.2;
+  overflow-wrap:anywhere;
+}
+
+.hero p{
+  margin:8px 0;
+  color:var(--muted);
+  overflow-wrap:anywhere;
+}
+
+.toc{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
+  gap:10px;
+  margin-top:18px;
+}
+
+.toc > *{
+  min-width:0;
+}
+
+.toc a{
+  display:block;
+  min-width:0;
+  padding:12px 14px;
+  border:1px solid var(--line);
+  border-radius:12px;
+  background:#0c1527;
+  color:#dbeafe;
+  text-decoration:none;
+  overflow-wrap:anywhere;
+  transition:border-color .2s ease, transform .2s ease, background .2s ease;
+}
+
+.toc a:hover{
+  border-color:#3b82f6;
+  transform:translateY(-1px);
+}
+
+.toc a:focus-visible,
+a[href^="#"]:focus-visible{
+  outline:2px solid #60a5fa;
+  outline-offset:2px;
+}
+
+.section{
+  margin:26px 0;
+}
+
+.section h2{
+  margin:0 0 14px;
+  font-size:24px;
+  line-height:1.25;
+  overflow-wrap:anywhere;
+}
+
+.panel{
+  padding:22px;
+  min-width:0;
+}
+
+.muted{
+  color:var(--muted);
+}
+
+.badge{
+  display:inline-block;
+  padding:3px 8px;
+  border-radius:999px;
+  background:var(--chip);
+  border:1px solid var(--line);
+  font-size:12px;
+  color:#bfdbfe;
+}
+
+.shortcode{
+  margin-bottom:22px;
+}
+
+.shortcode h3,
+.shortcode h4{
+  margin-top:0;
+  overflow-wrap:anywhere;
+}
+
+.shortcode h3{
+  margin-bottom:8px;
+  font-size:20px;
+}
+
+.shortcode h4{
+  margin-bottom:8px;
+  font-size:17px;
+}
+
+.code{
+  display:block;
+  width:100%;
+  max-width:100%;
+  background:var(--code);
+  color:#d1fae5;
+  border:1px solid #22304f;
+  border-radius:12px;
+  padding:12px 14px;
+  overflow:auto;
+  font-family:Consolas,Menlo,monospace;
+  font-size:13px;
+  line-height:1.55;
+  white-space:pre-wrap;
+  overflow-wrap:anywhere;
+  word-break:break-word;
+}
+
+.table-wrap{
+  width:100%;
+  max-width:100%;
+  overflow-x:auto;
+  overflow-y:hidden;
+  -webkit-overflow-scrolling:touch;
+  border:1px solid var(--line);
+  border-radius:14px;
+}
+
+.tbl{
+  width:100%;
+  border-collapse:collapse;
+  min-width:680px;
+}
+
+.tbl th,
+.tbl td{
+  padding:10px 12px;
+  border-bottom:1px solid var(--line);
+  vertical-align:top;
+  overflow-wrap:anywhere;
+  word-break:break-word;
+}
+
+.tbl th{
+  background:#0c1527;
+  text-align:left;
+  font-size:13px;
+  color:#bfdbfe;
+}
+
+.tbl tr:last-child td{
+  border-bottom:none;
+}
+
+.grid-2{
+  display:grid;
+  grid-template-columns:repeat(2,minmax(0,1fr));
+  gap:18px;
+}
+
+.grid-2 > *{
+  min-width:0;
+}
+
+.chips{
+  display:flex;
+  flex-wrap:wrap;
+  gap:8px;
+}
+
+.chip{
+  padding:6px 10px;
+  background:var(--chip);
+  border:1px solid var(--line);
+  border-radius:999px;
+  font-family:Consolas,Menlo,monospace;
+  font-size:12px;
+  overflow-wrap:anywhere;
+}
+
+.callout{
+  padding:14px 16px;
+  border-radius:14px;
+  background:#0d1a2e;
+  border:1px solid #284061;
+  overflow-wrap:anywhere;
+}
+
+.callout.good{
+  background:var(--good-bg);
+  color:var(--good);
+  border-color:#b8d7ca;
+}
+
+.small{
+  font-size:13px;
+}
+
+.footer{
+  margin-top:28px;
+  color:var(--muted);
+  font-size:13px;
+  overflow-wrap:anywhere;
+}
+
+ul.tight{
+  margin:8px 0 0 18px;
+  padding:0;
+}
+
+ul.tight li{
+  overflow-wrap:anywhere;
+}
+
+.anchor-target{
+  scroll-margin-top:var(--anchor-offset);
+}
+
+.back-top{
+  margin-top:14px;
+  text-align:right;
+}
+
+.back-top a{
+  color:#93c5fd;
+  text-decoration:none;
+  font-size:13px;
+}
+
+.back-top a:hover{
+  text-decoration:underline;
+}
+
+@media (max-width:1200px){
+  .grid-2{
+    grid-template-columns:1fr;
+  }
+}
+
+@media (max-width:980px){
+  .wrap{
+    padding:18px;
+  }
+
+  .hero{
+    padding:22px 20px;
+  }
+
+  .hero h1{
+    font-size:26px;
+  }
+
+  .panel{
+    padding:18px;
+  }
+
+  .toc{
+    grid-template-columns:1fr;
+  }
+}
+
+@media (max-width:768px){
+  .tbl{
+    min-width:0;
+    table-layout:fixed;
+  }
+
+  .tbl th,
+  .tbl td{
+    font-size:13px;
+    padding:9px 10px;
+  }
+
+  .section h2{
+    font-size:22px;
+  }
+
+  .shortcode h3{
+    font-size:19px;
+  }
+}
+
+@media (max-width:560px){
+  body{
+    font-size:14px;
+  }
+
+  .wrap{
+    padding:14px;
+  }
+
+  .hero{
+    padding:18px 16px;
+  }
+
+  .panel{
+    padding:14px;
+  }
+
+  .code{
+    font-size:12px;
+    padding:10px 12px;
+  }
+
+  .tbl th,
+  .tbl td{
+    padding:8px 9px;
+  }
+}
+</style>
+</head>
+<body>
+<div class="wrap">
+<section class="hero anchor-target" id="top">
+<span class="badge">Maradigma plugin</span>
+<h1>MARADIGMA_SHORTCODES.html</h1>
+<p>Complete shortcode reference for the Maradigma plugin, intended for users installing the plugin and for integrators building single-boat pages, listing pages, and booking flows.</p>
+<p>This document includes all shortcodes currently registered in <code>ShortcodeRegistry</code>, plus the missing parts refined during implementation review: equipments, included items, not included items, PDF download, corrected base port field usage, and the confirmed boat payload fields for <code>maradigma_boat_field</code>.</p>
+<div class="callout good small"><strong>Important:</strong> <code>maradigma_boat_field</code> does not use an internal whitelist. It reads any top-level key present in the payload returned by <code>Cache::getBoatDetails()</code>. This document lists the confirmed keys referenced by the plugin core and the payload you validated, but the shortcode can also read additional top-level keys returned by your API in your installation.</div>
+<div class="toc">
+<a href="#registered"><strong>Registered shortcodes</strong><br><span class="muted">Everything covered by this document.</span></a>
+<a href="#sc-maradigma_boats"><strong>[maradigma_boats]</strong><br><span class="muted">Boat archive/listing shortcode with filters, pagination, card template selection, and AJAX-ready rendering.</span></a>
+<a href="#sc-maradigma_boat_card"><strong>[maradigma_boat_card]</strong><br><span class="muted">Render one boat using the editable Boat Card template system.</span></a>
+<a href="#sc-maradigma_related_boats"><strong>[maradigma_related_boats]</strong><br><span class="muted">Render related boat cards from the current boat context.</span></a>
+<a href="#sc-maradigma_boat"><strong>[maradigma_boat]</strong><br><span class="muted">Render a single boat using the overridable PHP template.</span></a>
+<a href="#sc-maradigma_boat_specs"><strong>[maradigma_boat_specs]</strong><br><span class="muted">Render a boat specs block from defaults, CSV fields, or custom JSON configuration.</span></a>
+<a href="#sc-maradigma_boat_prices"><strong>[maradigma_boat_prices]</strong><br><span class="muted">Seasonal/base prices with cards/table layout and VAT display options.</span></a>
+<a href="#sc-maradigma_boat_field"><strong>[maradigma_boat_field]</strong><br><span class="muted">Generic top-level payload field reader.</span></a>
+<a href="#sc-sugar"><strong>Sugar shortcodes</strong><br><span class="muted">Name, pax, length, beam, builder, base port.</span></a>
+<a href="#sc-media"><strong>Media shortcodes</strong><br><span class="muted">Main image, gallery, videos, PDF download.</span></a>
+<a href="#sc-content"><strong>Content list shortcodes</strong><br><span class="muted">Description, equipments, included items, not included items.</span></a>
+<a href="#sc-maradigma_boat_calendar"><strong>[maradigma_boat_calendar]</strong><br><span class="muted">Availability calendar shortcode.</span></a>
+<a href="#sc-booking"><strong>Booking shortcodes</strong><br><span class="muted">Booking modal and booking success block.</span></a>
+<a href="#boat-field-keys"><strong>Confirmed boat field keys</strong><br><span class="muted">Top-level payload keys usable with maradigma_boat_field.</span></a>
+</div>
+</section>
+
+<section class="section anchor-target" id="registered">
+<h2>1. Registered shortcodes</h2>
+<div class="panel">
+<div class="chips">
+<span class="chip">maradigma_boats</span>
+<span class="chip">maradigma_boat_card</span>
+<span class="chip">maradigma_related_boats</span>
+<span class="chip">maradigma_boats_related</span>
+<span class="chip">maradigma_barcos_relacionados</span>
+<span class="chip">maradigma_boat</span>
+<span class="chip">maradigma_boat_specs</span>
+<span class="chip">maradigma_boat_prices</span>
+<span class="chip">maradigma_boat_price</span>
+<span class="chip">maradigma_boat_field</span>
+<span class="chip">maradigma_boat_title</span>
+<span class="chip">maradigma_boat_name</span>
+<span class="chip">maradigma_boat_pax</span>
+<span class="chip">maradigma_boat_length</span>
+<span class="chip">maradigma_boat_beam</span>
+<span class="chip">maradigma_boat_builder</span>
+<span class="chip">maradigma_boat_base_port</span>
+<span class="chip">maradigma_boat_main_image</span>
+<span class="chip">maradigma_boat_gallery</span>
+<span class="chip">maradigma_boat_videos</span>
+<span class="chip">maradigma_boat_description</span>
+<span class="chip">maradigma_boat_equipments</span>
+<span class="chip">maradigma_boat_included</span>
+<span class="chip">maradigma_boat_not_included</span>
+<span class="chip">maradigma_boat_pdf_download</span>
+<span class="chip">maradigma_boat_calendar</span>
+<span class="chip">maradigma_boat_booking</span>
+<span class="chip">maradigma_booking_success</span>
+</div>
+<div class="back-top"><a href="#top">Back to top</a></div>
+</div>
+</section>
+
+<section class="section">
+<h2>2. Full reference</h2>
+
+<div class="panel shortcode anchor-target" id="sc-maradigma_boats">
+<h3>[maradigma_boats]</h3>
+<p>Boat archive/listing shortcode with filters, pagination, card template selection, and AJAX-ready archive rendering.</p>
+<div class="table-wrap">
+<table class="tbl">
+<thead><tr><th>Attribute</th><th>Default</th><th>Type</th><th>Description</th></tr></thead>
+<tbody>
+<tr><td><code>id_group</code></td><td><code>boats</code></td><td>string</td><td>Catalog/group to display. For boats it should normally be <code>boats</code>.</td></tr>
+<tr><td><code>limit_services</code></td><td><code>10</code></td><td>int</td><td>Results per page.</td></tr>
+<tr><td><code>offset_services</code></td><td><code>0</code></td><td>int</td><td>Initial offset.</td></tr>
+<tr><td><code>card</code></td><td><code>default card</code></td><td>string</td><td>Boat card template ID.</td></tr>
+<tr><td><code>image_token</code></td><td><code>image_main</code></td><td>string</td><td>Image token injected into the selected card template.</td></tr>
+<tr><td><code>show_filters</code></td><td><code>0</code></td><td>0|1</td><td>Show the filters bar.</td></tr>
+<tr><td><code>autosubmit_filters</code></td><td><code>0</code></td><td>0|1</td><td>Auto-submit filters on change.</td></tr>
+<tr><td><code>allow_url_filters</code></td><td><code>0</code></td><td>0|1</td><td>Allow URL <code>md_*</code> parameters to hydrate the filters.</td></tr>
+<tr><td><code>filters_ui_fields</code></td><td><code>term,boat_capacity,min_price,max_price,featured,ins_book,date_start,date_end</code></td><td>csv</td><td>Main filter bar fields.</td></tr>
+<tr><td><code>filters_ui_fields_left</code></td><td>empty</td><td>csv</td><td>Fields that must stay in the left/main row. Useful to keep <code>order_by</code> before the apply button without changing the default right-side behavior elsewhere.</td></tr>
+<tr><td><code>filters_ui_fields_right</code></td><td>auto</td><td>csv</td><td>Right-side filter bar fields. If omitted, <code>order_by</code> keeps the legacy right-side position automatically. Set it to an empty string to keep all fields in the main row order.</td></tr>
+<tr><td><code>filters_ui_fields_offcanvas</code></td><td><code>boat_type_id,builders,ids_gi</code></td><td>csv</td><td>Drawer fields.</td></tr>
+<tr><td><code>builders_options</code></td><td><code>api</code></td><td>api|search_result</td><td>Builder filter source. Use <code>api</code> for the global builders list. Use <code>search_result</code> to show only builders returned by the current API search response (<code>available_boat_id_builders</code>).</td></tr>
+<tr><td><code>filters_ui_layout</code></td><td><code>horizontal</code></td><td>horizontal|vertical</td><td>Filter layout.</td></tr>
+<tr><td><code>filters_ui_submit_mode</code></td><td><code>auto</code></td><td>auto|button</td><td>Submission mode.</td></tr>
+<tr><td><code>filters_ui_show_reset</code></td><td><code>1</code></td><td>0|1</td><td>Show reset button.</td></tr>
+<tr><td><code>show_more_filters_button</code></td><td><code>0</code></td><td>0|1</td><td>Show the more-filters drawer trigger.</td></tr>
+<tr><td><code>more_filters_button_text</code></td><td><code>More filters</code></td><td>string</td><td>Drawer button label.</td></tr>
+<tr><td><code>more_filters_offcanvas_title</code></td><td><code>More filters</code></td><td>string</td><td>Drawer title.</td></tr>
+<tr><td><code>date_picker_mode</code></td><td><code>range</code></td><td>range|separate</td><td>Range picker or separate start/end controls.</td></tr>
+<tr><td><code>q</code></td><td><code></code></td><td>legacy alias</td><td>Legacy alias present in defaults.</td></tr>
+<tr><td><code>port</code></td><td><code></code></td><td>legacy alias</td><td>Legacy alias present in defaults.</td></tr>
+<tr><td><code>people</code></td><td><code></code></td><td>legacy alias</td><td>Legacy alias present in defaults.</td></tr>
+</tbody>
+</table>
+</div>
+<h4>Standard boat type IDs</h4>
+<p>Use these values with the <code>boat_type_id</code> attribute or with <code>filters_ui_fields="boat_type_id"</code>.</p>
+<div class="table-wrap">
+<table class="tbl">
+<thead><tr><th>ID</th><th>Boat type</th><th>Example</th></tr></thead>
+<tbody>
+<tr><td><code>41</code></td><td>Catamaran</td><td><code>[maradigma_boats boat_type_id="41"]</code></td></tr>
+<tr><td><code>3</code></td><td>Motorboats</td><td><code>[maradigma_boats boat_type_id="3"]</code></td></tr>
+<tr><td><code>5</code></td><td>RIBs</td><td><code>[maradigma_boats boat_type_id="5"]</code></td></tr>
+<tr><td><code>4</code></td><td>Sailboats</td><td><code>[maradigma_boats boat_type_id="4"]</code></td></tr>
+<tr><td><code>1</code></td><td>Super yachts</td><td><code>[maradigma_boats boat_type_id="1"]</code></td></tr>
+<tr><td><code>29</code></td><td>Water toys</td><td><code>[maradigma_boats boat_type_id="29"]</code></td></tr>
+<tr><td><code>2</code></td><td>Yachts</td><td><code>[maradigma_boats boat_type_id="2"]</code></td></tr>
+</tbody>
+</table>
+</div>
+<div class="grid-2" style="margin-top:14px">
+<div><div class="small muted" style="margin-bottom:6px">Example</div><div class="code">[maradigma_boats id_group="boats"]</div></div>
+<div><div class="small muted" style="margin-bottom:6px">Example</div><div class="code">[maradigma_boats limit_services="12" show_filters="1"]</div></div>
+<div><div class="small muted" style="margin-bottom:6px">Example</div><div class="code">[maradigma_boats show_filters="1" autosubmit_filters="1" filters_ui_fields="term,boat_capacity,min_price,max_price,featured,ins_book,date_start,date_end,order_by"]</div></div>
+<div><div class="small muted" style="margin-bottom:6px">Example: move order by before Apply</div><div class="code">[maradigma_boats show_filters="1" filters_ui_submit_mode="button" filters_ui_fields="term,builders,min_price,order_by,max_price" filters_ui_fields_left="order_by"]</div></div>
+<div><div class="small muted" style="margin-bottom:6px">Example</div><div class="code">[maradigma_boats card="clean-grid" image_token="image_main" show_more_filters_button="1" filters_ui_fields_offcanvas="boat_type_id,builders,ids_gi,tags"]</div></div>
+<div><div class="small muted" style="margin-bottom:6px">Example</div><div class="code">[maradigma_boats show_filters="1" filters_ui_fields="term,date_start,date_end,builders,min_price,max_price" builders_options="search_result"]</div></div>
+</div>
+<div class="back-top"><a href="#top">Back to top</a></div>
+</div>
+
+<div class="panel shortcode anchor-target" id="sc-maradigma_boat_card">
+<h3>[maradigma_boat_card]</h3>
+<p>Render one boat using the same editable Boat Card templates used by <code>[maradigma_boats]</code>.</p>
+<div class="table-wrap">
+<table class="tbl">
+<thead><tr><th>Attribute</th><th>Default</th><th>Type</th><th>Description</th></tr></thead>
+<tbody>
+<tr><td><code>id</code></td><td><code></code></td><td>string|int</td><td>Maradigma boat ID.</td></tr>
+<tr><td><code>slug</code></td><td><code></code></td><td>string</td><td>Boat slug. Takes priority when provided.</td></tr>
+<tr><td><code>card</code></td><td><code>plugin default</code></td><td>string</td><td>Boat Card template ID.</td></tr>
+<tr><td><code>image_token</code></td><td><code>image_main</code></td><td>string</td><td>Cached image token injected into the selected card template.</td></tr>
+<tr><td><code>class</code></td><td><code></code></td><td>string</td><td>Extra wrapper CSS class.</td></tr>
+</tbody>
+</table>
+</div>
+<div class="grid-2" style="margin-top:14px">
+<div><div class="small muted" style="margin-bottom:6px">Example</div><div class="code">[maradigma_boat_card id="2773"]</div></div>
+<div><div class="small muted" style="margin-bottom:6px">Example</div><div class="code">[maradigma_boat_card id="2773" card="default"]</div></div>
+<div><div class="small muted" style="margin-bottom:6px">Example</div><div class="code">[maradigma_boat_card slug="karnic-sl602-valkirie" image_token="image_maradigma_card_471x273"]</div></div>
+</div>
+<div class="back-top"><a href="#top">Back to top</a></div>
+</div>
+
+<div class="panel shortcode anchor-target" id="sc-maradigma_related_boats">
+<h3>[maradigma_related_boats]</h3>
+<p>Render related boats using the same editable Boat Card templates used by <code>[maradigma_boats]</code>. It is intended for boat detail pages and detects the current boat automatically when <code>id</code> and <code>slug</code> are not provided.</p>
+<div class="callout small"><strong>Aliases:</strong> <code>[maradigma_boats_related]</code> and <code>[maradigma_barcos_relacionados]</code> render the same output.</div>
+<div class="table-wrap" style="margin-top:14px">
+<table class="tbl">
+<thead><tr><th>Attribute</th><th>Default</th><th>Type</th><th>Description</th></tr></thead>
+<tbody>
+<tr><td><code>id</code></td><td><code></code></td><td>string|int</td><td>Optional Maradigma boat ID. If empty, current boat context is used.</td></tr>
+<tr><td><code>slug</code></td><td><code></code></td><td>string</td><td>Optional boat slug. Takes priority over <code>id</code>.</td></tr>
+<tr><td><code>count</code></td><td><code>3</code></td><td>int</td><td>Number of related boats. Minimum <code>2</code>, maximum <code>5</code>.</td></tr>
+<tr><td><code>limit</code></td><td><code></code></td><td>int</td><td>Alias/override for <code>count</code>. Also clamped between <code>2</code> and <code>5</code>.</td></tr>
+<tr><td><code>priorities</code></td><td><code>price,pax</code></td><td>csv</td><td>Relationship priority order.</td></tr>
+<tr><td><code>priority</code></td><td><code></code></td><td>csv</td><td>Alias for <code>priorities</code>; when present it takes priority.</td></tr>
+<tr><td><code>card</code></td><td><code>plugin default</code></td><td>string</td><td>Boat Card template ID.</td></tr>
+<tr><td><code>image_token</code></td><td><code>image_main</code></td><td>string</td><td>Cached image token injected into the selected card template.</td></tr>
+<tr><td><code>title</code></td><td><code></code></td><td>string</td><td>Optional section title.</td></tr>
+<tr><td><code>show_title</code></td><td><code>0</code></td><td>0|1</td><td>Show title when <code>title</code> is not empty.</td></tr>
+<tr><td><code>empty_message</code></td><td><code></code></td><td>string</td><td>Optional message when no related boats are found.</td></tr>
+<tr><td><code>class</code></td><td><code></code></td><td>string</td><td>Extra wrapper CSS class.</td></tr>
+</tbody>
+</table>
+</div>
+<h4 style="margin-top:18px">Relationship priorities</h4>
+<div class="table-wrap">
+<table class="tbl">
+<thead><tr><th>Priority</th><th>Meaning</th></tr></thead>
+<tbody>
+<tr><td><code>price</code></td><td>Closest price. First default priority.</td></tr>
+<tr><td><code>pax</code></td><td>Closest passenger capacity. Second default priority.</td></tr>
+<tr><td><code>base_port</code></td><td>Same base port when possible.</td></tr>
+<tr><td><code>type</code></td><td>Same boat/content type when possible.</td></tr>
+<tr><td><code>builder</code></td><td>Same builder/shipyard when possible.</td></tr>
+<tr><td><code>length</code></td><td>Closest boat length.</td></tr>
+<tr><td><code>cabins</code></td><td>Closest cabin count.</td></tr>
+<tr><td><code>year</code></td><td>Closest construction year.</td></tr>
+</tbody>
+</table>
+</div>
+<p class="small muted">Accepted aliases include Spanish labels such as <code>precio</code>, <code>pasajeros</code>, <code>personas</code>, <code>capacidad</code>, <code>puerto</code>, <code>tipo</code>, <code>astillero</code>, <code>eslora</code>, <code>cabinas</code>, <code>ano</code>, and <code>anio</code>.</p>
+<ul class="tight">
+<li>The current boat is always excluded from the results.</li>
+<li>The shortcode first tries local synced boat posts and their stored <code>_maradigma_boat_payload</code>.</li>
+<li>If no local candidates exist, it falls back to the API boats list through the plugin cache layer.</li>
+<li>In multilingual sites, synced boat pages are de-duplicated by Maradigma boat ID and the current language is preferred.</li>
+</ul>
+<div class="grid-2" style="margin-top:14px">
+<div><div class="small muted" style="margin-bottom:6px">Example</div><div class="code">[maradigma_related_boats]</div></div>
+<div><div class="small muted" style="margin-bottom:6px">Example</div><div class="code">[maradigma_related_boats count="4"]</div></div>
+<div><div class="small muted" style="margin-bottom:6px">Example</div><div class="code">[maradigma_related_boats limit="5" priorities="price,pax"]</div></div>
+<div><div class="small muted" style="margin-bottom:6px">Example</div><div class="code">[maradigma_related_boats id="2773" priority="pax,price,base_port"]</div></div>
+<div><div class="small muted" style="margin-bottom:6px">Example</div><div class="code">[maradigma_related_boats card="compact" image_token="image_maradigma_card_471x273"]</div></div>
+</div>
+<div class="back-top"><a href="#top">Back to top</a></div>
+</div>
+
+<div class="panel shortcode anchor-target" id="sc-maradigma_boat">
+<h3>[maradigma_boat]</h3>
+<p>Render a single boat using the overridable PHP template <code>single-boat.php</code>.</p>
+<div class="table-wrap">
+<table class="tbl">
+<thead><tr><th>Attribute</th><th>Default</th><th>Type</th><th>Description</th></tr></thead>
+<tbody>
+<tr><td><code>id</code></td><td><code></code></td><td>string|int</td><td>Boat identifier.</td></tr>
+<tr><td><code>slug</code></td><td><code></code></td><td>string</td><td>Boat slug.</td></tr>
+<tr><td><code>expand</code></td><td><code></code></td><td>csv</td><td>Safe External API expand options, for example <code>service_images,service_prices</code>. Unsupported values are ignored.</td></tr>
+<tr><td><code>only_load_cover_image</code></td><td><code></code></td><td>0|1</td><td>Pass <code>0</code> with <code>expand="service_images"</code> when the template needs the full images payload.</td></tr>
+<tr><td><code>images</code></td><td><code></code></td><td>0|1</td><td>Optional API images flag. Usually <code>expand="service_images"</code> is enough.</td></tr>
+<tr><td><code>url_images_main_domain</code></td><td><code></code></td><td>0|1</td><td>Optional API image URL flag. Automatically enabled by the client when <code>service_images</code> is requested.</td></tr>
+</tbody>
+</table>
+</div>
+<div class="callout small"><strong>API detail options:</strong> <code>[maradigma_boat]</code> can request extra service detail data. Common use for all images: <code>[maradigma_boat id="304" expand="service_images" only_load_cover_image="0"]</code>. Multiple expands are accepted as CSV, for example <code>service_images,service_prices,service_descriptions</code>.</div>
+<p class="small muted"><strong>Supported expand values:</strong> <code>service_accounting</code>, <code>service_additional_services</code>, <code>service_property_amenities</code>, <code>service_admin_tools</code>, <code>service_payment_methods</code>, <code>service_descriptions</code>, <code>service_equipments</code>, <code>service_group_category</code>, <code>service_images</code>, <code>service_ical</code>, <code>service_pdf</code>, <code>service_owner</code>, <code>service_included_items</code>, <code>service_not_included_items</code>, <code>service_prices</code>, <code>service_price_rates</code>, <code>service_price_time_slots</code>, <code>service_public_urls</code>, <code>service_unavailability_dates</code>, <code>service_real_unavailable_dates</code>.</p>
+<p class="small muted"><strong>Supported scalar API flags:</strong> <code>accounting</code>, <code>additionals</code>, <code>additionals_build_html</code>, <code>amenities</code>, <code>admin_tools</code>, <code>build_method_payment</code>, <code>descriptions</code>, <code>equipments</code>, <code>gc_type</code>, <code>gc_type_cache</code>, <code>images</code>, <code>ical</code>, <code>only_load_cover_image</code>, <code>url_images_main_domain</code>, <code>owner</code>, <code>included</code>, <code>not_included</code>, <code>prices</code>, <code>price_rates</code>, <code>price_time_slots</code>, <code>website_urls</code>.</p>
+<div class="grid-2" style="margin-top:14px">
+<div><div class="small muted" style="margin-bottom:6px">Example</div><div class="code">[maradigma_boat id="304"]</div></div>
+<div><div class="small muted" style="margin-bottom:6px">Example</div><div class="code">[maradigma_boat slug="sunseeker-predator-108"]</div></div>
+<div><div class="small muted" style="margin-bottom:6px">Example</div><div class="code">[maradigma_boat id="304" expand="service_images" only_load_cover_image="0"]</div></div>
+<div><div class="small muted" style="margin-bottom:6px">Example</div><div class="code">[maradigma_boat id="304" expand="service_images,service_prices,service_descriptions" only_load_cover_image="0"]</div></div>
+</div>
+<div class="back-top"><a href="#top">Back to top</a></div>
+</div>
+
+<div class="panel shortcode anchor-target" id="sc-maradigma_boat_specs">
+<h3>[maradigma_boat_specs]</h3>
+<p>Render a boat specs block from defaults, CSV fields, or a custom JSON configuration.</p>
+<div class="table-wrap">
+<table class="tbl">
+<thead><tr><th>Attribute</th><th>Default</th><th>Type</th><th>Description</th></tr></thead>
+<tbody>
+<tr><td><code>id</code></td><td><code></code></td><td>string|int</td><td>Boat identifier.</td></tr>
+<tr><td><code>slug</code></td><td><code></code></td><td>string</td><td>Boat slug.</td></tr>
+<tr><td><code>layout</code></td><td><code>two_cols</code></td><td>two_cols|list</td><td>Visual layout.</td></tr>
+<tr><td><code>show_labels</code></td><td><code>1</code></td><td>0|1</td><td>Show field labels.</td></tr>
+<tr><td><code>show_icons</code></td><td><code>1</code></td><td>0|1</td><td>Show SVG icons.</td></tr>
+<tr><td><code>icons</code></td><td><code></code></td><td>csv field:icon</td><td>Override icon mapping, for example <code>boat_length:ruler</code>.</td></tr>
+<tr><td><code>fields</code></td><td><code></code></td><td>csv</td><td>Simple field list when no JSON body is provided. Supports <code>custom:my_key</code>.</td></tr>
+</tbody>
+</table>
+</div>
+<div class="grid-2" style="margin-top:14px">
+<div><div class="small muted" style="margin-bottom:6px">Example</div><div class="code">[maradigma_boat_specs id="304"]</div></div>
+<div><div class="small muted" style="margin-bottom:6px">Example</div><div class="code">[maradigma_boat_specs slug="sunseeker-52" layout="list" show_labels="0" show_icons="1"]</div></div>
+<div><div class="small muted" style="margin-bottom:6px">Example</div><div class="code">[maradigma_boat_specs id="304" fields="boat_type,boat_builder,boat_length,boat_beam,custom:boat_color"]</div></div>
+<div><div class="small muted" style="margin-bottom:6px">Example</div><div class="code">[maradigma_boat_specs id="304" icons="boat_length:ruler,boat_base_port_name:map-marker"]</div></div>
+</div>
+<div class="back-top"><a href="#top">Back to top</a></div>
+</div>
+
+<div class="panel shortcode anchor-target" id="sc-maradigma_boat_prices">
+<h3>[maradigma_boat_prices]</h3>
+<p>Render seasonal prices from <code>service_prices</code>. If no seasonal ranges exist, it falls back to base, week, and hour prices when available. Alias: <code>[maradigma_boat_price]</code>.</p>
+<div class="table-wrap">
+<table class="tbl">
+<thead><tr><th>Attribute</th><th>Default</th><th>Type</th><th>Description</th></tr></thead>
+<tbody>
+<tr><td><code>id</code></td><td><code></code></td><td>string|int</td><td>Boat identifier.</td></tr>
+<tr><td><code>slug</code></td><td><code></code></td><td>string</td><td>Boat slug.</td></tr>
+<tr><td><code>title</code></td><td><code>Prices</code></td><td>string</td><td>Section title.</td></tr>
+<tr><td><code>show_title</code></td><td><code>1</code></td><td>0|1</td><td>Show title.</td></tr>
+<tr><td><code>layout</code></td><td><code>cards</code></td><td>cards|table</td><td>Visual layout. Legacy <code>blocks</code> maps to cards.</td></tr>
+<tr><td><code>range_mode</code></td><td><code>dates_short</code></td><td>dates_short|dates_long|month</td><td>Season label format.</td></tr>
+<tr><td><code>order_by</code></td><td><code>date_from_asc</code></td><td>date_from_asc|date_from_desc|price_asc|price_desc</td><td>Price row ordering.</td></tr>
+<tr><td><code>show_headers</code></td><td><code>1</code></td><td>0|1</td><td>Table headers for table layout.</td></tr>
+<tr><td><code>row_gap</code></td><td><code>10</code></td><td>int</td><td>Gap in px.</td></tr>
+<tr><td><code>vat_mode</code></td><td><code>included</code></td><td>included|excluded|hidden_base|hidden_total</td><td>VAT display mode.</td></tr>
+<tr><td><code>vat_position</code></td><td><code>below</code></td><td>below|inline|tooltip</td><td>VAT text position.</td></tr>
+<tr><td><code>vat_text_included</code></td><td><code>VAT included</code></td><td>string</td><td>Included VAT text.</td></tr>
+<tr><td><code>vat_text_excluded</code></td><td><code>+ VAT</code></td><td>string</td><td>Excluded VAT text.</td></tr>
+<tr><td><code>currency_display</code></td><td><code>symbol</code></td><td>symbol|iso</td><td>Currency display mode.</td></tr>
+<tr><td><code>decimals_mode</code></td><td><code>auto</code></td><td>auto|0|2</td><td>Decimal display.</td></tr>
+<tr><td><code>thousands_sep</code></td><td><code>.</code></td><td>string</td><td>Thousands separator.</td></tr>
+<tr><td><code>decimal_sep</code></td><td><code>,</code></td><td>string</td><td>Decimal separator.</td></tr>
+</tbody>
+</table>
+</div>
+<div class="grid-2" style="margin-top:14px">
+<div><div class="small muted" style="margin-bottom:6px">Example</div><div class="code">[maradigma_boat_prices id="304"]</div></div>
+<div><div class="small muted" style="margin-bottom:6px">Example</div><div class="code">[maradigma_boat_prices slug="sunseeker-52" layout="table" show_headers="1"]</div></div>
+</div>
+<div class="back-top"><a href="#top">Back to top</a></div>
+</div>
+
+<div class="panel shortcode anchor-target" id="sc-maradigma_boat_field">
+<h3>[maradigma_boat_field]</h3>
+<p>Generic field shortcode. It reads any top-level key returned by the cached boat payload. This is the most flexible shortcode in the plugin.</p>
+<div class="table-wrap">
+<table class="tbl">
+<thead><tr><th>Attribute</th><th>Default</th><th>Type</th><th>Description</th></tr></thead>
+<tbody>
+<tr><td><code>id</code></td><td><code></code></td><td>string|int</td><td>Boat identifier.</td></tr>
+<tr><td><code>slug</code></td><td><code></code></td><td>string</td><td>Boat slug.</td></tr>
+<tr><td><code>field</code></td><td><code></code></td><td>string</td><td>Exact top-level key to read from the boat payload.</td></tr>
+<tr><td><code>esc</code></td><td><code>true</code></td><td>true|false</td><td>Use <code>esc_html()</code> by default. Set to false only for trusted HTML output.</td></tr>
+<tr><td><code>fallback</code></td><td><code></code></td><td>string</td><td>Returned when the field does not exist or is empty.</td></tr>
+<tr><td><code>format</code></td><td><code>raw</code></td><td>raw|number|price</td><td>Basic formatting mode.</td></tr>
+<tr><td><code>decimals</code></td><td><code>0</code></td><td>int</td><td>Decimals for number/price formatting.</td></tr>
+</tbody>
+</table>
+</div>
+<div class="grid-2" style="margin-top:14px">
+<div><div class="small muted" style="margin-bottom:6px">Example</div><div class="code">[maradigma_boat_field id="304" field="boat_capacity" format="number"]</div></div>
+<div><div class="small muted" style="margin-bottom:6px">Example</div><div class="code">[maradigma_boat_field slug="sunseeker-52" field="boat_length" format="number" decimals="2"]</div></div>
+<div><div class="small muted" style="margin-bottom:6px">Example</div><div class="code">[maradigma_boat_field slug="sunseeker-52" field="long_description" esc="false"]</div></div>
+<div><div class="small muted" style="margin-bottom:6px">Example</div><div class="code">[maradigma_boat_field id="304" field="images" esc="false"]</div></div>
+</div>
+<div class="back-top"><a href="#top">Back to top</a></div>
+</div>
+
+<div class="panel shortcode anchor-target" id="sc-sugar">
+<h3>Sugar shortcodes</h3>
+<p>Convenience wrappers around <code>maradigma_boat_field</code>.</p>
+<div class="table-wrap">
+<table class="tbl">
+<thead><tr><th>Shortcode</th><th>Main field</th><th>Notes</th></tr></thead>
+<tbody>
+<tr><td><code>[maradigma_boat_title]</code></td><td><code>boat_builder + boat_model + "boat_alias"</code></td><td>Configurable full boat title.</td></tr>
+<tr><td><code>[maradigma_boat_name]</code></td><td><code>boat_alias</code></td><td>Boat name/alias.</td></tr>
+<tr><td><code>[maradigma_boat_pax]</code></td><td><code>boat_capacity</code></td><td>Defaults to numeric formatting.</td></tr>
+<tr><td><code>[maradigma_boat_length]</code></td><td><code>boat_length</code></td><td>Defaults to numeric formatting with 2 decimals.</td></tr>
+<tr><td><code>[maradigma_boat_beam]</code></td><td><code>boat_beam</code></td><td>Defaults to numeric formatting with 2 decimals.</td></tr>
+<tr><td><code>[maradigma_boat_builder]</code></td><td><code>boat_builder</code></td><td>Builder text.</td></tr>
+<tr><td><code>[maradigma_boat_base_port]</code></td><td><code>boat_base_port_name</code></td><td>Correct base port field used by the plugin.</td></tr>
+</tbody>
+</table>
+</div>
+<h4>[maradigma_boat_title]</h4>
+<p>Builds a complete boat title from configurable parts. By default it outputs <code>boat_builder + boat_model + "boat_alias"</code>.</p>
+<div class="table-wrap">
+<table class="tbl">
+<thead><tr><th>Attribute</th><th>Default</th><th>Description</th></tr></thead>
+<tbody>
+<tr><td><code>show_builder</code></td><td><code>1</code></td><td>Include <code>boat_builder</code>.</td></tr>
+<tr><td><code>show_model</code></td><td><code>1</code></td><td>Include <code>boat_model</code>.</td></tr>
+<tr><td><code>show_alias</code></td><td><code>1</code></td><td>Include <code>boat_alias</code>.</td></tr>
+<tr><td><code>quote_alias</code></td><td><code>1</code></td><td>Wrap alias in double quotes.</td></tr>
+<tr><td><code>fallback_service_name</code></td><td><code>1</code></td><td>Use <code>service_name</code> / <code>name</code> / <code>title</code> if selected parts are empty.</td></tr>
+<tr><td><code>separator</code></td><td><code> </code></td><td>Separator between visible parts.</td></tr>
+<tr><td><code>fallback</code></td><td><code></code></td><td>Output if no title can be built.</td></tr>
+</tbody>
+</table>
+</div>
+<div class="grid-2" style="margin-top:14px">
+<div><div class="small muted" style="margin-bottom:6px">Example</div><div class="code">[maradigma_boat_title id="304"]</div></div>
+<div><div class="small muted" style="margin-bottom:6px">Example</div><div class="code">[maradigma_boat_name id="304"]</div></div>
+<div><div class="small muted" style="margin-bottom:6px">Example</div><div class="code">[maradigma_boat_pax id="304"]</div></div>
+<div><div class="small muted" style="margin-bottom:6px">Example</div><div class="code">[maradigma_boat_length id="304"]</div></div>
+<div><div class="small muted" style="margin-bottom:6px">Example</div><div class="code">[maradigma_boat_base_port id="304"]</div></div>
+</div>
+<div class="back-top"><a href="#top">Back to top</a></div>
+</div>
+
+<div class="panel shortcode anchor-target" id="sc-media">
+<h3>Media shortcodes</h3>
+
+<h4>[maradigma_boat_main_image]</h4>
+<p>Render the main image as an <code>img</code> tag, preferring the local WP cached attachment when configured.</p>
+<div class="table-wrap">
+<table class="tbl">
+<thead><tr><th>Attribute</th><th>Default</th><th>Type</th><th>Description</th></tr></thead>
+<tbody>
+<tr><td><code>id</code></td><td><code></code></td><td>string|int</td><td>Boat identifier.</td></tr>
+<tr><td><code>slug</code></td><td><code></code></td><td>string</td><td>Boat slug.</td></tr>
+<tr><td><code>size</code></td><td><code>1100</code></td><td>string</td><td>Target size key or numeric width hint.</td></tr>
+<tr><td><code>attr</code></td><td><code>loading="lazy"</code></td><td>string</td><td>Raw attributes appended to the <code>img</code> tag.</td></tr>
+<tr><td><code>prefer_wp_cache</code></td><td><code>1</code></td><td>0|1</td><td>Prefer local WP cached image when available.</td></tr>
+</tbody>
+</table>
+</div>
+<div class="code" style="margin-top:14px">[maradigma_boat_main_image id="304" size="1100" attr='class="img-fluid" loading="lazy"']</div>
+
+<h4 style="margin-top:18px">[maradigma_boat_gallery]</h4>
+<p>Render a gallery in grid or slider mode.</p>
+<div class="table-wrap">
+<table class="tbl">
+<thead><tr><th>Attribute</th><th>Default</th><th>Type</th><th>Description</th></tr></thead>
+<tbody>
+<tr><td><code>id</code></td><td><code></code></td><td>string|int</td><td>Boat identifier.</td></tr>
+<tr><td><code>slug</code></td><td><code></code></td><td>string</td><td>Boat slug.</td></tr>
+<tr><td><code>layout</code></td><td><code>grid</code></td><td>grid|slider</td><td>Display mode.</td></tr>
+<tr><td><code>columns</code></td><td><code>3</code></td><td>2|3|4</td><td>Columns for grid mode.</td></tr>
+<tr><td><code>enable_lightbox</code></td><td><code>1</code></td><td>0|1</td><td>Enable Elementor-compatible lightbox markup.</td></tr>
+<tr><td><code>start_index</code></td><td><code>1</code></td><td>int</td><td>1-based starting image index.</td></tr>
+<tr><td><code>end_index</code></td><td><code>0</code></td><td>int</td><td>0 means last image.</td></tr>
+<tr><td><code>max_images</code></td><td><code>12</code></td><td>int</td><td>Maximum images to output.</td></tr>
+<tr><td><code>prefer_size_key</code></td><td><code>large</code></td><td>string</td><td>Preferred image size key from the API payload.</td></tr>
+<tr><td><code>gap</code></td><td><code>10</code></td><td>int</td><td>Gap in px.</td></tr>
+<tr><td><code>radius</code></td><td><code>10</code></td><td>int</td><td>Border radius in px.</td></tr>
+<tr><td><code>slider_autoplay</code></td><td><code>0</code></td><td>0|1</td><td>Slider autoplay.</td></tr>
+<tr><td><code>slider_delay</code></td><td><code>3500</code></td><td>int</td><td>Autoplay delay in ms.</td></tr>
+<tr><td><code>slider_loop</code></td><td><code>1</code></td><td>0|1</td><td>Slider loop.</td></tr>
+<tr><td><code>slider_speed</code></td><td><code>400</code></td><td>int</td><td>Transition speed in ms.</td></tr>
+<tr><td><code>slider_space_between</code></td><td><code>10</code></td><td>int</td><td>Space between slides.</td></tr>
+<tr><td><code>slider_per_view_desktop</code></td><td><code>1</code></td><td>int</td><td>Slides per view desktop.</td></tr>
+<tr><td><code>slider_per_view_tablet</code></td><td><code>1</code></td><td>int</td><td>Slides per view tablet.</td></tr>
+<tr><td><code>slider_per_view_mobile</code></td><td><code>1</code></td><td>int</td><td>Slides per view mobile.</td></tr>
+<tr><td><code>slider_navigation</code></td><td><code>1</code></td><td>0|1</td><td>Show prev/next arrows.</td></tr>
+<tr><td><code>slider_pagination</code></td><td><code>1</code></td><td>0|1</td><td>Show pagination dots.</td></tr>
+</tbody>
+</table>
+</div>
+<div class="grid-2" style="margin-top:14px">
+<div><div class="small muted" style="margin-bottom:6px">Example</div><div class="code">[maradigma_boat_gallery id="304" layout="grid" columns="3"]</div></div>
+<div><div class="small muted" style="margin-bottom:6px">Example</div><div class="code">[maradigma_boat_gallery slug="sunseeker-52" layout="slider" slider_navigation="1" slider_pagination="1"]</div></div>
+</div>
+
+<h4 style="margin-top:18px">[maradigma_boat_videos]</h4>
+<p>Render related videos in grid/list and embed/thumbnail modes.</p>
+<div class="table-wrap">
+<table class="tbl">
+<thead><tr><th>Attribute</th><th>Default</th><th>Type</th><th>Description</th></tr></thead>
+<tbody>
+<tr><td><code>id</code></td><td><code></code></td><td>string|int</td><td>Boat identifier.</td></tr>
+<tr><td><code>slug</code></td><td><code></code></td><td>string</td><td>Boat slug.</td></tr>
+<tr><td><code>layout</code></td><td><code>grid</code></td><td>grid|list</td><td>Layout mode.</td></tr>
+<tr><td><code>mode</code></td><td><code>embed</code></td><td>embed|thumbnail</td><td>Render iframes or thumbnails linking out.</td></tr>
+<tr><td><code>columns</code></td><td><code>2</code></td><td>1|2|3|4</td><td>Columns in grid mode.</td></tr>
+<tr><td><code>max_videos</code></td><td><code>12</code></td><td>int</td><td>Maximum number of videos.</td></tr>
+<tr><td><code>show_title</code></td><td><code>0</code></td><td>0|1</td><td>Show video title.</td></tr>
+<tr><td><code>class</code></td><td><code></code></td><td>string</td><td>Extra wrapper class.</td></tr>
+</tbody>
+</table>
+</div>
+<div class="grid-2" style="margin-top:14px">
+<div><div class="small muted" style="margin-bottom:6px">Example</div><div class="code">[maradigma_boat_videos id="732"]</div></div>
+<div><div class="small muted" style="margin-bottom:6px">Example</div><div class="code">[maradigma_boat_videos slug="sunseeker-predator-108" layout="grid" columns="2"]</div></div>
+<div><div class="small muted" style="margin-bottom:6px">Example</div><div class="code">[maradigma_boat_videos slug="sunseeker-predator-108" mode="thumbnail" show_title="1"]</div></div>
+</div>
+
+<h4 style="margin-top:18px">[maradigma_boat_pdf_download]</h4>
+<p>Render a PDF download/open button. This shortcode must request the real API expand <code>service_pdf</code> and read the top-level payload key <code>url_pdf</code>.</p>
+<div class="table-wrap">
+<table class="tbl">
+<thead><tr><th>Attribute</th><th>Default</th><th>Type</th><th>Description</th></tr></thead>
+<tbody>
+<tr><td><code>id</code></td><td><code></code></td><td>string|int</td><td>Boat identifier.</td></tr>
+<tr><td><code>slug</code></td><td><code></code></td><td>string</td><td>Boat slug.</td></tr>
+<tr><td><code>button_text</code></td><td><code>Download PDF</code></td><td>string</td><td>Button label.</td></tr>
+<tr><td><code>open_in_new_tab</code></td><td><code>1</code></td><td>0|1|yes|no</td><td>Open the PDF in a new tab.</td></tr>
+<tr><td><code>force_download</code></td><td><code>0</code></td><td>0|1|yes|no</td><td>Add the HTML <code>download</code> attribute.</td></tr>
+<tr><td><code>fallback</code></td><td><code></code></td><td>string</td><td>Optional fallback content when no PDF is available.</td></tr>
+</tbody>
+</table>
+</div>
+<div class="grid-2" style="margin-top:14px">
+<div><div class="small muted" style="margin-bottom:6px">Example</div><div class="code">[maradigma_boat_pdf_download id="2410" button_text="Download PDF" open_in_new_tab="1"]</div></div>
+<div><div class="small muted" style="margin-bottom:6px">Example</div><div class="code">[maradigma_boat_pdf_download slug="pardo-yachts-38-test" force_download="1"]</div></div>
+</div>
+<div class="back-top"><a href="#top">Back to top</a></div>
+</div>
+
+<div class="panel shortcode anchor-target" id="sc-content">
+<h3>Content and list shortcodes</h3>
+
+<h4>[maradigma_boat_description]</h4>
+<p>Render the boat description with automatic language and long/short fallback logic.</p>
+<div class="table-wrap">
+<table class="tbl">
+<thead><tr><th>Attribute</th><th>Default</th><th>Type</th><th>Description</th></tr></thead>
+<tbody>
+<tr><td><code>id</code></td><td><code></code></td><td>string|int</td><td>Boat identifier.</td></tr>
+<tr><td><code>slug</code></td><td><code></code></td><td>string</td><td>Boat slug.</td></tr>
+<tr><td><code>type</code></td><td><code>auto</code></td><td>auto|large|long|short</td><td><code>large</code> is normalized internally to <code>long</code>.</td></tr>
+<tr><td><code>esc</code></td><td><code>false</code></td><td>true|false</td><td>Legacy compatibility. When true, the description is escaped.</td></tr>
+<tr><td><code>allow_html</code></td><td><code></code></td><td>0|1|yes|no</td><td>If enabled, output is sanitized with <code>wp_kses_post()</code>.</td></tr>
+<tr><td><code>max_words</code></td><td><code>0</code></td><td>int</td><td>0 means unlimited.</td></tr>
+<tr><td><code>fallback</code></td><td><code></code></td><td>string</td><td>Fallback text.</td></tr>
+</tbody>
+</table>
+</div>
+<div class="grid-2" style="margin-top:14px">
+<div><div class="small muted" style="margin-bottom:6px">Example</div><div class="code">[maradigma_boat_description id="2410"]</div></div>
+<div><div class="small muted" style="margin-bottom:6px">Example</div><div class="code">[maradigma_boat_description slug="pardo-yachts-38-test" type="short"]</div></div>
+<div><div class="small muted" style="margin-bottom:6px">Example</div><div class="code">[maradigma_boat_description id="2410" allow_html="1" max_words="80"]</div></div>
+</div>
+
+<h4 style="margin-top:18px">[maradigma_boat_equipments]</h4>
+<p>This shortcode must request <code>service_equipments</code> and read the <code>equipments</code> node.</p>
+<div class="table-wrap">
+<table class="tbl">
+<thead><tr><th>Attribute</th><th>Default</th><th>Type</th><th>Description</th></tr></thead>
+<tbody>
+<tr><td><code>id</code></td><td><code></code></td><td>string|int</td><td>Boat identifier.</td></tr>
+<tr><td><code>slug</code></td><td><code></code></td><td>string</td><td>Boat slug.</td></tr>
+<tr><td><code>title</code></td><td><code>Equipments</code></td><td>string</td><td>Section title.</td></tr>
+<tr><td><code>show_title</code></td><td><code>1</code></td><td>0|1|yes|no</td><td>Show title.</td></tr>
+<tr><td><code>show_icon</code></td><td><code>0</code></td><td>0|1|yes|no</td><td>Show leading icon/text.</td></tr>
+<tr><td><code>icon_text</code></td><td><code>✓</code></td><td>string</td><td>Leading icon/text content.</td></tr>
+<tr><td><code>sort</code></td><td><code>1</code></td><td>0|1|yes|no</td><td>Sort labels alphabetically.</td></tr>
+<tr><td><code>fallback</code></td><td><code></code></td><td>string</td><td>Fallback text when there are no equipments.</td></tr>
+</tbody>
+</table>
+</div>
+<div class="grid-2" style="margin-top:14px">
+<div><div class="small muted" style="margin-bottom:6px">Example</div><div class="code">[maradigma_boat_equipments id="2410"]</div></div>
+<div><div class="small muted" style="margin-bottom:6px">Example</div><div class="code">[maradigma_boat_equipments id="2410" title="Equipments" show_icon="1" icon_text="✓"]</div></div>
+</div>
+
+<h4 style="margin-top:18px">[maradigma_boat_included]</h4>
+<p>This shortcode must request <code>service_included_items</code> and read <code>included</code> or <code>included_items</code>.</p>
+<div class="table-wrap">
+<table class="tbl">
+<thead><tr><th>Attribute</th><th>Default</th><th>Type</th><th>Description</th></tr></thead>
+<tbody>
+<tr><td><code>id</code></td><td><code></code></td><td>string|int</td><td>Boat identifier.</td></tr>
+<tr><td><code>slug</code></td><td><code></code></td><td>string</td><td>Boat slug.</td></tr>
+<tr><td><code>title</code></td><td><code>Included</code></td><td>string</td><td>Section title.</td></tr>
+<tr><td><code>show_title</code></td><td><code>1</code></td><td>0|1|yes|no</td><td>Show title.</td></tr>
+<tr><td><code>show_tick_icon</code></td><td><code>1</code></td><td>0|1|yes|no</td><td>Show leading tick/icon.</td></tr>
+<tr><td><code>tick_text</code></td><td><code>✓</code></td><td>string</td><td>Tick/icon text.</td></tr>
+<tr><td><code>sort</code></td><td><code>1</code></td><td>0|1|yes|no</td><td>Sort labels alphabetically.</td></tr>
+<tr><td><code>fallback</code></td><td><code></code></td><td>string</td><td>Fallback text when there are no items.</td></tr>
+</tbody>
+</table>
+</div>
+<div class="grid-2" style="margin-top:14px">
+<div><div class="small muted" style="margin-bottom:6px">Example</div><div class="code">[maradigma_boat_included id="2410"]</div></div>
+<div><div class="small muted" style="margin-bottom:6px">Example</div><div class="code">[maradigma_boat_included id="2410" title="Included" show_tick_icon="1" tick_text="✓"]</div></div>
+</div>
+
+<h4 style="margin-top:18px">[maradigma_boat_not_included]</h4>
+<p>This shortcode must request <code>service_not_included_items</code> and read <code>not_included</code> or <code>not_included_items</code>.</p>
+<div class="table-wrap">
+<table class="tbl">
+<thead><tr><th>Attribute</th><th>Default</th><th>Type</th><th>Description</th></tr></thead>
+<tbody>
+<tr><td><code>id</code></td><td><code></code></td><td>string|int</td><td>Boat identifier.</td></tr>
+<tr><td><code>slug</code></td><td><code></code></td><td>string</td><td>Boat slug.</td></tr>
+<tr><td><code>title</code></td><td><code>Not included</code></td><td>string</td><td>Section title.</td></tr>
+<tr><td><code>show_title</code></td><td><code>1</code></td><td>0|1|yes|no</td><td>Show title.</td></tr>
+<tr><td><code>show_cross_icon</code></td><td><code>1</code></td><td>0|1|yes|no</td><td>Show leading cross/icon.</td></tr>
+<tr><td><code>cross_text</code></td><td><code>✕</code></td><td>string</td><td>Cross/icon text.</td></tr>
+<tr><td><code>sort</code></td><td><code>1</code></td><td>0|1|yes|no</td><td>Sort labels alphabetically.</td></tr>
+<tr><td><code>fallback</code></td><td><code></code></td><td>string</td><td>Fallback text when there are no items.</td></tr>
+</tbody>
+</table>
+</div>
+<div class="grid-2" style="margin-top:14px">
+<div><div class="small muted" style="margin-bottom:6px">Example</div><div class="code">[maradigma_boat_not_included id="2410"]</div></div>
+<div><div class="small muted" style="margin-bottom:6px">Example</div><div class="code">[maradigma_boat_not_included id="2410" title="Not included" show_cross_icon="1" cross_text="✕"]</div></div>
+</div>
+<div class="back-top"><a href="#top">Back to top</a></div>
+</div>
+
+<div class="panel shortcode anchor-target" id="sc-maradigma_boat_calendar">
+<h3>[maradigma_boat_calendar]</h3>
+<p>Render a lightweight availability calendar fed by the plugin REST proxy.</p>
+<div class="table-wrap">
+<table class="tbl">
+<thead><tr><th>Attribute</th><th>Default</th><th>Type</th><th>Description</th></tr></thead>
+<tbody>
+<tr><td><code>id</code></td><td><code></code></td><td>string|int</td><td>Boat identifier.</td></tr>
+<tr><td><code>slug</code></td><td><code></code></td><td>string</td><td>Boat slug.</td></tr>
+<tr><td><code>months</code></td><td><code>12</code></td><td>1..24</td><td>Number of months available in the selector.</td></tr>
+<tr><td><code>start_month</code></td><td><code>current</code></td><td>current|next</td><td>Initial month anchor.</td></tr>
+<tr><td><code>show_legend</code></td><td><code>1</code></td><td>0|1</td><td>Show legend.</td></tr>
+<tr><td><code>color_available</code></td><td><code>#d4edda</code></td><td>CSS color</td><td>Available color.</td></tr>
+<tr><td><code>color_booked</code></td><td><code>#ffc0bd</code></td><td>CSS color</td><td>Booked color.</td></tr>
+<tr><td><code>color_option</code></td><td><code>#ffe8a1</code></td><td>CSS color</td><td>Option color.</td></tr>
+<tr><td><code>option_statuses</code></td><td><code>4</code></td><td>csv ints</td><td>Booking statuses treated as option.</td></tr>
+<tr><td><code>include_booking_status</code></td><td><code>1</code></td><td>0|1</td><td>Whether booking status is requested from the REST proxy.</td></tr>
+</tbody>
+</table>
+</div>
+<div class="grid-2" style="margin-top:14px">
+<div><div class="small muted" style="margin-bottom:6px">Example</div><div class="code">[maradigma_boat_calendar id="732"]</div></div>
+<div><div class="small muted" style="margin-bottom:6px">Example</div><div class="code">[maradigma_boat_calendar slug="sunseeker-predator-108" months="12"]</div></div>
+<div><div class="small muted" style="margin-bottom:6px">Example</div><div class="code">[maradigma_boat_calendar slug="sunseeker-predator-108" color_available="#d4edda" color_booked="#ffc0bd" color_option="#ffe8a1"]</div></div>
+</div>
+<div class="back-top"><a href="#top">Back to top</a></div>
+</div>
+
+<div class="panel shortcode anchor-target" id="sc-booking">
+<h3>Booking shortcodes</h3>
+
+<h4>[maradigma_boat_booking]</h4>
+<p>Render the booking CTA and booking modal.</p>
+<div class="table-wrap">
+<table class="tbl">
+<thead><tr><th>Attribute</th><th>Default</th><th>Type</th><th>Description</th></tr></thead>
+<tbody>
+<tr><td><code>id</code></td><td><code></code></td><td>string|int</td><td>Boat identifier.</td></tr>
+<tr><td><code>slug</code></td><td><code></code></td><td>string</td><td>Boat slug.</td></tr>
+<tr><td><code>button_text</code></td><td><code>Book now</code></td><td>string</td><td>Button label.</td></tr>
+<tr><td><code>redirect_url_success</code></td><td><code></code></td><td>URL</td><td>Success redirect after booking/payment.</td></tr>
+<tr><td><code>calendar_display</code></td><td><code>popup</code></td><td>popup|inline</td><td>Calendar display mode.</td></tr>
+<tr><td><code>calendar_months</code></td><td><code>2</code></td><td>1|2</td><td>Number of months visible in the modal calendar. Forced to 1 when <code>calendar_display="inline"</code>.</td></tr>
+<tr><td><code>calendar_selection_mode</code></td><td><code>range</code></td><td>range|single</td><td>Range or single-day selection.</td></tr>
+<tr><td><code>show_schedule_text</code></td><td><code>1</code></td><td>0|1|bool-like</td><td>Show schedule text.</td></tr>
+<tr><td><code>show_promo_code</code></td><td><code>1</code></td><td>0|1|bool-like</td><td>Show promo code field.</td></tr>
+</tbody>
+</table>
+</div>
+<div class="grid-2" style="margin-top:14px">
+<div><div class="small muted" style="margin-bottom:6px">Example</div><div class="code">[maradigma_boat_booking id="304"]</div></div>
+<div><div class="small muted" style="margin-bottom:6px">Example</div><div class="code">[maradigma_boat_booking id="304" calendar_display="inline"]</div></div>
+<div><div class="small muted" style="margin-bottom:6px">Example</div><div class="code">[maradigma_boat_booking id="304" calendar_selection_mode="single" show_schedule_text="0" show_promo_code="0"]</div></div>
+</div>
+
+<h4 style="margin-top:18px">[maradigma_booking_success]</h4>
+<p>Render a booking confirmation block based on the payment return URL query parameters.</p>
+<div class="table-wrap">
+<table class="tbl">
+<thead><tr><th>Attribute</th><th>Default</th><th>Type</th><th>Description</th></tr></thead>
+<tbody>
+<tr><td><code>show_if_not_paid</code></td><td><code>0</code></td><td>0|1</td><td>If 1, render content even when payment is not confirmed.</td></tr>
+<tr><td><code>empty_message</code></td><td><code></code></td><td>string</td><td>Custom message when <code>bchShopCart</code> is missing.</td></tr>
+<tr><td><code>error_message</code></td><td><code></code></td><td>string</td><td>Custom message when payment lookup fails.</td></tr>
+</tbody>
+</table>
+</div>
+<div class="grid-2" style="margin-top:14px">
+<div><div class="small muted" style="margin-bottom:6px">Example</div><div class="code">[maradigma_booking_success]</div></div>
+<div><div class="small muted" style="margin-bottom:6px">Example</div><div class="code">[maradigma_booking_success show_if_not_paid="1"]</div></div>
+</div>
+<div class="back-top"><a href="#top">Back to top</a></div>
+</div>
+
+</section>
+
+<section class="section anchor-target" id="boat-field-keys">
+<h2>3. Confirmed fields for maradigma_boat_field</h2>
+<div class="panel">
+<p><code>[maradigma_boat_field field="..."]</code> returns the value of the exact key inside the top-level <code>$boat</code> array. Below is the confirmed set of keys validated through the current core and the payload you shared.</p>
+<div class="callout small"><strong>Practical rule:</strong> if a top-level key exists in the payload returned by <code>Cache::getBoatDetails()</code>, you can request it directly with <code>maradigma_boat_field</code>. This list documents the keys confirmed by the plugin architecture and your validated payload. It does not limit the shortcode.</div>
+</div>
+
+<div class="panel" style="margin-top:16px">
+<h3>Identity and routing</h3>
+<div class="table-wrap">
+<table class="tbl">
+<thead><tr><th>Field</th><th>Meaning</th></tr></thead>
+<tbody>
+<tr><td><code>id</code></td><td>Primary boat/service ID.</td></tr>
+<tr><td><code>reference</code></td><td>Internal or commercial reference, when present.</td></tr>
+<tr><td><code>slug</code></td><td>Boat slug used in cache lookups and public URLs.</td></tr>
+<tr><td><code>service_name</code></td><td>Service name from the payload.</td></tr>
+<tr><td><code>boat_alias</code></td><td>Commercial alias/name.</td></tr>
+<tr><td><code>boat_model</code></td><td>Model.</td></tr>
+<tr><td><code>boat_builder</code></td><td>Builder/shipyard.</td></tr>
+<tr><td><code>boat_id_builder</code></td><td>Builder ID.</td></tr>
+<tr><td><code>boat_plate_number</code></td><td>Boat registration/plate number.</td></tr>
+<tr><td><code>id_group_content_type</code></td><td>Content type ID.</td></tr>
+<tr><td><code>id_group</code></td><td>Group ID.</td></tr>
+<tr><td><code>featured</code></td><td>Featured flag.</td></tr>
+<tr><td><code>sort_order</code></td><td>Sort order value.</td></tr>
+<tr><td><code>status</code></td><td>Status code.</td></tr>
+<tr><td><code>is_owner</code></td><td>Owner flag.</td></tr>
+<tr><td><code>has_managed_service</code></td><td>Whether the service is managed.</td></tr>
+</tbody>
+</table>
+</div>
+</div>
+
+<div class="panel" style="margin-top:16px">
+<h3>Location and map</h3>
+<div class="table-wrap">
+<table class="tbl">
+<thead><tr><th>Field</th><th>Meaning</th></tr></thead>
+<tbody>
+<tr><td><code>boat_base_port</code></td><td>Base port ID.</td></tr>
+<tr><td><code>boat_base_port_name</code></td><td>Base port name.</td></tr>
+<tr><td><code>maps_latitude</code></td><td>Latitude.</td></tr>
+<tr><td><code>maps_longitude</code></td><td>Longitude.</td></tr>
+</tbody>
+</table>
+</div>
+</div>
+
+<div class="panel" style="margin-top:16px">
+<h3>Capacity and layout</h3>
+<div class="table-wrap">
+<table class="tbl">
+<thead><tr><th>Field</th><th>Meaning</th></tr></thead>
+<tbody>
+<tr><td><code>boat_capacity</code></td><td>Main passenger capacity.</td></tr>
+<tr><td><code>boat_capacity_crew</code></td><td>Crew capacity.</td></tr>
+<tr><td><code>boat_capacity_pernocta</code></td><td>Overnight capacity.</td></tr>
+<tr><td><code>boat_cabins</code></td><td>Number of cabins.</td></tr>
+<tr><td><code>boat_beds</code></td><td>Number of beds.</td></tr>
+<tr><td><code>boat_bathrooms</code></td><td>Number of bathrooms.</td></tr>
+</tbody>
+</table>
+</div>
+</div>
+
+<div class="panel" style="margin-top:16px">
+<h3>Dimensions and years</h3>
+<div class="table-wrap">
+<table class="tbl">
+<thead><tr><th>Field</th><th>Meaning</th></tr></thead>
+<tbody>
+<tr><td><code>boat_length</code></td><td>Raw boat length.</td></tr>
+<tr><td><code>boat_beam</code></td><td>Raw beam.</td></tr>
+<tr><td><code>boat_year_construction</code></td><td>Construction year.</td></tr>
+<tr><td><code>boat_year_refit</code></td><td>Refit year.</td></tr>
+</tbody>
+</table>
+</div>
+</div>
+
+<div class="panel" style="margin-top:16px">
+<h3>Crew, skipper, and operation</h3>
+<div class="table-wrap">
+<table class="tbl">
+<thead><tr><th>Field</th><th>Meaning</th></tr></thead>
+<tbody>
+<tr><td><code>boat_crew_skippers</code></td><td>Skipper crew count.</td></tr>
+<tr><td><code>boat_crew_aircrew</code></td><td>Aircrew count.</td></tr>
+<tr><td><code>boat_crew_hostesses</code></td><td>Hostess count.</td></tr>
+<tr><td><code>boat_skipper_option</code></td><td>Skipper option code.</td></tr>
+<tr><td><code>mandatory_skipper</code></td><td>Whether skipper is mandatory.</td></tr>
+<tr><td><code>is_bareboat</code></td><td>Bareboat flag.</td></tr>
+<tr><td><code>text_skipper</code></td><td>Skipper label text.</td></tr>
+<tr><td><code>boat_license</code></td><td>Licence/license text.</td></tr>
+<tr><td><code>boat_licence_required</code></td><td>Whether a licence is required.</td></tr>
+<tr><td><code>id_default_skipper</code></td><td>Default skipper ID.</td></tr>
+<tr><td><code>id_default_agent</code></td><td>Default agent ID.</td></tr>
+<tr><td><code>id_default_boat_harbour_manager</code></td><td>Default harbour manager ID.</td></tr>
+<tr><td><code>id_owner</code></td><td>Owner ID.</td></tr>
+</tbody>
+</table>
+</div>
+</div>
+
+<div class="panel" style="margin-top:16px">
+<h3>Deposits, engines, and technical data</h3>
+<div class="table-wrap">
+<table class="tbl">
+<thead><tr><th>Field</th><th>Meaning</th></tr></thead>
+<tbody>
+<tr><td><code>boat_security_deposit</code></td><td>Security deposit.</td></tr>
+<tr><td><code>boat_deposit_without_captain</code></td><td>Deposit without skipper/captain.</td></tr>
+<tr><td><code>boat_deposit_with_captain</code></td><td>Deposit with skipper/captain.</td></tr>
+<tr><td><code>has_deposit_without_skipper</code></td><td>Whether a deposit without skipper exists.</td></tr>
+<tr><td><code>has_deposit_with_skipper</code></td><td>Whether a deposit with skipper exists.</td></tr>
+<tr><td><code>boat_engines</code></td><td>Engines text/value.</td></tr>
+<tr><td><code>boat_fuel_included_option</code></td><td>Fuel included option code.</td></tr>
+<tr><td><code>boat_consumption</code></td><td>Fuel consumption.</td></tr>
+<tr><td><code>boat_consumption_euro_hour</code></td><td>Fuel cost per hour.</td></tr>
+<tr><td><code>boat_min_speed</code></td><td>Minimum speed.</td></tr>
+<tr><td><code>boat_max_speed</code></td><td>Maximum speed.</td></tr>
+</tbody>
+</table>
+</div>
+</div>
+
+<div class="panel" style="margin-top:16px">
+<h3>Booking and commerce</h3>
+<div class="table-wrap">
+<table class="tbl">
+<thead><tr><th>Field</th><th>Meaning</th></tr></thead>
+<tbody>
+<tr><td><code>checkin_schedule</code></td><td>Check-in schedule string.</td></tr>
+<tr><td><code>checkout_schedule</code></td><td>Check-out schedule string.</td></tr>
+<tr><td><code>ins_book</code></td><td>Instant booking flag.</td></tr>
+<tr><td><code>prepaid_percent</code></td><td>Prepayment percentage.</td></tr>
+<tr><td><code>payment_methods</code></td><td>Available payment methods.</td></tr>
+<tr><td><code>collab_commission</code></td><td>Collaborator commission value.</td></tr>
+<tr><td><code>base_price</code></td><td>Base daily price before display formatting.</td></tr>
+<tr><td><code>base_price_total</code></td><td>Base daily total.</td></tr>
+<tr><td><code>base_week_price</code></td><td>Base weekly price.</td></tr>
+<tr><td><code>base_week_price_total</code></td><td>Base weekly total.</td></tr>
+<tr><td><code>base_hour_price</code></td><td>Base hourly price.</td></tr>
+<tr><td><code>base_hour_price_total</code></td><td>Base hourly total.</td></tr>
+<tr><td><code>base_price_pformat</code></td><td>Formatted base daily price.</td></tr>
+<tr><td><code>base_price_week_pformat</code></td><td>Formatted base weekly price.</td></tr>
+<tr><td><code>base_price_cents</code></td><td>Base daily price in cents.</td></tr>
+<tr><td><code>base_week_price_cents</code></td><td>Base weekly price in cents.</td></tr>
+</tbody>
+</table>
+</div>
+</div>
+
+<div class="panel" style="margin-top:16px">
+<h3>Descriptions, documents, and complex media nodes</h3>
+<div class="table-wrap">
+<table class="tbl">
+<thead><tr><th>Field</th><th>Meaning</th></tr></thead>
+<tbody>
+<tr><td><code>descriptions</code></td><td>Managed service multilingual descriptions array.</td></tr>
+<tr><td><code>descriptions_tenant</code></td><td>Tenant descriptions array.</td></tr>
+<tr><td><code>url_pdf</code></td><td>PDF URL. This may require the <code>service_pdf</code> expand.</td></tr>
+<tr><td><code>ical_url</code></td><td>Legacy/alternative iCal field.</td></tr>
+<tr><td><code>url_ical</code></td><td>Public iCal URL.</td></tr>
+<tr><td><code>equipments</code></td><td>Equipments array. Requires <code>service_equipments</code> when not already present.</td></tr>
+<tr><td><code>images</code></td><td>Images array.</td></tr>
+</tbody>
+</table>
+</div>
+<div class="back-top"><a href="#top">Back to top</a></div>
+</div>
+</section>
+
+<section class="section">
+<h2>4. Practical examples with maradigma_boat_field</h2>
+<div class="panel">
+<div class="grid-2">
+<div><div class="code">[maradigma_boat_field id="304" field="boat_alias"]</div></div>
+<div><div class="code">[maradigma_boat_field id="304" field="boat_capacity" format="number"]</div></div>
+<div><div class="code">[maradigma_boat_field id="304" field="boat_length" format="number" decimals="2"]</div></div>
+<div><div class="code">[maradigma_boat_field id="304" field="base_price_total" format="price" decimals="2"]</div></div>
+<div><div class="code">[maradigma_boat_field slug="sunseeker-52" field="long_description" esc="false"]</div></div>
+<div><div class="code">[maradigma_boat_field slug="sunseeker-52" field="descriptions" esc="false"]</div></div>
+<div><div class="code">[maradigma_boat_field id="304" field="images" esc="false"]</div></div>
+<div><div class="code">[maradigma_boat_field id="304" field="payment_methods"]</div></div>
+</div>
+<div class="back-top"><a href="#top">Back to top</a></div>
+</div>
+</section>
+
+<section class="section">
+<h2>5. Notes for the public README and plugin docs</h2>
+<div class="panel">
+<ul class="tight">
+<li>Document clearly that <code>id</code> and <code>slug</code> are alternative identifiers in most shortcodes. Usually only one is needed.</li>
+<li>In <code>maradigma_boat_booking</code>, <code>calendar_months</code> is forced to <code>1</code> when <code>calendar_display="inline"</code>.</li>
+<li>In <code>maradigma_boat_description</code>, the value <code>large</code> is normalized internally to <code>long</code>.</li>
+<li>In <code>maradigma_boat_field</code>, <code>esc="false"</code> should only be used with trusted HTML fields.</li>
+<li>In <code>maradigma_boat_gallery</code>, lightbox behavior depends on Elementor Lightbox being available on the frontend.</li>
+<li>In <code>maradigma_booking_success</code>, the page normally expects the query parameter <code>bchShopCart</code> and optionally <code>payment=success|error</code>.</li>
+<li><code>maradigma_boat_equipments</code> depends on <code>service_equipments</code>.</li>
+<li><code>maradigma_boat_included</code> depends on <code>service_included_items</code>.</li>
+<li><code>maradigma_boat_not_included</code> depends on <code>service_not_included_items</code>.</li>
+<li><code>maradigma_boat_pdf_download</code> depends on <code>service_pdf</code> and reads <code>url_pdf</code>.</li>
+<li><code>maradigma_boat_base_port</code> should be documented against <code>boat_base_port_name</code>.</li>
+</ul>
+<div class="back-top"><a href="#top">Back to top</a></div>
+</div>
+</section>
+
+<div class="footer">Generated from the current Maradigma shortcode architecture and the validated payload/behavior reviewed in this implementation cycle.</div>
+</div>
+</body>
+</html>

@@ -1,0 +1,43 @@
+# OS / editor
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+
+# Git / temp
+*.log
+*.tmp
+*.swp
+*.swo
+
+# Node / frontend build
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# Release artifacts
+release/
+.build-release-temp/
+
+# Build maps
+assets/dist/**/*.map
+
+# Optional lock files
+yarn.lock
+pnpm-lock.yaml
+
+# Composer
+/vendor/
+
+# PHP quality tooling
+/.phpunit.cache/
+/.phpstan.cache/
+/phpunit.xml
+/phpstan.neon
+
+# Internal development metadata
+.codebase-memory/
+AGENTS.md
+RTK.md

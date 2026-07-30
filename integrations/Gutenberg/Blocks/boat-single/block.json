@@ -1,0 +1,26 @@
+{
+  "apiVersion": 3,
+  "name": "maradigma/boat-single",
+  "version": "0.1.0",
+  "title": "Maradigma Boat Single",
+  "category": "maradigma",
+  "icon": "admin-site-alt3",
+  "description": "Full single boat template rendered with the existing Maradigma shortcode.",
+  "textdomain": "maradigma",
+  "attributes": {
+    "id": {
+      "type": "string",
+      "default": ""
+    },
+    "slug": {
+      "type": "string",
+      "default": ""
+    }
+  },
+  "supports": {
+    "html": false
+  },
+  "usesContext": [
+    "postId"
+  ]
+}

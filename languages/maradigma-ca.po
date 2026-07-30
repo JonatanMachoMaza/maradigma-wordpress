@@ -1,0 +1,2730 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Maradigma\n\n"
+"Language: ca_ES\n"
+"Content-Type: text/plain; charset=UTF-8\n\n"
+"Content-Transfer-Encoding: 8bit\n\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: \n"
+"Language-Team: Català\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+msgid "Connect WordPress with Maradigma to sync boats, build fleet pages, display availability and prices, and accept online bookings."
+msgstr "Connecta WordPress amb Maradigma per sincronitzar embarcacions, crear pàgines de flota, mostrar disponibilitat i preus i acceptar reserves en línia."
+
+msgid "Specify the reservation"
+msgstr "Especifica la reserva"
+
+msgid "Your profile information"
+msgstr "Informació del client"
+
+msgid "Payment method"
+msgstr "Mètode de pagament"
+
+msgid "Your Reservation is Almost Complete!"
+msgstr "La teva reserva està gairebé completada!"
+
+msgid "Date start"
+msgstr "Data d'inici"
+
+msgid "Date end"
+msgstr "Data de fi"
+
+msgid "People"
+msgstr "Persones"
+
+msgid "First name"
+msgstr "Nom"
+
+msgid "Last name"
+msgstr "Cognoms"
+
+msgid "Email"
+msgstr "Correu electrònic"
+
+msgid "Phone"
+msgstr "Telèfon"
+
+msgid "I accept terms and conditions"
+msgstr "Accepto els termes i condicions"
+
+msgid "Quote"
+msgstr "Pressupost"
+
+msgid "Total"
+msgstr "Total"
+
+msgid "Not calculated"
+msgstr "No calculat"
+
+msgid "Calculating…"
+msgstr "Calculant…"
+
+msgid "Quote failed."
+msgstr "No s'ha pogut calcular el preu."
+
+msgid "Boat not selected."
+msgstr "Barca no seleccionada."
+
+msgid "Please select dates."
+msgstr "Si us plau, selecciona les dates."
+
+msgid "Email is required."
+msgstr "El correu electrònic és obligatori."
+
+msgid "You must accept terms and conditions."
+msgstr "Has d'acceptar els termes i condicions."
+
+msgid "Continue"
+msgstr "Continua"
+
+msgid "Continue to payment"
+msgstr "Continuar al pagament"
+
+msgid "Back"
+msgstr "Enrere"
+
+msgid "Cancel"
+msgstr "Cancel·la"
+
+msgid "Redirecting…"
+msgstr "Redirigint…"
+
+msgid "Booking created, but no payment URL was returned."
+msgstr "Reserva creada, però no s'ha rebut cap URL de pagament."
+
+msgid "Booking OK (no redirect URL)."
+msgstr "Reserva creada correctament (sense redirecció)."
+
+msgid "Booking endpoint not configured."
+msgstr "Endpoint de reserva no configurat."
+
+msgid "Quote endpoint not configured."
+msgstr "Endpoint de pressupost no configurat."
+
+msgid "Booking details"
+msgstr "Detalls de la reserva"
+
+msgid "Reservation"
+msgstr "Reserva"
+
+msgid "Identification"
+msgstr "Identificació"
+
+msgid "Payment"
+msgstr "Pagament"
+
+msgid "Finish"
+msgstr "Finalitza"
+
+msgid "Settings"
+msgstr "Configuració"
+
+msgid "Maradigma Settings"
+msgstr "Configuració de Maradigma"
+
+msgid "Connect this website to your Maradigma account by entering your credentials. The rest of the integration will be handled automatically."
+msgstr "Connecta aquest web amb el teu compte de Maradigma introduint les teves credencials. La resta de la integració es gestionarà automàticament."
+
+msgid "Public key (X-API-KEY)"
+msgstr "Clau pública (X-API-KEY)"
+
+msgid "Public key (API Key)"
+msgstr "Clau pública (API Key)"
+
+
+msgid "Secret key"
+msgstr "Clau secreta"
+
+msgid "Secret key (API Secret)"
+msgstr "Clau secreta (API Secret)"
+
+
+msgid "Default language"
+msgstr "Idioma per defecte"
+
+msgid "Base slug for boats (SEO)"
+msgstr "Slug base per a barques (SEO)"
+
+msgid "Secret key the plugin will use to sign requests (X-SIGNATURE). Do not share it with anyone."
+msgstr "Clau secreta que farà servir el connector per signar les peticions (X-SIGNATURE). No la comparteixis amb ningú."
+
+msgid "External API client misconfigured."
+msgstr "El client de l'API externa està mal configurat."
+
+msgid "Connect your website to Maradigma to showcase your boats and enable online bookings for your customers."
+msgstr "Connecta el teu web amb Maradigma per mostrar les teves barques i permetre reserves en línia als teus clients."
+
+msgid "Settings panel"
+msgstr "Panell de configuració"
+
+msgid "Configuration"
+msgstr "Configuració"
+
+msgid "Boat cards"
+msgstr "Targetes de barques"
+
+msgid "About Maradigma"
+msgstr "Sobre Maradigma"
+
+msgid "Help &amp; support"
+msgstr "Ajuda i suport"
+
+msgid "Connection with Maradigma"
+msgstr "Connexió amb Maradigma"
+
+msgid "Enter your Maradigma public key and secret key to connect this website to your account. The plugin will automatically sign requests."
+msgstr "Introdueix la teva clau pública i la clau secreta de Maradigma per connectar aquest web amb el teu compte. El connector signarà les peticions automàticament."
+
+msgid "Ready: valid keys and successful connection"
+msgstr "A punt: claus vàlides i connexió correcta"
+
+msgid "The Maradigma keys are not valid. Please check the public key and the secret key."
+msgstr "Les claus de Maradigma no són vàlides. Revisa la clau pública i la clau secreta."
+
+msgid "We couldn’t connect to Maradigma. Please try again later or contact support."
+msgstr "No hem pogut connectar amb Maradigma. Torna-ho a provar més tard o contacta amb suport."
+
+msgid "Pending: enter your Maradigma keys"
+msgstr "Pendent: introdueix les teves claus de Maradigma"
+
+msgid "Advanced / Uninstall"
+msgstr "Avançat / Desinstal·lació"
+
+msgid "Delete plugin data when uninstalling"
+msgstr "Eliminar les dades del connector en desinstal·lar"
+
+msgid "If enabled, deleting the plugin will remove boats CPT posts, postmeta, options and cache. Recommended OFF unless you want a full wipe."
+msgstr "Si s'activa, en esborrar el connector s'eliminaran els CPT de barques, les metadades, les opcions i la memòria cau. Recomanat desactivat tret que vulguis un esborrat complet."
+
+msgid "Also delete uploads folder (optional)"
+msgstr "Eliminar també la carpeta de pujades (opcional)"
+
+msgid "Only if you store files under /wp-content/uploads/maradigma/. Default OFF (recommended)."
+msgstr "Només si desa fitxers a /wp-content/uploads/maradigma/. Per defecte desactivat (recomanat)."
+
+msgid "Sync (one page per boat)"
+msgstr "Sincronització (una pàgina per barca)"
+
+msgid "Boats synced successfully."
+msgstr "Barques sincronitzades correctament."
+
+msgid "Sync failed. Please check your API keys and try again."
+msgstr "La sincronització ha fallat. Revisa les teves claus API i torna-ho a provar."
+
+msgid "Cache cleared successfully."
+msgstr "Memòria cau netejada correctament."
+
+msgid "Could not clear cache. Please try again."
+msgstr "No s'ha pogut netejar la memòria cau. Torna-ho a provar."
+
+msgid "Last sync:"
+msgstr "Última sincronització:"
+
+msgid "Synced boats:"
+msgstr "Barques sincronitzades:"
+
+msgid "Sync boats now"
+msgstr "Sincronitzar barques ara"
+
+msgid "This will clear Maradigma cache. Continue?"
+msgstr "Això netejarà la memòria cau de Maradigma. Continuar?"
+
+msgid "Clear plugin cache"
+msgstr "Netejar la memòria cau del connector"
+
+msgid "Clears cached boats list and boat details. Use if you changed settings or data looks outdated."
+msgstr "Neteja la llista de barques i els detalls en memòria cau. Fes-ho servir si has canviat la configuració o les dades semblen desactualitzades."
+
+msgid "Quick summary"
+msgstr "Resum ràpid"
+
+msgid "Boat catalog synced with your Maradigma account."
+msgstr "Catàleg de barques sincronitzat amb el teu compte de Maradigma."
+
+msgid "Online bookings directly from your website."
+msgstr "Reserves en línia directament des del teu web."
+
+msgid "SEO-ready content: friendly URLs and one page per boat."
+msgstr "Contingut optimitzat per a SEO: URL amigables i una pàgina per barca."
+
+msgid "Easy integration via shortcodes or your theme templates."
+msgstr "Integració fàcil mitjançant shortcodes o plantilles del teu tema."
+
+msgid "Compatibility detected"
+msgstr "Compatibilitat detectada"
+
+msgid "Learn more about Maradigma"
+msgstr "Saber-ne més sobre Maradigma"
+
+msgid "Request information or a demo"
+msgstr "Sol·licitar informació o una demo"
+
+msgid "Dynamic SEO (per boat)"
+msgstr "SEO dinàmic (per barca)"
+
+msgid "Configure the default language, the base slug for the boats section, and the SEO templates (title/description/H1). Supports simple multi-language format such as: \"es:barcos,en:boats,fr:bateaux\"."
+msgstr "Configura l'idioma per defecte, el slug base per a la secció de barques i les plantilles SEO (títol/descripció/H1). Admet un format multilingüe simple com: \"es:barcos,en:boats,fr:bateaux\"."
+
+msgid "Used for SEO when the language cannot be detected (or there is no mapping)."
+msgstr "S'utilitza per a SEO quan no es pot detectar l'idioma (o no hi ha cap mapeig)."
+
+msgid "Examples: \"boats\" or \"alquiler-barcos\". Simple multi-language: \"es:barcos,en:boats,fr:bateaux\"."
+msgstr "Exemples: \"boats\" o \"alquiler-barcos\". Multilingüe simple: \"es:barcos,en:boats,fr:bateaux\"."
+
+msgid "Meta title template"
+msgstr "Plantilla del meta títol"
+
+msgid "Insert variable"
+msgstr "Inserir variable"
+
+msgid "Recommended: “Boat hire {{service_name}} | {{port}}”."
+msgstr "Recomanat: “Lloguer de barca {{service_name}} | {{port}}”."
+
+msgid "Meta description template"
+msgstr "Plantilla de la meta descripció"
+
+msgid "Recommended: 120-160 characters (Google truncates if you go over)."
+msgstr "Recomanat: 120-160 caràcters (Google retalla si t'hi passes)."
+
+msgid "H1 template (optional)"
+msgstr "Plantilla H1 (opcional)"
+
+msgid "If your page template already defines its own H1, leave this empty."
+msgstr "Si la teva plantilla de pàgina ja defineix el seu propi H1, deixa-ho buit."
+
+msgid "Close"
+msgstr "Tanca"
+
+msgid "Select a variable and click Insert."
+msgstr "Selecciona una variable i fes clic a Inserir."
+
+msgid "Select a variable…"
+msgstr "Selecciona una variable…"
+
+msgid "Insert"
+msgstr "Inserir"
+
+msgid "Tip: insert multiple variables in a row without closing the modal."
+msgstr "Consell: insereix diverses variables seguides sense tancar el modal."
+
+msgid "SEO Notes:"
+msgstr "Notes SEO:"
+
+msgid "The base slug is used to build URLs like /boats/{boat-slug}/ (or /barcos/... depending on language)."
+msgstr "El slug base s'utilitza per construir URL com /boats/{boat-slug}/ (o /barcos/... segons l'idioma)."
+
+msgid "The simple multi-language format is intentionally straightforward: \"es:barcos,en:boats\"."
+msgstr "El format multilingüe simple és intencionadament senzill: \"es:barcos,en:boats\"."
+
+msgid "Quick examples"
+msgstr "Exemples ràpids"
+
+msgid "Default language:"
+msgstr "Idioma per defecte:"
+
+msgid "Base slug:"
+msgstr "Slug base:"
+
+msgid "Multi-language base slug:"
+msgstr "Slug base multilingüe:"
+
+msgid "If you do not use multi-language, a single slug is enough. If you do, the system will choose the slug based on the language (otherwise it falls back to the default language)."
+msgstr "Si no fas servir multilingüe, n'hi ha prou amb un sol slug. Si el fas servir, el sistema triarà el slug segons l'idioma (si no, farà servir l'idioma per defecte)."
+
+msgid "Boat card saved."
+msgstr "Targeta de barca desada."
+
+msgid "Boat card deleted."
+msgstr "Targeta de barca eliminada."
+
+msgid "Default boat card updated."
+msgstr "Targeta de barca per defecte actualitzada."
+
+msgid "Card ID and Template HTML are required."
+msgstr "L'ID de la targeta i l'HTML de la plantilla són obligatoris."
+
+msgid "Create different HTML templates for the boat cards in the list. Select which one to use with the card=\"\" attribute in the shortcode."
+msgstr "Crea diferents plantilles HTML per a les targetes de barques del llistat. Tria quina utilitzar amb l'atribut card=\"\" al shortcode."
+
+msgid "Add new"
+msgstr "Afegeix nova"
+
+msgid "Name"
+msgstr "Nom"
+
+msgid "Default"
+msgstr "Per defecte"
+
+msgid "Actions"
+msgstr "Accions"
+
+msgid "No cards yet."
+msgstr "Encara no hi ha targetes."
+
+msgid "Edit"
+msgstr "Edita"
+
+msgid "Set default"
+msgstr "Estableix com a predeterminada"
+
+msgid "Delete"
+msgstr "Elimina"
+
+msgid "Use:"
+msgstr "Ús:"
+
+msgid "New boat card"
+msgstr "Nova targeta de barca"
+
+msgid "Edit boat card"
+msgstr "Edita la targeta de barca"
+
+msgid "Back to list"
+msgstr "Torna al llistat"
+
+msgid "Card not found."
+msgstr "Targeta no trobada."
+
+msgid "Card ID"
+msgstr "ID de la targeta"
+
+msgid "Stable ID. Avoid spaces. Example: compact, luxury, grid_2."
+msgstr "ID estable. Evita espais. Exemple: compact, luxury, grid_2."
+
+msgid "Template HTML"
+msgstr "HTML de la plantilla"
+
+msgid "Refresh preview"
+msgstr "Actualitza la previsualització"
+
+msgid "Preview"
+msgstr "Previsualització"
+
+msgid "Set as default"
+msgstr "Estableix com a predeterminada"
+
+msgid "Save card"
+msgstr "Desa la targeta"
+
+msgid "Help tab content unchanged."
+msgstr "El contingut de la pestanya d'ajuda no ha canviat."
+
+msgid "Maradigma is a platform specialized in managing and marketing boat charters. We help charter companies centralize bookings, availability, and payments in one place."
+msgstr "Maradigma és una plataforma especialitzada en la gestió i comercialització del lloguer d'embarcacions. Ajudem les empreses de lloguer nàutic a centralitzar reserves, disponibilitat i pagaments en un sol lloc."
+
+msgid "What you can do with this plugin"
+msgstr "Què pots fer amb aquest connector"
+
+msgid "Show your boat fleet directly on your WordPress website."
+msgstr "Mostrar la teva flota d'embarcacions directament al teu lloc web de WordPress."
+
+msgid "Allow your customers to send online booking requests."
+msgstr "Permetre que els teus clients enviïn sol·licituds de reserva en línia."
+
+msgid "Keep your website always synced with Maradigma information."
+msgstr "Mantenir el teu web sempre sincronitzat amb la informació de Maradigma."
+
+msgid "Who is it for?"
+msgstr "Per a qui és?"
+
+msgid "Boat charter companies already working with Maradigma."
+msgstr "Empreses de lloguer nàutic que ja treballen amb Maradigma."
+
+msgid "Agencies managing multiple brands or fleets."
+msgstr "Agències que gestionen diverses marques o flotes."
+
+msgid "Projects that need a quick integration without custom development."
+msgstr "Projectes que necessiten una integració ràpida sense desenvolupament a mida."
+
+msgid "Talk to our team"
+msgstr "Parla amb el nostre equip"
+
+msgid "✔ Elementor detected - Widgets enabled"
+msgstr "✔ Elementor detectat - Widgets habilitats"
+
+msgid "⚠ Elementor not detected"
+msgstr "⚠ Elementor no detectat"
+
+
+
+msgid "✔ Yoast SEO detected - SEO integration available"
+msgstr "✔ Yoast SEO detectat - Integració SEO disponible"
+
+msgid "⚠ Yoast SEO not detected"
+msgstr "⚠ Yoast SEO no detectat"
+
+msgid "✔ Polylang detected - Multilang active"
+msgstr "✔ Polylang detectat - Multilingüe actiu"
+
+msgid "⚠ Polylang not detected"
+msgstr "⚠ Polylang no detectat"
+
+msgid "✔ WPML detected - Translations enabled"
+msgstr "✔ WPML detectat - Traduccions habilitades"
+
+msgid "⚠ WPML not detected"
+msgstr "⚠ WPML no detectat"
+
+msgid "Save changes"
+msgstr "Desa els canvis"
+
+msgid "Select a Maradigma boat in this post first."
+msgstr "Selecciona primer una barca de Maradigma en aquesta entrada."
+
+msgid "Unable to load boat data from Maradigma."
+msgstr "No s'han pogut carregar les dades de la barca des de Maradigma."
+
+msgid "Maradigma"
+msgstr "Maradigma"
+
+msgid "Maradigma Boat Additional Services"
+msgstr "Maradigma Serveis addicionals de la barca"
+
+msgid "Content"
+msgstr "Contingut"
+
+msgid "Title"
+msgstr "Títol"
+
+msgid "Additional services"
+msgstr "Serveis addicionals"
+
+msgid "Show title"
+msgstr "Mostra el títol"
+
+msgid "Yes"
+msgstr "Sí"
+
+msgid "No"
+msgstr "No"
+
+msgid "Layout"
+msgstr "Disseny"
+
+msgid "Blocks (list)"
+msgstr "Blocs (llista)"
+
+msgid "Table"
+msgstr "Taula"
+
+msgid "Show table headers"
+msgstr "Mostra els encapçalaments de la taula"
+
+msgid "Group by category"
+msgstr "Agrupa per categoria"
+
+msgid "Show category title"
+msgstr "Mostra el títol de la categoria"
+
+msgid "Show badges"
+msgstr "Mostra les etiquetes"
+
+msgid "Show badge: Required / Optional / Free"
+msgstr "Mostra etiqueta: Obligatori / Opcional / Gratuït"
+
+msgid "Show badge: Per booking / Per day"
+msgstr "Mostra etiqueta: Per reserva / Per dia"
+
+msgid "Show badge: Payment (online/port/office)"
+msgstr "Mostra etiqueta: Pagament (en línia/port/oficina)"
+
+msgid "Badge style"
+msgstr "Estil d'etiquetes"
+
+msgid "Friendly (recommended)"
+msgstr "Amigable (recomanat)"
+
+msgid "Raw (API names)"
+msgstr "Sense processar (noms de l'API)"
+
+msgid "Show description (if provided)"
+msgstr "Mostra la descripció (si existeix)"
+
+msgid "Show quantity (if > 1)"
+msgstr "Mostra la quantitat (si > 1)"
+
+msgid "Price display (source preference)"
+msgstr "Visualització del preu (preferència d'origen)"
+
+msgid "Prefer total (formatted/html)"
+msgstr "Prefereix total (formatat/HTML)"
+
+msgid "Prefer total (formatted)"
+msgstr "Prefereix total (formatat)"
+
+msgid "Prefer base (formatted)"
+msgstr "Prefereix base (formatada)"
+
+msgid "Prefer VAT (formatted)"
+msgstr "Prefereix IVA (formatat)"
+
+msgid "Prefer raw total_price"
+msgstr "Prefereix total_price sense format"
+
+msgid "Prefer raw price"
+msgstr "Prefereix price sense format"
+
+msgid "VAT"
+msgstr "IVA"
+
+msgid "VAT display mode"
+msgstr "Mode de visualització de l'IVA"
+
+msgid "Show \"VAT included\""
+msgstr "Mostra \"IVA inclòs\""
+
+msgid "Show \"+ VAT\""
+msgstr "Mostra \"+ IVA\""
+
+msgid "Hide VAT reference (base price)"
+msgstr "Amaga la referència a l'IVA (preu base)"
+
+msgid "Hide VAT reference (total price)"
+msgstr "Amaga la referència a l'IVA (preu total)"
+
+msgid "VAT text position"
+msgstr "Posició del text de l'IVA"
+
+msgid "Below price (new line)"
+msgstr "Sota el preu (línia nova)"
+
+msgid "Same line (inline)"
+msgstr "A la mateixa línia (inline)"
+
+msgid "Tooltip / info icon"
+msgstr "Tooltip / icona d'informació"
+
+msgid "VAT included text"
+msgstr "Text d'IVA inclòs"
+
+msgid "VAT excluded text"
+msgstr "Text d'IVA no inclòs"
+
+msgid "VAT included"
+msgstr "IVA inclòs"
+
+msgid "+ VAT"
+msgstr "+ IVA"
+
+msgid "Price format"
+msgstr "Format de preu"
+
+msgid "Currency display"
+msgstr "Visualització de la moneda"
+
+msgid "Symbol (€, $, £)"
+msgstr "Símbol (€, $, £)"
+
+msgid "ISO (EUR, USD...)"
+msgstr "ISO (EUR, USD...)"
+
+msgid "Decimals"
+msgstr "Decimals"
+
+msgid "Auto"
+msgstr "Auto"
+
+msgid "0"
+msgstr "0"
+
+msgid "2"
+msgstr "2"
+
+msgid "Thousands separator"
+msgstr "Separador de milers"
+
+msgid "Decimal separator"
+msgstr "Separador decimal"
+
+msgid "No additional services available."
+msgstr "No hi ha serveis addicionals disponibles."
+
+msgid "Other"
+msgstr "Altres"
+
+msgid "Service"
+msgstr "Servei"
+
+msgid "Details"
+msgstr "Detalls"
+
+msgid "Price"
+msgstr "Preu"
+
+msgid "Required"
+msgstr "Obligatori"
+
+msgid "This extra is required for this booking."
+msgstr "Aquest extra és obligatori per a aquesta reserva."
+
+msgid "Optional"
+msgstr "Opcional"
+
+msgid "This extra can be added if you want."
+msgstr "Aquest extra es pot afegir si vols."
+
+msgid "Free"
+msgstr "Gratuït"
+
+msgid "This extra has no additional cost."
+msgstr "Aquest extra no té cap cost addicional."
+
+msgid "This additional service is free."
+msgstr "Aquest servei addicional és gratuït."
+
+msgid "Per booking"
+msgstr "Per reserva"
+
+msgid "Charged once for the whole reservation."
+msgstr "Es cobra una sola vegada per tota la reserva."
+
+msgid "Per day"
+msgstr "Per dia"
+
+msgid "Charged for each day of the reservation."
+msgstr "Es cobra per cada dia de la reserva."
+
+msgid "Pay online"
+msgstr "Paga en línia"
+
+msgid "Payment is made online during booking."
+msgstr "El pagament es fa en línia durant la reserva."
+
+msgid "Pay at the port"
+msgstr "Paga al port"
+
+msgid "Payment is made at the port on the rental day."
+msgstr "El pagament es fa al port el dia del lloguer."
+
+msgid "Pay at the office"
+msgstr "Paga a l'oficina"
+
+msgid "Payment is made at the office."
+msgstr "El pagament es fa a l'oficina."
+
+msgid "Maradigma Boat Book Now"
+msgstr "Maradigma Reserva ara"
+
+msgid "Button text"
+msgstr "Text del botó"
+
+msgid "Book now"
+msgstr "Reserva ara"
+
+msgid "Book"
+msgstr "Reserva"
+
+msgid "From"
+msgstr "Des de"
+
+msgid "Day"
+msgstr "Dia"
+
+msgid "Modal title"
+msgstr "Títol del modal"
+
+msgid "Book this boat"
+msgstr "Reserva aquesta barca"
+
+msgid "Show quote box"
+msgstr "Mostra el pressupost"
+
+msgid "Terms label"
+msgstr "Text dels termes"
+
+msgid "I accept the terms and conditions"
+msgstr "Accepto els termes i condicions"
+
+msgid "Auto open (useful in preview)"
+msgstr "Obertura automàtica (útil en previsualització)"
+
+msgid "API expand (optional)"
+msgstr "API expand (opcional)"
+
+msgid "Maradigma Boat Description"
+msgstr "Maradigma Descripció de la barca"
+
+msgid "Allow basic HTML"
+msgstr "Permet HTML bàsic"
+
+msgid "Max words (0 = unlimited)"
+msgstr "Màxim de paraules (0 = il·limitat)"
+
+msgid "If set, the description will be trimmed."
+msgstr "Si es configura, la descripció es retallarà."
+
+msgid "Description not available."
+msgstr "Descripció no disponible."
+
+msgid "Maradigma Boat Equipments"
+msgstr "Maradigma Equipament de la barca"
+
+msgid "Equipments"
+msgstr "Equipament"
+
+msgid "Show icon"
+msgstr "Mostra la icona"
+
+msgid "Icon text / symbol"
+msgstr "Text / símbol de la icona"
+
+msgid "Example: ✓, ✔, •, →, ★, or any text."
+msgstr "Exemple: ✓, ✔, •, →, ★ o qualsevol text."
+
+msgid "No equipments available."
+msgstr "No hi ha equipament disponible."
+
+msgid "Maradigma Boat Gallery"
+msgstr "Maradigma Galeria de la barca"
+
+msgid "Grid"
+msgstr "Graella"
+
+msgid "Slider"
+msgstr "Carrusel"
+
+msgid "Columns"
+msgstr "Columnes"
+
+msgid "Enable lightbox on click"
+msgstr "Activa el lightbox en fer clic"
+
+msgid "Images available: …"
+msgstr "Imatges disponibles: …"
+
+msgid "Show images from (1-based)"
+msgstr "Mostra les imatges des de (comença a 1)"
+
+msgid "Show images to (0 = last)"
+msgstr "Mostra les imatges fins a (0 = última)"
+
+msgid "Max images (final limit)"
+msgstr "Màxim d'imatges (límit final)"
+
+msgid "Applied after the from/to range."
+msgstr "S'aplica després del rang des de/fins a."
+
+msgid "Prefer image size key"
+msgstr "Prefereix la clau de mida d'imatge"
+
+msgid "Gap (px)"
+msgstr "Separació (px)"
+
+msgid "Image radius (px)"
+msgstr "Radi de la imatge (px)"
+
+msgid "Autoplay"
+msgstr "Reproducció automàtica"
+
+msgid "Autoplay delay (ms)"
+msgstr "Retard de reproducció automàtica (ms)"
+
+msgid "Loop"
+msgstr "Bucle"
+
+msgid "Transition speed (ms)"
+msgstr "Velocitat de transició (ms)"
+
+msgid "Space between slides (px)"
+msgstr "Espai entre diapositives (px)"
+
+msgid "Slides per view (desktop)"
+msgstr "Diapositives per vista (escriptori)"
+
+msgid "Slides per view (tablet)"
+msgstr "Diapositives per vista (tauleta)"
+
+msgid "Slides per view (mobile)"
+msgstr "Diapositives per vista (mòbil)"
+
+msgid "Show arrows"
+msgstr "Mostra les fletxes"
+
+msgid "Show pagination dots"
+msgstr "Mostra els punts de paginació"
+
+msgid "Boat image"
+msgstr "Imatge de la barca"
+
+msgid "Maradigma Boat Included"
+msgstr "Maradigma Inclòs a la barca"
+
+msgid "Included"
+msgstr "Inclòs"
+
+msgid "Show tick icon"
+msgstr "Mostra la icona de check"
+
+msgid "Tick text / icon"
+msgstr "Text / icona del check"
+
+msgid "Example: ✓, ✔, ✅, →, •, or any text."
+msgstr "Exemple: ✓, ✔, ✅, →, • o qualsevol text."
+
+msgid "No included items."
+msgstr "No hi ha elements inclosos."
+
+msgid "Maradigma Boat Not Included"
+msgstr "Maradigma No inclòs a la barca"
+
+msgid "Not included"
+msgstr "No inclòs"
+
+msgid "Show cross icon"
+msgstr "Mostra la icona de creu"
+
+msgid "Cross text / icon"
+msgstr "Text / icona de la creu"
+
+msgid "Example: ✕, ✖, ❌, ×, —, •, or any text."
+msgstr "Exemple: ✕, ✖, ❌, ×, —, • o qualsevol text."
+
+msgid "No \"not included\" items."
+msgstr "No hi ha elements \"no inclosos\"."
+
+msgid "Maradigma Boat PDF Download"
+msgstr "Maradigma Baixa el PDF de la barca"
+
+msgid "Button text"
+msgstr "Text del botó"
+
+msgid "Download PDF"
+msgstr "Baixa el PDF"
+
+msgid "Open in new tab"
+msgstr "Obre en una pestanya nova"
+
+msgid "Force download (download attribute)"
+msgstr "Força la baixada (atribut download)"
+
+msgid "PDF URL keys (comma separated)"
+msgstr "Claus d'URL del PDF (separades per comes)"
+
+msgid "Widget will try these keys in order. Supports nested arrays like [{\"url\":\"...\"}] or [{\"download_link\":\"...\"}]."
+msgstr "El widget provarà aquestes claus en ordre. Admet arrays niats com [{\"url\":\"...\"}] o [{\"download_link\":\"...\"}]."
+
+msgid "API expand (optional)"
+msgstr "Expand de l'API (opcional)"
+
+msgid "If the PDF is only present with a specific expand, set it here."
+msgstr "Si el PDF només és present amb un expand específic, configura'l aquí."
+
+msgid "Maradigma Boat Prices"
+msgstr "Maradigma Preus de la barca"
+
+msgid "Content"
+msgstr "Contingut"
+
+msgid "Title"
+msgstr "Títol"
+
+msgid "Prices"
+msgstr "Preus"
+
+msgid "Show title"
+msgstr "Mostra el títol"
+
+msgid "Yes"
+msgstr "Sí"
+
+msgid "No"
+msgstr "No"
+
+msgid "Season range display"
+msgstr "Format del rang de temporada"
+
+msgid "Month / Months"
+msgstr "Mes / Mesos"
+
+msgid "Dates (short)"
+msgstr "Dates (curt)"
+
+msgid "Dates (long)"
+msgstr "Dates (llarg)"
+
+msgid "Layout"
+msgstr "Disseny"
+
+msgid "Table (vertical)"
+msgstr "Taula (vertical)"
+
+msgid "Blocks (horizontal)"
+msgstr "Blocs (horitzontal)"
+
+msgid "Order by"
+msgstr "Ordena per"
+
+msgid "Start date (ASC)"
+msgstr "Data d'inici (ASC)"
+
+msgid "Start date (DESC)"
+msgstr "Data d'inici (DESC)"
+
+msgid "Price (ASC)"
+msgstr "Preu (ASC)"
+
+msgid "Price (DESC)"
+msgstr "Preu (DESC)"
+
+msgid "Empty text"
+msgstr "Text buit"
+
+msgid "Prices not available."
+msgstr "Preus no disponibles."
+
+msgid "VAT"
+msgstr "IVA"
+
+msgid "VAT display mode"
+msgstr "Mode de visualització de l'IVA"
+
+msgid "Show \"VAT included\""
+msgstr "Mostra \"IVA inclòs\""
+
+msgid "Show \"+ VAT\""
+msgstr "Mostra \"+ IVA\""
+
+msgid "Hide VAT reference (base price)"
+msgstr "Amaga la referència a l'IVA (preu base)"
+
+msgid "Hide VAT reference (total price)"
+msgstr "Amaga la referència a l'IVA (preu total)"
+
+msgid "VAT text position"
+msgstr "Posició del text de l'IVA"
+
+msgid "Below price (new line)"
+msgstr "Sota el preu (línia nova)"
+
+msgid "Same line (inline)"
+msgstr "A la mateixa línia (inline)"
+
+msgid "Tooltip / info icon"
+msgstr "Tooltip / icona d'informació"
+
+msgid "VAT included text"
+msgstr "Text d'IVA inclòs"
+
+msgid "VAT included"
+msgstr "IVA inclòs"
+
+msgid "VAT excluded text"
+msgstr "Text d'IVA exclòs"
+
+msgid "+ VAT"
+msgstr "+ IVA"
+
+msgid "Price format"
+msgstr "Format de preu"
+
+msgid "Currency display"
+msgstr "Visualització de la moneda"
+
+msgid "Symbol (€, $, £)"
+msgstr "Símbol (€, $, £)"
+
+msgid "ISO (EUR, USD...)"
+msgstr "ISO (EUR, USD...)"
+
+msgid "Decimals"
+msgstr "Decimals"
+
+msgid "Auto"
+msgstr "Auto"
+
+msgid "0"
+msgstr "0"
+
+msgid "2"
+msgstr "2"
+
+msgid "Thousands separator"
+msgstr "Separador de milers"
+
+msgid "Decimal separator"
+msgstr "Separador decimal"
+
+msgid "Style"
+msgstr "Estil"
+
+msgid "Row gap (px)"
+msgstr "Separació entre files (px)"
+
+msgid "Show table headers"
+msgstr "Mostra els encapçalaments de la taula"
+
+msgid "Base price"
+msgstr "Preu base"
+
+msgid "Week"
+msgstr "Setmana"
+
+msgid "Hour"
+msgstr "Hora"
+
+msgid "Season"
+msgstr "Temporada"
+
+msgid "Price"
+msgstr "Preu"
+
+msgid "Maradigma Boat Specs"
+msgstr "Maradigma Especificacions de l'embarcació"
+
+msgid "Content"
+msgstr "Contingut"
+
+msgid "Layout"
+msgstr "Disseny"
+
+msgid "Two columns"
+msgstr "Dues columnes"
+
+msgid "List"
+msgstr "Llista"
+
+msgid "Show labels"
+msgstr "Mostra les etiquetes"
+
+msgid "Yes"
+msgstr "Sí"
+
+msgid "No"
+msgstr "No"
+
+msgid "Field"
+msgstr "Camp"
+
+msgid "Custom key"
+msgstr "Clau personalitzada"
+
+msgid "Label"
+msgstr "Etiqueta"
+
+msgid "e.g. Length"
+msgstr "p. ex. Eslora"
+
+msgid "Format"
+msgstr "Format"
+
+msgid "Text"
+msgstr "Text"
+
+msgid "Integer"
+msgstr "Enter"
+
+msgid "Meters (add \"m\")"
+msgstr "Metres (afegir \"m\")"
+
+msgid "Boolean (Yes/No)"
+msgstr "Booleà (Sí/No)"
+
+msgid "Prefix"
+msgstr "Prefix"
+
+msgid "e.g. ~"
+msgstr "p. ex. ~"
+
+msgid "Suffix"
+msgstr "Sufix"
+
+msgid "e.g. L/H"
+msgstr "p. ex. L/H"
+
+msgid "Fallback (if empty)"
+msgstr "Fallback (si és buit)"
+
+msgid "e.g. -"
+msgstr "p. ex. -"
+
+msgid "Specs to show"
+msgstr "Especificacions a mostrar"
+
+msgid "No specs configured."
+msgstr "No hi ha especificacions configurades."
+
+msgid "Specs not available."
+msgstr "Especificacions no disponibles."
+
+msgid "Boat type"
+msgstr "Tipus d'embarcació"
+
+msgid "Builder"
+msgstr "Astiller"
+
+msgid "Model"
+msgstr "Model"
+
+msgid "Alias"
+msgstr "Àlies"
+
+msgid "Capacity (guests)"
+msgstr "Capacitat (passatgers)"
+
+msgid "Crew capacity"
+msgstr "Capacitat de tripulació"
+
+msgid "Sleeps"
+msgstr "Places per dormir"
+
+msgid "Cabins"
+msgstr "Camarots"
+
+msgid "cabins"
+msgstr "camarots"
+
+msgid "Length"
+msgstr "Eslora"
+
+msgid "Beam"
+msgstr "Mànega"
+
+msgid "Fuel consumption"
+msgstr "Consum de combustible"
+
+msgid "Engines"
+msgstr "Motors"
+
+msgid "Base port"
+msgstr "Port base"
+
+msgid "Year"
+msgstr "Any"
+
+msgid "Refit year"
+msgstr "Any de refit"
+
+msgid "Deposit"
+msgstr "Fiança"
+
+msgid "Deposit with skipper"
+msgstr "Fiança amb patró"
+
+msgid "Deposit without skipper"
+msgstr "Fiança sense patró"
+
+msgid "Custom key…"
+msgstr "Clau personalitzada…"
+
+msgid "Type"
+msgstr "Tipus"
+
+msgid "Capacity"
+msgstr "Capacitat"
+
+msgid "Crew"
+msgstr "Tripulació"
+
+msgid "Refit"
+msgstr "Refit"
+
+msgid "Maradigma Boat Title"
+msgstr "Maradigma Títol de l'embarcació"
+
+msgid "Content"
+msgstr "Contingut"
+
+msgid "HTML Tag"
+msgstr "Etiqueta HTML"
+
+msgid "Show boat ID suffix"
+msgstr "Mostra el sufix amb l'ID de l'embarcació"
+
+msgid "Yes"
+msgstr "Sí"
+
+msgid "No"
+msgstr "No"
+
+msgid "Maradigma - Boats Archive (Interactive)"
+msgstr "Maradigma - Arxiu d'embarcacions (Interactiu)"
+
+msgid "Interactive Listing"
+msgstr "Llistat interactiu"
+
+msgid "Default (plugin setting)"
+msgstr "Per defecte (configuració del connector)"
+
+msgid "Boat card template (card)"
+msgstr "Plantilla de targeta d'embarcació (card)"
+
+msgid "Items per page"
+msgstr "Elements per pàgina"
+
+msgid "Show text search"
+msgstr "Mostra la cerca per text"
+
+msgid "Show basic filters (capacity, featured, instant)"
+msgstr "Mostra filtres bàsics (capacitat, destacat, reserva instantània)"
+
+msgid "Show pagination"
+msgstr "Mostra la paginació"
+
+msgid "Search boats…"
+msgstr "Cerca embarcacions…"
+
+msgid "Min pax"
+msgstr "PAX mín."
+
+msgid "Featured"
+msgstr "Destacat"
+
+msgid "Instant booking"
+msgstr "Reserva instantània"
+
+msgid "Relevance"
+msgstr "Rellevància"
+
+msgid "Price: low to high"
+msgstr "Preu: de menor a major"
+
+msgid "Price: high to low"
+msgstr "Preu: de major a menor"
+
+msgid "Length: low to high"
+msgstr "Eslora: de menor a major"
+
+msgid "Length: high to low"
+msgstr "Eslora: de major a menor"
+
+msgid "Featured first"
+msgstr "Destacats primer"
+
+msgid "Newest first"
+msgstr "Més recents primer"
+
+msgid "Apply"
+msgstr "Aplica"
+
+msgid "Reset"
+msgstr "Restableix"
+
+msgid "No results found."
+msgstr "No s'han trobat resultats."
+
+msgid "Yes"
+msgstr "Sí"
+
+msgid "No"
+msgstr "No"
+
+msgid "More filters"
+msgstr "Més filtres"
+
+msgid "More filters"
+msgstr "Més filtres"
+
+msgid "Search"
+msgstr "Cerca"
+
+msgid "Min pax"
+msgstr "PAX mín."
+
+msgid "Order by"
+msgstr "Ordena per"
+
+msgid "Relevance"
+msgstr "Rellevància"
+
+msgid "Price: low to high"
+msgstr "Preu: de menor a major"
+
+msgid "Price: high to low"
+msgstr "Preu: de major a menor"
+
+msgid "Length: low to high"
+msgstr "Eslora: de menor a major"
+
+msgid "Length: high to low"
+msgstr "Eslora: de major a menor"
+
+msgid "Featured first"
+msgstr "Destacats primer"
+
+msgid "Newest first"
+msgstr "Més recents primer"
+
+msgid "Price range"
+msgstr "Rang de preus"
+
+msgid "Min price"
+msgstr "Preu mínim"
+
+msgid "Max price"
+msgstr "Preu màxim"
+
+msgid "Featured only"
+msgstr "Només destacats"
+
+msgid "Instant booking"
+msgstr "Reserva instantània"
+
+msgid "Boat type"
+msgstr "Tipus d'embarcació"
+
+msgid "Any"
+msgstr "Qualsevol"
+
+msgid "Builders"
+msgstr "Astillers"
+
+msgid "Tags"
+msgstr "Etiquetes"
+
+msgid "Specific boats (CSV)"
+msgstr "Embarcacions específiques (CSV)"
+
+msgid "Dates"
+msgstr "Dates"
+
+msgid "Date start"
+msgstr "Data d'inici"
+
+msgid "Date end"
+msgstr "Data de fi"
+
+msgid "Apply filters"
+msgstr "Aplica els filtres"
+
+msgid "Reset"
+msgstr "Restableix"
+
+msgid "Close"
+msgstr "Tanca"
+
+msgid "No boats found."
+msgstr "No s'han trobat embarcacions."
+
+msgid "Boat not found."
+msgstr "No s'ha trobat l'embarcació."
+
+msgid "Missing boat id/slug."
+msgstr "Falta l'ID/slug de l'embarcació."
+
+msgid "Book now"
+msgstr "Reserva ara"
+
+msgid "Booking details"
+msgstr "Detalls de la reserva"
+
+msgid "Reservation"
+msgstr "Reserva"
+
+msgid "Identification"
+msgstr "Identificació"
+
+msgid "Payment"
+msgstr "Pagament"
+
+msgid "Finish"
+msgstr "Finalitza"
+
+msgid "Back"
+msgstr "Enrere"
+
+msgid "Cancel"
+msgstr "Cancel·la"
+
+msgid "Continue"
+msgstr "Continua"
+
+msgid "from"
+msgstr "des de"
+
+msgid "Mandatory skipper"
+msgstr "Patró obligatori"
+
+msgid "Dates"
+msgstr "Dates"
+
+msgid "Full day charter"
+msgstr "Lloguer de dia complet"
+
+msgid "Select full day if you want the boat for the entire day. Otherwise, choose a half-day schedule."
+msgstr "Selecciona dia complet si vols el vaixell durant tot el dia. En cas contrari, tria un horari de mig dia."
+
+msgid "Select a schedule"
+msgstr "Selecciona un horari"
+
+msgid "Including children onboard"
+msgstr "Incloent nens a bord"
+
+msgid "Optional message"
+msgstr "Missatge opcional"
+
+msgid "You can specify your project (schedule, program, particular needs)"
+msgstr "Pots especificar el teu projecte (horari, programa, necessitats particulars)"
+
+msgid "Write your message (optional)…"
+msgstr "Escriu el teu missatge (opcional)…"
+
+msgid "Skipper"
+msgstr "Patró"
+
+msgid "Fuel not included"
+msgstr "Combustible no inclòs"
+
+msgid "Amount of the security deposit"
+msgstr "Import del dipòsit de seguretat"
+
+msgid "Have a promo code?"
+msgstr "Tens un codi promocional?"
+
+msgid "Enter coupon"
+msgstr "Introdueix el cupó"
+
+msgid "To be paid on the spot"
+msgstr "A pagar al lloc"
+
+msgid "To be paid online"
+msgstr "A pagar en línia"
+
+msgid "Mandatory"
+msgstr "Obligatori"
+
+msgid "Available"
+msgstr "Disponible"
+
+msgid "Booked"
+msgstr "Reservat"
+
+msgid "Learn more"
+msgstr "Més informació"
+
+msgid "Country"
+msgstr "País"
+
+msgid "I have read and agree to the reservation terms and conditions"
+msgstr "He llegit i accepto els termes i condicions de la reserva"
+
+msgid "Select a payment method"
+msgstr "Selecciona un mètode de pagament"
+
+msgid "Prepayment"
+msgstr "Pagament per avançat"
+
+msgid "Option"
+msgstr "Opció"
+
+msgid "From %start% to %end%"
+msgstr "De %start% a %end%"
+
+msgid "Total booking + extras"
+msgstr "Total de la reserva + extres"
+
+msgid "Fuel cost may be charged before or after boarding."
+msgstr "El cost del combustible es pot cobrar abans o després de l'embarcament."
+
+msgid "passenger"
+msgstr "passatger"
+
+msgid "passengers"
+msgstr "passatgers"
+
+msgid "I have read and agree to the"
+msgstr "He llegit i accepto els"
+
+msgid "reservation terms and conditions"
+msgstr "termes i condicions de la reserva"
+
+msgid "Please select a schedule."
+msgstr "Si us plau, selecciona un horari."
+
+msgid "Full day is not available for this date."
+msgstr "El dia complet no està disponible per a aquesta data."
+
+msgid "Price calculation error"
+msgstr "Error en el càlcul del preu"
+
+msgid "Booking error"
+msgstr "Error en la reserva"
+
+msgid "Invalid phone number"
+msgstr "Número de telèfon no vàlid"
+
+msgid "Shop cart not found."
+msgstr "No s'ha trobat el carret."
+
+msgid "Payment completed. Finalizing reservation…"
+msgstr "Pagament completat. Finalitzant la reserva…"
+
+msgid "Payment was cancelled or failed. You can try again."
+msgstr "El pagament s'ha cancel·lat o ha fallat. Ho pots tornar a provar."
+
+msgid "Payment not completed yet. If you already paid, refresh in a moment."
+msgstr "El pagament encara no s'ha completat. Si ja has pagat, actualitza d'aquí a un moment."
+
+msgid "Select country"
+msgstr "Selecciona un país"
+
+msgid "Select a schedule…"
+msgstr "Selecciona un horari…"
+
+msgid "Email *"
+msgstr "Correu electrònic *"
+
+msgid "Card"
+msgstr "Targeta"
+
+msgid "Ready to continue"
+msgstr "Preparat per continuar"
+
+msgid "Click Continue to create the booking and go to payment."
+msgstr "Fes clic a Continua per crear la reserva i anar al pagament."
+
+msgid "Extras"
+msgstr "Extres"
+
+msgid "Included"
+msgstr "Inclòs"
+
+msgid "Choose the number of children"
+msgstr "Tria el nombre de nens"
+
+msgid "Would you like a professional skipper on board?"
+msgstr "T'agradaria tenir un patró professional a bord?"
+
+msgid "Recommended for a stress-free trip, especially if you're not fully familiar with the area or docking."
+msgstr "Recomanat per a un viatge sense estrès, especialment si no estàs del tot familiaritzat amb la zona o amb l'atracament."
+
+msgid "Select dates"
+msgstr "Selecciona les dates"
+
+msgid "Fuel included"
+msgstr "Combustible inclòs"
+
+msgid "Fuel is already included in the rental price, so you won’t need to pay it separately."
+msgstr "El combustible ja està inclòs en el preu del lloguer, així que no l'hauràs de pagar per separat."
+
+msgid "Yes (recommended)"
+msgstr "Sí (recomanat)"
+
+msgid "Reservation terms"
+msgstr "Termes de la reserva"
+
+msgid "Cancellation policy depends on the selected service and dates."
+msgstr "La política de cancel·lació depèn del servei i de les dates seleccionades."
+
+msgid "Payment is required to confirm the reservation."
+msgstr "Cal fer el pagament per confirmar la reserva."
+
+msgid "Any additional services selected will be added to the total."
+msgstr "Qualsevol servei addicional seleccionat s'afegirà al total."
+
+msgid "If you have any questions, please contact support."
+msgstr "Si tens qualsevol pregunta, posa't en contacte amb suport."
+
+msgid "Choose your preferred half-day schedule for this day charter."
+msgstr "Tria el teu horari preferit de mig dia per a aquest lloguer de dia."
+
+msgid "Management fee"
+msgstr "Despeses de gestió"
+
+msgid "Applied to the online booking payment"
+msgstr "Aplicat al pagament en línia de la reserva"
+
+msgid "Total charged online"
+msgstr "Total cobrat en línia"
+
+msgid "This price already includes an online booking fee of %price%"
+msgstr "Aquest preu ja inclou unes despeses de reserva en línia de %price%"
+
+msgid "Sort by"
+msgstr "Ordenar per"
+
+msgid "Specific boats"
+msgstr "Vaixells específics"
+
+msgid "Reservation confirmed"
+msgstr "Reserva confirmada"
+
+msgid "Your payment has been confirmed and your booking has been created successfully."
+msgstr "El teu pagament ha estat confirmat i la teva reserva s'ha creat correctament."
+
+msgid "Booking summary"
+msgstr "Resum de la reserva"
+
+msgid "Booking reference"
+msgstr "Referència de la reserva"
+
+msgid "Service"
+msgstr "Servei"
+
+msgid "Location"
+msgstr "Ubicació"
+
+msgid "Date"
+msgstr "Data"
+
+msgid "Customer"
+msgstr "Client"
+
+msgid "Payment summary"
+msgstr "Resum del pagament"
+
+msgid "Payment reference"
+msgstr "Referència del pagament"
+
+msgid "Amount paid"
+msgstr "Import pagat"
+
+msgid "Contact details"
+msgstr "Dades de contacte"
+
+msgid "Email"
+msgstr "Correu electrònic"
+
+msgid "Booking details"
+msgstr "Detalls de la reserva"
+
+msgid "View booking details"
+msgstr "Veure els detalls de la reserva"
+
+msgid "View details"
+msgstr "Veure detalls"
+
+msgid "Close"
+msgstr "Tancar"
+
+msgid "Payment completed successfully."
+msgstr "Pagament completat correctament."
+
+msgid "Price details"
+msgstr "Detalls del preu"
+
+msgid "Rental price"
+msgstr "Preu del lloguer"
+
+msgid "Service fee"
+msgstr "Tarifa de servei"
+
+msgid "Taxable amount"
+msgstr "Import imposable"
+
+msgid "VAT included"
+msgstr "IVA inclòs"
+
+msgid "Pay now"
+msgstr "Paga ara"
+
+msgid "This is the amount you will pay online now."
+msgstr "Aquest és l'import que pagaràs en línia ara."
+
+msgid "Pay at the port"
+msgstr "Paga al port"
+
+msgid "This is the amount to be paid at the port on the charter day."
+msgstr "Aquest és l'import que s'ha de pagar al port el dia del lloguer."
+
+msgid "Add a promotional code"
+msgstr "Afegeix un codi promocional"
+
+msgid "Confirm and pay"
+msgstr "Confirma i paga"
+
+msgid "By selecting the following button, you unconditionally accept the Terms of Use and Rental Terms. You also agree to pay the total amount of the reservation."
+msgstr "En seleccionar el botó següent, acceptes incondicionalment els Termes d'Ús i les Condicions de Lloguer. També acceptes pagar l'import total de la reserva."
+
+msgid "Read terms"
+msgstr "Llegir les condicions"
+
+msgid "Credit Card"
+msgstr "Targeta de crèdit"
+
+msgid "applied to the amount you will pay now"
+msgstr "aplicat sobre l’import que pagaràs ara"
+
+msgid "View payment breakdown"
+msgstr "Veure desglossament del pagament"
+
+msgid "View pending breakdown"
+msgstr "Veure desglossament pendent"
+
+msgid "Subtotal to pay now"
+msgstr "Subtotal a pagar ara"
+
+msgid "Total to pay now"
+msgstr "Total a pagar ara"
+
+msgid "Total pending"
+msgstr "Total pendent"
+
+msgid "Boats"
+msgstr "Embarcacions"
+
+msgid "Boat"
+msgstr "Embarcacio"
+
+msgid "Add new boat"
+msgstr "Afegeix una embarcacio nova"
+
+msgid "Edit boat"
+msgstr "Edita l'embarcacio"
+
+msgid "New boat"
+msgstr "Nova embarcacio"
+
+msgid "View boat"
+msgstr "Visualitza l'embarcacio"
+
+msgid "Search boats"
+msgstr "Cerca embarcacions"
+
+msgid "No boats found"
+msgstr "No s'han trobat embarcacions"
+
+msgid "No boats found in trash"
+msgstr "No s'han trobat embarcacions a la paperera"
+
+msgid "All boats"
+msgstr "Totes les embarcacions"
+
+msgid "Configuration panel"
+msgstr "Tauler de configuracio"
+
+msgid "See more about Maradigma"
+msgstr "Veure mes sobre Maradigma"
+
+msgid "Settings saved successfully."
+msgstr "Configuració desada correctament."
+
+msgid "Could not open the Gutenberg master template."
+msgstr "No s’ha pogut obrir la plantilla mestra de Gutenberg."
+
+msgid "Template sync started. It will continue in batches via WP-Cron."
+msgstr "La sincronització de plantilles ha començat. Continuarà per lots mitjançant WP-Cron."
+
+msgid "Template sync stopped."
+msgstr "Sincronització de plantilles aturada."
+
+msgid "Maintenance tools"
+msgstr "Eines de manteniment"
+
+msgid "Use these actions only when cached data looks outdated or when you need to rebuild generated boat pages."
+msgstr "Fes servir aquestes accions nomes quan les dades de la memoria cau semblin desactualitzades o quan necessitis reconstruir les pagines d'embarcacions generades."
+
+msgid "Available boats"
+msgstr "Vaixells disponibles"
+
+msgid "Sync failed:"
+msgstr "La sincronització ha fallat:"
+
+msgid "Sync is disabled. Enable “Boat pages sync (opt-in)” and save changes first."
+msgstr "La sincronització està desactivada. Activa “Sincronització de pàgines de vaixells (opcional)” i desa els canvis primer."
+
+msgid "All boat pages were deleted. You can sync again from scratch."
+msgstr "S’han eliminat totes les pàgines de vaixells. Pots tornar a sincronitzar des de zero."
+
+msgid "Could not delete boat pages. Check logs."
+msgstr "No s’han pogut eliminar les pàgines de vaixells. Revisa els registres."
+
+msgid "Log file not found."
+msgstr "No s’ha trobat el fitxer de registre."
+
+msgid "Log cleared successfully."
+msgstr "Registre netejat correctament."
+
+msgid "Could not clear the log file."
+msgstr "No s’ha pogut netejar el fitxer de registre."
+
+msgid "Boat images sync started successfully."
+msgstr "La sincronització d’imatges de vaixells ha començat correctament."
+
+msgid "Boat images sync stopped."
+msgstr "Sincronització d’imatges de vaixells aturada."
+
+msgid "Boat images cache reset successfully."
+msgstr "Memòria cau d’imatges de vaixells restablerta correctament."
+
+msgid "Boat images cache was reset and sync started again."
+msgstr "S’ha restablert la memòria cau d’imatges de vaixells i la sincronització ha començat de nou."
+
+msgid "Boat images sync is disabled. Enable local image storage first."
+msgstr "La sincronització d’imatges de vaixells està desactivada. Activa primer l’emmagatzematge local d’imatges."
+
+msgid "Gutenberg master template restored to plugin defaults."
+msgstr "La plantilla mestra de Gutenberg s’ha restaurat als valors per defecte del plugin."
+
+msgid "Could not restore the Gutenberg master template."
+msgstr "No s’ha pogut restaurar la plantilla mestra de Gutenberg."
+
+msgid "Boat details"
+msgstr "Detalls del vaixell"
+
+msgid "pers."
+msgstr "pers."
+
+msgid "Maradigma logo"
+msgstr "Maradigma logo"
+
+msgid "SEO"
+msgstr "SEO"
+
+msgid "Advanced settings"
+msgstr "Configuració avançada"
+
+msgid "Configuration sections"
+msgstr "Seccions de configuració"
+
+msgid "Step 1"
+msgstr "Pas 1"
+
+msgid "Connection"
+msgstr "Connexió"
+
+msgid "API credentials, local media and generated boat pages."
+msgstr "Credencials de l’API, mitjans locals i pàgines de vaixells generades."
+
+msgid "Step 2"
+msgstr "Pas 2"
+
+msgid "Boats sync"
+msgstr "Sincronització de vaixells"
+
+msgid "Create/update boat pages, images and cache tools."
+msgstr "Crea/actualitza pàgines de vaixells, imatges i eines de memòria cau."
+
+msgid "Step 3"
+msgstr "Pas 3"
+
+msgid "Templates"
+msgstr "Plantilles"
+
+msgid "Manage Elementor or Gutenberg master layouts."
+msgstr "Gestiona els dissenys mestres d’Elementor o Gutenberg."
+
+msgid "Status"
+msgstr "Estat"
+
+msgid "Compatibility"
+msgstr "Compatibilitat"
+
+msgid "Detected builders, SEO and multilingual integrations."
+msgstr "Constructors, SEO i integracions multilingües detectats."
+
+msgid "Store boat images in WordPress"
+msgstr "Desa les imatges dels vaixells a WordPress"
+
+msgid "Download and serve boat images from this WordPress Media Library"
+msgstr "Descarrega i serveix les imatges dels vaixells des d’aquesta mediateca de WordPress"
+
+msgid "Recommended ON. This avoids hotlinking Maradigma images and improves privacy/performance. Use the sync tool below to fetch/update images in batches."
+msgstr "Recomanat activat. Evita l’enllaç directe a imatges de Maradigma i millora la privadesa/rendiment. Usa l’eina de sincronització inferior per obtenir/actualitzar imatges per lots."
+
+msgid "Boat pages sync (opt-in)"
+msgstr "Sincronització de pàgines de vaixells (opcional)"
+
+msgid "Allow Maradigma to create/update one public page per boat"
+msgstr "Permet que Maradigma creï/actualitzi una pàgina pública per vaixell"
+
+msgid "Recommended OFF by default. Enable only if you want the plugin to generate and keep updated a public WordPress page for each boat."
+msgstr "Recomanat desactivat per defecte. Activa-ho només si vols que el plugin generi i mantingui actualitzada una pàgina pública de WordPress per a cada vaixell."
+
+msgid "Boat page builder"
+msgstr "Constructor de pàgines de vaixells"
+
+msgid "Elementor"
+msgstr "Elementor"
+
+msgid "Use the Elementor master template for generated boat pages. Gutenberg template sync will be disabled."
+msgstr "Usa la plantilla mestra d’Elementor per a les pàgines de vaixells generades. La sincronització de plantilles Gutenberg es desactivarà."
+
+msgid "Gutenberg"
+msgstr "Gutenberg"
+
+msgid "Use the editable Gutenberg master template for generated boat pages. Elementor template sync will be disabled."
+msgstr "Usa la plantilla mestra editable de Gutenberg per a les pàgines de vaixells generades. La sincronització de plantilles Elementor es desactivarà."
+
+msgid "Boat binding metabox"
+msgstr "Metabox de vinculació de vaixell"
+
+msgid "Choose in which post types the Maradigma boat selector should appear. This is intended for custom pages/posts created by the client, not for the internal Maradigma boat CPT."
+msgstr "Tria en quins tipus de contingut ha d’aparèixer el selector de vaixells de Maradigma. Està pensat per a pàgines/entrades personalitzades creades pel client, no per al CPT intern de vaixells de Maradigma."
+
+msgid "No eligible public post types were detected."
+msgstr "No s’han detectat tipus de contingut públics compatibles."
+
+msgid "Use these tools after the connection is ready. They keep boat pages, images and cached data aligned with your Maradigma account."
+msgstr "Usa aquestes eines quan la connexió estigui preparada. Mantenen les pàgines de vaixells, imatges i dades en memòria cau alineades amb el teu compte de Maradigma."
+
+msgid "Boats synced:"
+msgstr "Vaixells sincronitzats:"
+
+msgid "Pages touched:"
+msgstr "Pàgines modificades:"
+
+msgid "Created:"
+msgstr "Creades:"
+
+msgid "Updated:"
+msgstr "Actualitzades:"
+
+msgid "Pages per language:"
+msgstr "Pàgines per idioma:"
+
+msgid "Sync options"
+msgstr "Opcions de sincronització"
+
+msgid "Update post title & slug"
+msgstr "Actualitza el títol i l’àlies de l’entrada"
+
+msgid "Update payload (cached boat data)"
+msgstr "Actualitza el payload (dades del vaixell en memòria cau)"
+
+msgid "Sync images (download/attach)"
+msgstr "Sincronitza imatges (descarrega/adjunta)"
+
+msgid "Yoast SEO"
+msgstr "Yoast SEO"
+
+msgid "Fix multi-language values (recommended)"
+msgstr "Corregeix els valors multiidioma (recomanat)"
+
+msgid "Only if missing"
+msgstr "Només si falta"
+
+msgid "Do not touch"
+msgstr "No modificar"
+
+msgid "Force overwrite (danger)"
+msgstr "Força la sobreescriptura (perill)"
+
+msgid "Gutenberg template"
+msgstr "Plantilla Gutenberg"
+
+msgid "Seed only if content is empty"
+msgstr "Inicialitza només si el contingut és buit"
+
+msgid "Overwrite managed Gutenberg layouts only"
+msgstr "Sobreescriu només els dissenys Gutenberg gestionats"
+
+msgid "Do not touch Gutenberg content"
+msgstr "No modifiquis el contingut de Gutenberg"
+
+msgid "Elementor template"
+msgstr "Plantilla Elementor"
+
+msgid "Seed only if missing"
+msgstr "Inicialitza només si falta"
+
+msgid "Overwrite non-custom Elementor layouts"
+msgstr "Sobreescriu els dissenys Elementor no personalitzats"
+
+msgid "Do not touch Elementor data"
+msgstr "No modifiquis les dades d’Elementor"
+
+msgid "Boat images (Media Library)"
+msgstr "Imatges de vaixells (mediateca)"
+
+msgid "Cached boats:"
+msgstr "Vaixells en memòria cau:"
+
+msgid "Cached images:"
+msgstr "Imatges en memòria cau:"
+
+msgid "Sync status:"
+msgstr "Estat de sincronització:"
+
+msgid "Progress:"
+msgstr "Progrés:"
+
+msgid "Current boat:"
+msgstr "Vaixell actual:"
+
+msgid "Current boat images:"
+msgstr "Imatges del vaixell actual:"
+
+msgid "This run:"
+msgstr "Aquesta execució:"
+
+msgid "Force re-download (use only if needed)"
+msgstr "Força la nova descàrrega (usa-ho només si cal)"
+
+msgid "Resume / Keep syncing"
+msgstr "Reprèn / continua sincronitzant"
+
+msgid "Sync images now"
+msgstr "Sincronitza imatges ara"
+
+msgid "Stop"
+msgstr "Atura"
+
+msgid "This will DELETE all cached Maradigma images from the Media Library and rebuild them. Continue?"
+msgstr "Això ELIMINARÀ totes les imatges de Maradigma en memòria cau de la mediateca i les reconstruirà. Vols continuar?"
+
+msgid "Reset and start syncing again"
+msgstr "Restableix i torna a iniciar la sincronització"
+
+msgid "Reset images cache (nuclear)"
+msgstr "Restableix la memòria cau d’imatges (nuclear)"
+
+msgid "This runs in small batches to avoid timeouts. You can close this page; it will continue via WP-Cron."
+msgstr "S’executa en lots petits per evitar temps d’espera. Pots tancar aquesta pàgina; continuarà mitjançant WP-Cron."
+
+msgid "This will DELETE all boat pages created by Maradigma (all languages). Continue?"
+msgstr "Això ELIMINARÀ totes les pàgines de vaixells creades per Maradigma (tots els idiomes). Vols continuar?"
+
+msgid "Delete permanently (skip trash)"
+msgstr "Elimina permanentment (salta la paperera)"
+
+msgid "Reset boats (delete all boat pages)"
+msgstr "Restableix vaixells (elimina totes les pàgines de vaixells)"
+
+msgid "Deletes ALL maradigma_boat posts (including translations). Useful to start sync from scratch."
+msgstr "Elimina TOTES les entrades maradigma_boat (incloses les traduccions). Útil per començar la sincronització des de zero."
+
+msgid "%s template status (boats)"
+msgstr "Estat de la plantilla %s (vaixells)"
+
+msgid "Master template ID:"
+msgstr "ID de la plantilla mestra:"
+
+msgid "Not synced boats:"
+msgstr "Vaixells no sincronitzats:"
+
+msgid "Custom layout boats:"
+msgstr "Vaixells amb disseny personalitzat:"
+
+msgid "Total boats:"
+msgstr "Total de vaixells:"
+
+msgid "Note: %d boats have no Gutenberg content yet."
+msgstr "Nota: %d vaixells encara no tenen contingut Gutenberg."
+
+msgid "Note: %d boats have no Elementor data yet (_elementor_data empty)."
+msgstr "Nota: %d vaixells encara no tenen dades d’Elementor (_elementor_data buit)."
+
+msgid "Edit Gutenberg boat template"
+msgstr "Edita la plantilla de vaixell Gutenberg"
+
+msgid "Open directly"
+msgstr "Obre directament"
+
+msgid "This will replace the editable Gutenberg master template with the plugin default layout. Boat pages are not changed until you apply the template to all boats. Continue?"
+msgstr "Això reemplaçarà la plantilla mestra editable de Gutenberg pel disseny per defecte del plugin. Les pàgines de vaixells no canviaran fins que apliquis la plantilla a tots els vaixells. Vols continuar?"
+
+msgid "Restore default Gutenberg template"
+msgstr "Restaura la plantilla Gutenberg per defecte"
+
+msgid "Edit the master template in Gutenberg, or restore it to the plugin default layout. Restoring the master template does not update existing boat pages until you apply the template below."
+msgstr "Edita la plantilla mestra a Gutenberg o restaura-la al disseny per defecte del plugin. Restaurar la plantilla mestra no actualitza les pàgines de vaixells existents fins que apliquis la plantilla més avall."
+
+msgid "Edit master template in %s"
+msgstr "Edita la plantilla mestra a %s"
+
+msgid "Master template not found yet. Run a boats sync in %s mode to create it."
+msgstr "Encara no s’ha trobat la plantilla mestra. Executa una sincronització de vaixells en mode %s per crear-la."
+
+msgid "Master hash:"
+msgstr "Hash mestre:"
+
+msgid "Apply %s master template to all boats"
+msgstr "Aplica la plantilla mestra %s a tots els vaixells"
+
+msgid "This will apply the current Gutenberg master template to boat pages in batches via WP-Cron. Non-forced mode only overwrites managed Gutenberg layouts."
+msgstr "Això aplicarà la plantilla mestra actual de Gutenberg a les pàgines de vaixells per lots mitjançant WP-Cron. El mode no forçat només sobreescriu dissenys Gutenberg gestionats."
+
+msgid "This will overwrite Elementor layout on all boats except those marked as Custom layout. Runs in batches via WP-Cron."
+msgstr "Això sobreescriurà el disseny Elementor de tots els vaixells excepte els marcats com a disseny personalitzat. S’executa per lots mitjançant WP-Cron."
+
+msgid "Batch size:"
+msgstr "Mida del lot:"
+
+msgid "Mode:"
+msgstr "Mode:"
+
+msgid "Overwrite managed/non-custom layouts"
+msgstr "Sobreescriu dissenys gestionats/no personalitzats"
+
+msgid "Force overwrite all boats"
+msgstr "Força la sobreescriptura de tots els vaixells"
+
+msgid "This can overwrite boat page layouts. Continue?"
+msgstr "Això pot sobreescriure els dissenys de pàgines de vaixells. Vols continuar?"
+
+msgid "Apply template to all boats"
+msgstr "Aplica la plantilla a tots els vaixells"
+
+msgid "Status:"
+msgstr "Status:"
+
+msgid "⚠ No multilingual plugin detected (Polylang/WPML)"
+msgstr "⚠ No s’ha detectat cap plugin multilingüe (Polylang/WPML)"
+
+msgid "✔ WPML detected - Multilang active"
+msgstr "✔ WPML detectat - Multiidioma actiu"
+
+msgid "✔ Multilang detected"
+msgstr "✔ Multiidioma detectat"
+
+msgid "✔ Boats post type is translatable in Polylang (language columns enabled)."
+msgstr "✔ El tipus de contingut Vaixells és traduïble a Polylang (columnes d’idioma activades)."
+
+msgid "⚠ Boats post type is NOT enabled for translation in Polylang. Go to Languages → Settings → Custom post types and enable “Boats (maradigma_boat)”, then save."
+msgstr "⚠ El tipus de contingut Vaixells NO està activat per a traducció a Polylang. Ves a Idiomes → Ajustos → Tipus de contingut personalitzats i activa “Boats (maradigma_boat)”; després desa."
+
+msgid "⚠ Boats post type is NOT marked as translatable in WPML. Enable it in WPML settings or add wpml-config.xml."
+msgstr "⚠ El tipus de contingut Vaixells NO està marcat com a traduïble a WPML. Activa’l als ajustos de WPML o afegeix wpml-config.xml."
+
+msgid "⚠ Boats post type is NOT marked as translatable."
+msgstr "⚠ El tipus de contingut Vaixells NO està marcat com a traduïble."
+
+msgid "ID"
+msgstr "ID"
+
+msgid "This section helps diagnose multilingual and translation issues, including locale detection, textdomain loading and gettext results."
+msgstr "Aquesta secció ajuda a diagnosticar problemes multiidioma i de traducció, inclosa la detecció del locale, la càrrega del textdomain i els resultats de gettext."
+
+msgid "Translation diagnostics"
+msgstr "Diagnòstic de traduccions"
+
+msgid "WordPress locale"
+msgstr "Configuració regional de WordPress"
+
+msgid "Current language"
+msgstr "Idioma actual"
+
+msgid "Multilang provider"
+msgstr "Proveïdor multilingüe"
+
+msgid "Textdomain loaded"
+msgstr "Textdomain carregat"
+
+msgid "Expected MO file"
+msgstr "Fitxer MO esperat"
+
+msgid "Expected MO exists"
+msgstr "Expected MO exists"
+
+msgid "Expected PO file"
+msgstr "Fitxer PO esperat"
+
+msgid "Expected PO exists"
+msgstr "Expected PO exists"
+
+msgid "Gettext probes"
+msgstr "Proves de gettext"
+
+msgid "Original string"
+msgstr "Cadena original"
+
+msgid "Translation returned by WordPress"
+msgstr "Traducció retornada per WordPress"
+
+msgid "Debug logs"
+msgstr "Registres de depuració"
+
+msgid "Here you can inspect the latest plugin logs generated by the image sync and debugging tools."
+msgstr "Aquí pots inspeccionar els darrers registres del plugin generats per la sincronització d’imatges i les eines de depuració."
+
+msgid "Channel"
+msgstr "Channel"
+
+msgid "File exists"
+msgstr "File exists"
+
+msgid "Size"
+msgstr "Size"
+
+msgid "Path"
+msgstr "Path"
+
+msgid "Refresh log view"
+msgstr "Actualitza la vista del registre"
+
+msgid "Download log"
+msgstr "Descarrega el registre"
+
+msgid "This will clear the selected log file. Continue?"
+msgstr "Això buidarà el fitxer de registre seleccionat. Vols continuar?"
+
+msgid "Clear log"
+msgstr "Neteja el registre"
+
+msgid "Showing the last part of the log file for performance reasons."
+msgstr "Es mostra la darrera part del fitxer de registre per motius de rendiment."
+
+msgid "E.g.: \"boats\" or \"alquiler-barcos\". Simple multi-language: \"es:barcos,en:boats,fr:bateaux\"."
+msgstr "Ex.: \"vaixells\" o \"lloguer-vaixells\". Multiidioma simple: \"es:barcos,en:boats,fr:bateaux\"."
+
+msgid "Boats list updated successfully."
+msgstr "Llista de vaixells actualitzada correctament."
+
+msgid "Could not update the boats list."
+msgstr "No s’ha pogut actualitzar la llista de vaixells."
+
+msgid "Available boats in Maradigma"
+msgstr "Vaixells disponibles a Maradigma"
+
+msgid "View the currently available boats and refresh the list to reflect the latest changes."
+msgstr "Consulta els vaixells disponibles actualment i actualitza la llista per reflectir els darrers canvis."
+
+msgid "Refresh list"
+msgstr "Actualitza la llista"
+
+msgid "Per page:"
+msgstr "Per pàgina:"
+
+msgid "Showing:"
+msgstr "Mostrant:"
+
+msgid "to"
+msgstr "a"
+
+msgid "of"
+msgstr "de"
+
+msgid "First page"
+msgstr "Primera pàgina"
+
+msgid "Previous page"
+msgstr "Pàgina anterior"
+
+msgid "Current page"
+msgstr "Pàgina actual"
+
+msgid "of %s"
+msgstr "of %s"
+
+msgid "Next page"
+msgstr "Pàgina següent"
+
+msgid "Last page"
+msgstr "Última pàgina"
+
+msgid "%d boats"
+msgstr "%d vaixells"
+
+msgid "Home port"
+msgstr "Port base"
+
+msgid "No boats available to display."
+msgstr "No hi ha vaixells disponibles per mostrar."
+
+msgid "Active"
+msgstr "Actiu"
+
+msgid "Inactive"
+msgstr "Inactiu"
+
+msgid "Unknown"
+msgstr "Desconegut"
+
+msgid "Not featured"
+msgstr "No destacat"
+
+msgid "Featured: unknown"
+msgstr "Destacat: desconegut"
+
+msgid "Shortcodes"
+msgstr "Shortcodes"
+
+msgid "Shortcodes documentation for webmasters and developers."
+msgstr "Documentació de shortcodes per a administradors web i desenvolupadors."
+
+msgid "Troubleshooting"
+msgstr "Resolució de problemes"
+
+msgid "If boats do not appear, check API keys and connection status in Configuration tab."
+msgstr "Si els vaixells no apareixen, revisa les claus API i l’estat de connexió a la pestanya Configuració."
+
+msgid "If cache looks stale, use \"Clear plugin cache\"."
+msgstr "Si la memòria cau sembla desactualitzada, usa \"Neteja la memòria cau del plugin\"."
+
+
+msgid "Support"
+msgstr "Suport"
+
+msgid "Need help? Contact Maradigma support."
+msgstr "Necessites ajuda? Contacta amb el suport de Maradigma."
+
+msgid "Open support form"
+msgstr "Obre el formulari de suport"
+
+msgid "Getting started"
+msgstr "Primers passos"
+
+msgid "Go to Configuration tab and set your Public key + Secret key."
+msgstr "Ves a la pestanya Configuració i introdueix la teva clau pública + clau secreta."
+
+msgid "Verify connection shows \"Ready\"."
+msgstr "Verifica que la connexió mostri \"A punt\"."
+
+msgid "Add [maradigma_boats] into a page to list boats."
+msgstr "Afegeix [maradigma_boats] a una pàgina per llistar vaixells."
+
+msgid "Documentation file not found."
+msgstr "No s’ha trobat el fitxer de documentació."
+
+msgid "Documentation file is empty."
+msgstr "El fitxer de documentació és buit."
+
+msgid "Documentation"
+msgstr "Documentació"
+
+msgid "Readable HTML format for webmasters and developers."
+msgstr "Format HTML llegible per a administradors web i desenvolupadors."
+
+msgid "File:"
+msgstr "Fitxer:"
+
+msgid "Unable to initialize the WordPress filesystem."
+msgstr "No s’ha pogut inicialitzar el sistema de fitxers de WordPress."
+
+msgid "running"
+msgstr "en curs"
+
+msgid "done"
+msgstr "completat"
+
+msgid "stopped"
+msgstr "aturat"
+
+msgid "error"
+msgstr "error"
+
+msgid "idle"
+msgstr "inactiu"
+
+
+
+
+msgid "All boats processed."
+msgstr "S’han processat tots els vaixells."
+
+msgid "All boats processed successfully"
+msgstr "Tots els vaixells s’han processat correctament"
+
+msgid "No more boats to process"
+msgstr "No queden més vaixells per processar"
+
+msgid "Boat skipped: missing id"
+msgstr "Vaixell omès: falta l’ID"
+
+msgid "Boat pages"
+msgstr "Pàgines de vaixells"
+
+msgid "Gutenberg templates"
+msgstr "Plantilles Gutenberg"
+
+msgid "Add new Gutenberg template"
+msgstr "Afegeix una plantilla Gutenberg nova"
+
+msgid "Edit Gutenberg template"
+msgstr "Edita la plantilla Gutenberg"
+
+msgid "New Gutenberg template"
+msgstr "Plantilla Gutenberg nova"
+
+msgid "View Gutenberg template"
+msgstr "Mostra la plantilla Gutenberg"
+
+msgid "Search Gutenberg templates"
+msgstr "Cerca plantilles Gutenberg"
+
+msgid "No Gutenberg templates found"
+msgstr "No s’han trobat plantilles Gutenberg"
+
+msgid "No Gutenberg templates found in trash"
+msgstr "No s’han trobat plantilles Gutenberg a la paperera"
+
+msgid "Default editable Gutenberg template for Maradigma boat detail pages."
+msgstr "Plantilla Gutenberg editable per defecte per a les pàgines de detall de vaixells de Maradigma."
+
+msgid "If Elementor widgets or Gutenberg blocks do not show, verify the builder is active."
+msgstr "Si els widgets d’Elementor o els blocs de Gutenberg no apareixen, verifica que el constructor estigui actiu."
+
+msgid "Elementor detected - Widgets enabled"
+msgstr "Elementor detectat - Widgets activats"
+
+msgid "Elementor not detected"
+msgstr "Elementor no detectat"
+
+msgid "Yoast SEO detected - SEO integration available"
+msgstr "Yoast SEO detectat - Integració SEO disponible"
+
+msgid "Yoast SEO not detected"
+msgstr "Yoast SEO no detectat"
+
+msgid "No multilingual plugin detected (Polylang/WPML)"
+msgstr "No s’ha detectat cap plugin multilingüe (Polylang/WPML)"
+
+msgid "Polylang detected - Multilang active"
+msgstr "Polylang detectat - Multiidioma actiu"
+
+msgid "WPML detected - Multilang active"
+msgstr "WPML detectat - Multiidioma actiu"
+
+msgid "Multilang detected"
+msgstr "Multiidioma detectat"
+
+msgid "Boats post type is translatable in Polylang (language columns enabled)."
+msgstr "El tipus de contingut Vaixells és traduïble a Polylang (columnes d’idioma activades)."
+
+msgid "Boats post type is NOT enabled for translation in Polylang. Go to Languages > Settings > Custom post types and enable \"Boats (maradigma_boat)\", then save."
+msgstr "El tipus de contingut Vaixells NO està activat per a traducció a Polylang. Ves a Idiomes > Ajustos > Tipus de contingut personalitzats i activa \"Boats (maradigma_boat)\"; després desa."
+
+msgid "Boats post type is NOT marked as translatable in WPML. Enable it in WPML settings or add wpml-config.xml."
+msgstr "El tipus de contingut Vaixells NO està marcat com a traduïble a WPML. Activa’l als ajustos de WPML o afegeix wpml-config.xml."
+
+msgid "Boats post type is NOT marked as translatable."
+msgstr "El tipus de contingut Vaixells NO està marcat com a traduïble."
+
+msgid "We couldn't connect to Maradigma. Please try again later or contact support."
+msgstr "No hem pogut connectar amb Maradigma. Torna-ho a provar més tard o contacta amb suport."
+
+msgid "Sync is disabled. Enable \"Boat pages sync (opt-in)\" and save changes first."
+msgstr "La sincronització està desactivada. Activa \"Sincronització de pàgines de vaixells (opcional)\" i desa els canvis primer."
+
+msgid "Recommended: \"Boat hire {{service_name}} | {{port}}\"."
+msgstr "Recomanat: \"Lloguer de {{service_name}} | {{port}}\"."
+
+msgid "Select a variable..."
+msgstr "Selecciona una variable..."
+
+msgid "total %1$d | +%2$d | ~%3$d"
+msgstr "total %1$d | +%2$d | ~%3$d"
+
+msgid "imported %1$d | reused %2$d | failed %3$d"
+msgstr "importades %1$d | reutilitzades %2$d | fallides %3$d"
+
+msgid "scanned %1$d / %2$s | updated %3$d | skipped %4$d | failed %5$d"
+msgstr "revisats %1$d / %2$s | actualitzats %3$d | omesos %4$d | fallits %5$d"
+
+msgid "Quick reference for the main shortcodes available in Maradigma."
+msgstr "Referència ràpida dels principals shortcodes disponibles a Maradigma."
+
+msgid "Boat listing"
+msgstr "Llistat de vaixells"
+
+msgid "Displays a searchable list of boats."
+msgstr "Mostra un llistat de vaixells amb cerca."
+
+msgid "Single boat"
+msgstr "Vaixell individual"
+
+msgid "Displays the complete boat page using the plugin template."
+msgstr "Mostra la pàgina completa del vaixell amb la plantilla del plugin."
+
+msgid "Boat title"
+msgstr "Títol del vaixell"
+
+msgid "Displays the boat title, with configurable title parts."
+msgstr "Mostra el títol del vaixell, amb parts configurables."
+
+msgid "Boat specifications"
+msgstr "Especificacions del vaixell"
+
+msgid "Displays the main boat specifications."
+msgstr "Mostra les especificacions principals del vaixell."
+
+msgid "Boat prices"
+msgstr "Preus del vaixell"
+
+msgid "Displays boat prices using the selected layout."
+msgstr "Mostra els preus del vaixell amb el disseny seleccionat."
+
+msgid "Boat gallery"
+msgstr "Galeria del vaixell"
+
+msgid "Displays the boat image gallery."
+msgstr "Mostra la galeria d’imatges del vaixell."
+
+msgid "Displays optional and included additional services."
+msgstr "Mostra serveis addicionals opcionals i inclosos."
+
+msgid "Displays the booking button and booking flow."
+msgstr "Mostra el botó de reserva i el flux de reserva."
+
+msgid "Boat calendar"
+msgstr "Calendari del vaixell"
+
+msgid "Displays the boat availability calendar."
+msgstr "Mostra el calendari de disponibilitat del vaixell."
+
+msgid "Shortcode"
+msgstr "Shortcode"
+
+msgid "Description"
+msgstr "Descripció"
+
+msgid "For the full technical documentation, open the bundled shortcode reference."
+msgstr "Per veure la documentació tècnica completa, obre la referència de shortcodes inclosa."
+
+msgid "Open shortcode documentation"
+msgstr "Obre la documentació de shortcodes"
+
+#: integrations/Elementor/Widgets/SingleBoat/BoatTitleWidget.php
+msgid "Show alias"
+msgstr "Mostra alies"
+
+#: integrations/Elementor/Widgets/SingleBoat/BoatTitleWidget.php
+msgid "Fallback text"
+msgstr "Text alternatiu"
+
+#: integrations/Elementor/Widgets/SingleBoat/BoatTitleWidget.php
+msgid "Use service name as fallback"
+msgstr "Utilitza el nom del servei com a alternativa"
+
+#: integrations/Elementor/Widgets/SingleBoat/BoatTitleWidget.php
+msgid "Boat ID override"
+msgstr "Sobreescriure ID del vaixell"
+
+#: integrations/Elementor/Widgets/SingleBoat/BoatTitleWidget.php
+msgid "Optional. Leave empty to use the current boat context."
+msgstr "Opcional. Deixa-ho buit per utilitzar el context del vaixell actual."
+
+#: integrations/Elementor/Widgets/SingleBoat/BoatTitleWidget.php
+msgid "Separator"
+msgstr "Separador"
+
+#: integrations/Elementor/Widgets/SingleBoat/BoatTitleWidget.php
+msgid "Show model"
+msgstr "Mostra model"
+
+#: integrations/Elementor/Widgets/SingleBoat/BoatTitleWidget.php
+msgid "Show builder"
+msgstr "Mostra constructor"
+
+#: integrations/Elementor/Widgets/SingleBoat/BoatTitleWidget.php
+msgid "Quote alias"
+msgstr "Alies entre cometes"
+
+#: integrations/Elementor/Widgets/SingleBoat/BoatTitleWidget.php
+msgid "Boat slug override"
+msgstr "Sobreescriure slug del vaixell"
+
+#: integrations/Elementor/Widgets/SingleBoat/BoatTitleWidget.php
+msgid "Optional. If set, the slug takes priority over the boat ID."
+msgstr "Opcional. Si es defineix, el slug te prioritat sobre l ID del vaixell."
+
+#: includes/SettingsPage.php
+msgid "Obsolete page cleanup:"
+msgstr "Neteja de pàgines obsoletes:"
+
+#: includes/SettingsPage.php
+msgid "action %1$s | candidates %2$d | changed %3$d | failed %4$d"
+msgstr "acció %1$s | candidates %2$d | modificades %3$d | fallides %4$d"
+
+#: includes/SettingsPage.php
+msgid "Obsolete boat pages"
+msgstr "Pàgines de vaixells obsoletes"
+
+#: includes/SettingsPage.php
+msgid "Optional cleanup for managed boat pages whose boat ID no longer appears in the Maradigma API response. It only runs after a valid non-empty API list has been processed."
+msgstr "Neteja opcional per a pàgines de vaixells gestionades l’ID de les quals ja no apareix a la resposta de l’API de Maradigma. Només s’executa després de processar una llista vàlida i no buida de l’API."
+
+#: includes/SettingsPage.php
+msgid "When a synced boat no longer exists in Maradigma"
+msgstr "Quan un vaixell sincronitzat ja no existeix a Maradigma"
+
+#: includes/SettingsPage.php
+msgid "Do nothing"
+msgstr "No fer res"
+
+#: includes/SettingsPage.php
+msgid "Move managed pages to trash"
+msgstr "Moure pàgines gestionades a la paperera"
+
+#: includes/SettingsPage.php
+msgid "Unpublish managed pages"
+msgstr "Despublicar pàgines gestionades"
+
+#: includes/SettingsPage.php
+msgid "Delete managed pages permanently"
+msgstr "Esborrar definitivament les pàgines gestionades"
+
+#: includes/SettingsPage.php
+msgid "I understand permanent deletion cannot be undone."
+msgstr "Entenc que l’esborrament definitiu no es pot desfer."
+
+#: includes/SettingsPage.php
+msgid "Required only if you choose permanent deletion. Pages marked as custom/no-sync are never cleaned automatically."
+msgstr "Obligatori només si tries l’esborrament definitiu. Les pàgines marcades com a personalitzades/no sincronitzables no es netegen mai automàticament."
+
+#: includes/SettingsPage.php
+msgid "No obsolete-page cleanup selected."
+msgstr "No s’ha seleccionat cap neteja de pàgines obsoletes."
+
+#: includes/SettingsPage.php
+msgid "Permanent delete was selected without explicit confirmation."
+msgstr "S’ha seleccionat l’esborrament definitiu sense confirmació explícita."
+
+#: includes/SettingsPage.php
+msgid "Cleanup skipped because the API list was empty or not fully trusted."
+msgstr "Neteja omesa perquè la llista de l’API era buida o no era del tot fiable."
+
+#: includes/SettingsPage.php
+msgid "Cleanup skipped because the boat sync did not finish successfully."
+msgstr "Neteja omesa perquè la sincronització de vaixells no ha finalitzat correctament."
+
+#: includes/SettingsPage.php
+msgid "Obsolete-page cleanup finished: %1$s, candidates %2$d, changed %3$d, failed %4$d."
+msgstr "Neteja de pàgines obsoletes finalitzada: %1$s, candidates %2$d, modificades %3$d, fallides %4$d."
+
+#: includes/SettingsPage.php
+msgid "images deleted %1$d | image errors %2$d"
+msgstr "imatges esborrades %1$d | errors d’imatge %2$d"
+
+#: includes/SettingsPage.php
+msgid "Also delete locally cached images for obsolete boats."
+msgstr "Esborrar també les imatges en memòria cau local dels vaixells obsolets."
+
+#: includes/SettingsPage.php
+msgid "Only applies when permanent deletion is selected. It deletes Media Library attachments tagged with the obsolete Maradigma boat ID."
+msgstr "Només s’aplica quan se selecciona l’esborrament definitiu. Elimina adjunts de la Mediateca marcats amb l’ID de vaixell obsolet de Maradigma."
+
+#: includes/SettingsPage.php
+msgid "Boat sync started. It will continue in batches via WP-Cron while this screen keeps it moving with AJAX."
+msgstr "Sincronització de vaixells iniciada. Continuarà per lots mitjançant WP-Cron mentre aquesta pantalla la manté avançant amb AJAX."
+
+#: includes/SettingsPage.php
+msgid "Maximum images per boat"
+msgstr "Màxim d’imatges per vaixell"
+
+#: includes/SettingsPage.php
+msgid "Use 0 to store all available images. Any custom limit must be between 1 and 25 images per boat."
+msgstr "Fes servir 0 per desar totes les imatges disponibles. Qualsevol límit personalitzat ha d’estar entre 1 i 25 imatges per vaixell."
+
+msgid "Charter"
+msgstr "Reservar"
+
+msgid "day"
+msgstr "dia"
+
+msgid "Availability dates"
+msgstr "Dates de disponibilitat"
+
+
+msgid "Date end (separate mode only)"
+msgstr "Data de fi (només mode separat)"
+
+#: includes/SettingsPage.php
+msgid "Bookings"
+msgstr "Reserves"
+
+#: includes/SettingsPage.php
+msgid "Booking settings"
+msgstr "Configuració de reserves"
+
+#: includes/SettingsPage.php
+msgid "Configure global options used by the booking experience on your website."
+msgstr "Configura opcions globals utilitzades per l'experiència de reserva al teu web."
+
+#: includes/SettingsPage.php
+msgid "Payment step texts"
+msgstr "Textos del pas de pagament"
+
+#: includes/SettingsPage.php
+msgid "This text is shown above the payment method selector in the booking modal. Leave a language empty to use the fallback language."
+msgstr "Aquest text es mostra sobre el selector del mètode de pagament al modal de reserva. Deixa un idioma buit per utilitzar l'idioma de reserva."
+
+#: includes/SettingsPage.php
+msgid "Payment method intro (%s)"
+msgstr "Text introductori del mètode de pagament (%s)"
+
+#: includes/SettingsPage.php
+msgid "Example: Your reservation is almost ready. Select your secure payment method to continue."
+msgstr "Exemple: La teva reserva està gairebé a punt. Selecciona el teu mètode de pagament segur per continuar."
+

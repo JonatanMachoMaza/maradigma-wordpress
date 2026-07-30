@@ -1,0 +1,47 @@
+{
+  "apiVersion": 3,
+  "name": "maradigma/boat-description",
+  "version": "0.1.0",
+  "title": "Maradigma Boat Description",
+  "category": "maradigma",
+  "icon": "text-page",
+  "description": "Boat description block.",
+  "textdomain": "maradigma",
+  "attributes": {
+    "id": {
+      "type": "string",
+      "default": ""
+    },
+    "slug": {
+      "type": "string",
+      "default": ""
+    },
+    "type": {
+      "type": "string",
+      "default": "auto"
+    },
+    "esc": {
+      "type": "string",
+      "default": "false"
+    },
+    "allow_html": {
+      "type": "string",
+      "default": "1"
+    },
+    "max_words": {
+      "type": "string",
+      "default": "0"
+    },
+    "fallback": {
+      "type": "string",
+      "default": "",
+      "role": "content"
+    }
+  },
+  "supports": {
+    "html": false
+  },
+  "usesContext": [
+    "postId"
+  ]
+}

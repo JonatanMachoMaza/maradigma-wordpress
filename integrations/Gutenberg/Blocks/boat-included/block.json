@@ -1,0 +1,53 @@
+{
+  "apiVersion": 3,
+  "name": "maradigma/boat-included",
+  "version": "0.1.0",
+  "title": "Maradigma Boat Included",
+  "category": "maradigma",
+  "icon": "yes",
+  "description": "Included items block.",
+  "textdomain": "maradigma",
+  "attributes": {
+    "id": {
+      "type": "string",
+      "default": ""
+    },
+    "slug": {
+      "type": "string",
+      "default": ""
+    },
+    "title": {
+      "type": "string",
+      "default": "Included",
+      "role": "content"
+    },
+    "show_title": {
+      "type": "string",
+      "default": "1"
+    },
+    "show_tick_icon": {
+      "type": "string",
+      "default": "1"
+    },
+    "tick_text": {
+      "type": "string",
+      "default": "✓",
+      "role": "content"
+    },
+    "sort": {
+      "type": "string",
+      "default": "1"
+    },
+    "fallback": {
+      "type": "string",
+      "default": "",
+      "role": "content"
+    }
+  },
+  "supports": {
+    "html": false
+  },
+  "usesContext": [
+    "postId"
+  ]
+}

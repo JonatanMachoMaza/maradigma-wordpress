@@ -1,0 +1,35 @@
+{
+  "apiVersion": 3,
+  "name": "maradigma/search",
+  "version": "0.1.0",
+  "title": "Maradigma Search Form",
+  "category": "maradigma",
+  "icon": "search",
+  "description": "Boat search form rendered as a dynamic Gutenberg block.",
+  "textdomain": "maradigma",
+  "attributes": {
+    "target_url": {
+      "type": "string",
+      "default": ""
+    },
+    "show_term": {
+      "type": "boolean",
+      "default": true
+    },
+    "show_capacity": {
+      "type": "boolean",
+      "default": true
+    },
+    "show_price": {
+      "type": "boolean",
+      "default": true
+    },
+    "show_dates": {
+      "type": "boolean",
+      "default": false
+    }
+  },
+  "supports": {
+    "html": false
+  }
+}

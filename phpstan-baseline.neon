@@ -1,0 +1,838 @@
+parameters:
+	ignoreErrors:
+		-
+			message: '#^Comparison operation "\>" between 10\|25\|50\|100\|200 and 0 is always true\.$#'
+			identifier: greater.alwaysTrue
+			count: 1
+			path: includes/Admin/AvailableBoatsPage.php
+
+		-
+			message: '#^Function maradigma_debug_log not found\.$#'
+			identifier: function.notFound
+			count: 2
+			path: includes/Admin/AvailableBoatsPage.php
+
+		-
+			message: '#^Call to function method_exists\(\) with ''Maradigma\\\\BoatSyncService'' and ''stop'' will always evaluate to true\.$#'
+			identifier: function.alreadyNarrowedType
+			count: 1
+			path: includes/Admin/SettingsSyncActions.php
+
+		-
+			message: '#^Function maradigma_debug_log not found\.$#'
+			identifier: function.notFound
+			count: 3
+			path: includes/Admin/SettingsSyncActions.php
+
+		-
+			message: '#^Call to function is_array\(\) with array will always evaluate to true\.$#'
+			identifier: function.alreadyNarrowedType
+			count: 6
+			path: includes/AjaxController.php
+
+		-
+			message: '#^Function maradigma_debug_log not found\.$#'
+			identifier: function.notFound
+			count: 9
+			path: includes/AjaxController.php
+
+		-
+			message: '#^Parameter \#2 \$callback of function add_action expects callable\(\)\: mixed, array\{''Maradigma\\\\AjaxController'', ''adminSearchBasePorts''\} given\.$#'
+			identifier: argument.type
+			count: 1
+			path: includes/AjaxController.php
+
+		-
+			message: '#^Property WP_Screen\:\:\$base \(string\) on left side of \?\? is not nullable\.$#'
+			identifier: nullCoalesce.property
+			count: 1
+			path: includes/AssetsManager.php
+
+		-
+			message: '#^Property WP_Screen\:\:\$post_type \(string\) on left side of \?\? is not nullable\.$#'
+			identifier: nullCoalesce.property
+			count: 1
+			path: includes/AssetsManager.php
+
+		-
+			message: '#^Property WP_Screen\:\:\$taxonomy \(string\) on left side of \?\? is not nullable\.$#'
+			identifier: nullCoalesce.property
+			count: 1
+			path: includes/AssetsManager.php
+
+		-
+			message: '#^Static method Maradigma\\AssetsManager\:\:detectFlatpickrLangCode\(\) is unused\.$#'
+			identifier: method.unused
+			count: 1
+			path: includes/AssetsManager.php
+
+		-
+			message: '#^Static method Maradigma\\AssetsManager\:\:mapFlatpickrLocaleFile\(\) is unused\.$#'
+			identifier: method.unused
+			count: 1
+			path: includes/AssetsManager.php
+
+		-
+			message: '#^Static method Maradigma\\AssetsManager\:\:registerBootstrapOnce\(\) is unused\.$#'
+			identifier: method.unused
+			count: 1
+			path: includes/AssetsManager.php
+
+		-
+			message: '#^Call to function method_exists\(\) with ''Maradigma\\\\BoatImagesSyncService'' and ''getAllowedImageToke…'' will always evaluate to true\.$#'
+			identifier: function.alreadyNarrowedType
+			count: 1
+			path: includes/BoatCardEngine.php
+
+		-
+			message: '#^Offset 0 on array\{non\-falsy\-string, int\<\-1, max\>\} on left side of \?\? always exists and is not nullable\.$#'
+			identifier: nullCoalesce.offset
+			count: 2
+			path: includes/BoatCardEngine.php
+
+		-
+			message: '#^Offset 0 on array\{string, int\<\-1, max\>\} in isset\(\) always exists and is not nullable\.$#'
+			identifier: isset.offset
+			count: 3
+			path: includes/BoatCardEngine.php
+
+		-
+			message: '#^Offset 1 on array\{non\-falsy\-string, int\<\-1, max\>\} on left side of \?\? always exists and is not nullable\.$#'
+			identifier: nullCoalesce.offset
+			count: 2
+			path: includes/BoatCardEngine.php
+
+		-
+			message: '#^Strict comparison using \=\=\= between non\-falsy\-string and '''' will always evaluate to false\.$#'
+			identifier: identical.alwaysFalse
+			count: 1
+			path: includes/BoatCardEngine.php
+
+		-
+			message: '#^Call to function is_array\(\) with array will always evaluate to true\.$#'
+			identifier: function.alreadyNarrowedType
+			count: 3
+			path: includes/BoatImagesSyncService.php
+
+		-
+			message: '#^Call to function is_array\(\) with array\<mixed, mixed\> will always evaluate to true\.$#'
+			identifier: function.alreadyNarrowedType
+			count: 1
+			path: includes/BoatImagesSyncService.php
+
+		-
+			message: '#^Call to function is_array\(\) with array\<mixed\> will always evaluate to true\.$#'
+			identifier: function.alreadyNarrowedType
+			count: 1
+			path: includes/BoatImagesSyncService.php
+
+		-
+			message: '#^Call to function is_string\(\) with ''maradigma_card…''\|''maradigma_hero…''\|''maradigma_land…''\|''maradigma_lightbox…''\|''maradigma_max_1200''\|''maradigma_max_1600''\|''maradigma_thumb…'' will always evaluate to true\.$#'
+			identifier: function.alreadyNarrowedType
+			count: 1
+			path: includes/BoatImagesSyncService.php
+
+		-
+			message: '#^Comparison operation "\<\=" between 150\|300\|471\|640\|800\|960\|1200\|1600\|1920 and 0 is always false\.$#'
+			identifier: smallerOrEqual.alwaysFalse
+			count: 2
+			path: includes/BoatImagesSyncService.php
+
+		-
+			message: '#^Comparison operation "\>" between 150\|300\|471\|640\|800\|960\|1200\|1600\|1920 and 0 is always true\.$#'
+			identifier: greater.alwaysTrue
+			count: 2
+			path: includes/BoatImagesSyncService.php
+
+		-
+			message: '#^Offset ''h'' on array\{w\: 1200\|1600, h\: 0, crop\: false\}\|array\{w\: 150, h\: 150, crop\: true\}\|array\{w\: 1920, h\: 1080, crop\: true\}\|array\{w\: 300, h\: 300, crop\: true\}\|array\{w\: 471, h\: 273, crop\: true\}\|array\{w\: 640, h\: 360, crop\: true\}\|array\{w\: 800\|1200\|1600, h\: 500\|600\|900, crop\: true\}\|array\{w\: 960, h\: 540, crop\: true\} on left side of \?\? always exists and is not nullable\.$#'
+			identifier: nullCoalesce.offset
+			count: 3
+			path: includes/BoatImagesSyncService.php
+
+		-
+			message: '#^Offset ''message'' on array\{type\: int, message\: string, file\: string, line\: int\} on left side of \?\? always exists and is not nullable\.$#'
+			identifier: nullCoalesce.offset
+			count: 1
+			path: includes/BoatImagesSyncService.php
+
+		-
+			message: '#^Offset ''type'' on array\{type\: int, message\: string, file\: string, line\: int\} on left side of \?\? always exists and is not nullable\.$#'
+			identifier: nullCoalesce.offset
+			count: 1
+			path: includes/BoatImagesSyncService.php
+
+		-
+			message: '#^Offset ''w'' on array\{w\: 1200\|1600, h\: 0, crop\: false\}\|array\{w\: 150, h\: 150, crop\: true\}\|array\{w\: 1920, h\: 1080, crop\: true\}\|array\{w\: 300, h\: 300, crop\: true\}\|array\{w\: 471, h\: 273, crop\: true\}\|array\{w\: 640, h\: 360, crop\: true\}\|array\{w\: 800\|1200\|1600, h\: 500\|600\|900, crop\: true\}\|array\{w\: 960, h\: 540, crop\: true\} on left side of \?\? always exists and is not nullable\.$#'
+			identifier: nullCoalesce.offset
+			count: 3
+			path: includes/BoatImagesSyncService.php
+
+		-
+			message: '#^Property WP_Query\:\:\$posts \(array\<int\|WP_Post\>\) on left side of \?\? is not nullable\.$#'
+			identifier: nullCoalesce.property
+			count: 1
+			path: includes/BoatImagesSyncService.php
+
+		-
+			message: '#^Strict comparison using \=\=\= between ''maradigma_card…''\|''maradigma_hero…''\|''maradigma_land…''\|''maradigma_lightbox…''\|''maradigma_max_1200''\|''maradigma_max_1600''\|''maradigma_thumb…'' and '''' will always evaluate to false\.$#'
+			identifier: identical.alwaysFalse
+			count: 1
+			path: includes/BoatImagesSyncService.php
+
+		-
+			message: '#^Call to function method_exists\(\) with ''Maradigma\\\\Support\\\\RuntimeContext'' and ''getPluginDefaultLan…'' will always evaluate to true\.$#'
+			identifier: function.alreadyNarrowedType
+			count: 1
+			path: includes/BoatPermalinks.php
+
+		-
+			message: '#^Property WP_Query\:\:\$found_posts \(int\) in isset\(\) is not nullable\.$#'
+			identifier: isset.property
+			count: 1
+			path: includes/BoatPostType.php
+
+		-
+			message: '#^Property WP_Screen\:\:\$base \(string\) on left side of \?\? is not nullable\.$#'
+			identifier: nullCoalesce.property
+			count: 1
+			path: includes/BoatPostType.php
+
+		-
+			message: '#^Property WP_Screen\:\:\$post_type \(string\) on left side of \?\? is not nullable\.$#'
+			identifier: nullCoalesce.property
+			count: 1
+			path: includes/BoatPostType.php
+
+		-
+			message: '#^Call to function is_array\(\) with array will always evaluate to true\.$#'
+			identifier: function.alreadyNarrowedType
+			count: 2
+			path: includes/BoatSyncService.php
+
+		-
+			message: '#^Call to function is_wp_error\(\) with false will always evaluate to false\.$#'
+			identifier: function.impossibleType
+			count: 3
+			path: includes/BoatSyncService.php
+
+		-
+			message: '#^Call to function is_wp_error\(\) with int\<1, max\> will always evaluate to false\.$#'
+			identifier: function.impossibleType
+			count: 1
+			path: includes/BoatSyncService.php
+
+		-
+			message: '#^Call to function method_exists\(\) with ''Maradigma\\\\BoatImagesSyncService'' and ''getCoverAttachmentI…'' will always evaluate to true\.$#'
+			identifier: function.alreadyNarrowedType
+			count: 1
+			path: includes/BoatSyncService.php
+
+		-
+			message: '#^Call to function method_exists\(\) with ''Maradigma\\\\BoatImagesSyncService'' and ''getOrderedAttachmen…'' will always evaluate to true\.$#'
+			identifier: function.alreadyNarrowedType
+			count: 1
+			path: includes/BoatSyncService.php
+
+		-
+			message: '#^Call to function method_exists\(\) with ''Maradigma\\\\SettingsPage'' and ''storeBoatSyncFinish…'' will always evaluate to true\.$#'
+			identifier: function.alreadyNarrowedType
+			count: 2
+			path: includes/BoatSyncService.php
+
+		-
+			message: '#^Call to function method_exists\(\) with ''Maradigma\\\\SettingsPage'' and ''storeBoatSyncProgre…'' will always evaluate to true\.$#'
+			identifier: function.alreadyNarrowedType
+			count: 1
+			path: includes/BoatSyncService.php
+
+		-
+			message: '#^Constant Maradigma\\BoatSyncService\:\:META_GUTENBERG_CONTENT_HASH is unused\.$#'
+			identifier: classConstant.unused
+			count: 1
+			path: includes/BoatSyncService.php
+
+		-
+			message: '#^Constant Maradigma\\BoatSyncService\:\:META_GUTENBERG_CUSTOM_LAYOUT is unused\.$#'
+			identifier: classConstant.unused
+			count: 1
+			path: includes/BoatSyncService.php
+
+		-
+			message: '#^Constant Maradigma\\BoatSyncService\:\:META_GUTENBERG_SEEDED is unused\.$#'
+			identifier: classConstant.unused
+			count: 1
+			path: includes/BoatSyncService.php
+
+		-
+			message: '#^Constant Maradigma\\BoatSyncService\:\:META_GUTENBERG_TEMPLATE_HASH is unused\.$#'
+			identifier: classConstant.unused
+			count: 1
+			path: includes/BoatSyncService.php
+
+		-
+			message: '#^Offset ''file'' on array\{type\: int, message\: string, file\: string, line\: int\} on left side of \?\? always exists and is not nullable\.$#'
+			identifier: nullCoalesce.offset
+			count: 1
+			path: includes/BoatSyncService.php
+
+		-
+			message: '#^Offset ''line'' on array\{type\: int, message\: string, file\: string, line\: int\} on left side of \?\? always exists and is not nullable\.$#'
+			identifier: nullCoalesce.offset
+			count: 1
+			path: includes/BoatSyncService.php
+
+		-
+			message: '#^Offset ''message'' on array\{type\: int, message\: string, file\: string, line\: int\} on left side of \?\? always exists and is not nullable\.$#'
+			identifier: nullCoalesce.offset
+			count: 2
+			path: includes/BoatSyncService.php
+
+		-
+			message: '#^Offset ''message'' on non\-empty\-array on left side of \?\? always exists and is not nullable\.$#'
+			identifier: nullCoalesce.offset
+			count: 1
+			path: includes/BoatSyncService.php
+
+		-
+			message: '#^Offset ''offset'' on non\-empty\-array on left side of \?\? always exists and is not nullable\.$#'
+			identifier: nullCoalesce.offset
+			count: 1
+			path: includes/BoatSyncService.php
+
+		-
+			message: '#^Offset ''type'' on array\{type\: int, message\: string, file\: string, line\: int\} on left side of \?\? always exists and is not nullable\.$#'
+			identifier: nullCoalesce.offset
+			count: 1
+			path: includes/BoatSyncService.php
+
+		-
+			message: '#^Strict comparison using \=\=\= between lowercase\-string&non\-empty\-string and '''' will always evaluate to false\.$#'
+			identifier: identical.alwaysFalse
+			count: 1
+			path: includes/BoatSyncService.php
+
+		-
+			message: '#^Call to function method_exists\(\) with ''Maradigma\\\\BoatTemplateSyncAllService'' and ''start'' will always evaluate to true\.$#'
+			identifier: function.alreadyNarrowedType
+			count: 1
+			path: includes/BoatTemplatePropagator.php
+
+		-
+			message: '#^Call to function method_exists\(\) with ''Maradigma\\\\SettingsPage'' and ''getSettings'' will always evaluate to true\.$#'
+			identifier: function.alreadyNarrowedType
+			count: 1
+			path: includes/BoatTemplatePropagator.php
+
+		-
+			message: '#^Call to method get_id\(\) on an unknown class Elementor\\Core\\Base\\Document\.$#'
+			identifier: class.notFound
+			count: 1
+			path: includes/BoatTemplatePropagator.php
+
+		-
+			message: '#^Call to method get_main_id\(\) on an unknown class Elementor\\Core\\Base\\Document\.$#'
+			identifier: class.notFound
+			count: 1
+			path: includes/BoatTemplatePropagator.php
+
+		-
+			message: '#^Class Elementor\\Core\\Base\\Document not found\.$#'
+			identifier: class.notFound
+			count: 1
+			path: includes/BoatTemplatePropagator.php
+
+		-
+			message: '#^Result of && is always false\.$#'
+			identifier: booleanAnd.alwaysFalse
+			count: 1
+			path: includes/BoatTemplatePropagator.php
+
+		-
+			message: '#^Strict comparison using \=\=\= between false and true will always evaluate to false\.$#'
+			identifier: identical.alwaysFalse
+			count: 1
+			path: includes/BoatTemplatePropagator.php
+
+		-
+			message: '#^Call to function method_exists\(\) with ''Maradigma\\\\Integrations\\\\Gutenberg\\\\GutenbergIntegration'' and ''getGutenbergTemplat…'' will always evaluate to true\.$#'
+			identifier: function.alreadyNarrowedType
+			count: 2
+			path: includes/BoatTemplateSyncAllService.php
+
+		-
+			message: '#^Call to function method_exists\(\) with ''Maradigma\\\\Integrations\\\\Gutenberg\\\\GutenbergIntegration'' and ''hashGutenbergTempla…'' will always evaluate to true\.$#'
+			identifier: function.alreadyNarrowedType
+			count: 1
+			path: includes/BoatTemplateSyncAllService.php
+
+		-
+			message: '#^Call to function method_exists\(\) with ''Maradigma\\\\Integrations\\\\Gutenberg\\\\GutenbergIntegration'' and ''postMatchesGutenber…'' will always evaluate to true\.$#'
+			identifier: function.alreadyNarrowedType
+			count: 1
+			path: includes/BoatTemplateSyncAllService.php
+
+		-
+			message: '#^Constant Maradigma\\BoatTemplateSyncAllService\:\:META_GUTENBERG_CONTENT_HASH is unused\.$#'
+			identifier: classConstant.unused
+			count: 1
+			path: includes/BoatTemplateSyncAllService.php
+
+		-
+			message: '#^Constant Maradigma\\BoatTemplateSyncAllService\:\:META_GUTENBERG_CUSTOM_LAYOUT is unused\.$#'
+			identifier: classConstant.unused
+			count: 1
+			path: includes/BoatTemplateSyncAllService.php
+
+		-
+			message: '#^Constant Maradigma\\BoatTemplateSyncAllService\:\:META_GUTENBERG_SEEDED is unused\.$#'
+			identifier: classConstant.unused
+			count: 1
+			path: includes/BoatTemplateSyncAllService.php
+
+		-
+			message: '#^Constant Maradigma\\BoatTemplateSyncAllService\:\:META_GUTENBERG_TEMPLATE_HASH is unused\.$#'
+			identifier: classConstant.unused
+			count: 1
+			path: includes/BoatTemplateSyncAllService.php
+
+		-
+			message: '#^Offset ''file'' on array\{type\: int, message\: string, file\: string, line\: int\} on left side of \?\? always exists and is not nullable\.$#'
+			identifier: nullCoalesce.offset
+			count: 1
+			path: includes/BoatTemplateSyncAllService.php
+
+		-
+			message: '#^Offset ''line'' on array\{type\: int, message\: string, file\: string, line\: int\} on left side of \?\? always exists and is not nullable\.$#'
+			identifier: nullCoalesce.offset
+			count: 1
+			path: includes/BoatTemplateSyncAllService.php
+
+		-
+			message: '#^Offset ''message'' on array\{type\: int, message\: string, file\: string, line\: int\} on left side of \?\? always exists and is not nullable\.$#'
+			identifier: nullCoalesce.offset
+			count: 2
+			path: includes/BoatTemplateSyncAllService.php
+
+		-
+			message: '#^Offset ''type'' on array\{type\: int, message\: string, file\: string, line\: int\} on left side of \?\? always exists and is not nullable\.$#'
+			identifier: nullCoalesce.offset
+			count: 1
+			path: includes/BoatTemplateSyncAllService.php
+
+		-
+			message: '#^Function maradigma_debug_log not found\.$#'
+			identifier: function.notFound
+			count: 2
+			path: includes/BoatsAdminPage.php
+
+		-
+			message: '#^Call to function method_exists\(\) with Maradigma\\ExternalApiClient and ''getLanguage'' will always evaluate to true\.$#'
+			identifier: function.alreadyNarrowedType
+			count: 1
+			path: includes/Cache.php
+
+		-
+			message: '#^Function maradigma_debug_log not found\.$#'
+			identifier: function.notFound
+			count: 1
+			path: includes/Cache.php
+
+		-
+			message: '#^Strict comparison using \=\=\= between true and true will always evaluate to true\.$#'
+			identifier: identical.alwaysTrue
+			count: 1
+			path: includes/Cache.php
+
+		-
+			message: '#^Call to function is_array\(\) with array will always evaluate to true\.$#'
+			identifier: function.alreadyNarrowedType
+			count: 1
+			path: includes/ExternalApiClient.php
+
+		-
+			message: '#^Call to function is_array\(\) with array\<int\|string, array\<mixed\>\|string\> will always evaluate to true\.$#'
+			identifier: function.alreadyNarrowedType
+			count: 1
+			path: includes/ExternalApiClient.php
+
+		-
+			message: '''
+				#^PHPDoc tag @return has invalid value \(array\{
+				  status\?\: 'success'\|'error'\|string,
+				  success\?\: bool,
+				  message\?\: string,
+				  data\?\: array\{
+				    search_result\?\: array\<int, array\{
+				      id\?\: int,
+				      reference\?\: string,
+				      slug\?\: string,
+				      service_name\?\: string,
+				      boat_alias\?\: string,
+				      boat_model\?\: string,
+				      boat_builder\?\: string,
+				      boat_id_builder\?\: int,
+				      boat_year_construction\?\: int,
+				      boat_year_refit\?\: int,
+				      boat_length\?\: string\|float\|int,
+				      boat_beam\?\: string\|float\|int,
+				      boat_capacity\?\: int,
+				      boat_capacity_crew\?\: int,
+				      boat_capacity_pernocta\?\: int,
+				      boat_base_port_name\?\: string,
+				      base_price\?\: string\|float\|int,
+				      mandatory_skipper\?\: bool,
+				      is_bareboat\?\: bool,
+				      main_image\?\: string,
+				      images\?\: array\<int, array\{
+				        url\?\: string,
+				        url_sizes\?\: array\<string,string\>
+				      \}\>,
+				      is_owner\?\: int\|bool,
+				      status\?\: int,
+				      /\*\* Any additional fields returned by the API for this tenant/catalog\. \*\\/
+				      _extra\?\: array\<string,mixed\>
+				    \}\>,
+				    min_price\?\: string\|float\|int,
+				    max_price\?\: string\|float\|int,
+				    average_price\?\: string\|float\|int,
+				    total_results\?\: int,
+				    limit\?\: int,
+				    offset\?\: int,
+				    calculated_page\?\: int
+				  \}
+				\}\)\: Unexpected token "\?", expected '\}' at offset 836 on line 29$#
+			'''
+			identifier: phpDoc.parseError
+			count: 1
+			path: includes/ExternalApiClient.php
+
+		-
+			message: '#^PHPDoc tag @throws with type Maradigma\\RuntimeException is not subtype of Throwable$#'
+			identifier: throws.notThrowable
+			count: 1
+			path: includes/ExternalApiClient.php
+
+		-
+			message: '#^Call to function method_exists\(\) with ''Maradigma\\\\AjaxController'' and ''init'' will always evaluate to true\.$#'
+			identifier: function.alreadyNarrowedType
+			count: 1
+			path: includes/Plugin.php
+
+		-
+			message: '#^Call to function method_exists\(\) with ''Maradigma\\\\AssetsManager'' and ''init'' will always evaluate to true\.$#'
+			identifier: function.alreadyNarrowedType
+			count: 1
+			path: includes/Plugin.php
+
+		-
+			message: '#^Call to function method_exists\(\) with ''Maradigma\\\\BoatImagesSyncService'' and ''init'' will always evaluate to true\.$#'
+			identifier: function.alreadyNarrowedType
+			count: 1
+			path: includes/Plugin.php
+
+		-
+			message: '#^Call to function method_exists\(\) with ''Maradigma\\\\BoatPermalinks'' and ''init'' will always evaluate to true\.$#'
+			identifier: function.alreadyNarrowedType
+			count: 1
+			path: includes/Plugin.php
+
+		-
+			message: '#^Call to function method_exists\(\) with ''Maradigma\\\\BoatPostType'' and ''init'' will always evaluate to true\.$#'
+			identifier: function.alreadyNarrowedType
+			count: 1
+			path: includes/Plugin.php
+
+		-
+			message: '#^Call to function method_exists\(\) with ''Maradigma\\\\BoatPostType'' and ''register'' will always evaluate to true\.$#'
+			identifier: function.alreadyNarrowedType
+			count: 2
+			path: includes/Plugin.php
+
+		-
+			message: '#^Call to function method_exists\(\) with ''Maradigma\\\\BoatSyncService'' and ''init'' will always evaluate to true\.$#'
+			identifier: function.alreadyNarrowedType
+			count: 1
+			path: includes/Plugin.php
+
+		-
+			message: '#^Call to function method_exists\(\) with ''Maradigma\\\\BoatTemplatePropagator'' and ''init'' will always evaluate to true\.$#'
+			identifier: function.alreadyNarrowedType
+			count: 1
+			path: includes/Plugin.php
+
+		-
+			message: '#^Call to function method_exists\(\) with ''Maradigma\\\\BoatTemplateSyncAllService'' and ''init'' will always evaluate to true\.$#'
+			identifier: function.alreadyNarrowedType
+			count: 1
+			path: includes/Plugin.php
+
+		-
+			message: '#^Call to function method_exists\(\) with ''Maradigma\\\\MetaManager'' and ''init'' will always evaluate to true\.$#'
+			identifier: function.alreadyNarrowedType
+			count: 1
+			path: includes/Plugin.php
+
+		-
+			message: '#^Call to function method_exists\(\) with ''Maradigma\\\\Router'' and ''init'' will always evaluate to true\.$#'
+			identifier: function.alreadyNarrowedType
+			count: 1
+			path: includes/Plugin.php
+
+		-
+			message: '#^Call to function method_exists\(\) with ''Maradigma\\\\SettingsPage'' and ''init'' will always evaluate to true\.$#'
+			identifier: function.alreadyNarrowedType
+			count: 1
+			path: includes/Plugin.php
+
+		-
+			message: '#^Call to function method_exists\(\) with ''Maradigma\\\\ShortcodeRegistry'' and ''init'' will always evaluate to true\.$#'
+			identifier: function.alreadyNarrowedType
+			count: 1
+			path: includes/Plugin.php
+
+		-
+			message: '#^Function maradigma_debug_log not found\.$#'
+			identifier: function.notFound
+			count: 1
+			path: includes/Plugin.php
+
+		-
+			message: '#^Result of && is always false\.$#'
+			identifier: booleanAnd.alwaysFalse
+			count: 1
+			path: includes/Plugin.php
+
+		-
+			message: '#^Strict comparison using \=\=\= between false and true will always evaluate to false\.$#'
+			identifier: identical.alwaysFalse
+			count: 1
+			path: includes/Plugin.php
+
+		-
+			message: '#^Offset ''multilang_provider'' on array\{elementor\: mixed, yoast\: bool, multilang_provider\: string, boats_translatable\: bool\} on left side of \?\? always exists and is not nullable\.$#'
+			identifier: nullCoalesce.offset
+			count: 1
+			path: includes/SettingsPage.php
+
+		-
+			message: '#^Property WP_Post_Type\:\:\$label \(string\) on left side of \?\? is not nullable\.$#'
+			identifier: nullCoalesce.property
+			count: 1
+			path: includes/SettingsPage.php
+
+		-
+			message: '#^Property WP_Screen\:\:\$id \(string\) in isset\(\) is not nullable\.$#'
+			identifier: isset.property
+			count: 1
+			path: includes/SettingsPage.php
+
+		-
+			message: '#^Variable \$tokens on left side of \?\? is never defined\.$#'
+			identifier: nullCoalesce.variable
+			count: 1
+			path: includes/SettingsPage.php
+
+		-
+			message: '#^Call to function is_array\(\) with array will always evaluate to true\.$#'
+			identifier: function.alreadyNarrowedType
+			count: 2
+			path: includes/ShortcodeRegistry.php
+
+		-
+			message: '#^Call to function is_array\(\) with array\<mixed\> will always evaluate to true\.$#'
+			identifier: function.alreadyNarrowedType
+			count: 2
+			path: includes/ShortcodeRegistry.php
+
+		-
+			message: '#^Call to function is_array\(\) with non\-empty\-array will always evaluate to true\.$#'
+			identifier: function.alreadyNarrowedType
+			count: 11
+			path: includes/ShortcodeRegistry.php
+
+		-
+			message: '#^Call to function is_numeric\(\) with decimal\-int\-string will always evaluate to true\.$#'
+			identifier: function.alreadyNarrowedType
+			count: 2
+			path: includes/ShortcodeRegistry.php
+
+		-
+			message: '#^Call to function is_string\(\) with non\-empty\-string will always evaluate to true\.$#'
+			identifier: function.alreadyNarrowedType
+			count: 2
+			path: includes/ShortcodeRegistry.php
+
+		-
+			message: '#^Call to function method_exists\(\) with ''Maradigma\\\\BoatImagesSyncService'' and ''getAllowedImageToke…'' will always evaluate to true\.$#'
+			identifier: function.alreadyNarrowedType
+			count: 2
+			path: includes/ShortcodeRegistry.php
+
+		-
+			message: '#^Call to function method_exists\(\) with ''Maradigma\\\\BoatImagesSyncService'' and ''getBoatCoverUrlsByB…'' will always evaluate to true\.$#'
+			identifier: function.alreadyNarrowedType
+			count: 1
+			path: includes/ShortcodeRegistry.php
+
+		-
+			message: '#^Call to function method_exists\(\) with ''Maradigma\\\\MetaManager'' and ''isPostProtectedFrom…'' will always evaluate to true\.$#'
+			identifier: function.alreadyNarrowedType
+			count: 1
+			path: includes/ShortcodeRegistry.php
+
+		-
+			message: '#^Call to function method_exists\(\) with ''Maradigma\\\\Support\\\\RuntimeContext'' and ''getBoatsBaseUrl'' will always evaluate to true\.$#'
+			identifier: function.alreadyNarrowedType
+			count: 2
+			path: includes/ShortcodeRegistry.php
+
+		-
+			message: '#^Comparison operation "\>" between int\<1, 60\> and 0 is always true\.$#'
+			identifier: greater.alwaysTrue
+			count: 1
+			path: includes/ShortcodeRegistry.php
+
+		-
+			message: '#^Offset ''max'' on array\{min\: int, max\: int\} on left side of \?\? always exists and is not nullable\.$#'
+			identifier: nullCoalesce.offset
+			count: 1
+			path: includes/ShortcodeRegistry.php
+
+		-
+			message: '#^Offset ''min'' on array\{min\: int, max\: int\} on left side of \?\? always exists and is not nullable\.$#'
+			identifier: nullCoalesce.offset
+			count: 1
+			path: includes/ShortcodeRegistry.php
+
+		-
+			message: '#^Offset 0 on array\{non\-empty\-list\<string\>\} on left side of \?\? always exists and is not nullable\.$#'
+			identifier: nullCoalesce.offset
+			count: 1
+			path: includes/ShortcodeRegistry.php
+
+		-
+			message: '#^Offset 2 on array\{non\-falsy\-string, non\-empty\-string, string\} on left side of \?\? always exists and is not nullable\.$#'
+			identifier: nullCoalesce.offset
+			count: 2
+			path: includes/ShortcodeRegistry.php
+
+		-
+			message: '#^Strict comparison using \!\=\= between non\-empty\-string and '''' will always evaluate to true\.$#'
+			identifier: notIdentical.alwaysTrue
+			count: 7
+			path: includes/ShortcodeRegistry.php
+
+		-
+			message: '#^Strict comparison using \=\=\= between non\-empty\-array\<mixed, mixed\> and array\{\} will always evaluate to false\.$#'
+			identifier: identical.alwaysFalse
+			count: 1
+			path: includes/ShortcodeRegistry.php
+
+		-
+			message: '#^Variable \$card on left side of \?\? is never defined\.$#'
+			identifier: nullCoalesce.variable
+			count: 2
+			path: includes/ShortcodeRegistry.php
+
+		-
+			message: '#^Variable \$filters on left side of \?\? is never defined\.$#'
+			identifier: nullCoalesce.variable
+			count: 2
+			path: includes/ShortcodeRegistry.php
+
+		-
+			message: '#^Call to function is_string\(\) with string will always evaluate to true\.$#'
+			identifier: function.alreadyNarrowedType
+			count: 1
+			path: includes/Support/Debugger.php
+
+		-
+			message: '#^Result of && is always false\.$#'
+			identifier: booleanAnd.alwaysFalse
+			count: 1
+			path: includes/Support/Debugger.php
+
+		-
+			message: '#^Strict comparison using \=\=\= between false and true will always evaluate to false\.$#'
+			identifier: identical.alwaysFalse
+			count: 1
+			path: includes/Support/Debugger.php
+
+		-
+			message: '#^Function maradigma_debug_log not found\.$#'
+			identifier: function.notFound
+			count: 1
+			path: includes/Support/Logger.php
+
+		-
+			message: '#^Result of && is always false\.$#'
+			identifier: booleanAnd.alwaysFalse
+			count: 1
+			path: includes/Support/Logger.php
+
+		-
+			message: '#^Strict comparison using \=\=\= between false and true will always evaluate to false\.$#'
+			identifier: identical.alwaysFalse
+			count: 1
+			path: includes/Support/Logger.php
+
+		-
+			message: '#^Comparison operation "\<\=" between int\<1, max\> and 0 is always false\.$#'
+			identifier: smallerOrEqual.alwaysFalse
+			count: 1
+			path: includes/Support/MultilangAdapter.php
+
+		-
+			message: '#^Offset 1 on array\{non\-falsy\-string, non\-empty\-string\} on left side of \?\? always exists and is not nullable\.$#'
+			identifier: nullCoalesce.offset
+			count: 3
+			path: includes/Support/PluginReleaseBuilder.php
+
+		-
+			message: '#^Strict comparison using \=\=\= between string and false will always evaluate to false\.$#'
+			identifier: identical.alwaysFalse
+			count: 1
+			path: includes/Support/PluginReleaseBuilder.php
+
+		-
+			message: '#^Result of && is always false\.$#'
+			identifier: booleanAnd.alwaysFalse
+			count: 1
+			path: includes/Support/PoToMoCompiler.php
+
+		-
+			message: '#^Strict comparison using \!\=\= between non\-empty\-string and '''' will always evaluate to true\.$#'
+			identifier: notIdentical.alwaysTrue
+			count: 2
+			path: includes/Support/PoToMoCompiler.php
+
+		-
+			message: '#^Strict comparison using \!\=\= between null and null will always evaluate to false\.$#'
+			identifier: notIdentical.alwaysFalse
+			count: 2
+			path: includes/Support/PoToMoCompiler.php
+
+		-
+			message: '#^Call to function is_string\(\) with non\-empty\-string will always evaluate to true\.$#'
+			identifier: function.alreadyNarrowedType
+			count: 1
+			path: includes/Support/RuntimeContext.php
+
+		-
+			message: '#^Found usage of constant DOING_AJAX\. Use wp_doing_ajax\(\) instead\.$#'
+			identifier: phpstanWP.wpConstant.fetch
+			count: 1
+			path: includes/Support/RuntimeContext.php
+
+		-
+			message: '#^Strict comparison using \!\=\= between non\-empty\-string and '''' will always evaluate to true\.$#'
+			identifier: notIdentical.alwaysTrue
+			count: 3
+			path: includes/Support/RuntimeContext.php
+
+		-
+			message: '#^Strict comparison using \=\=\= between non\-empty\-string and array\{\} will always evaluate to false\.$#'
+			identifier: identical.alwaysFalse
+			count: 1
+			path: includes/Support/Sanitizer.php

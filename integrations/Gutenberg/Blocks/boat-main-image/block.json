@@ -1,0 +1,38 @@
+{
+  "apiVersion": 3,
+  "name": "maradigma/boat-main-image",
+  "version": "0.1.0",
+  "title": "Maradigma Boat Main Image",
+  "category": "maradigma",
+  "icon": "format-image",
+  "description": "Boat cover image block.",
+  "textdomain": "maradigma",
+  "attributes": {
+    "id": {
+      "type": "string",
+      "default": ""
+    },
+    "slug": {
+      "type": "string",
+      "default": ""
+    },
+    "size": {
+      "type": "string",
+      "default": "1100"
+    },
+    "attr": {
+      "type": "string",
+      "default": "loading=\"lazy\""
+    },
+    "prefer_wp_cache": {
+      "type": "string",
+      "default": "1"
+    }
+  },
+  "supports": {
+    "html": false
+  },
+  "usesContext": [
+    "postId"
+  ]
+}

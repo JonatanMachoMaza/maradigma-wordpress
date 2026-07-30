@@ -1,0 +1,64 @@
+{
+  "apiVersion": 3,
+  "name": "maradigma/boat-booking",
+  "version": "0.1.0",
+  "title": "Maradigma Boat Booking Button",
+  "category": "maradigma",
+  "icon": "tickets-alt",
+  "description": "Booking button and modal block.",
+  "textdomain": "maradigma",
+  "attributes": {
+    "id": {
+      "type": "string",
+      "default": ""
+    },
+    "slug": {
+      "type": "string",
+      "default": ""
+    },
+    "button_text": {
+      "type": "string",
+      "default": "Book now",
+      "role": "content"
+    },
+    "redirect_url_success": {
+      "type": "string",
+      "default": ""
+    },
+    "calendar_display": {
+      "type": "string",
+      "default": "inline"
+    },
+    "calendar_months": {
+      "type": "string",
+      "default": "1"
+    },
+    "calendar_selection_mode": {
+      "type": "string",
+      "default": "range"
+    },
+    "show_schedule_text": {
+      "type": "string",
+      "default": "1"
+    },
+    "show_promo_code": {
+      "type": "string",
+      "default": "1"
+    },
+    "show_children_included": {
+      "type": "string",
+      "default": "1"
+    },
+    "free_additional_label": {
+      "type": "string",
+      "default": "free",
+      "role": "content"
+    }
+  },
+  "supports": {
+    "html": false
+  },
+  "usesContext": [
+    "postId"
+  ]
+}

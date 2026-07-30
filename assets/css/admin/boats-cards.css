@@ -1,0 +1,37 @@
+.maradigma-card-tools {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.maradigma-token-bar {
+  margin-top: 8px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.maradigma-token-btn {
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+}
+
+.maradigma-preview-wrap {
+  margin-top: 14px;
+  border: 1px solid #dcdcde;
+  border-radius: 8px;
+  background: #fff;
+  overflow: hidden;
+}
+
+.maradigma-preview-head {
+  padding: 10px 12px;
+  border-bottom: 1px solid #dcdcde;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.maradigma-preview-frame {
+  padding: 14px;
+}

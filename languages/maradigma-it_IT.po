@@ -1,0 +1,2658 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Maradigma\n"
+"Language: it_IT\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+msgid "Connect WordPress with Maradigma to sync boats, build fleet pages, display availability and prices, and accept online bookings."
+msgstr "Collega WordPress a Maradigma per sincronizzare le barche, creare pagine della flotta, mostrare disponibilità e prezzi e accettare prenotazioni online."
+
+msgid "Boats"
+msgstr "Barche"
+
+msgid "Boat"
+msgstr "Barca"
+
+msgid "Add new"
+msgstr "Aggiungi nuovo"
+
+msgid "Add new boat"
+msgstr "Aggiungi nuova barca"
+
+msgid "Edit boat"
+msgstr "Modifica barca"
+
+msgid "New boat"
+msgstr "Nuova barca"
+
+msgid "View boat"
+msgstr "Visualizza barca"
+
+msgid "Search boats"
+msgstr "Cerca barche"
+
+msgid "No boats found"
+msgstr "Nessuna barca trovata"
+
+msgid "No boats found in trash"
+msgstr "Nessuna barca trovata nel cestino"
+
+msgid "All boats"
+msgstr "Tutte le barche"
+
+msgid "Configuration panel"
+msgstr "Pannello di configurazione"
+
+msgid "See more about Maradigma"
+msgstr "Scopri di più su Maradigma"
+
+msgid "Specify the reservation"
+msgstr "Specifica la prenotazione"
+
+msgid "Your profile information"
+msgstr "Le tue informazioni del profilo"
+
+msgid "Payment method"
+msgstr "Metodo di pagamento"
+
+msgid "Your Reservation is Almost Complete!"
+msgstr "La tua prenotazione è quasi completata!"
+
+msgid "Date start"
+msgstr "Data di inizio"
+
+msgid "Date end"
+msgstr "Data di fine"
+
+msgid "People"
+msgstr "Persone"
+
+msgid "First name"
+msgstr "Nome"
+
+msgid "Last name"
+msgstr "Cognome"
+
+msgid "Email"
+msgstr "Email"
+
+msgid "Phone"
+msgstr "Telefono"
+
+msgid "I accept terms and conditions"
+msgstr "Accetto i termini e le condizioni"
+
+msgid "Quote"
+msgstr "Preventivo"
+
+msgid "Total"
+msgstr "Totale"
+
+msgid "Not calculated"
+msgstr "Non calcolato"
+
+msgid "Calculating…"
+msgstr "Calcolo in corso…"
+
+msgid "Quote failed."
+msgstr "Calcolo del preventivo non riuscito."
+
+msgid "Boat not selected."
+msgstr "Barca non selezionata."
+
+msgid "Please select dates."
+msgstr "Seleziona le date."
+
+msgid "Email is required."
+msgstr "L'email è obbligatoria."
+
+msgid "You must accept terms and conditions."
+msgstr "Devi accettare i termini e le condizioni."
+
+msgid "Continue"
+msgstr "Continua"
+
+msgid "Continue to payment"
+msgstr "Continua al pagamento"
+
+msgid "Back"
+msgstr "Indietro"
+
+msgid "Cancel"
+msgstr "Annulla"
+
+msgid "Redirecting…"
+msgstr "Reindirizzamento in corso…"
+
+msgid "Booking created, but no payment URL was returned."
+msgstr "Prenotazione creata, ma non è stato restituito alcun URL di pagamento."
+
+msgid "Booking OK (no redirect URL)."
+msgstr "Prenotazione OK (nessun URL di reindirizzamento)."
+
+msgid "Booking endpoint not configured."
+msgstr "Endpoint di prenotazione non configurato."
+
+msgid "Quote endpoint not configured."
+msgstr "Endpoint del preventivo non configurato."
+
+msgid "Booking details"
+msgstr "Dettagli della prenotazione"
+
+msgid "Reservation"
+msgstr "Prenotazione"
+
+msgid "Identification"
+msgstr "Identificazione"
+
+msgid "Payment"
+msgstr "Pagamento"
+
+msgid "Finish"
+msgstr "Fine"
+
+msgid "Settings"
+msgstr "Impostazioni"
+
+msgid "Maradigma Settings"
+msgstr "Impostazioni Maradigma"
+
+msgid "Connect this website to your Maradigma account by entering your credentials. The rest of the integration will be handled automatically."
+msgstr "Collega questo sito web al tuo account Maradigma inserendo le tue credenziali. Il resto dell'integrazione sarà gestito automaticamente."
+
+msgid "Public key (X-API-KEY)"
+msgstr "Chiave pubblica (X-API-KEY)"
+
+msgid "Public key (API Key)"
+msgstr "Chiave pubblica (API Key)"
+
+
+msgid "Secret key"
+msgstr "Chiave segreta"
+
+msgid "Secret key (API Secret)"
+msgstr "Chiave segreta (API Secret)"
+
+
+msgid "Default language"
+msgstr "Lingua predefinita"
+
+msgid "Base slug for boats (SEO)"
+msgstr "Slug base per le barche (SEO)"
+
+msgid "Secret key the plugin will use to sign requests (X-SIGNATURE). Do not share it with anyone."
+msgstr "Chiave segreta che il plugin utilizzerà per firmare le richieste (X-SIGNATURE). Non condividerla con nessuno."
+
+msgid "External API client misconfigured."
+msgstr "Client API esterno configurato in modo errato."
+
+msgid "Connect your website to Maradigma to showcase your boats and enable online bookings for your customers."
+msgstr "Collega il tuo sito web a Maradigma per mostrare le tue barche e abilitare le prenotazioni online per i tuoi clienti."
+
+msgid "Settings panel"
+msgstr "Pannello impostazioni"
+
+msgid "Configuration"
+msgstr "Configurazione"
+
+msgid "Boat cards"
+msgstr "Schede barca"
+
+msgid "About Maradigma"
+msgstr "Informazioni su Maradigma"
+
+msgid "Help &amp; support"
+msgstr "Aiuto &amp; supporto"
+
+msgid "Connection with Maradigma"
+msgstr "Connessione con Maradigma"
+
+msgid "Enter your Maradigma public key and secret key to connect this website to your account. The plugin will automatically sign requests."
+msgstr "Inserisci la tua chiave pubblica e la chiave segreta Maradigma per collegare questo sito web al tuo account. Il plugin firmerà automaticamente le richieste."
+
+msgid "Ready: valid keys and successful connection"
+msgstr "Pronto: chiavi valide e connessione riuscita"
+
+msgid "The Maradigma keys are not valid. Please check the public key and the secret key."
+msgstr "Le chiavi Maradigma non sono valide. Controlla la chiave pubblica e la chiave segreta."
+
+msgid "We couldn’t connect to Maradigma. Please try again later or contact support."
+msgstr "Non siamo riusciti a connetterci a Maradigma. Riprova più tardi o contatta il supporto."
+
+msgid "Pending: enter your Maradigma keys"
+msgstr "In attesa: inserisci le tue chiavi Maradigma"
+
+msgid "Advanced / Uninstall"
+msgstr "Avanzate / Disinstallazione"
+
+msgid "Delete plugin data when uninstalling"
+msgstr "Elimina i dati del plugin durante la disinstallazione"
+
+msgid "If enabled, deleting the plugin will remove boats CPT posts, postmeta, options and cache. Recommended OFF unless you want a full wipe."
+msgstr "Se abilitato, l'eliminazione del plugin rimuoverà i post CPT delle barche, i metadati dei post, le opzioni e la cache. Consigliato OFF a meno che tu non voglia una cancellazione completa."
+
+msgid "Also delete uploads folder (optional)"
+msgstr "Elimina anche la cartella uploads (opzionale)"
+
+msgid "Only if you store files under /wp-content/uploads/maradigma/. Default OFF (recommended)."
+msgstr "Solo se memorizzi file in /wp-content/uploads/maradigma/. OFF per impostazione predefinita (consigliato)."
+
+msgid "Sync (one page per boat)"
+msgstr "Sincronizza (una pagina per barca)"
+
+msgid "Boats synced successfully."
+msgstr "Barche sincronizzate con successo."
+
+msgid "Sync failed. Please check your API keys and try again."
+msgstr "Sincronizzazione non riuscita. Controlla le tue chiavi API e riprova."
+
+msgid "Cache cleared successfully."
+msgstr "Cache svuotata con successo."
+
+msgid "Could not clear cache. Please try again."
+msgstr "Impossibile svuotare la cache. Riprova."
+
+msgid "Last sync:"
+msgstr "Ultima sincronizzazione:"
+
+msgid "Synced boats:"
+msgstr "Barche sincronizzate:"
+
+msgid "Sync boats now"
+msgstr "Sincronizza barche ora"
+
+msgid "This will clear Maradigma cache. Continue?"
+msgstr "Questo svuoterà la cache di Maradigma. Continuare?"
+
+msgid "Clear plugin cache"
+msgstr "Svuota la cache del plugin"
+
+msgid "Clears cached boats list and boat details. Use if you changed settings or data looks outdated."
+msgstr "Svuota l'elenco delle barche in cache e i dettagli delle barche. Usalo se hai modificato le impostazioni o se i dati sembrano obsoleti."
+
+msgid "Quick summary"
+msgstr "Riepilogo rapido"
+
+msgid "Boat catalog synced with your Maradigma account."
+msgstr "Catalogo barche sincronizzato con il tuo account Maradigma."
+
+msgid "Online bookings directly from your website."
+msgstr "Prenotazioni online direttamente dal tuo sito web."
+
+msgid "SEO-ready content: friendly URLs and one page per boat."
+msgstr "Contenuti pronti per la SEO: URL leggibili e una pagina per barca."
+
+msgid "Easy integration via shortcodes or your theme templates."
+msgstr "Integrazione semplice tramite shortcode o template del tuo tema."
+
+msgid "Compatibility detected"
+msgstr "Compatibilità rilevata"
+
+msgid "Learn more about Maradigma"
+msgstr "Scopri di più su Maradigma"
+
+msgid "Request information or a demo"
+msgstr "Richiedi informazioni o una demo"
+
+msgid "Dynamic SEO (per boat)"
+msgstr "SEO dinamica (per barca)"
+
+msgid "Configure the default language, the base slug for the boats section, and the SEO templates (title/description/H1). Supports simple multi-language format such as: \"es:barcos,en:boats,fr:bateaux\"."
+msgstr "Configura la lingua predefinita, lo slug base per la sezione barche e i template SEO (titolo/descrizione/H1). Supporta un semplice formato multilingue come: \"es:barcos,en:boats,fr:bateaux\"."
+
+msgid "Used for SEO when the language cannot be detected (or there is no mapping)."
+msgstr "Utilizzato per la SEO quando la lingua non può essere rilevata (o non esiste alcuna mappatura)."
+
+msgid "Examples: \"boats\" or \"alquiler-barcos\". Simple multi-language: \"es:barcos,en:boats,fr:bateaux\"."
+msgstr "Esempi: \"boats\" o \"alquiler-barcos\". Multilingua semplice: \"es:barcos,en:boats,fr:bateaux\"."
+
+msgid "Meta title template"
+msgstr "Template del meta titolo"
+
+msgid "Insert variable"
+msgstr "Inserisci variabile"
+
+msgid "Recommended: “Boat hire {{service_name}} | {{port}}”."
+msgstr "Consigliato: “Noleggio barca {{service_name}} | {{port}}”."
+
+msgid "Meta description template"
+msgstr "Template della meta descrizione"
+
+msgid "Recommended: 120-160 characters (Google truncates if you go over)."
+msgstr "Consigliato: 120-160 caratteri (Google tronca se superi questo limite)."
+
+msgid "H1 template (optional)"
+msgstr "Template H1 (opzionale)"
+
+msgid "If your page template already defines its own H1, leave this empty."
+msgstr "Se il template della tua pagina definisce già il proprio H1, lascia questo campo vuoto."
+
+msgid "Close"
+msgstr "Chiudi"
+
+msgid "Select a variable and click Insert."
+msgstr "Seleziona una variabile e fai clic su Inserisci."
+
+msgid "Select a variable…"
+msgstr "Seleziona una variabile…"
+
+msgid "Insert"
+msgstr "Inserisci"
+
+msgid "Tip: insert multiple variables in a row without closing the modal."
+msgstr "Suggerimento: inserisci più variabili di seguito senza chiudere la finestra modale."
+
+msgid "SEO Notes:"
+msgstr "Note SEO:"
+
+msgid "The base slug is used to build URLs like /boats/{boat-slug}/ (or /barcos/... depending on language)."
+msgstr "Lo slug base viene utilizzato per creare URL come /boats/{boat-slug}/ (o /barcos/... a seconda della lingua)."
+
+msgid "The simple multi-language format is intentionally straightforward: \"es:barcos,en:boats\"."
+msgstr "Il semplice formato multilingue è intenzionalmente diretto: \"es:barcos,en:boats\"."
+
+msgid "Quick examples"
+msgstr "Esempi rapidi"
+
+msgid "Default language:"
+msgstr "Lingua predefinita:"
+
+msgid "Base slug:"
+msgstr "Slug base:"
+
+msgid "Multi-language base slug:"
+msgstr "Slug base multilingua:"
+
+msgid "If you do not use multi-language, a single slug is enough. If you do, the system will choose the slug based on the language (otherwise it falls back to the default language)."
+msgstr "Se non utilizzi il multilingua, è sufficiente un singolo slug. Se invece lo utilizzi, il sistema sceglierà lo slug in base alla lingua (altrimenti tornerà alla lingua predefinita)."
+
+msgid "Boat card saved."
+msgstr "Scheda barca salvata."
+
+msgid "Boat card deleted."
+msgstr "Scheda barca eliminata."
+
+msgid "Default boat card updated."
+msgstr "Scheda barca predefinita aggiornata."
+
+msgid "Card ID and Template HTML are required."
+msgstr "L'ID della scheda e il template HTML sono obbligatori."
+
+msgid "Create different HTML templates for the boat cards in the list. Select which one to use with the card=\"\" attribute in the shortcode."
+msgstr "Crea diversi template HTML per le schede barca nell'elenco. Seleziona quale usare con l'attributo card=\"\" nello shortcode."
+
+msgid "Add new"
+msgstr "Aggiungi nuovo"
+
+msgid "Name"
+msgstr "Nome"
+
+msgid "Default"
+msgstr "Predefinito"
+
+msgid "Actions"
+msgstr "Azioni"
+
+msgid "No cards yet."
+msgstr "Nessuna scheda ancora."
+
+msgid "Edit"
+msgstr "Modifica"
+
+msgid "Set default"
+msgstr "Imposta come predefinito"
+
+msgid "Delete"
+msgstr "Elimina"
+
+msgid "Use:"
+msgstr "Usa:"
+
+msgid "New boat card"
+msgstr "Nuova scheda barca"
+
+msgid "Edit boat card"
+msgstr "Modifica scheda barca"
+
+msgid "Back to list"
+msgstr "Torna all'elenco"
+
+msgid "Card not found."
+msgstr "Scheda non trovata."
+
+msgid "Card ID"
+msgstr "ID scheda"
+
+msgid "Stable ID. Avoid spaces. Example: compact, luxury, grid_2."
+msgstr "ID stabile. Evita gli spazi. Esempio: compact, luxury, grid_2."
+
+msgid "Template HTML"
+msgstr "Template HTML"
+
+msgid "Refresh preview"
+msgstr "Aggiorna anteprima"
+
+msgid "Preview"
+msgstr "Anteprima"
+
+msgid "Set as default"
+msgstr "Imposta come predefinito"
+
+msgid "Save card"
+msgstr "Salva scheda"
+
+msgid "Help tab content unchanged."
+msgstr "Contenuto della scheda aiuto invariato."
+
+msgid "Maradigma is a platform specialized in managing and marketing boat charters. We help charter companies centralize bookings, availability, and payments in one place."
+msgstr "Maradigma è una piattaforma specializzata nella gestione e commercializzazione del noleggio barche. Aiutiamo le società di noleggio barche a centralizzare prenotazioni, disponibilità e pagamenti in un unico posto."
+
+msgid "What you can do with this plugin"
+msgstr "Cosa puoi fare con questo plugin"
+
+msgid "Show your boat fleet directly on your WordPress website."
+msgstr "Mostra la tua flotta di barche direttamente sul tuo sito WordPress."
+
+msgid "Allow your customers to send online booking requests."
+msgstr "Consenti ai tuoi clienti di inviare richieste di prenotazione online."
+
+msgid "Keep your website always synced with Maradigma information."
+msgstr "Mantieni il tuo sito web sempre sincronizzato con le informazioni di Maradigma."
+
+msgid "Who is it for?"
+msgstr "Per chi è?"
+
+msgid "Boat charter companies already working with Maradigma."
+msgstr "Società di noleggio barche che lavorano già con Maradigma."
+
+msgid "Agencies managing multiple brands or fleets."
+msgstr "Agenzie che gestiscono più marchi o flotte."
+
+msgid "Projects that need a quick integration without custom development."
+msgstr "Progetti che necessitano di un'integrazione rapida senza sviluppo personalizzato."
+
+msgid "Talk to our team"
+msgstr "Parla con il nostro team"
+
+msgid "✔ Elementor detected - Widgets enabled"
+msgstr "✔ Elementor rilevato - Widget abilitati"
+
+msgid "⚠ Elementor not detected"
+msgstr "⚠ Elementor non rilevato"
+
+
+
+msgid "✔ Yoast SEO detected - SEO integration available"
+msgstr "✔ Yoast SEO rilevato - Integrazione SEO disponibile"
+
+msgid "⚠ Yoast SEO not detected"
+msgstr "⚠ Yoast SEO non rilevato"
+
+msgid "✔ Polylang detected - Multilang active"
+msgstr "✔ Polylang rilevato - Multilingua attivo"
+
+msgid "⚠ Polylang not detected"
+msgstr "⚠ Polylang non rilevato"
+
+msgid "✔ WPML detected - Translations enabled"
+msgstr "✔ WPML rilevato - Traduzioni abilitate"
+
+msgid "⚠ WPML not detected"
+msgstr "⚠ WPML non rilevato"
+
+msgid "Save changes"
+msgstr "Salva modifiche"
+
+msgid "Select a Maradigma boat in this post first."
+msgstr "Seleziona prima una barca Maradigma in questo post."
+
+msgid "Unable to load boat data from Maradigma."
+msgstr "Impossibile caricare i dati della barca da Maradigma."
+
+msgid "Maradigma"
+msgstr "Maradigma"
+
+msgid "Maradigma Boat Additional Services"
+msgstr "Servizi aggiuntivi barca Maradigma"
+
+msgid "Content"
+msgstr "Contenuto"
+
+msgid "Title"
+msgstr "Titolo"
+
+msgid "Additional services"
+msgstr "Servizi aggiuntivi"
+
+msgid "Show title"
+msgstr "Mostra titolo"
+
+msgid "Yes"
+msgstr "Sì"
+
+msgid "No"
+msgstr "No"
+
+msgid "Layout"
+msgstr "Layout"
+
+msgid "Blocks (list)"
+msgstr "Blocchi (elenco)"
+
+msgid "Table"
+msgstr "Tabella"
+
+msgid "Show table headers"
+msgstr "Mostra intestazioni tabella"
+
+msgid "Group by category"
+msgstr "Raggruppa per categoria"
+
+msgid "Show category title"
+msgstr "Mostra titolo categoria"
+
+msgid "Show badges"
+msgstr "Mostra badge"
+
+msgid "Show badge: Required / Optional / Free"
+msgstr "Mostra badge: Obbligatorio / Opzionale / Gratuito"
+
+msgid "Show badge: Per booking / Per day"
+msgstr "Mostra badge: Per prenotazione / Per giorno"
+
+msgid "Show badge: Payment (online/port/office)"
+msgstr "Mostra badge: Pagamento (online/porto/ufficio)"
+
+msgid "Badge style"
+msgstr "Stile badge"
+
+msgid "Friendly (recommended)"
+msgstr "Amichevole (consigliato)"
+
+msgid "Raw (API names)"
+msgstr "GrezzO (nomi API)"
+
+msgid "Show description (if provided)"
+msgstr "Mostra descrizione (se fornita)"
+
+msgid "Show quantity (if > 1)"
+msgstr "Mostra quantità (se > 1)"
+
+msgid "Price display (source preference)"
+msgstr "Visualizzazione prezzo (preferenza sorgente)"
+
+msgid "Prefer total (formatted/html)"
+msgstr "Preferisci totale (formattato/html)"
+
+msgid "Prefer total (formatted)"
+msgstr "Preferisci totale (formattato)"
+
+msgid "Prefer base (formatted)"
+msgstr "Preferisci base (formattata)"
+
+msgid "Prefer VAT (formatted)"
+msgstr "Preferisci IVA (formattata)"
+
+msgid "Prefer raw total_price"
+msgstr "Preferisci total_price grezzo"
+
+msgid "Prefer raw price"
+msgstr "Preferisci prezzo grezzo"
+
+msgid "VAT"
+msgstr "IVA"
+
+msgid "VAT display mode"
+msgstr "Modalità di visualizzazione IVA"
+
+msgid "Show \"VAT included\""
+msgstr "Mostra \"IVA inclusa\""
+
+msgid "Show \"+ VAT\""
+msgstr "Mostra \"+ IVA\""
+
+msgid "Hide VAT reference (base price)"
+msgstr "Nascondi riferimento IVA (prezzo base)"
+
+msgid "Hide VAT reference (total price)"
+msgstr "Nascondi riferimento IVA (prezzo totale)"
+
+msgid "VAT text position"
+msgstr "Posizione testo IVA"
+
+msgid "Below price (new line)"
+msgstr "Sotto il prezzo (nuova riga)"
+
+msgid "Same line (inline)"
+msgstr "Stessa riga (inline)"
+
+msgid "Tooltip / info icon"
+msgstr "Tooltip / icona info"
+
+msgid "VAT included text"
+msgstr "Testo IVA inclusa"
+
+msgid "VAT excluded text"
+msgstr "Testo IVA esclusa"
+
+msgid "VAT included"
+msgstr "IVA inclusa"
+
+msgid "+ VAT"
+msgstr "+ IVA"
+
+msgid "Price format"
+msgstr "Formato prezzo"
+
+msgid "Currency display"
+msgstr "Visualizzazione valuta"
+
+msgid "Symbol (€, $, £)"
+msgstr "Simbolo (€,$,£)"
+
+msgid "ISO (EUR, USD...)"
+msgstr "ISO (EUR, USD...)"
+
+msgid "Decimals"
+msgstr "Decimali"
+
+msgid "Auto"
+msgstr "Auto"
+
+msgid "0"
+msgstr "0"
+
+msgid "2"
+msgstr "2"
+
+msgid "Thousands separator"
+msgstr "Separatore delle migliaia"
+
+msgid "Decimal separator"
+msgstr "Separatore decimale"
+
+msgid "No additional services available."
+msgstr "Nessun servizio aggiuntivo disponibile."
+
+msgid "Other"
+msgstr "Altro"
+
+msgid "Service"
+msgstr "Servizio"
+
+msgid "Details"
+msgstr "Dettagli"
+
+msgid "Price"
+msgstr "Prezzo"
+
+msgid "Required"
+msgstr "Obbligatorio"
+
+msgid "This extra is required for this booking."
+msgstr "Questo extra è obbligatorio per questa prenotazione."
+
+msgid "Optional"
+msgstr "Opzionale"
+
+msgid "This extra can be added if you want."
+msgstr "Questo extra può essere aggiunto se lo desideri."
+
+msgid "Free"
+msgstr "Gratuito"
+
+msgid "This extra has no additional cost."
+msgstr "Questo extra non ha costi aggiuntivi."
+
+msgid "This additional service is free."
+msgstr "Questo servizio aggiuntivo è gratuito."
+
+msgid "Per booking"
+msgstr "Per prenotazione"
+
+msgid "Charged once for the whole reservation."
+msgstr "Addebitato una sola volta per l'intera prenotazione."
+
+msgid "Per day"
+msgstr "Per giorno"
+
+msgid "Charged for each day of the reservation."
+msgstr "Addebitato per ogni giorno della prenotazione."
+
+msgid "Pay online"
+msgstr "Paga online"
+
+msgid "Payment is made online during booking."
+msgstr "Il pagamento viene effettuato online durante la prenotazione."
+
+msgid "Pay at the port"
+msgstr "Paga al porto"
+
+msgid "Payment is made at the port on the rental day."
+msgstr "Il pagamento viene effettuato al porto il giorno del noleggio."
+
+msgid "Pay at the office"
+msgstr "Paga in ufficio"
+
+msgid "Payment is made at the office."
+msgstr "Il pagamento viene effettuato in ufficio."
+
+msgid "Maradigma Boat Book Now"
+msgstr "Prenota ora la barca Maradigma"
+
+msgid "Button text"
+msgstr "Testo pulsante"
+
+msgid "Book now"
+msgstr "Prenota ora"
+
+msgid "Book"
+msgstr "Prenota"
+
+msgid "From"
+msgstr "Da"
+
+msgid "Day"
+msgstr "Giorno"
+
+msgid "Modal title"
+msgstr "Titolo modale"
+
+msgid "Book this boat"
+msgstr "Prenota questa barca"
+
+msgid "Show quote box"
+msgstr "Mostra box preventivo"
+
+msgid "Terms label"
+msgstr "Etichetta termini"
+
+msgid "I accept the terms and conditions"
+msgstr "Accetto i termini e le condizioni"
+
+msgid "Auto open (useful in preview)"
+msgstr "Apertura automatica (utile nell'anteprima)"
+
+msgid "API expand (optional)"
+msgstr "Espansione API (opzionale)"
+
+msgid "Maradigma Boat Description"
+msgstr "Descrizione barca Maradigma"
+
+msgid "Allow basic HTML"
+msgstr "Consenti HTML di base"
+
+msgid "Max words (0 = unlimited)"
+msgstr "Numero massimo di parole (0 = illimitato)"
+
+msgid "If set, the description will be trimmed."
+msgstr "Se impostato, la descrizione verrà accorciata."
+
+msgid "Description not available."
+msgstr "Descrizione non disponibile."
+
+msgid "Maradigma Boat Equipments"
+msgstr "Equipaggiamenti barca Maradigma"
+
+msgid "Equipments"
+msgstr "Equipaggiamenti"
+
+msgid "Show icon"
+msgstr "Mostra icona"
+
+msgid "Icon text / symbol"
+msgstr "Testo / simbolo icona"
+
+msgid "Example: ✓, ✔, •, →, ★, or any text."
+msgstr "Esempio: ✓, ✔, •, →, ★ o qualsiasi testo."
+
+msgid "No equipments available."
+msgstr "Nessun equipaggiamento disponibile."
+
+msgid "Maradigma Boat Gallery"
+msgstr "Galleria barca Maradigma"
+
+msgid "Grid"
+msgstr "Griglia"
+
+msgid "Slider"
+msgstr "Slider"
+
+msgid "Columns"
+msgstr "Colonne"
+
+msgid "Enable lightbox on click"
+msgstr "Abilita lightbox al clic"
+
+msgid "Images available: …"
+msgstr "Immagini disponibili: …"
+
+msgid "Show images from (1-based)"
+msgstr "Mostra immagini da (base 1)"
+
+msgid "Show images to (0 = last)"
+msgstr "Mostra immagini fino a (0 = ultima)"
+
+msgid "Max images (final limit)"
+msgstr "Immagini massime (limite finale)"
+
+msgid "Applied after the from/to range."
+msgstr "Applicato dopo l'intervallo da/a."
+
+msgid "Prefer image size key"
+msgstr "Preferisci chiave dimensione immagine"
+
+msgid "Gap (px)"
+msgstr "Spaziatura (px)"
+
+msgid "Image radius (px)"
+msgstr "Raggio immagine (px)"
+
+msgid "Autoplay"
+msgstr "Riproduzione automatica"
+
+msgid "Autoplay delay (ms)"
+msgstr "Ritardo riproduzione automatica (ms)"
+
+msgid "Loop"
+msgstr "Loop"
+
+msgid "Transition speed (ms)"
+msgstr "Velocità di transizione (ms)"
+
+msgid "Space between slides (px)"
+msgstr "Spazio tra le slide (px)"
+
+msgid "Slides per view (desktop)"
+msgstr "Slide per visualizzazione (desktop)"
+
+msgid "Slides per view (tablet)"
+msgstr "Slide per visualizzazione (tablet)"
+
+msgid "Slides per view (mobile)"
+msgstr "Slide per visualizzazione (mobile)"
+
+msgid "Show arrows"
+msgstr "Mostra frecce"
+
+msgid "Show pagination dots"
+msgstr "Mostra punti di paginazione"
+
+msgid "Boat image"
+msgstr "Immagine barca"
+
+msgid "Maradigma Boat Included"
+msgstr "Incluso nella barca Maradigma"
+
+msgid "Included"
+msgstr "Incluso"
+
+msgid "Show tick icon"
+msgstr "Mostra icona di spunta"
+
+msgid "Tick text / icon"
+msgstr "Testo / icona di spunta"
+
+msgid "Example: ✓, ✔, ✅, →, •, or any text."
+msgstr "Esempio: ✓, ✔, ✅, →, • o qualsiasi testo."
+
+msgid "No included items."
+msgstr "Nessun elemento incluso."
+
+msgid "Maradigma Boat Not Included"
+msgstr "Non incluso nella barca Maradigma"
+
+msgid "Not included"
+msgstr "Non incluso"
+
+msgid "Show cross icon"
+msgstr "Mostra icona di croce"
+
+msgid "Cross text / icon"
+msgstr "Testo / icona di croce"
+
+msgid "Example: ✕, ✖, ❌, ×, —, •, or any text."
+msgstr "Esempio: ✕, ✖, ❌, ×, —, • o qualsiasi testo."
+
+msgid "No \"not included\" items."
+msgstr "Nessun elemento \"non incluso\"."
+
+msgid "Maradigma Boat PDF Download"
+msgstr "Download PDF barca Maradigma"
+
+msgid "Button text"
+msgstr "Testo pulsante"
+
+msgid "Download PDF"
+msgstr "Scarica PDF"
+
+msgid "Open in new tab"
+msgstr "Apri in una nuova scheda"
+
+msgid "Force download (download attribute)"
+msgstr "Forza download (attributo download)"
+
+msgid "PDF URL keys (comma separated)"
+msgstr "Chiavi URL PDF (separate da virgola)"
+
+msgid "Widget will try these keys in order. Supports nested arrays like [{\"url\":\"...\"}] or [{\"download_link\":\"...\"}]."
+msgstr "Il widget proverà queste chiavi in ordine. Supporta array nidificati come [{\"url\":\"...\"}] o [{\"download_link\":\"...\"}]."
+
+msgid "API expand (optional)"
+msgstr "Espansione API (opzionale)"
+
+msgid "If the PDF is only present with a specific expand, set it here."
+msgstr "Se il PDF è presente solo con una specifica espansione, impostala qui."
+
+msgid "Maradigma Boat Prices"
+msgstr "Prezzi barca Maradigma"
+
+msgid "Content"
+msgstr "Contenuto"
+
+msgid "Title"
+msgstr "Titolo"
+
+msgid "Prices"
+msgstr "Prezzi"
+
+msgid "Show title"
+msgstr "Mostra titolo"
+
+msgid "Yes"
+msgstr "Sì"
+
+msgid "No"
+msgstr "No"
+
+msgid "Season range display"
+msgstr "Visualizzazione intervallo stagione"
+
+msgid "Month / Months"
+msgstr "Mese / Mesi"
+
+msgid "Dates (short)"
+msgstr "Date (brevi)"
+
+msgid "Dates (long)"
+msgstr "Date (lunghe)"
+
+msgid "Layout"
+msgstr "Layout"
+
+msgid "Table (vertical)"
+msgstr "Tabella (verticale)"
+
+msgid "Blocks (horizontal)"
+msgstr "Blocchi (orizzontale)"
+
+msgid "Order by"
+msgstr "Ordina per"
+
+msgid "Start date (ASC)"
+msgstr "Data di inizio (ASC)"
+
+msgid "Start date (DESC)"
+msgstr "Data di inizio (DESC)"
+
+msgid "Price (ASC)"
+msgstr "Prezzo (ASC)"
+
+msgid "Price (DESC)"
+msgstr "Prezzo (DESC)"
+
+msgid "Empty text"
+msgstr "Testo vuoto"
+
+msgid "Prices not available."
+msgstr "Prezzi non disponibili."
+
+msgid "VAT"
+msgstr "IVA"
+
+msgid "VAT display mode"
+msgstr "Modalità di visualizzazione IVA"
+
+msgid "Show \"VAT included\""
+msgstr "Mostra \"IVA inclusa\""
+
+msgid "Show \"+ VAT\""
+msgstr "Mostra \"+ IVA\""
+
+msgid "Hide VAT reference (base price)"
+msgstr "Nascondi riferimento IVA (prezzo base)"
+
+msgid "Hide VAT reference (total price)"
+msgstr "Nascondi riferimento IVA (prezzo totale)"
+
+msgid "VAT text position"
+msgstr "Posizione testo IVA"
+
+msgid "Below price (new line)"
+msgstr "Sotto il prezzo (nuova riga)"
+
+msgid "Same line (inline)"
+msgstr "Stessa riga (inline)"
+
+msgid "Tooltip / info icon"
+msgstr "Tooltip / icona info"
+
+msgid "VAT included text"
+msgstr "Testo IVA inclusa"
+
+msgid "VAT included"
+msgstr "IVA inclusa"
+
+msgid "VAT excluded text"
+msgstr "Testo IVA esclusa"
+
+msgid "+ VAT"
+msgstr "+ IVA"
+
+msgid "Price format"
+msgstr "Formato prezzo"
+
+msgid "Currency display"
+msgstr "Visualizzazione valuta"
+
+msgid "Symbol (€, $, £)"
+msgstr "Simbolo (€,$,£)"
+
+msgid "ISO (EUR, USD...)"
+msgstr "ISO (EUR, USD...)"
+
+msgid "Decimals"
+msgstr "Decimali"
+
+msgid "Auto"
+msgstr "Auto"
+
+msgid "0"
+msgstr "0"
+
+msgid "2"
+msgstr "2"
+
+msgid "Thousands separator"
+msgstr "Separatore delle migliaia"
+
+msgid "Decimal separator"
+msgstr "Separatore decimale"
+
+msgid "Style"
+msgstr "Stile"
+
+msgid "Row gap (px)"
+msgstr "Spaziatura righe (px)"
+
+msgid "Show table headers"
+msgstr "Mostra intestazioni tabella"
+
+msgid "Base price"
+msgstr "Prezzo base"
+
+msgid "Week"
+msgstr "Settimana"
+
+msgid "Hour"
+msgstr "Ora"
+
+msgid "Season"
+msgstr "Stagione"
+
+msgid "Price"
+msgstr "Prezzo"
+
+msgid "Maradigma Boat Specs"
+msgstr "Specifiche barca Maradigma"
+
+msgid "Content"
+msgstr "Contenuto"
+
+msgid "Layout"
+msgstr "Layout"
+
+msgid "Two columns"
+msgstr "Due colonne"
+
+msgid "List"
+msgstr "Elenco"
+
+msgid "Show labels"
+msgstr "Mostra etichette"
+
+msgid "Yes"
+msgstr "Sì"
+
+msgid "No"
+msgstr "No"
+
+msgid "Field"
+msgstr "Campo"
+
+msgid "Custom key"
+msgstr "Chiave personalizzata"
+
+msgid "Label"
+msgstr "Etichetta"
+
+msgid "e.g. Length"
+msgstr "es. Lunghezza"
+
+msgid "Format"
+msgstr "Formato"
+
+msgid "Text"
+msgstr "Testo"
+
+msgid "Integer"
+msgstr "Intero"
+
+msgid "Meters (add \"m\")"
+msgstr "Metri (aggiungi \"m\")"
+
+msgid "Boolean (Yes/No)"
+msgstr "Booleano (Sì/No)"
+
+msgid "Prefix"
+msgstr "Prefisso"
+
+msgid "e.g. ~"
+msgstr "es. ~"
+
+msgid "Suffix"
+msgstr "Suffisso"
+
+msgid "e.g. L/H"
+msgstr "es. L/H"
+
+msgid "Fallback (if empty)"
+msgstr "Fallback (se vuoto)"
+
+msgid "e.g. -"
+msgstr "es. -"
+
+msgid "Specs to show"
+msgstr "Specifiche da mostrare"
+
+msgid "No specs configured."
+msgstr "Nessuna specifica configurata."
+
+msgid "Specs not available."
+msgstr "Specifiche non disponibili."
+
+msgid "Boat type"
+msgstr "Tipo di barca"
+
+msgid "Builder"
+msgstr "Costruttore"
+
+msgid "Model"
+msgstr "Modello"
+
+msgid "Alias"
+msgstr "Alias"
+
+msgid "Capacity (guests)"
+msgstr "Capacità (ospiti)"
+
+msgid "Crew capacity"
+msgstr "Capacità equipaggio"
+
+msgid "Sleeps"
+msgstr "Posti letto"
+
+msgid "Cabins"
+msgstr "Cabine"
+
+msgid "cabins"
+msgstr "cabine"
+
+msgid "Length"
+msgstr "Lunghezza"
+
+msgid "Beam"
+msgstr "Baglio"
+
+msgid "Fuel consumption"
+msgstr "Consumo di carburante"
+
+msgid "Engines"
+msgstr "Motori"
+
+msgid "Base port"
+msgstr "Porto base"
+
+msgid "Year"
+msgstr "Anno"
+
+msgid "Refit year"
+msgstr "Anno refit"
+
+msgid "Deposit"
+msgstr "Deposito"
+
+msgid "Deposit with skipper"
+msgstr "Deposito con skipper"
+
+msgid "Deposit without skipper"
+msgstr "Deposito senza skipper"
+
+msgid "Custom key…"
+msgstr "Chiave personalizzata…"
+
+msgid "Type"
+msgstr "Tipo"
+
+msgid "Capacity"
+msgstr "Capacità"
+
+msgid "Crew"
+msgstr "Equipaggio"
+
+msgid "Refit"
+msgstr "Refit"
+
+msgid "Maradigma Boat Title"
+msgstr "Titolo barca Maradigma"
+
+msgid "Content"
+msgstr "Contenuto"
+
+msgid "HTML Tag"
+msgstr "Tag HTML"
+
+msgid "Show boat ID suffix"
+msgstr "Mostra suffisso ID barca"
+
+msgid "Yes"
+msgstr "Sì"
+
+msgid "No"
+msgstr "No"
+
+msgid "Maradigma - Boats Archive (Interactive)"
+msgstr "Maradigma - Archivio barche (interattivo)"
+
+msgid "Interactive Listing"
+msgstr "Elenco interattivo"
+
+msgid "Default (plugin setting)"
+msgstr "Predefinito (impostazione plugin)"
+
+msgid "Boat card template (card)"
+msgstr "Template scheda barca (card)"
+
+msgid "Items per page"
+msgstr "Elementi per pagina"
+
+msgid "Show text search"
+msgstr "Mostra ricerca testuale"
+
+msgid "Show basic filters (capacity, featured, instant)"
+msgstr "Mostra filtri base (capacità, in evidenza, immediato)"
+
+msgid "Show pagination"
+msgstr "Mostra paginazione"
+
+msgid "Search boats…"
+msgstr "Cerca barche…"
+
+msgid "Min pax"
+msgstr "Pax min"
+
+msgid "Featured"
+msgstr "In evidenza"
+
+msgid "Instant booking"
+msgstr "Prenotazione immediata"
+
+msgid "Relevance"
+msgstr "Rilevanza"
+
+msgid "Price: low to high"
+msgstr "Prezzo: dal più basso al più alto"
+
+msgid "Price: high to low"
+msgstr "Prezzo: dal più alto al più basso"
+
+msgid "Length: low to high"
+msgstr "Lunghezza: crescente"
+
+msgid "Length: high to low"
+msgstr "Lunghezza: decrescente"
+
+msgid "Featured first"
+msgstr "Prima in evidenza"
+
+msgid "Newest first"
+msgstr "Prima i più recenti"
+
+msgid "Apply"
+msgstr "Applica"
+
+msgid "Reset"
+msgstr "Reimposta"
+
+msgid "No results found."
+msgstr "Nessun risultato trovato."
+
+msgid "Yes"
+msgstr "Sì"
+
+msgid "No"
+msgstr "No"
+
+msgid "More filters"
+msgstr "Più filtri"
+
+msgid "Search"
+msgstr "Cerca"
+
+msgid "Price range"
+msgstr "Fascia di prezzo"
+
+msgid "Min price"
+msgstr "Prezzo min"
+
+msgid "Max price"
+msgstr "Prezzo max"
+
+msgid "Featured only"
+msgstr "Solo in evidenza"
+
+msgid "Any"
+msgstr "Qualsiasi"
+
+msgid "Builders"
+msgstr "Costruttori"
+
+msgid "Tags"
+msgstr "Tag"
+
+msgid "Specific boats (CSV)"
+msgstr "Barche specifiche (CSV)"
+
+msgid "Dates"
+msgstr "Date"
+
+msgid "Apply filters"
+msgstr "Applica filtri"
+
+msgid "No boats found."
+msgstr "Nessuna barca trovata."
+
+msgid "Boat not found."
+msgstr "Barca non trovata."
+
+msgid "Missing boat id/slug."
+msgstr "ID/slug barca mancante."
+
+msgid "from"
+msgstr "da"
+
+msgid "Mandatory skipper"
+msgstr "Skipper obbligatorio"
+
+msgid "Dates"
+msgstr "Date"
+
+msgid "Full day charter"
+msgstr "Noleggio giornaliero"
+
+msgid "Select full day if you want the boat for the entire day. Otherwise, choose a half-day schedule."
+msgstr "Seleziona l'intera giornata se desideri la barca per tutto il giorno. Altrimenti, scegli una fascia oraria di mezza giornata."
+
+msgid "Select a schedule"
+msgstr "Seleziona una fascia oraria"
+
+msgid "Including children onboard"
+msgstr "Inclusi bambini a bordo"
+
+msgid "Optional message"
+msgstr "Messaggio opzionale"
+
+msgid "You can specify your project (schedule, program, particular needs)"
+msgstr "Puoi specificare il tuo progetto (orario, programma, esigenze particolari)"
+
+msgid "Write your message (optional)…"
+msgstr "Scrivi il tuo messaggio (opzionale)…"
+
+msgid "Skipper"
+msgstr "Skipper"
+
+msgid "Fuel not included"
+msgstr "Carburante non incluso"
+
+msgid "Amount of the security deposit"
+msgstr "Importo del deposito cauzionale"
+
+msgid "Have a promo code?"
+msgstr "Hai un codice promozionale?"
+
+msgid "Enter coupon"
+msgstr "Inserisci coupon"
+
+msgid "To be paid on the spot"
+msgstr "Da pagare sul posto"
+
+msgid "To be paid online"
+msgstr "Da pagare online"
+
+msgid "Mandatory"
+msgstr "Obbligatorio"
+
+msgid "Available"
+msgstr "Disponibile"
+
+msgid "Booked"
+msgstr "Prenotato"
+
+msgid "Learn more"
+msgstr "Scopri di più"
+
+msgid "Country"
+msgstr "Paese"
+
+msgid "I have read and agree to the reservation terms and conditions"
+msgstr "Ho letto e accetto i termini e le condizioni di prenotazione"
+
+msgid "Select a payment method"
+msgstr "Seleziona un metodo di pagamento"
+
+msgid "Prepayment"
+msgstr "Pagamento anticipato"
+
+msgid "Option"
+msgstr "Opzione"
+
+msgid "Option"
+msgstr "Opzione"
+
+msgid "From %start% to %end%"
+msgstr "Dal %start% al %end%"
+
+msgid "Total booking + extras"
+msgstr "Prenotazione totale + extra"
+
+msgid "Fuel cost may be charged before or after boarding."
+msgstr "Il costo del carburante può essere addebitato prima o dopo l'imbarco."
+
+msgid "passenger"
+msgstr "passeggero"
+
+msgid "passengers"
+msgstr "passeggeri"
+
+msgid "I have read and agree to the"
+msgstr "Ho letto e accetto i"
+
+msgid "reservation terms and conditions"
+msgstr "termini e condizioni della prenotazione"
+
+msgid "Please select a schedule."
+msgstr "Seleziona un orario."
+
+msgid "Full day is not available for this date."
+msgstr "L'intera giornata non è disponibile per questa data."
+
+msgid "Price calculation error"
+msgstr "Errore nel calcolo del prezzo"
+
+msgid "Booking error"
+msgstr "Errore di prenotazione"
+
+msgid "Invalid phone number"
+msgstr "Numero di telefono non valido"
+
+msgid "Shop cart not found."
+msgstr "Carrello non trovato."
+
+msgid "Payment completed. Finalizing reservation…"
+msgstr "Pagamento completato. Finalizzazione della prenotazione…"
+
+msgid "Payment was cancelled or failed. You can try again."
+msgstr "Il pagamento è stato annullato o non è riuscito. Puoi riprovare."
+
+msgid "Payment not completed yet. If you already paid, refresh in a moment."
+msgstr "Il pagamento non è ancora stato completato. Se hai già pagato, aggiorna tra un momento."
+
+msgid "Select country"
+msgstr "Seleziona paese"
+
+msgid "Select a schedule…"
+msgstr "Seleziona un orario…"
+
+msgid "Email *"
+msgstr "Email *"
+
+msgid "Card"
+msgstr "Carta"
+
+msgid "Ready to continue"
+msgstr "Pronto per continuare"
+
+msgid "Click Continue to create the booking and go to payment."
+msgstr "Fai clic su Continua per creare la prenotazione e andare al pagamento."
+
+msgid "Extras"
+msgstr "Extra"
+
+msgid "Included"
+msgstr "Incluso"
+
+msgid "Choose the number of children"
+msgstr "Scegli il numero di bambini"
+
+msgid "Would you like a professional skipper on board?"
+msgstr "Ti piacerebbe avere uno skipper professionista a bordo?"
+
+msgid "Recommended for a stress-free trip, especially if you're not fully familiar with the area or docking."
+msgstr "Consigliato per un viaggio senza stress, soprattutto se non conosci bene la zona o le manovre di attracco."
+
+msgid "Select dates"
+msgstr "Seleziona le date"
+
+msgid "Fuel included"
+msgstr "Carburante incluso"
+
+msgid "Fuel is already included in the rental price, so you won’t need to pay it separately."
+msgstr "Il carburante è già incluso nel prezzo del noleggio, quindi non dovrai pagarlo separatamente."
+
+msgid "Yes (recommended)"
+msgstr "Sì (consigliato)"
+
+msgid "Reservation terms"
+msgstr "Termini della prenotazione"
+
+msgid "Cancellation policy depends on the selected service and dates."
+msgstr "La politica di cancellazione dipende dal servizio e dalle date selezionate."
+
+msgid "Payment is required to confirm the reservation."
+msgstr "Il pagamento è richiesto per confermare la prenotazione."
+
+msgid "Any additional services selected will be added to the total."
+msgstr "Eventuali servizi aggiuntivi selezionati saranno aggiunti al totale."
+
+msgid "If you have any questions, please contact support."
+msgstr "Se hai domande, contatta l'assistenza."
+
+msgid "Choose your preferred half-day schedule for this day charter."
+msgstr "Scegli il tuo orario preferito di mezza giornata per questo noleggio giornaliero."
+
+msgid "Management fee"
+msgstr "Commissione di gestione"
+
+msgid "Applied to the online booking payment"
+msgstr "Applicato al pagamento online della prenotazione"
+
+msgid "Total charged online"
+msgstr "Totale addebitato online"
+
+msgid "This price already includes an online booking fee of %price%"
+msgstr "Questo prezzo include già una commissione di prenotazione online di %price%"
+
+msgid "Sort by"
+msgstr "Ordina per"
+
+msgid "Specific boats"
+msgstr "Barche specifiche"
+
+msgid "Reservation confirmed"
+msgstr "Prenotazione confermata"
+
+msgid "Your payment has been confirmed and your booking has been created successfully."
+msgstr "Il tuo pagamento è stato confermato e la tua prenotazione è stata creata con successo."
+
+msgid "Booking summary"
+msgstr "Riepilogo della prenotazione"
+
+msgid "Booking reference"
+msgstr "Riferimento della prenotazione"
+
+msgid "Service"
+msgstr "Servizio"
+
+msgid "Location"
+msgstr "Località"
+
+msgid "Date"
+msgstr "Data"
+
+msgid "Customer"
+msgstr "Cliente"
+
+msgid "Payment summary"
+msgstr "Riepilogo del pagamento"
+
+msgid "Payment reference"
+msgstr "Riferimento del pagamento"
+
+msgid "Amount paid"
+msgstr "Importo pagato"
+
+msgid "Contact details"
+msgstr "Dettagli di contatto"
+
+msgid "Email"
+msgstr "Email"
+
+msgid "Booking details"
+msgstr "Dettagli della prenotazione"
+
+msgid "View booking details"
+msgstr "Visualizza i dettagli della prenotazione"
+
+msgid "View details"
+msgstr "Visualizza dettagli"
+
+msgid "Close"
+msgstr "Chiudi"
+
+msgid "Payment completed successfully."
+msgstr "Pagamento completato con successo."
+
+msgid "Price details"
+msgstr "Dettagli del prezzo"
+
+msgid "Rental price"
+msgstr "Prezzo del noleggio"
+
+msgid "Service fee"
+msgstr "Commissione di servizio"
+
+msgid "Taxable amount"
+msgstr "Importo imponibile"
+
+msgid "VAT included"
+msgstr "IVA inclusa"
+
+msgid "Pay now"
+msgstr "Paga ora"
+
+msgid "This is the amount you will pay online now."
+msgstr "Questo è l'importo che pagherai online adesso."
+
+msgid "Pay at the port"
+msgstr "Paga al porto"
+
+msgid "This is the amount to be paid at the port on the charter day."
+msgstr "Questo è l'importo da pagare al porto il giorno del noleggio."
+
+msgid "Add a promotional code"
+msgstr "Aggiungi un codice promozionale"
+
+msgid "applied to the amount you will pay now"
+msgstr "applicato all’importo che pagherai ora"
+
+msgid "View payment breakdown"
+msgstr "Vedi dettaglio del pagamento"
+
+msgid "View pending breakdown"
+msgstr "Vedi dettaglio residuo"
+
+msgid "Subtotal to pay now"
+msgstr "Subtotale da pagare ora"
+
+msgid "Total to pay now"
+msgstr "Totale da pagare ora"
+
+msgid "Total pending"
+msgstr "Totale rimanente"
+
+msgid "Confirm and pay"
+msgstr "Conferma e paga"
+
+msgid "By selecting the following button, you unconditionally accept the Terms of Use and Rental Terms. You also agree to pay the total amount of the reservation."
+msgstr "Selezionando il pulsante seguente, accetti incondizionatamente i Termini di utilizzo e le Condizioni di noleggio. Accetti inoltre di pagare l'importo totale della prenotazione."
+
+msgid "Read terms"
+msgstr "Leggi le condizioni"
+
+msgid "Credit Card"
+msgstr "Carta di credito"
+
+msgid "Settings saved successfully."
+msgstr "Impostazioni salvate correttamente."
+
+msgid "Could not open the Gutenberg master template."
+msgstr "Impossibile aprire il template master Gutenberg."
+
+msgid "Template sync started. It will continue in batches via WP-Cron."
+msgstr "La sincronizzazione del template è iniziata. Continuerà in batch tramite WP-Cron."
+
+msgid "Template sync stopped."
+msgstr "Sincronizzazione template interrotta."
+
+msgid "Maintenance tools"
+msgstr "Strumenti di manutenzione"
+
+msgid "Use these actions only when cached data looks outdated or when you need to rebuild generated boat pages."
+msgstr "Usa queste azioni solo quando i dati nella cache sembrano non aggiornati o quando devi ricostruire le pagine delle barche generate."
+
+msgid "Available boats"
+msgstr "Barche disponibili"
+
+msgid "Sync failed:"
+msgstr "Sincronizzazione non riuscita:"
+
+msgid "Sync is disabled. Enable “Boat pages sync (opt-in)” and save changes first."
+msgstr "La sincronizzazione è disattivata. Attiva prima “Sincronizzazione pagine barca (facoltativa)” e salva le modifiche."
+
+msgid "All boat pages were deleted. You can sync again from scratch."
+msgstr "Tutte le pagine barca sono state eliminate. Puoi sincronizzare di nuovo da zero."
+
+msgid "Could not delete boat pages. Check logs."
+msgstr "Impossibile eliminare le pagine barca. Controlla i log."
+
+msgid "Log file not found."
+msgstr "File di log non trovato."
+
+msgid "Log cleared successfully."
+msgstr "Log svuotato correttamente."
+
+msgid "Could not clear the log file."
+msgstr "Impossibile svuotare il file di log."
+
+msgid "Boat images sync started successfully."
+msgstr "La sincronizzazione delle immagini barca è iniziata correttamente."
+
+msgid "Boat images sync stopped."
+msgstr "Sincronizzazione immagini barca interrotta."
+
+msgid "Boat images cache reset successfully."
+msgstr "Cache immagini barca reimpostata correttamente."
+
+msgid "Boat images cache was reset and sync started again."
+msgstr "La cache delle immagini barca è stata reimpostata e la sincronizzazione è ripartita."
+
+msgid "Boat images sync is disabled. Enable local image storage first."
+msgstr "La sincronizzazione delle immagini barca è disattivata. Attiva prima l’archiviazione locale delle immagini."
+
+msgid "Gutenberg master template restored to plugin defaults."
+msgstr "Il template master Gutenberg è stato ripristinato ai valori predefiniti del plugin."
+
+msgid "Could not restore the Gutenberg master template."
+msgstr "Impossibile ripristinare il template master Gutenberg."
+
+msgid "Boat details"
+msgstr "Dettagli barca"
+
+msgid "pers."
+msgstr "pers."
+
+msgid "Maradigma logo"
+msgstr "Maradigma logo"
+
+msgid "SEO"
+msgstr "SEO"
+
+msgid "Advanced settings"
+msgstr "Impostazioni avanzate"
+
+msgid "Configuration sections"
+msgstr "Sezioni di configurazione"
+
+msgid "Step 1"
+msgstr "Passaggio 1"
+
+msgid "Connection"
+msgstr "Connessione"
+
+msgid "API credentials, local media and generated boat pages."
+msgstr "Credenziali API, media locali e pagine barca generate."
+
+msgid "Step 2"
+msgstr "Passaggio 2"
+
+msgid "Boats sync"
+msgstr "Sincronizzazione barche"
+
+msgid "Create/update boat pages, images and cache tools."
+msgstr "Crea/aggiorna pagine barca, immagini e strumenti cache."
+
+msgid "Step 3"
+msgstr "Passaggio 3"
+
+msgid "Templates"
+msgstr "Template"
+
+msgid "Manage Elementor or Gutenberg master layouts."
+msgstr "Gestisci i layout master di Elementor o Gutenberg."
+
+msgid "Status"
+msgstr "Stato"
+
+msgid "Compatibility"
+msgstr "Compatibilità"
+
+msgid "Detected builders, SEO and multilingual integrations."
+msgstr "Builder, SEO e integrazioni multilingua rilevati."
+
+msgid "Store boat images in WordPress"
+msgstr "Archivia le immagini delle barche in WordPress"
+
+msgid "Download and serve boat images from this WordPress Media Library"
+msgstr "Scarica e servi le immagini delle barche da questa Libreria media di WordPress"
+
+msgid "Recommended ON. This avoids hotlinking Maradigma images and improves privacy/performance. Use the sync tool below to fetch/update images in batches."
+msgstr "Consigliato attivo. Evita l’hotlinking delle immagini Maradigma e migliora privacy/prestazioni. Usa lo strumento di sincronizzazione qui sotto per recuperare/aggiornare le immagini in batch."
+
+msgid "Boat pages sync (opt-in)"
+msgstr "Sincronizzazione pagine barca (facoltativa)"
+
+msgid "Allow Maradigma to create/update one public page per boat"
+msgstr "Consenti a Maradigma di creare/aggiornare una pagina pubblica per barca"
+
+msgid "Recommended OFF by default. Enable only if you want the plugin to generate and keep updated a public WordPress page for each boat."
+msgstr "Consigliato disattivato per impostazione predefinita. Attivalo solo se vuoi che il plugin generi e mantenga aggiornata una pagina WordPress pubblica per ogni barca."
+
+msgid "Boat page builder"
+msgstr "Builder pagine barca"
+
+msgid "Elementor"
+msgstr "Elementor"
+
+msgid "Use the Elementor master template for generated boat pages. Gutenberg template sync will be disabled."
+msgstr "Usa il template master Elementor per le pagine barca generate. La sincronizzazione del template Gutenberg sarà disattivata."
+
+msgid "Gutenberg"
+msgstr "Gutenberg"
+
+msgid "Use the editable Gutenberg master template for generated boat pages. Elementor template sync will be disabled."
+msgstr "Usa il template master Gutenberg modificabile per le pagine barca generate. La sincronizzazione del template Elementor sarà disattivata."
+
+msgid "Boat binding metabox"
+msgstr "Metabox collegamento barca"
+
+msgid "Choose in which post types the Maradigma boat selector should appear. This is intended for custom pages/posts created by the client, not for the internal Maradigma boat CPT."
+msgstr "Scegli in quali tipi di contenuto deve apparire il selettore barche Maradigma. È pensato per pagine/articoli personalizzati creati dal cliente, non per il CPT interno delle barche Maradigma."
+
+msgid "No eligible public post types were detected."
+msgstr "Non sono stati rilevati tipi di contenuto pubblici idonei."
+
+msgid "Use these tools after the connection is ready. They keep boat pages, images and cached data aligned with your Maradigma account."
+msgstr "Usa questi strumenti dopo che la connessione è pronta. Mantengono pagine barca, immagini e dati in cache allineati al tuo account Maradigma."
+
+msgid "Boats synced:"
+msgstr "Barche sincronizzate:"
+
+msgid "Pages touched:"
+msgstr "Pagine modificate:"
+
+msgid "Created:"
+msgstr "Create:"
+
+msgid "Updated:"
+msgstr "Aggiornate:"
+
+msgid "Pages per language:"
+msgstr "Pagine per lingua:"
+
+msgid "Sync options"
+msgstr "Opzioni di sincronizzazione"
+
+msgid "Update post title & slug"
+msgstr "Aggiorna titolo e slug del post"
+
+msgid "Update payload (cached boat data)"
+msgstr "Aggiorna payload (dati barca in cache)"
+
+msgid "Sync images (download/attach)"
+msgstr "Sincronizza immagini (scarica/allega)"
+
+msgid "Yoast SEO"
+msgstr "Yoast SEO"
+
+msgid "Fix multi-language values (recommended)"
+msgstr "Correggi valori multilingua (consigliato)"
+
+msgid "Only if missing"
+msgstr "Solo se mancante"
+
+msgid "Do not touch"
+msgstr "Non modificare"
+
+msgid "Force overwrite (danger)"
+msgstr "Forza sovrascrittura (pericolo)"
+
+msgid "Gutenberg template"
+msgstr "Template Gutenberg"
+
+msgid "Seed only if content is empty"
+msgstr "Inizializza solo se il contenuto è vuoto"
+
+msgid "Overwrite managed Gutenberg layouts only"
+msgstr "Sovrascrivi solo i layout Gutenberg gestiti"
+
+msgid "Do not touch Gutenberg content"
+msgstr "Non modificare il contenuto Gutenberg"
+
+msgid "Elementor template"
+msgstr "Template Elementor"
+
+msgid "Seed only if missing"
+msgstr "Inizializza solo se mancante"
+
+msgid "Overwrite non-custom Elementor layouts"
+msgstr "Sovrascrivi i layout Elementor non personalizzati"
+
+msgid "Do not touch Elementor data"
+msgstr "Non modificare i dati Elementor"
+
+msgid "Boat images (Media Library)"
+msgstr "Immagini barche (Libreria media)"
+
+msgid "Cached boats:"
+msgstr "Barche in cache:"
+
+msgid "Cached images:"
+msgstr "Immagini in cache:"
+
+msgid "Sync status:"
+msgstr "Stato sincronizzazione:"
+
+msgid "Progress:"
+msgstr "Avanzamento:"
+
+msgid "Current boat:"
+msgstr "Barca corrente:"
+
+msgid "Current boat images:"
+msgstr "Immagini barca corrente:"
+
+msgid "This run:"
+msgstr "Questa esecuzione:"
+
+msgid "Force re-download (use only if needed)"
+msgstr "Forza nuovo download (usa solo se necessario)"
+
+msgid "Resume / Keep syncing"
+msgstr "Riprendi / continua sincronizzazione"
+
+msgid "Sync images now"
+msgstr "Sincronizza immagini ora"
+
+msgid "Stop"
+msgstr "Ferma"
+
+msgid "This will DELETE all cached Maradigma images from the Media Library and rebuild them. Continue?"
+msgstr "Questo ELIMINERÀ tutte le immagini Maradigma in cache dalla Libreria media e le ricostruirà. Continuare?"
+
+msgid "Reset and start syncing again"
+msgstr "Reimposta e riavvia la sincronizzazione"
+
+msgid "Reset images cache (nuclear)"
+msgstr "Reimposta cache immagini (nucleare)"
+
+msgid "This runs in small batches to avoid timeouts. You can close this page; it will continue via WP-Cron."
+msgstr "Viene eseguito in piccoli batch per evitare timeout. Puoi chiudere questa pagina; continuerà tramite WP-Cron."
+
+msgid "This will DELETE all boat pages created by Maradigma (all languages). Continue?"
+msgstr "Questo ELIMINERÀ tutte le pagine barca create da Maradigma (tutte le lingue). Continuare?"
+
+msgid "Delete permanently (skip trash)"
+msgstr "Elimina definitivamente (salta il cestino)"
+
+msgid "Reset boats (delete all boat pages)"
+msgstr "Reimposta barche (elimina tutte le pagine barca)"
+
+msgid "Deletes ALL maradigma_boat posts (including translations). Useful to start sync from scratch."
+msgstr "Elimina TUTTI i post maradigma_boat (incluse le traduzioni). Utile per riavviare la sincronizzazione da zero."
+
+msgid "%s template status (boats)"
+msgstr "Stato template %s (barche)"
+
+msgid "Master template ID:"
+msgstr "ID template master:"
+
+msgid "Not synced boats:"
+msgstr "Barche non sincronizzate:"
+
+msgid "Custom layout boats:"
+msgstr "Barche con layout personalizzato:"
+
+msgid "Total boats:"
+msgstr "Totale barche:"
+
+msgid "Note: %d boats have no Gutenberg content yet."
+msgstr "Nota: %d barche non hanno ancora contenuto Gutenberg."
+
+msgid "Note: %d boats have no Elementor data yet (_elementor_data empty)."
+msgstr "Nota: %d barche non hanno ancora dati Elementor (_elementor_data vuoto)."
+
+msgid "Edit Gutenberg boat template"
+msgstr "Modifica template barca Gutenberg"
+
+msgid "Open directly"
+msgstr "Apri direttamente"
+
+msgid "This will replace the editable Gutenberg master template with the plugin default layout. Boat pages are not changed until you apply the template to all boats. Continue?"
+msgstr "Questo sostituirà il template master Gutenberg modificabile con il layout predefinito del plugin. Le pagine barca non cambieranno finché non applichi il template a tutte le barche. Continuare?"
+
+msgid "Restore default Gutenberg template"
+msgstr "Ripristina template Gutenberg predefinito"
+
+msgid "Edit the master template in Gutenberg, or restore it to the plugin default layout. Restoring the master template does not update existing boat pages until you apply the template below."
+msgstr "Modifica il template master in Gutenberg oppure ripristinalo al layout predefinito del plugin. Il ripristino del template master non aggiorna le pagine barca esistenti finché non applichi il template qui sotto."
+
+msgid "Edit master template in %s"
+msgstr "Modifica template master in %s"
+
+msgid "Master template not found yet. Run a boats sync in %s mode to create it."
+msgstr "Template master non ancora trovato. Esegui una sincronizzazione barche in modalità %s per crearlo."
+
+msgid "Master hash:"
+msgstr "Hash master:"
+
+msgid "Apply %s master template to all boats"
+msgstr "Applica il template master %s a tutte le barche"
+
+msgid "This will apply the current Gutenberg master template to boat pages in batches via WP-Cron. Non-forced mode only overwrites managed Gutenberg layouts."
+msgstr "Questo applicherà il template master Gutenberg corrente alle pagine barca in batch tramite WP-Cron. La modalità non forzata sovrascrive solo i layout Gutenberg gestiti."
+
+msgid "This will overwrite Elementor layout on all boats except those marked as Custom layout. Runs in batches via WP-Cron."
+msgstr "Questo sovrascriverà il layout Elementor su tutte le barche tranne quelle contrassegnate come layout personalizzato. Viene eseguito in batch tramite WP-Cron."
+
+msgid "Batch size:"
+msgstr "Dimensione batch:"
+
+msgid "Mode:"
+msgstr "Modalità:"
+
+msgid "Overwrite managed/non-custom layouts"
+msgstr "Sovrascrivi layout gestiti/non personalizzati"
+
+msgid "Force overwrite all boats"
+msgstr "Forza sovrascrittura di tutte le barche"
+
+msgid "This can overwrite boat page layouts. Continue?"
+msgstr "Questo può sovrascrivere i layout delle pagine barca. Continuare?"
+
+msgid "Apply template to all boats"
+msgstr "Applica template a tutte le barche"
+
+msgid "Status:"
+msgstr "Status:"
+
+msgid "⚠ No multilingual plugin detected (Polylang/WPML)"
+msgstr "⚠ Nessun plugin multilingua rilevato (Polylang/WPML)"
+
+msgid "✔ WPML detected - Multilang active"
+msgstr "✔ WPML rilevato - Multilingua attivo"
+
+msgid "✔ Multilang detected"
+msgstr "✔ Multilingua rilevato"
+
+msgid "✔ Boats post type is translatable in Polylang (language columns enabled)."
+msgstr "✔ Il tipo di contenuto Barche è traducibile in Polylang (colonne lingua abilitate)."
+
+msgid "⚠ Boats post type is NOT enabled for translation in Polylang. Go to Languages → Settings → Custom post types and enable “Boats (maradigma_boat)”, then save."
+msgstr "⚠ Il tipo di contenuto Barche NON è abilitato alla traduzione in Polylang. Vai su Lingue → Impostazioni → Tipi di contenuto personalizzati e abilita “Boats (maradigma_boat)”, poi salva."
+
+msgid "⚠ Boats post type is NOT marked as translatable in WPML. Enable it in WPML settings or add wpml-config.xml."
+msgstr "⚠ Il tipo di contenuto Barche NON è contrassegnato come traducibile in WPML. Abilitalo nelle impostazioni WPML o aggiungi wpml-config.xml."
+
+msgid "⚠ Boats post type is NOT marked as translatable."
+msgstr "⚠ Il tipo di contenuto Barche NON è contrassegnato come traducibile."
+
+msgid "ID"
+msgstr "ID"
+
+msgid "This section helps diagnose multilingual and translation issues, including locale detection, textdomain loading and gettext results."
+msgstr "Questa sezione aiuta a diagnosticare problemi multilingua e di traduzione, inclusi rilevamento della locale, caricamento del textdomain e risultati gettext."
+
+msgid "Translation diagnostics"
+msgstr "Diagnostica traduzioni"
+
+msgid "WordPress locale"
+msgstr "Locale WordPress"
+
+msgid "Current language"
+msgstr "Lingua corrente"
+
+msgid "Multilang provider"
+msgstr "Provider multilingua"
+
+msgid "Textdomain loaded"
+msgstr "Textdomain caricato"
+
+msgid "Expected MO file"
+msgstr "File MO previsto"
+
+msgid "Expected MO exists"
+msgstr "Expected MO exists"
+
+msgid "Expected PO file"
+msgstr "File PO previsto"
+
+msgid "Expected PO exists"
+msgstr "Expected PO exists"
+
+msgid "Gettext probes"
+msgstr "Test gettext"
+
+msgid "Original string"
+msgstr "Stringa originale"
+
+msgid "Translation returned by WordPress"
+msgstr "Traduzione restituita da WordPress"
+
+msgid "Debug logs"
+msgstr "Log di debug"
+
+msgid "Here you can inspect the latest plugin logs generated by the image sync and debugging tools."
+msgstr "Qui puoi controllare gli ultimi log del plugin generati dalla sincronizzazione immagini e dagli strumenti di debug."
+
+msgid "Channel"
+msgstr "Channel"
+
+msgid "File exists"
+msgstr "File exists"
+
+msgid "Size"
+msgstr "Size"
+
+msgid "Path"
+msgstr "Path"
+
+msgid "Refresh log view"
+msgstr "Aggiorna vista log"
+
+msgid "Download log"
+msgstr "Scarica log"
+
+msgid "This will clear the selected log file. Continue?"
+msgstr "Questo svuoterà il file di log selezionato. Continuare?"
+
+msgid "Clear log"
+msgstr "Svuota log"
+
+msgid "Showing the last part of the log file for performance reasons."
+msgstr "Per motivi di prestazioni viene mostrata l’ultima parte del file di log."
+
+msgid "E.g.: \"boats\" or \"alquiler-barcos\". Simple multi-language: \"es:barcos,en:boats,fr:bateaux\"."
+msgstr "Es.: \"boats\" o \"alquiler-barcos\". Multilingua semplice: \"es:barcos,en:boats,fr:bateaux\"."
+
+msgid "Boats list updated successfully."
+msgstr "Elenco barche aggiornato correttamente."
+
+msgid "Could not update the boats list."
+msgstr "Impossibile aggiornare l’elenco barche."
+
+msgid "Available boats in Maradigma"
+msgstr "Barche disponibili in Maradigma"
+
+msgid "View the currently available boats and refresh the list to reflect the latest changes."
+msgstr "Visualizza le barche attualmente disponibili e aggiorna l’elenco per riflettere le ultime modifiche."
+
+msgid "Refresh list"
+msgstr "Aggiorna elenco"
+
+msgid "Per page:"
+msgstr "Per pagina:"
+
+msgid "Showing:"
+msgstr "Visualizzazione:"
+
+msgid "to"
+msgstr "a"
+
+msgid "of"
+msgstr "di"
+
+msgid "First page"
+msgstr "Prima pagina"
+
+msgid "Previous page"
+msgstr "Pagina precedente"
+
+msgid "Current page"
+msgstr "Pagina corrente"
+
+msgid "of %s"
+msgstr "of %s"
+
+msgid "Next page"
+msgstr "Pagina successiva"
+
+msgid "Last page"
+msgstr "Ultima pagina"
+
+msgid "%d boats"
+msgstr "%d barche"
+
+msgid "Home port"
+msgstr "Porto base"
+
+msgid "No boats available to display."
+msgstr "Nessuna barca disponibile da mostrare."
+
+msgid "Active"
+msgstr "Attivo"
+
+msgid "Inactive"
+msgstr "Inattivo"
+
+msgid "Unknown"
+msgstr "Sconosciuto"
+
+msgid "Not featured"
+msgstr "Non in evidenza"
+
+msgid "Featured: unknown"
+msgstr "In evidenza: sconosciuto"
+
+msgid "Shortcodes"
+msgstr "Shortcode"
+
+msgid "Shortcodes documentation for webmasters and developers."
+msgstr "Documentazione shortcode per webmaster e sviluppatori."
+
+msgid "Troubleshooting"
+msgstr "Risoluzione dei problemi"
+
+msgid "If boats do not appear, check API keys and connection status in Configuration tab."
+msgstr "Se le barche non compaiono, controlla le chiavi API e lo stato della connessione nella scheda Configurazione."
+
+msgid "If cache looks stale, use \"Clear plugin cache\"."
+msgstr "Se la cache sembra obsoleta, usa \"Svuota cache plugin\"."
+
+
+msgid "Support"
+msgstr "Supporto"
+
+msgid "Need help? Contact Maradigma support."
+msgstr "Hai bisogno di aiuto? Contatta il supporto Maradigma."
+
+msgid "Open support form"
+msgstr "Apri il modulo di supporto"
+
+msgid "Getting started"
+msgstr "Primi passi"
+
+msgid "Go to Configuration tab and set your Public key + Secret key."
+msgstr "Vai alla scheda Configurazione e imposta la chiave pubblica + chiave segreta."
+
+msgid "Verify connection shows \"Ready\"."
+msgstr "Verifica che la connessione mostri \"Pronto\"."
+
+msgid "Add [maradigma_boats] into a page to list boats."
+msgstr "Aggiungi [maradigma_boats] in una pagina per elencare le barche."
+
+msgid "Documentation file not found."
+msgstr "File di documentazione non trovato."
+
+msgid "Documentation file is empty."
+msgstr "Il file di documentazione è vuoto."
+
+msgid "Documentation"
+msgstr "Documentazione"
+
+msgid "Readable HTML format for webmasters and developers."
+msgstr "Formato HTML leggibile per webmaster e sviluppatori."
+
+msgid "File:"
+msgstr "File:"
+
+msgid "Unable to initialize the WordPress filesystem."
+msgstr "Impossibile inizializzare il filesystem di WordPress."
+
+msgid "running"
+msgstr "in corso"
+
+msgid "done"
+msgstr "completato"
+
+msgid "stopped"
+msgstr "interrotto"
+
+msgid "error"
+msgstr "errore"
+
+msgid "idle"
+msgstr "inattivo"
+
+
+
+
+msgid "All boats processed."
+msgstr "Tutte le barche sono state elaborate."
+
+msgid "All boats processed successfully"
+msgstr "Tutte le barche sono state elaborate correttamente"
+
+msgid "No more boats to process"
+msgstr "Non ci sono altre barche da elaborare"
+
+msgid "Boat skipped: missing id"
+msgstr "Barca saltata: ID mancante"
+
+msgid "Boat pages"
+msgstr "Pagine barca"
+
+msgid "Gutenberg templates"
+msgstr "Template Gutenberg"
+
+msgid "Add new Gutenberg template"
+msgstr "Aggiungi nuovo template Gutenberg"
+
+msgid "Edit Gutenberg template"
+msgstr "Modifica template Gutenberg"
+
+msgid "New Gutenberg template"
+msgstr "Nuovo template Gutenberg"
+
+msgid "View Gutenberg template"
+msgstr "Visualizza template Gutenberg"
+
+msgid "Search Gutenberg templates"
+msgstr "Cerca template Gutenberg"
+
+msgid "No Gutenberg templates found"
+msgstr "Nessun template Gutenberg trovato"
+
+msgid "No Gutenberg templates found in trash"
+msgstr "Nessun template Gutenberg trovato nel cestino"
+
+msgid "Default editable Gutenberg template for Maradigma boat detail pages."
+msgstr "Template Gutenberg modificabile predefinito per le pagine dettaglio barca Maradigma."
+
+msgid "If Elementor widgets or Gutenberg blocks do not show, verify the builder is active."
+msgstr "Se i widget Elementor o i blocchi Gutenberg non compaiono, verifica che il builder sia attivo."
+
+msgid "Elementor detected - Widgets enabled"
+msgstr "Elementor rilevato - Widget abilitati"
+
+msgid "Elementor not detected"
+msgstr "Elementor non rilevato"
+
+msgid "Yoast SEO detected - SEO integration available"
+msgstr "Yoast SEO rilevato - Integrazione SEO disponibile"
+
+msgid "Yoast SEO not detected"
+msgstr "Yoast SEO non rilevato"
+
+msgid "No multilingual plugin detected (Polylang/WPML)"
+msgstr "Nessun plugin multilingua rilevato (Polylang/WPML)"
+
+msgid "Polylang detected - Multilang active"
+msgstr "Polylang rilevato - Multilingua attivo"
+
+msgid "WPML detected - Multilang active"
+msgstr "WPML rilevato - Multilingua attivo"
+
+msgid "Multilang detected"
+msgstr "Multilingua rilevato"
+
+msgid "Boats post type is translatable in Polylang (language columns enabled)."
+msgstr "Il tipo di contenuto Barche è traducibile in Polylang (colonne lingua abilitate)."
+
+msgid "Boats post type is NOT enabled for translation in Polylang. Go to Languages > Settings > Custom post types and enable \"Boats (maradigma_boat)\", then save."
+msgstr "Il tipo di contenuto Barche NON è abilitato alla traduzione in Polylang. Vai su Lingue > Impostazioni > Tipi di contenuto personalizzati e abilita \"Boats (maradigma_boat)\", poi salva."
+
+msgid "Boats post type is NOT marked as translatable in WPML. Enable it in WPML settings or add wpml-config.xml."
+msgstr "Il tipo di contenuto Barche NON è contrassegnato come traducibile in WPML. Abilitalo nelle impostazioni WPML o aggiungi wpml-config.xml."
+
+msgid "Boats post type is NOT marked as translatable."
+msgstr "Il tipo di contenuto Barche NON è contrassegnato come traducibile."
+
+msgid "We couldn't connect to Maradigma. Please try again later or contact support."
+msgstr "Non è stato possibile connettersi a Maradigma. Riprova più tardi o contatta il supporto."
+
+msgid "Sync is disabled. Enable \"Boat pages sync (opt-in)\" and save changes first."
+msgstr "La sincronizzazione è disattivata. Attiva prima \"Sincronizzazione pagine barca (facoltativa)\" e salva le modifiche."
+
+msgid "Recommended: \"Boat hire {{service_name}} | {{port}}\"."
+msgstr "Consigliato: \"Noleggio {{service_name}} | {{port}}\"."
+
+msgid "Select a variable..."
+msgstr "Seleziona una variabile..."
+
+msgid "total %1$d | +%2$d | ~%3$d"
+msgstr "totale %1$d | +%2$d | ~%3$d"
+
+msgid "imported %1$d | reused %2$d | failed %3$d"
+msgstr "importate %1$d | riutilizzate %2$d | non riuscite %3$d"
+
+msgid "scanned %1$d / %2$s | updated %3$d | skipped %4$d | failed %5$d"
+msgstr "scansionati %1$d / %2$s | aggiornati %3$d | saltati %4$d | non riusciti %5$d"
+
+msgid "Quick reference for the main shortcodes available in Maradigma."
+msgstr "Riferimento rapido per i principali shortcode disponibili in Maradigma."
+
+msgid "Boat listing"
+msgstr "Elenco barche"
+
+msgid "Displays a searchable list of boats."
+msgstr "Mostra un elenco di barche con ricerca."
+
+msgid "Single boat"
+msgstr "Barca singola"
+
+msgid "Displays the complete boat page using the plugin template."
+msgstr "Mostra la pagina completa della barca usando il template del plugin."
+
+msgid "Boat title"
+msgstr "Titolo della barca"
+
+msgid "Displays the boat title, with configurable title parts."
+msgstr "Mostra il titolo della barca, con parti configurabili."
+
+msgid "Boat specifications"
+msgstr "Specifiche della barca"
+
+msgid "Displays the main boat specifications."
+msgstr "Mostra le principali specifiche della barca."
+
+msgid "Boat prices"
+msgstr "Prezzi della barca"
+
+msgid "Displays boat prices using the selected layout."
+msgstr "Mostra i prezzi della barca con il layout selezionato."
+
+msgid "Boat gallery"
+msgstr "Galleria della barca"
+
+msgid "Displays the boat image gallery."
+msgstr "Mostra la galleria immagini della barca."
+
+msgid "Displays optional and included additional services."
+msgstr "Mostra i servizi aggiuntivi opzionali e inclusi."
+
+msgid "Displays the booking button and booking flow."
+msgstr "Mostra il pulsante di prenotazione e il flusso di prenotazione."
+
+msgid "Boat calendar"
+msgstr "Calendario della barca"
+
+msgid "Displays the boat availability calendar."
+msgstr "Mostra il calendario disponibilità della barca."
+
+msgid "Shortcode"
+msgstr "Shortcode"
+
+msgid "Description"
+msgstr "Descrizione"
+
+msgid "For the full technical documentation, open the bundled shortcode reference."
+msgstr "Per la documentazione tecnica completa, apri il riferimento shortcode incluso."
+
+msgid "Open shortcode documentation"
+msgstr "Apri la documentazione degli shortcode"
+
+#: integrations/Elementor/Widgets/SingleBoat/BoatTitleWidget.php
+msgid "Show alias"
+msgstr "Mostra alias"
+
+#: integrations/Elementor/Widgets/SingleBoat/BoatTitleWidget.php
+msgid "Fallback text"
+msgstr "Testo alternativo"
+
+#: integrations/Elementor/Widgets/SingleBoat/BoatTitleWidget.php
+msgid "Use service name as fallback"
+msgstr "Usa il nome del servizio come fallback"
+
+#: integrations/Elementor/Widgets/SingleBoat/BoatTitleWidget.php
+msgid "Boat ID override"
+msgstr "Sovrascrivi ID barca"
+
+#: integrations/Elementor/Widgets/SingleBoat/BoatTitleWidget.php
+msgid "Optional. Leave empty to use the current boat context."
+msgstr "Opzionale. Lascia vuoto per usare il contesto della barca corrente."
+
+#: integrations/Elementor/Widgets/SingleBoat/BoatTitleWidget.php
+msgid "Separator"
+msgstr "Separatore"
+
+#: integrations/Elementor/Widgets/SingleBoat/BoatTitleWidget.php
+msgid "Show model"
+msgstr "Mostra modello"
+
+#: integrations/Elementor/Widgets/SingleBoat/BoatTitleWidget.php
+msgid "Show builder"
+msgstr "Mostra costruttore"
+
+#: integrations/Elementor/Widgets/SingleBoat/BoatTitleWidget.php
+msgid "Quote alias"
+msgstr "Alias tra virgolette"
+
+#: integrations/Elementor/Widgets/SingleBoat/BoatTitleWidget.php
+msgid "Boat slug override"
+msgstr "Sovrascrivi slug barca"
+
+#: integrations/Elementor/Widgets/SingleBoat/BoatTitleWidget.php
+msgid "Optional. If set, the slug takes priority over the boat ID."
+msgstr "Opzionale. Se impostato, lo slug ha priorita sull ID della barca."
+
+#: includes/SettingsPage.php
+msgid "Obsolete page cleanup:"
+msgstr "Pulizia delle pagine obsolete:"
+
+#: includes/SettingsPage.php
+msgid "action %1$s | candidates %2$d | changed %3$d | failed %4$d"
+msgstr "azione %1$s | candidate %2$d | modificate %3$d | non riuscite %4$d"
+
+#: includes/SettingsPage.php
+msgid "Obsolete boat pages"
+msgstr "Pagine barca obsolete"
+
+#: includes/SettingsPage.php
+msgid "Optional cleanup for managed boat pages whose boat ID no longer appears in the Maradigma API response. It only runs after a valid non-empty API list has been processed."
+msgstr "Pulizia opzionale per le pagine barca gestite il cui ID barca non compare più nella risposta dell’API Maradigma. Viene eseguita solo dopo l’elaborazione di un elenco API valido e non vuoto."
+
+#: includes/SettingsPage.php
+msgid "When a synced boat no longer exists in Maradigma"
+msgstr "Quando una barca sincronizzata non esiste più in Maradigma"
+
+#: includes/SettingsPage.php
+msgid "Do nothing"
+msgstr "Non fare nulla"
+
+#: includes/SettingsPage.php
+msgid "Move managed pages to trash"
+msgstr "Sposta le pagine gestite nel cestino"
+
+#: includes/SettingsPage.php
+msgid "Unpublish managed pages"
+msgstr "Annulla la pubblicazione delle pagine gestite"
+
+#: includes/SettingsPage.php
+msgid "Delete managed pages permanently"
+msgstr "Elimina definitivamente le pagine gestite"
+
+#: includes/SettingsPage.php
+msgid "I understand permanent deletion cannot be undone."
+msgstr "Capisco che l’eliminazione definitiva non può essere annullata."
+
+#: includes/SettingsPage.php
+msgid "Required only if you choose permanent deletion. Pages marked as custom/no-sync are never cleaned automatically."
+msgstr "Richiesto solo se scegli l’eliminazione definitiva. Le pagine contrassegnate come personalizzate/non sincronizzabili non vengono mai pulite automaticamente."
+
+#: includes/SettingsPage.php
+msgid "No obsolete-page cleanup selected."
+msgstr "Nessuna pulizia delle pagine obsolete selezionata."
+
+#: includes/SettingsPage.php
+msgid "Permanent delete was selected without explicit confirmation."
+msgstr "L’eliminazione definitiva è stata selezionata senza conferma esplicita."
+
+#: includes/SettingsPage.php
+msgid "Cleanup skipped because the API list was empty or not fully trusted."
+msgstr "Pulizia saltata perché l’elenco API era vuoto o non completamente attendibile."
+
+#: includes/SettingsPage.php
+msgid "Cleanup skipped because the boat sync did not finish successfully."
+msgstr "Pulizia saltata perché la sincronizzazione delle barche non è stata completata correttamente."
+
+#: includes/SettingsPage.php
+msgid "Obsolete-page cleanup finished: %1$s, candidates %2$d, changed %3$d, failed %4$d."
+msgstr "Pulizia delle pagine obsolete completata: %1$s, candidate %2$d, modificate %3$d, non riuscite %4$d."
+
+#: includes/SettingsPage.php
+msgid "images deleted %1$d | image errors %2$d"
+msgstr "immagini eliminate %1$d | errori immagine %2$d"
+
+#: includes/SettingsPage.php
+msgid "Also delete locally cached images for obsolete boats."
+msgstr "Elimina anche le immagini memorizzate localmente per le barche obsolete."
+
+#: includes/SettingsPage.php
+msgid "Only applies when permanent deletion is selected. It deletes Media Library attachments tagged with the obsolete Maradigma boat ID."
+msgstr "Si applica solo quando è selezionata l’eliminazione definitiva. Elimina gli allegati della Libreria media contrassegnati con l’ID barca Maradigma obsoleto."
+
+#: includes/SettingsPage.php
+msgid "Boat sync started. It will continue in batches via WP-Cron while this screen keeps it moving with AJAX."
+msgstr "Sincronizzazione delle barche avviata. Continuerà a lotti tramite WP-Cron mentre questa schermata la mantiene in avanzamento con AJAX."
+
+#: includes/SettingsPage.php
+msgid "Maximum images per boat"
+msgstr "Numero massimo di immagini per barca"
+
+#: includes/SettingsPage.php
+msgid "Use 0 to store all available images. Any custom limit must be between 1 and 25 images per boat."
+msgstr "Usa 0 per salvare tutte le immagini disponibili. Qualsiasi limite personalizzato deve essere compreso tra 1 e 25 immagini per barca."
+
+msgid "Charter"
+msgstr "Prenota"
+
+msgid "day"
+msgstr "giorno"
+
+
+msgid "Availability dates"
+msgstr "Date di disponibilità"
+
+
+msgid "Date end (separate mode only)"
+msgstr "Data di fine (solo modalità separata)"
+
+#: includes/SettingsPage.php
+msgid "Bookings"
+msgstr "Prenotazioni"
+
+#: includes/SettingsPage.php
+msgid "Booking settings"
+msgstr "Impostazioni di prenotazione"
+
+#: includes/SettingsPage.php
+msgid "Configure global options used by the booking experience on your website."
+msgstr "Configura le opzioni globali utilizzate dall'esperienza di prenotazione sul tuo sito."
+
+#: includes/SettingsPage.php
+msgid "Payment step texts"
+msgstr "Testi della fase di pagamento"
+
+#: includes/SettingsPage.php
+msgid "This text is shown above the payment method selector in the booking modal. Leave a language empty to use the fallback language."
+msgstr "Questo testo viene mostrato sopra il selettore del metodo di pagamento nel modal di prenotazione. Lascia vuota una lingua per usare la lingua di fallback."
+
+#: includes/SettingsPage.php
+msgid "Payment method intro (%s)"
+msgstr "Testo introduttivo del metodo di pagamento (%s)"
+
+#: includes/SettingsPage.php
+msgid "Example: Your reservation is almost ready. Select your secure payment method to continue."
+msgstr "Esempio: la tua prenotazione è quasi pronta. Seleziona il tuo metodo di pagamento sicuro per continuare."
+

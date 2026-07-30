@@ -1,0 +1,44 @@
+{
+  "apiVersion": 3,
+  "name": "maradigma/boat-pdf-download",
+  "version": "0.1.0",
+  "title": "Maradigma Boat PDF Download",
+  "category": "maradigma",
+  "icon": "pdf",
+  "description": "PDF download button block.",
+  "textdomain": "maradigma",
+  "attributes": {
+    "id": {
+      "type": "string",
+      "default": ""
+    },
+    "slug": {
+      "type": "string",
+      "default": ""
+    },
+    "button_text": {
+      "type": "string",
+      "default": "Download PDF",
+      "role": "content"
+    },
+    "open_in_new_tab": {
+      "type": "string",
+      "default": "1"
+    },
+    "force_download": {
+      "type": "string",
+      "default": "0"
+    },
+    "fallback": {
+      "type": "string",
+      "default": "",
+      "role": "content"
+    }
+  },
+  "supports": {
+    "html": false
+  },
+  "usesContext": [
+    "postId"
+  ]
+}

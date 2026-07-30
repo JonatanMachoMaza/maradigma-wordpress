@@ -1,0 +1,31 @@
+{
+  "apiVersion": 3,
+  "name": "maradigma/boat-beam",
+  "version": "0.1.0",
+  "title": "Maradigma Boat Beam",
+  "category": "maradigma",
+  "icon": "leftright",
+  "description": "Boat beam block.",
+  "textdomain": "maradigma",
+  "attributes": {
+    "id": {
+      "type": "string",
+      "default": ""
+    },
+    "slug": {
+      "type": "string",
+      "default": ""
+    },
+    "fallback": {
+      "type": "string",
+      "default": "",
+      "role": "content"
+    }
+  },
+  "supports": {
+    "html": false
+  },
+  "usesContext": [
+    "postId"
+  ]
+}

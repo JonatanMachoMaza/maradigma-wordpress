@@ -1,0 +1,50 @@
+{
+  "apiVersion": 3,
+  "name": "maradigma/boat-videos",
+  "version": "0.1.0",
+  "title": "Maradigma Boat Videos",
+  "category": "maradigma",
+  "icon": "video-alt3",
+  "description": "Boat videos block.",
+  "textdomain": "maradigma",
+  "attributes": {
+    "id": {
+      "type": "string",
+      "default": ""
+    },
+    "slug": {
+      "type": "string",
+      "default": ""
+    },
+    "layout": {
+      "type": "string",
+      "default": "grid"
+    },
+    "mode": {
+      "type": "string",
+      "default": "embed"
+    },
+    "columns": {
+      "type": "string",
+      "default": "2"
+    },
+    "max_videos": {
+      "type": "string",
+      "default": "12"
+    },
+    "show_title": {
+      "type": "string",
+      "default": "0"
+    },
+    "class": {
+      "type": "string",
+      "default": ""
+    }
+  },
+  "supports": {
+    "html": false
+  },
+  "usesContext": [
+    "postId"
+  ]
+}

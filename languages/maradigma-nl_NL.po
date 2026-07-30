@@ -1,0 +1,2656 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Maradigma\n"
+"Language: nl_NL\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+
+msgid "Connect WordPress with Maradigma to sync boats, build fleet pages, display availability and prices, and accept online bookings."
+msgstr "Koppel WordPress aan Maradigma om boten te synchroniseren, vlootpagina's te maken, beschikbaarheid en prijzen te tonen en online boekingen te accepteren."
+
+msgid "Boats"
+msgstr "Boten"
+
+msgid "Boat"
+msgstr "Boot"
+
+msgid "Add new"
+msgstr "Nieuwe toevoegen"
+
+msgid "Add new boat"
+msgstr "Nieuwe boot toevoegen"
+
+msgid "Edit boat"
+msgstr "Boot bewerken"
+
+msgid "New boat"
+msgstr "Nieuwe boot"
+
+msgid "View boat"
+msgstr "Boot bekijken"
+
+msgid "Search boats"
+msgstr "Boten zoeken"
+
+msgid "No boats found"
+msgstr "Geen boten gevonden"
+
+msgid "No boats found in trash"
+msgstr "Geen boten gevonden in de prullenbak"
+
+msgid "All boats"
+msgstr "Alle boten"
+
+msgid "Configuration panel"
+msgstr "Configuratiepaneel"
+
+msgid "See more about Maradigma"
+msgstr "Meer over Maradigma"
+
+msgid "Specify the reservation"
+msgstr "Geef de reservering op"
+
+msgid "Your profile information"
+msgstr "Uw profielinformatie"
+
+msgid "Payment method"
+msgstr "Betaalmethode"
+
+msgid "Your Reservation is Almost Complete!"
+msgstr "Uw reservering is bijna voltooid!"
+
+msgid "Date start"
+msgstr "Startdatum"
+
+msgid "Date end"
+msgstr "Einddatum"
+
+msgid "People"
+msgstr "Personen"
+
+msgid "First name"
+msgstr "Voornaam"
+
+msgid "Last name"
+msgstr "Achternaam"
+
+msgid "Email"
+msgstr "E-mail"
+
+msgid "Phone"
+msgstr "Telefoon"
+
+msgid "I accept terms and conditions"
+msgstr "Ik accepteer de algemene voorwaarden"
+
+msgid "Quote"
+msgstr "Offerte"
+
+msgid "Total"
+msgstr "Totaal"
+
+msgid "Not calculated"
+msgstr "Niet berekend"
+
+msgid "Calculating…"
+msgstr "Berekenen…"
+
+msgid "Quote failed."
+msgstr "Offerte mislukt."
+
+msgid "Boat not selected."
+msgstr "Boot niet geselecteerd."
+
+msgid "Please select dates."
+msgstr "Selecteer datums."
+
+msgid "Email is required."
+msgstr "E-mail is verplicht."
+
+msgid "You must accept terms and conditions."
+msgstr "U moet de algemene voorwaarden accepteren."
+
+msgid "Continue"
+msgstr "Doorgaan"
+
+msgid "Continue to payment"
+msgstr "Doorgaan naar betaling"
+
+msgid "Back"
+msgstr "Terug"
+
+msgid "Cancel"
+msgstr "Annuleren"
+
+msgid "Redirecting…"
+msgstr "Doorsturen…"
+
+msgid "Booking created, but no payment URL was returned."
+msgstr "Boeking aangemaakt, maar er werd geen betalings-URL teruggegeven."
+
+msgid "Booking OK (no redirect URL)."
+msgstr "Boeking OK (geen omleidings-URL)."
+
+msgid "Booking endpoint not configured."
+msgstr "Boekingseindpunt niet geconfigureerd."
+
+msgid "Quote endpoint not configured."
+msgstr "Offerte-eindpunt niet geconfigureerd."
+
+msgid "Booking details"
+msgstr "Boekingsdetails"
+
+msgid "Reservation"
+msgstr "Reservering"
+
+msgid "Identification"
+msgstr "Identificatie"
+
+msgid "Payment"
+msgstr "Betaling"
+
+msgid "Finish"
+msgstr "Voltooien"
+
+msgid "Settings"
+msgstr "Instellingen"
+
+msgid "Maradigma Settings"
+msgstr "Maradigma-instellingen"
+
+msgid "Connect this website to your Maradigma account by entering your credentials. The rest of the integration will be handled automatically."
+msgstr "Verbind deze website met uw Maradigma-account door uw inloggegevens in te voeren. De rest van de integratie wordt automatisch afgehandeld."
+
+msgid "Public key (X-API-KEY)"
+msgstr "Openbare sleutel (X-API-KEY)"
+
+msgid "Public key (API Key)"
+msgstr "Openbare sleutel (API Key)"
+
+
+msgid "Secret key"
+msgstr "Geheime sleutel"
+
+msgid "Secret key (API Secret)"
+msgstr "Geheime sleutel (API Secret)"
+
+
+msgid "Default language"
+msgstr "Standaardtaal"
+
+msgid "Base slug for boats (SEO)"
+msgstr "Basis-slug voor boten (SEO)"
+
+msgid "Secret key the plugin will use to sign requests (X-SIGNATURE). Do not share it with anyone."
+msgstr "Geheime sleutel die de plugin zal gebruiken om verzoeken te ondertekenen (X-SIGNATURE). Deel deze met niemand."
+
+msgid "External API client misconfigured."
+msgstr "Externe API-client onjuist geconfigureerd."
+
+msgid "Connect your website to Maradigma to showcase your boats and enable online bookings for your customers."
+msgstr "Verbind uw website met Maradigma om uw boten te tonen en online boekingen voor uw klanten mogelijk te maken."
+
+msgid "Settings panel"
+msgstr "Instellingenpaneel"
+
+msgid "Configuration"
+msgstr "Configuratie"
+
+msgid "Boat cards"
+msgstr "Bootkaarten"
+
+msgid "About Maradigma"
+msgstr "Over Maradigma"
+
+msgid "Help &amp; support"
+msgstr "Hulp &amp; ondersteuning"
+
+msgid "Connection with Maradigma"
+msgstr "Verbinding met Maradigma"
+
+msgid "Enter your Maradigma public key and secret key to connect this website to your account. The plugin will automatically sign requests."
+msgstr "Voer uw Maradigma openbare sleutel en geheime sleutel in om deze website met uw account te verbinden. De plugin zal verzoeken automatisch ondertekenen."
+
+msgid "Ready: valid keys and successful connection"
+msgstr "Gereed: geldige sleutels en succesvolle verbinding"
+
+msgid "The Maradigma keys are not valid. Please check the public key and the secret key."
+msgstr "De Maradigma-sleutels zijn niet geldig. Controleer de openbare sleutel en de geheime sleutel."
+
+msgid "We couldn’t connect to Maradigma. Please try again later or contact support."
+msgstr "We konden geen verbinding maken met Maradigma. Probeer het later opnieuw of neem contact op met de ondersteuning."
+
+msgid "Pending: enter your Maradigma keys"
+msgstr "In afwachting: voer uw Maradigma-sleutels in"
+
+msgid "Advanced / Uninstall"
+msgstr "Geavanceerd / Verwijderen"
+
+msgid "Delete plugin data when uninstalling"
+msgstr "Plugingegevens verwijderen bij deïnstallatie"
+
+msgid "If enabled, deleting the plugin will remove boats CPT posts, postmeta, options and cache. Recommended OFF unless you want a full wipe."
+msgstr "Indien ingeschakeld, zal het verwijderen van de plugin boot-CPT-berichten, postmeta, opties en cache verwijderen. Aanbevolen UIT tenzij u een volledige verwijdering wilt."
+
+msgid "Also delete uploads folder (optional)"
+msgstr "Ook uploads-map verwijderen (optioneel)"
+
+msgid "Only if you store files under /wp-content/uploads/maradigma/. Default OFF (recommended)."
+msgstr "Alleen als u bestanden opslaat onder /wp-content/uploads/maradigma/. Standaard UIT (aanbevolen)."
+
+msgid "Sync (one page per boat)"
+msgstr "Synchroniseren (één pagina per boot)"
+
+msgid "Boats synced successfully."
+msgstr "Boten succesvol gesynchroniseerd."
+
+msgid "Sync failed. Please check your API keys and try again."
+msgstr "Synchronisatie mislukt. Controleer uw API-sleutels en probeer het opnieuw."
+
+msgid "Cache cleared successfully."
+msgstr "Cache succesvol gewist."
+
+msgid "Could not clear cache. Please try again."
+msgstr "Kon cache niet wissen. Probeer het opnieuw."
+
+msgid "Last sync:"
+msgstr "Laatste synchronisatie:"
+
+msgid "Synced boats:"
+msgstr "Gesynchroniseerde boten:"
+
+msgid "Sync boats now"
+msgstr "Boten nu synchroniseren"
+
+msgid "This will clear Maradigma cache. Continue?"
+msgstr "Hiermee wordt de Maradigma-cache gewist. Doorgaan?"
+
+msgid "Clear plugin cache"
+msgstr "Plugin-cache wissen"
+
+msgid "Clears cached boats list and boat details. Use if you changed settings or data looks outdated."
+msgstr "Wist de gecachte botenlijst en bootdetails. Gebruik dit als u instellingen heeft gewijzigd of als gegevens verouderd lijken."
+
+msgid "Quick summary"
+msgstr "Korte samenvatting"
+
+msgid "Boat catalog synced with your Maradigma account."
+msgstr "Bootcatalogus gesynchroniseerd met uw Maradigma-account."
+
+msgid "Online bookings directly from your website."
+msgstr "Online boekingen rechtstreeks vanaf uw website."
+
+msgid "SEO-ready content: friendly URLs and one page per boat."
+msgstr "SEO-klare inhoud: gebruiksvriendelijke URL's en één pagina per boot."
+
+msgid "Easy integration via shortcodes or your theme templates."
+msgstr "Eenvoudige integratie via shortcodes of uw thema-sjablonen."
+
+msgid "Compatibility detected"
+msgstr "Compatibiliteit gedetecteerd"
+
+msgid "Learn more about Maradigma"
+msgstr "Meer informatie over Maradigma"
+
+msgid "Request information or a demo"
+msgstr "Informatie of een demo aanvragen"
+
+msgid "Dynamic SEO (per boat)"
+msgstr "Dynamische SEO (per boot)"
+
+msgid "Configure the default language, the base slug for the boats section, and the SEO templates (title/description/H1). Supports simple multi-language format such as: \"es:barcos,en:boats,fr:bateaux\"."
+msgstr "Configureer de standaardtaal, de basis-slug voor de botensectie en de SEO-sjablonen (titel/beschrijving/H1). Ondersteunt een eenvoudig meertalig formaat zoals: \"es:barcos,en:boats,fr:bateaux\"."
+
+msgid "Used for SEO when the language cannot be detected (or there is no mapping)."
+msgstr "Gebruikt voor SEO wanneer de taal niet kan worden gedetecteerd (of er geen koppeling is)."
+
+msgid "Examples: \"boats\" or \"alquiler-barcos\". Simple multi-language: \"es:barcos,en:boats,fr:bateaux\"."
+msgstr "Voorbeelden: \"boats\" of \"alquiler-barcos\". Eenvoudig meertalig: \"es:barcos,en:boats,fr:bateaux\"."
+
+msgid "Meta title template"
+msgstr "Meta-titelsjabloon"
+
+msgid "Insert variable"
+msgstr "Variabele invoegen"
+
+msgid "Recommended: “Boat hire {{service_name}} | {{port}}”."
+msgstr "Aanbevolen: “Bootverhuur {{service_name}} | {{port}}”."
+
+msgid "Meta description template"
+msgstr "Meta-beschrijvingssjabloon"
+
+msgid "Recommended: 120-160 characters (Google truncates if you go over)."
+msgstr "Aanbevolen: 120-160 tekens (Google kort af als u eroverheen gaat)."
+
+msgid "H1 template (optional)"
+msgstr "H1-sjabloon (optioneel)"
+
+msgid "If your page template already defines its own H1, leave this empty."
+msgstr "Als uw paginasjabloon al een eigen H1 definieert, laat dit dan leeg."
+
+msgid "Close"
+msgstr "Sluiten"
+
+msgid "Select a variable and click Insert."
+msgstr "Selecteer een variabele en klik op Invoegen."
+
+msgid "Select a variable…"
+msgstr "Selecteer een variabele…"
+
+msgid "Insert"
+msgstr "Invoegen"
+
+msgid "Tip: insert multiple variables in a row without closing the modal."
+msgstr "Tip: voeg meerdere variabelen achter elkaar in zonder het modale venster te sluiten."
+
+msgid "SEO Notes:"
+msgstr "SEO-opmerkingen:"
+
+msgid "The base slug is used to build URLs like /boats/{boat-slug}/ (or /barcos/... depending on language)."
+msgstr "De basis-slug wordt gebruikt om URL's te maken zoals /boats/{boat-slug}/ (of /barcos/... afhankelijk van de taal)."
+
+msgid "The simple multi-language format is intentionally straightforward: \"es:barcos,en:boats\"."
+msgstr "Het eenvoudige meertalige formaat is bewust eenvoudig gehouden: \"es:barcos,en:boats\"."
+
+msgid "Quick examples"
+msgstr "Snelle voorbeelden"
+
+msgid "Default language:"
+msgstr "Standaardtaal:"
+
+msgid "Base slug:"
+msgstr "Basis-slug:"
+
+msgid "Multi-language base slug:"
+msgstr "Meertalige basis-slug:"
+
+msgid "If you do not use multi-language, a single slug is enough. If you do, the system will choose the slug based on the language (otherwise it falls back to the default language)."
+msgstr "Als u geen meertaligheid gebruikt, is één slug voldoende. Als u dat wel doet, kiest het systeem de slug op basis van de taal (anders valt het terug op de standaardtaal)."
+
+msgid "Boat card saved."
+msgstr "Bootkaart opgeslagen."
+
+msgid "Boat card deleted."
+msgstr "Bootkaart verwijderd."
+
+msgid "Default boat card updated."
+msgstr "Standaard bootkaart bijgewerkt."
+
+msgid "Card ID and Template HTML are required."
+msgstr "Kaart-ID en sjabloon-HTML zijn vereist."
+
+msgid "Create different HTML templates for the boat cards in the list. Select which one to use with the card=\"\" attribute in the shortcode."
+msgstr "Maak verschillende HTML-sjablonen voor de bootkaarten in de lijst. Selecteer welke gebruikt moet worden met het attribuut card=\"\" in de shortcode."
+
+msgid "Add new"
+msgstr "Nieuwe toevoegen"
+
+msgid "Name"
+msgstr "Naam"
+
+msgid "Default"
+msgstr "Standaard"
+
+msgid "Actions"
+msgstr "Acties"
+
+msgid "No cards yet."
+msgstr "Nog geen kaarten."
+
+msgid "Edit"
+msgstr "Bewerken"
+
+msgid "Set default"
+msgstr "Als standaard instellen"
+
+msgid "Delete"
+msgstr "Verwijderen"
+
+msgid "Use:"
+msgstr "Gebruik:"
+
+msgid "New boat card"
+msgstr "Nieuwe bootkaart"
+
+msgid "Edit boat card"
+msgstr "Bootkaart bewerken"
+
+msgid "Back to list"
+msgstr "Terug naar lijst"
+
+msgid "Card not found."
+msgstr "Kaart niet gevonden."
+
+msgid "Card ID"
+msgstr "Kaart-ID"
+
+msgid "Stable ID. Avoid spaces. Example: compact, luxury, grid_2."
+msgstr "Stabiele ID. Vermijd spaties. Voorbeeld: compact, luxury, grid_2."
+
+msgid "Template HTML"
+msgstr "Sjabloon-HTML"
+
+msgid "Refresh preview"
+msgstr "Voorbeeld vernieuwen"
+
+msgid "Preview"
+msgstr "Voorbeeld"
+
+msgid "Set as default"
+msgstr "Als standaard instellen"
+
+msgid "Save card"
+msgstr "Kaart opslaan"
+
+msgid "Help tab content unchanged."
+msgstr "Inhoud van het helptabblad ongewijzigd."
+
+msgid "Maradigma is a platform specialized in managing and marketing boat charters. We help charter companies centralize bookings, availability, and payments in one place."
+msgstr "Maradigma is een platform gespecialiseerd in het beheren en vermarkten van bootverhuur. Wij helpen bootverhuurbedrijven om boekingen, beschikbaarheid en betalingen op één plek te centraliseren."
+
+msgid "What you can do with this plugin"
+msgstr "Wat u met deze plugin kunt doen"
+
+msgid "Show your boat fleet directly on your WordPress website."
+msgstr "Toon uw bootvloot rechtstreeks op uw WordPress-website."
+
+msgid "Allow your customers to send online booking requests."
+msgstr "Laat uw klanten online boekingsaanvragen versturen."
+
+msgid "Keep your website always synced with Maradigma information."
+msgstr "Houd uw website altijd gesynchroniseerd met Maradigma-informatie."
+
+msgid "Who is it for?"
+msgstr "Voor wie is het bedoeld?"
+
+msgid "Boat charter companies already working with Maradigma."
+msgstr "Bootverhuurbedrijven die al met Maradigma werken."
+
+msgid "Agencies managing multiple brands or fleets."
+msgstr "Bureaus die meerdere merken of vloten beheren."
+
+msgid "Projects that need a quick integration without custom development."
+msgstr "Projecten die een snelle integratie nodig hebben zonder maatwerkontwikkeling."
+
+msgid "Talk to our team"
+msgstr "Praat met ons team"
+
+msgid "✔ Elementor detected - Widgets enabled"
+msgstr "✔ Elementor gedetecteerd - Widgets ingeschakeld"
+
+msgid "⚠ Elementor not detected"
+msgstr "⚠ Elementor niet gedetecteerd"
+
+
+
+msgid "✔ Yoast SEO detected - SEO integration available"
+msgstr "✔ Yoast SEO gedetecteerd - SEO-integratie beschikbaar"
+
+msgid "⚠ Yoast SEO not detected"
+msgstr "⚠ Yoast SEO niet gedetecteerd"
+
+msgid "✔ Polylang detected - Multilang active"
+msgstr "✔ Polylang gedetecteerd - Meertalig actief"
+
+msgid "⚠ Polylang not detected"
+msgstr "⚠ Polylang niet gedetecteerd"
+
+msgid "✔ WPML detected - Translations enabled"
+msgstr "✔ WPML gedetecteerd - Vertalingen ingeschakeld"
+
+msgid "⚠ WPML not detected"
+msgstr "⚠ WPML niet gedetecteerd"
+
+msgid "Save changes"
+msgstr "Wijzigingen opslaan"
+
+msgid "Select a Maradigma boat in this post first."
+msgstr "Selecteer eerst een Maradigma-boot in dit bericht."
+
+msgid "Unable to load boat data from Maradigma."
+msgstr "Kan bootgegevens van Maradigma niet laden."
+
+msgid "Maradigma"
+msgstr "Maradigma"
+
+msgid "Maradigma Boat Additional Services"
+msgstr "Maradigma boot aanvullende diensten"
+
+msgid "Content"
+msgstr "Inhoud"
+
+msgid "Title"
+msgstr "Titel"
+
+msgid "Additional services"
+msgstr "Aanvullende diensten"
+
+msgid "Show title"
+msgstr "Titel tonen"
+
+msgid "Yes"
+msgstr "Ja"
+
+msgid "No"
+msgstr "Nee"
+
+msgid "Layout"
+msgstr "Lay-out"
+
+msgid "Blocks (list)"
+msgstr "Blokken (lijst)"
+
+msgid "Table"
+msgstr "Tabel"
+
+msgid "Show table headers"
+msgstr "Tabelkoppen tonen"
+
+msgid "Group by category"
+msgstr "Groeperen op categorie"
+
+msgid "Show category title"
+msgstr "Categorietitel tonen"
+
+msgid "Show badges"
+msgstr "Badges tonen"
+
+msgid "Show badge: Required / Optional / Free"
+msgstr "Badge tonen: Vereist / Optioneel / Gratis"
+
+msgid "Show badge: Per booking / Per day"
+msgstr "Badge tonen: Per boeking / Per dag"
+
+msgid "Show badge: Payment (online/port/office)"
+msgstr "Badge tonen: Betaling (online/haven/kantoor)"
+
+msgid "Badge style"
+msgstr "Badge-stijl"
+
+msgid "Friendly (recommended)"
+msgstr "Vriendelijk (aanbevolen)"
+
+msgid "Raw (API names)"
+msgstr "Ruw (API-namen)"
+
+msgid "Show description (if provided)"
+msgstr "Beschrijving tonen (indien opgegeven)"
+
+msgid "Show quantity (if > 1)"
+msgstr "Hoeveelheid tonen (indien > 1)"
+
+msgid "Price display (source preference)"
+msgstr "Prijsweergave (bronvoorkeur)"
+
+msgid "Prefer total (formatted/html)"
+msgstr "Voorkeur voor totaal (geformatteerd/html)"
+
+msgid "Prefer total (formatted)"
+msgstr "Voorkeur voor totaal (geformatteerd)"
+
+msgid "Prefer base (formatted)"
+msgstr "Voorkeur voor basis (geformatteerd)"
+
+msgid "Prefer VAT (formatted)"
+msgstr "Voorkeur voor btw (geformatteerd)"
+
+msgid "Prefer raw total_price"
+msgstr "Voorkeur voor ruwe total_price"
+
+msgid "Prefer raw price"
+msgstr "Voorkeur voor ruwe prijs"
+
+msgid "VAT"
+msgstr "Btw"
+
+msgid "VAT display mode"
+msgstr "Btw-weergavemodus"
+
+msgid "Show \"VAT included\""
+msgstr "\"Btw inbegrepen\" tonen"
+
+msgid "Show \"+ VAT\""
+msgstr "\"+ btw\" tonen"
+
+msgid "Hide VAT reference (base price)"
+msgstr "Btw-verwijzing verbergen (basisprijs)"
+
+msgid "Hide VAT reference (total price)"
+msgstr "Btw-verwijzing verbergen (totaalprijs)"
+
+msgid "VAT text position"
+msgstr "Positie van btw-tekst"
+
+msgid "Below price (new line)"
+msgstr "Onder prijs (nieuwe regel)"
+
+msgid "Same line (inline)"
+msgstr "Zelfde regel (inline)"
+
+msgid "Tooltip / info icon"
+msgstr "Tooltip / info-icoon"
+
+msgid "VAT included text"
+msgstr "Tekst voor btw inbegrepen"
+
+msgid "VAT excluded text"
+msgstr "Tekst voor btw exclusief"
+
+msgid "VAT included"
+msgstr "Btw inbegrepen"
+
+msgid "+ VAT"
+msgstr "+ btw"
+
+msgid "Price format"
+msgstr "Prijsformaat"
+
+msgid "Currency display"
+msgstr "Valutaweergave"
+
+msgid "Symbol (€, $, £)"
+msgstr "Symbool (€,$,£)"
+
+msgid "ISO (EUR, USD...)"
+msgstr "ISO (EUR, USD...)"
+
+msgid "Decimals"
+msgstr "Decimalen"
+
+msgid "Auto"
+msgstr "Automatisch"
+
+msgid "0"
+msgstr "0"
+
+msgid "2"
+msgstr "2"
+
+msgid "Thousands separator"
+msgstr "Scheidingsteken voor duizendtallen"
+
+msgid "Decimal separator"
+msgstr "Decimaal scheidingsteken"
+
+msgid "No additional services available."
+msgstr "Geen aanvullende diensten beschikbaar."
+
+msgid "Other"
+msgstr "Overig"
+
+msgid "Service"
+msgstr "Dienst"
+
+msgid "Details"
+msgstr "Details"
+
+msgid "Price"
+msgstr "Prijs"
+
+msgid "Required"
+msgstr "Vereist"
+
+msgid "This extra is required for this booking."
+msgstr "Deze extra is vereist voor deze boeking."
+
+msgid "Optional"
+msgstr "Optioneel"
+
+msgid "This extra can be added if you want."
+msgstr "Deze extra kan worden toegevoegd als u dat wilt."
+
+msgid "Free"
+msgstr "Gratis"
+
+msgid "This extra has no additional cost."
+msgstr "Deze extra brengt geen extra kosten met zich mee."
+
+msgid "This additional service is free."
+msgstr "Deze extra service is gratis."
+
+msgid "Per booking"
+msgstr "Per boeking"
+
+msgid "Charged once for the whole reservation."
+msgstr "Eenmalig in rekening gebracht voor de hele reservering."
+
+msgid "Per day"
+msgstr "Per dag"
+
+msgid "Charged for each day of the reservation."
+msgstr "In rekening gebracht voor elke dag van de reservering."
+
+msgid "Pay online"
+msgstr "Online betalen"
+
+msgid "Payment is made online during booking."
+msgstr "Betaling wordt online gedaan tijdens het boeken."
+
+msgid "Pay at the port"
+msgstr "Betalen in de haven"
+
+msgid "Payment is made at the port on the rental day."
+msgstr "Betaling wordt in de haven gedaan op de huurdag."
+
+msgid "Pay at the office"
+msgstr "Betalen op kantoor"
+
+msgid "Payment is made at the office."
+msgstr "Betaling wordt op kantoor gedaan."
+
+msgid "Maradigma Boat Book Now"
+msgstr "Maradigma boot nu boeken"
+
+msgid "Button text"
+msgstr "Knoptekst"
+
+msgid "Book now"
+msgstr "Nu boeken"
+
+msgid "Book"
+msgstr "Boeken"
+
+msgid "From"
+msgstr "Vanaf"
+
+msgid "Day"
+msgstr "Dag"
+
+msgid "Modal title"
+msgstr "Modale titel"
+
+msgid "Book this boat"
+msgstr "Boek deze boot"
+
+msgid "Show quote box"
+msgstr "Offertevak tonen"
+
+msgid "Terms label"
+msgstr "Label voor voorwaarden"
+
+msgid "I accept the terms and conditions"
+msgstr "Ik accepteer de algemene voorwaarden"
+
+msgid "Auto open (useful in preview)"
+msgstr "Automatisch openen (handig in voorbeeld)"
+
+msgid "API expand (optional)"
+msgstr "API-uitbreiding (optioneel)"
+
+msgid "Maradigma Boat Description"
+msgstr "Maradigma bootbeschrijving"
+
+msgid "Allow basic HTML"
+msgstr "Basis-HTML toestaan"
+
+msgid "Max words (0 = unlimited)"
+msgstr "Max. woorden (0 = onbeperkt)"
+
+msgid "If set, the description will be trimmed."
+msgstr "Indien ingesteld, wordt de beschrijving ingekort."
+
+msgid "Description not available."
+msgstr "Beschrijving niet beschikbaar."
+
+msgid "Maradigma Boat Equipments"
+msgstr "Maradigma bootuitrusting"
+
+msgid "Equipments"
+msgstr "Uitrusting"
+
+msgid "Show icon"
+msgstr "Icoon tonen"
+
+msgid "Icon text / symbol"
+msgstr "Icoontekst / symbool"
+
+msgid "Example: ✓, ✔, •, →, ★, or any text."
+msgstr "Voorbeeld: ✓, ✔, •, →, ★ of een andere tekst."
+
+msgid "No equipments available."
+msgstr "Geen uitrusting beschikbaar."
+
+msgid "Maradigma Boat Gallery"
+msgstr "Maradigma bootgalerij"
+
+msgid "Grid"
+msgstr "Raster"
+
+msgid "Slider"
+msgstr "Schuifregelaar"
+
+msgid "Columns"
+msgstr "Kolommen"
+
+msgid "Enable lightbox on click"
+msgstr "Lightbox inschakelen bij klikken"
+
+msgid "Images available: …"
+msgstr "Beschikbare afbeeldingen: …"
+
+msgid "Show images from (1-based)"
+msgstr "Afbeeldingen tonen vanaf (1-gebaseerd)"
+
+msgid "Show images to (0 = last)"
+msgstr "Afbeeldingen tonen tot (0 = laatste)"
+
+msgid "Max images (final limit)"
+msgstr "Max. afbeeldingen (eindlimiet)"
+
+msgid "Applied after the from/to range."
+msgstr "Toegepast na het van/tot-bereik."
+
+msgid "Prefer image size key"
+msgstr "Voorkeur voor afbeeldingsgroottesleutel"
+
+msgid "Gap (px)"
+msgstr "Tussenruimte (px)"
+
+msgid "Image radius (px)"
+msgstr "Afbeeldingsradius (px)"
+
+msgid "Autoplay"
+msgstr "Automatisch afspelen"
+
+msgid "Autoplay delay (ms)"
+msgstr "Vertraging automatisch afspelen (ms)"
+
+msgid "Loop"
+msgstr "Lus"
+
+msgid "Transition speed (ms)"
+msgstr "Overgangssnelheid (ms)"
+
+msgid "Space between slides (px)"
+msgstr "Ruimte tussen dia's (px)"
+
+msgid "Slides per view (desktop)"
+msgstr "Dia's per weergave (desktop)"
+
+msgid "Slides per view (tablet)"
+msgstr "Dia's per weergave (tablet)"
+
+msgid "Slides per view (mobile)"
+msgstr "Dia's per weergave (mobiel)"
+
+msgid "Show arrows"
+msgstr "Pijlen tonen"
+
+msgid "Show pagination dots"
+msgstr "Paginatiepunten tonen"
+
+msgid "Boat image"
+msgstr "Bootafbeelding"
+
+msgid "Maradigma Boat Included"
+msgstr "Maradigma boot inbegrepen"
+
+msgid "Included"
+msgstr "Inbegrepen"
+
+msgid "Show tick icon"
+msgstr "Vink-icoon tonen"
+
+msgid "Tick text / icon"
+msgstr "Vinktekst / icoon"
+
+msgid "Example: ✓, ✔, ✅, →, •, or any text."
+msgstr "Voorbeeld: ✓, ✔, ✅, →, • of een andere tekst."
+
+msgid "No included items."
+msgstr "Geen inbegrepen items."
+
+msgid "Maradigma Boat Not Included"
+msgstr "Maradigma boot niet inbegrepen"
+
+msgid "Not included"
+msgstr "Niet inbegrepen"
+
+msgid "Show cross icon"
+msgstr "Kruis-icoon tonen"
+
+msgid "Cross text / icon"
+msgstr "Kruistekst / icoon"
+
+msgid "Example: ✕, ✖, ❌, ×, —, •, or any text."
+msgstr "Voorbeeld: ✕, ✖, ❌, ×, —, • of een andere tekst."
+
+msgid "No \"not included\" items."
+msgstr "Geen \"niet inbegrepen\" items."
+
+msgid "Maradigma Boat PDF Download"
+msgstr "Maradigma boot PDF-download"
+
+msgid "Button text"
+msgstr "Knoptekst"
+
+msgid "Download PDF"
+msgstr "PDF downloaden"
+
+msgid "Open in new tab"
+msgstr "Openen in een nieuw tabblad"
+
+msgid "Force download (download attribute)"
+msgstr "Download forceren (download-attribuut)"
+
+msgid "PDF URL keys (comma separated)"
+msgstr "PDF-URL-sleutels (door komma's gescheiden)"
+
+msgid "Widget will try these keys in order. Supports nested arrays like [{\"url\":\"...\"}] or [{\"download_link\":\"...\"}]."
+msgstr "De widget probeert deze sleutels in volgorde. Ondersteunt geneste arrays zoals [{\"url\":\"...\"}] of [{\"download_link\":\"...\"}]."
+
+msgid "API expand (optional)"
+msgstr "API-uitbreiding (optioneel)"
+
+msgid "If the PDF is only present with a specific expand, set it here."
+msgstr "Als de PDF alleen aanwezig is met een specifieke uitbreiding, stel deze hier in."
+
+msgid "Maradigma Boat Prices"
+msgstr "Maradigma bootprijzen"
+
+msgid "Content"
+msgstr "Inhoud"
+
+msgid "Title"
+msgstr "Titel"
+
+msgid "Prices"
+msgstr "Prijzen"
+
+msgid "Show title"
+msgstr "Titel tonen"
+
+msgid "Yes"
+msgstr "Ja"
+
+msgid "No"
+msgstr "Nee"
+
+msgid "Season range display"
+msgstr "Weergave van seizoensbereik"
+
+msgid "Month / Months"
+msgstr "Maand / Maanden"
+
+msgid "Dates (short)"
+msgstr "Datums (kort)"
+
+msgid "Dates (long)"
+msgstr "Datums (lang)"
+
+msgid "Layout"
+msgstr "Lay-out"
+
+msgid "Table (vertical)"
+msgstr "Tabel (verticaal)"
+
+msgid "Blocks (horizontal)"
+msgstr "Blokken (horizontaal)"
+
+msgid "Order by"
+msgstr "Sorteren op"
+
+msgid "Start date (ASC)"
+msgstr "Startdatum (ASC)"
+
+msgid "Start date (DESC)"
+msgstr "Startdatum (DESC)"
+
+msgid "Price (ASC)"
+msgstr "Prijs (ASC)"
+
+msgid "Price (DESC)"
+msgstr "Prijs (DESC)"
+
+msgid "Empty text"
+msgstr "Lege tekst"
+
+msgid "Prices not available."
+msgstr "Prijzen niet beschikbaar."
+
+msgid "VAT"
+msgstr "Btw"
+
+msgid "VAT display mode"
+msgstr "Btw-weergavemodus"
+
+msgid "Show \"VAT included\""
+msgstr "\"Btw inbegrepen\" tonen"
+
+msgid "Show \"+ VAT\""
+msgstr "\"+ btw\" tonen"
+
+msgid "Hide VAT reference (base price)"
+msgstr "Btw-verwijzing verbergen (basisprijs)"
+
+msgid "Hide VAT reference (total price)"
+msgstr "Btw-verwijzing verbergen (totaalprijs)"
+
+msgid "VAT text position"
+msgstr "Positie van btw-tekst"
+
+msgid "Below price (new line)"
+msgstr "Onder prijs (nieuwe regel)"
+
+msgid "Same line (inline)"
+msgstr "Zelfde regel (inline)"
+
+msgid "Tooltip / info icon"
+msgstr "Tooltip / info-icoon"
+
+msgid "VAT included text"
+msgstr "Tekst voor btw inbegrepen"
+
+msgid "VAT included"
+msgstr "Btw inbegrepen"
+
+msgid "VAT excluded text"
+msgstr "Tekst voor btw exclusief"
+
+msgid "+ VAT"
+msgstr "+ btw"
+
+msgid "Price format"
+msgstr "Prijsformaat"
+
+msgid "Currency display"
+msgstr "Valutaweergave"
+
+msgid "Symbol (€, $, £)"
+msgstr "Symbool (€,$,£)"
+
+msgid "ISO (EUR, USD...)"
+msgstr "ISO (EUR, USD...)"
+
+msgid "Decimals"
+msgstr "Decimalen"
+
+msgid "Auto"
+msgstr "Automatisch"
+
+msgid "0"
+msgstr "0"
+
+msgid "2"
+msgstr "2"
+
+msgid "Thousands separator"
+msgstr "Scheidingsteken voor duizendtallen"
+
+msgid "Decimal separator"
+msgstr "Decimaal scheidingsteken"
+
+msgid "Style"
+msgstr "Stijl"
+
+msgid "Row gap (px)"
+msgstr "Rijafstand (px)"
+
+msgid "Show table headers"
+msgstr "Tabelkoppen tonen"
+
+msgid "Base price"
+msgstr "Basisprijs"
+
+msgid "Week"
+msgstr "Week"
+
+msgid "Hour"
+msgstr "Uur"
+
+msgid "Season"
+msgstr "Seizoen"
+
+msgid "Price"
+msgstr "Prijs"
+
+msgid "Maradigma Boat Specs"
+msgstr "Maradigma bootspecificaties"
+
+msgid "Content"
+msgstr "Inhoud"
+
+msgid "Layout"
+msgstr "Lay-out"
+
+msgid "Two columns"
+msgstr "Twee kolommen"
+
+msgid "List"
+msgstr "Lijst"
+
+msgid "Show labels"
+msgstr "Labels tonen"
+
+msgid "Yes"
+msgstr "Ja"
+
+msgid "No"
+msgstr "Nee"
+
+msgid "Field"
+msgstr "Veld"
+
+msgid "Custom key"
+msgstr "Aangepaste sleutel"
+
+msgid "Label"
+msgstr "Label"
+
+msgid "e.g. Length"
+msgstr "bijv. Lengte"
+
+msgid "Format"
+msgstr "Formaat"
+
+msgid "Text"
+msgstr "Tekst"
+
+msgid "Integer"
+msgstr "Geheel getal"
+
+msgid "Meters (add \"m\")"
+msgstr "Meters (voeg \"m\" toe)"
+
+msgid "Boolean (Yes/No)"
+msgstr "Boolean (Ja/Nee)"
+
+msgid "Prefix"
+msgstr "Voorvoegsel"
+
+msgid "e.g. ~"
+msgstr "bijv. ~"
+
+msgid "Suffix"
+msgstr "Achtervoegsel"
+
+msgid "e.g. L/H"
+msgstr "bijv. L/H"
+
+msgid "Fallback (if empty)"
+msgstr "Fallback (indien leeg)"
+
+msgid "e.g. -"
+msgstr "bijv. -"
+
+msgid "Specs to show"
+msgstr "Te tonen specificaties"
+
+msgid "No specs configured."
+msgstr "Geen specificaties geconfigureerd."
+
+msgid "Specs not available."
+msgstr "Specificaties niet beschikbaar."
+
+msgid "Boat type"
+msgstr "Boottype"
+
+msgid "Builder"
+msgstr "Bouwer"
+
+msgid "Model"
+msgstr "Model"
+
+msgid "Alias"
+msgstr "Alias"
+
+msgid "Capacity (guests)"
+msgstr "Capaciteit (gasten)"
+
+msgid "Crew capacity"
+msgstr "Bemanningscapaciteit"
+
+msgid "Sleeps"
+msgstr "Slaapplaatsen"
+
+msgid "Cabins"
+msgstr "Hutten"
+
+msgid "cabins"
+msgstr "hutten"
+
+msgid "Length"
+msgstr "Lengte"
+
+msgid "Beam"
+msgstr "Breedte"
+
+msgid "Fuel consumption"
+msgstr "Brandstofverbruik"
+
+msgid "Engines"
+msgstr "Motoren"
+
+msgid "Base port"
+msgstr "Thuishaven"
+
+msgid "Year"
+msgstr "Jaar"
+
+msgid "Refit year"
+msgstr "Refit-jaar"
+
+msgid "Deposit"
+msgstr "Waarborgsom"
+
+msgid "Deposit with skipper"
+msgstr "Waarborgsom met schipper"
+
+msgid "Deposit without skipper"
+msgstr "Waarborgsom zonder schipper"
+
+msgid "Custom key…"
+msgstr "Aangepaste sleutel…"
+
+msgid "Type"
+msgstr "Type"
+
+msgid "Capacity"
+msgstr "Capaciteit"
+
+msgid "Crew"
+msgstr "Bemanning"
+
+msgid "Refit"
+msgstr "Refit"
+
+msgid "Maradigma Boat Title"
+msgstr "Maradigma boottitel"
+
+msgid "Content"
+msgstr "Inhoud"
+
+msgid "HTML Tag"
+msgstr "HTML-tag"
+
+msgid "Show boat ID suffix"
+msgstr "Boot-ID-achtervoegsel tonen"
+
+msgid "Yes"
+msgstr "Ja"
+
+msgid "No"
+msgstr "Nee"
+
+msgid "Maradigma - Boats Archive (Interactive)"
+msgstr "Maradigma - Botenarchief (interactief)"
+
+msgid "Interactive Listing"
+msgstr "Interactieve lijst"
+
+msgid "Default (plugin setting)"
+msgstr "Standaard (plugininstelling)"
+
+msgid "Boat card template (card)"
+msgstr "Bootkaartsjabloon (card)"
+
+msgid "Items per page"
+msgstr "Items per pagina"
+
+msgid "Show text search"
+msgstr "Tekstzoekfunctie tonen"
+
+msgid "Show basic filters (capacity, featured, instant)"
+msgstr "Basisfilters tonen (capaciteit, uitgelicht, direct)"
+
+msgid "Show pagination"
+msgstr "Paginering tonen"
+
+msgid "Search boats…"
+msgstr "Boten zoeken…"
+
+msgid "Min pax"
+msgstr "Min pax"
+
+msgid "Featured"
+msgstr "Uitgelicht"
+
+msgid "Instant booking"
+msgstr "Direct boeken"
+
+msgid "Relevance"
+msgstr "Relevantie"
+
+msgid "Price: low to high"
+msgstr "Prijs: laag naar hoog"
+
+msgid "Price: high to low"
+msgstr "Prijs: hoog naar laag"
+
+msgid "Length: low to high"
+msgstr "Lengte: oplopend"
+
+msgid "Length: high to low"
+msgstr "Lengte: aflopend"
+
+msgid "Featured first"
+msgstr "Uitgelicht eerst"
+
+msgid "Newest first"
+msgstr "Nieuwste eerst"
+
+msgid "Apply"
+msgstr "Toepassen"
+
+msgid "Reset"
+msgstr "Resetten"
+
+msgid "No results found."
+msgstr "Geen resultaten gevonden."
+
+msgid "Yes"
+msgstr "Ja"
+
+msgid "No"
+msgstr "Nee"
+
+msgid "More filters"
+msgstr "Meer filters"
+
+msgid "Search"
+msgstr "Zoeken"
+
+msgid "Price range"
+msgstr "Prijsklasse"
+
+msgid "Min price"
+msgstr "Min prijs"
+
+msgid "Max price"
+msgstr "Max prijs"
+
+msgid "Featured only"
+msgstr "Alleen uitgelicht"
+
+msgid "Any"
+msgstr "Elke"
+
+msgid "Builders"
+msgstr "Bouwers"
+
+msgid "Tags"
+msgstr "Tags"
+
+msgid "Specific boats (CSV)"
+msgstr "Specifieke boten (CSV)"
+
+msgid "Dates"
+msgstr "Datums"
+
+msgid "Apply filters"
+msgstr "Filters toepassen"
+
+msgid "No boats found."
+msgstr "Geen boten gevonden."
+
+msgid "Boat not found."
+msgstr "Boot niet gevonden."
+
+msgid "Missing boat id/slug."
+msgstr "Ontbrekende boot-id/slug."
+
+msgid "from"
+msgstr "vanaf"
+
+msgid "Mandatory skipper"
+msgstr "Verplichte schipper"
+
+msgid "Dates"
+msgstr "Datums"
+
+msgid "Full day charter"
+msgstr "Dagverhuur"
+
+msgid "Select full day if you want the boat for the entire day. Otherwise, choose a half-day schedule."
+msgstr "Selecteer een hele dag als u de boot de hele dag wilt. Kies anders een schema voor een halve dag."
+
+msgid "Select a schedule"
+msgstr "Selecteer een schema"
+
+msgid "Including children onboard"
+msgstr "Inclusief kinderen aan boord"
+
+msgid "Optional message"
+msgstr "Optioneel bericht"
+
+msgid "You can specify your project (schedule, program, particular needs)"
+msgstr "U kunt uw project specificeren (schema, programma, speciale behoeften)"
+
+msgid "Write your message (optional)…"
+msgstr "Schrijf uw bericht (optioneel)…"
+
+msgid "Skipper"
+msgstr "Schipper"
+
+msgid "Fuel not included"
+msgstr "Brandstof niet inbegrepen"
+
+msgid "Amount of the security deposit"
+msgstr "Bedrag van de waarborgsom"
+
+msgid "Have a promo code?"
+msgstr "Heeft u een promotiecode?"
+
+msgid "Enter coupon"
+msgstr "Voer coupon in"
+
+msgid "To be paid on the spot"
+msgstr "Ter plaatse te betalen"
+
+msgid "To be paid online"
+msgstr "Online te betalen"
+
+msgid "Mandatory"
+msgstr "Verplicht"
+
+msgid "Available"
+msgstr "Beschikbaar"
+
+msgid "Booked"
+msgstr "Geboekt"
+
+msgid "Learn more"
+msgstr "Meer informatie"
+
+msgid "Country"
+msgstr "Land"
+
+msgid "I have read and agree to the reservation terms and conditions"
+msgstr "Ik heb de reserveringsvoorwaarden gelezen en ga ermee akkoord"
+
+msgid "Select a payment method"
+msgstr "Selecteer een betaalmethode"
+
+msgid "Prepayment"
+msgstr "Vooruitbetaling"
+
+msgid "Option"
+msgstr "Optie"
+
+msgid "From %start% to %end%"
+msgstr "Van %start% tot %end%"
+
+msgid "Total booking + extras"
+msgstr "Totale boeking + extra's"
+
+msgid "Fuel cost may be charged before or after boarding."
+msgstr "De brandstofkosten kunnen voor of na het aan boord gaan in rekening worden gebracht."
+
+msgid "passenger"
+msgstr "passagier"
+
+msgid "passengers"
+msgstr "passagiers"
+
+msgid "I have read and agree to the"
+msgstr "Ik heb de"
+
+msgid "reservation terms and conditions"
+msgstr "reserveringsvoorwaarden gelezen en ga ermee akkoord"
+
+msgid "Please select a schedule."
+msgstr "Selecteer een schema."
+
+msgid "Full day is not available for this date."
+msgstr "Een hele dag is niet beschikbaar voor deze datum."
+
+msgid "Price calculation error"
+msgstr "Fout bij prijsberekening"
+
+msgid "Booking error"
+msgstr "Boekingsfout"
+
+msgid "Invalid phone number"
+msgstr "Ongeldig telefoonnummer"
+
+msgid "Shop cart not found."
+msgstr "Winkelwagen niet gevonden."
+
+msgid "Payment completed. Finalizing reservation…"
+msgstr "Betaling voltooid. Reservering wordt afgerond…"
+
+msgid "Payment was cancelled or failed. You can try again."
+msgstr "De betaling is geannuleerd of mislukt. U kunt het opnieuw proberen."
+
+msgid "Payment not completed yet. If you already paid, refresh in a moment."
+msgstr "De betaling is nog niet voltooid. Als u al heeft betaald, vernieuw de pagina dan over een moment."
+
+msgid "Select country"
+msgstr "Selecteer land"
+
+msgid "Select a schedule…"
+msgstr "Selecteer een schema…"
+
+msgid "Email *"
+msgstr "E-mail *"
+
+msgid "Card"
+msgstr "Kaart"
+
+msgid "Ready to continue"
+msgstr "Klaar om door te gaan"
+
+msgid "Click Continue to create the booking and go to payment."
+msgstr "Klik op Doorgaan om de boeking aan te maken en naar de betaling te gaan."
+
+msgid "Extras"
+msgstr "Extra's"
+
+msgid "Included"
+msgstr "Inbegrepen"
+
+msgid "Choose the number of children"
+msgstr "Kies het aantal kinderen"
+
+msgid "Would you like a professional skipper on board?"
+msgstr "Wilt u een professionele schipper aan boord?"
+
+msgid "Recommended for a stress-free trip, especially if you're not fully familiar with the area or docking."
+msgstr "Aanbevolen voor een stressvrije reis, vooral als u niet volledig bekend bent met het gebied of met aanmeren."
+
+msgid "Select dates"
+msgstr "Selecteer datums"
+
+msgid "Fuel included"
+msgstr "Brandstof inbegrepen"
+
+msgid "Fuel is already included in the rental price, so you won’t need to pay it separately."
+msgstr "De brandstof is al inbegrepen in de huurprijs, dus u hoeft deze niet apart te betalen."
+
+msgid "Yes (recommended)"
+msgstr "Ja (aanbevolen)"
+
+msgid "Reservation terms"
+msgstr "Reserveringsvoorwaarden"
+
+msgid "Cancellation policy depends on the selected service and dates."
+msgstr "Het annuleringsbeleid is afhankelijk van de geselecteerde service en datums."
+
+msgid "Payment is required to confirm the reservation."
+msgstr "Betaling is vereist om de reservering te bevestigen."
+
+msgid "Any additional services selected will be added to the total."
+msgstr "Eventuele geselecteerde aanvullende diensten worden aan het totaal toegevoegd."
+
+msgid "If you have any questions, please contact support."
+msgstr "Als u vragen heeft, neem dan contact op met de ondersteuning."
+
+msgid "Choose your preferred half-day schedule for this day charter."
+msgstr "Kies uw gewenste halve-dagschema voor deze dagverhuur."
+
+msgid "Management fee"
+msgstr "Beheerkosten"
+
+msgid "Applied to the online booking payment"
+msgstr "Toegepast op de online betaling van de boeking"
+
+msgid "Total charged online"
+msgstr "Totaal online in rekening gebracht"
+
+msgid "This price already includes an online booking fee of %price%"
+msgstr "Deze prijs is al inclusief een online boekingskost van %price%"
+
+msgid "Sort by"
+msgstr "Sorteren op"
+
+msgid "Specific boats"
+msgstr "Specifieke boten"
+
+msgid "Reservation confirmed"
+msgstr "Reservering bevestigd"
+
+msgid "Your payment has been confirmed and your booking has been created successfully."
+msgstr "Uw betaling is bevestigd en uw boeking is succesvol aangemaakt."
+
+msgid "Booking summary"
+msgstr "Boekingsoverzicht"
+
+msgid "Booking reference"
+msgstr "Boekingsreferentie"
+
+msgid "Service"
+msgstr "Dienst"
+
+msgid "Location"
+msgstr "Locatie"
+
+msgid "Date"
+msgstr "Datum"
+
+msgid "Customer"
+msgstr "Klant"
+
+msgid "Payment summary"
+msgstr "Betalingsoverzicht"
+
+msgid "Payment reference"
+msgstr "Betalingsreferentie"
+
+msgid "Amount paid"
+msgstr "Betaald bedrag"
+
+msgid "Contact details"
+msgstr "Contactgegevens"
+
+msgid "Email"
+msgstr "E-mail"
+
+msgid "Booking details"
+msgstr "Boekingsdetails"
+
+msgid "View booking details"
+msgstr "Boekingsdetails bekijken"
+
+msgid "View details"
+msgstr "Details bekijken"
+
+msgid "Close"
+msgstr "Sluiten"
+
+msgid "Payment completed successfully."
+msgstr "Betaling succesvol voltooid."
+
+msgid "Price details"
+msgstr "Prijsdetails"
+
+msgid "Rental price"
+msgstr "Huurprijs"
+
+msgid "Service fee"
+msgstr "Servicekosten"
+
+msgid "Taxable amount"
+msgstr "Belastbaar bedrag"
+
+msgid "VAT included"
+msgstr "Btw inbegrepen"
+
+msgid "Pay now"
+msgstr "Nu betalen"
+
+msgid "This is the amount you will pay online now."
+msgstr "Dit is het bedrag dat u nu online betaalt."
+
+msgid "Pay at the port"
+msgstr "Betalen in de haven"
+
+msgid "This is the amount to be paid at the port on the charter day."
+msgstr "Dit is het bedrag dat op de verhuurdag in de haven moet worden betaald."
+
+msgid "Add a promotional code"
+msgstr "Een promotiecode toevoegen"
+
+msgid "Confirm and pay"
+msgstr "Bevestigen en betalen"
+
+msgid "By selecting the following button, you unconditionally accept the Terms of Use and Rental Terms. You also agree to pay the total amount of the reservation."
+msgstr "Door de volgende knop te selecteren, accepteert u onvoorwaardelijk de Gebruiksvoorwaarden en Huurvoorwaarden. U gaat er ook mee akkoord het totale bedrag van de reservering te betalen."
+
+msgid "Read terms"
+msgstr "Voorwaarden lezen"
+
+msgid "Credit Card"
+msgstr "Creditcard"
+
+msgid "applied to the amount you will pay now"
+msgstr "toegepast op het bedrag dat je nu betaalt"
+
+msgid "View payment breakdown"
+msgstr "Betaaloverzicht bekijken"
+
+msgid "View pending breakdown"
+msgstr "Openstaand overzicht bekijken"
+
+msgid "Subtotal to pay now"
+msgstr "Subtotaal nu te betalen"
+
+msgid "Total to pay now"
+msgstr "Totaal nu te betalen"
+
+msgid "Total pending"
+msgstr "Totaal openstaand"
+
+msgid "Settings saved successfully."
+msgstr "Instellingen succesvol opgeslagen."
+
+msgid "Could not open the Gutenberg master template."
+msgstr "Kon het Gutenberg-hoofdsjabloon niet openen."
+
+msgid "Template sync started. It will continue in batches via WP-Cron."
+msgstr "Sjabloonsynchronisatie gestart. Dit gaat in batches verder via WP-Cron."
+
+msgid "Template sync stopped."
+msgstr "Sjabloonsynchronisatie gestopt."
+
+msgid "Maintenance tools"
+msgstr "Onderhoudshulpmiddelen"
+
+msgid "Use these actions only when cached data looks outdated or when you need to rebuild generated boat pages."
+msgstr "Gebruik deze acties alleen wanneer gecachte gegevens verouderd lijken of wanneer je gegenereerde bootpagina's opnieuw moet opbouwen."
+
+msgid "Available boats"
+msgstr "Beschikbare boten"
+
+msgid "Sync failed:"
+msgstr "Synchronisatie mislukt:"
+
+msgid "Sync is disabled. Enable “Boat pages sync (opt-in)” and save changes first."
+msgstr "Synchronisatie is uitgeschakeld. Schakel eerst “Synchronisatie van bootpagina’s (opt-in)” in en sla de wijzigingen op."
+
+msgid "All boat pages were deleted. You can sync again from scratch."
+msgstr "Alle bootpagina’s zijn verwijderd. Je kunt opnieuw vanaf nul synchroniseren."
+
+msgid "Could not delete boat pages. Check logs."
+msgstr "Kon bootpagina’s niet verwijderen. Controleer de logs."
+
+msgid "Log file not found."
+msgstr "Logbestand niet gevonden."
+
+msgid "Log cleared successfully."
+msgstr "Log succesvol gewist."
+
+msgid "Could not clear the log file."
+msgstr "Kon het logbestand niet wissen."
+
+msgid "Boat images sync started successfully."
+msgstr "Synchronisatie van bootafbeeldingen succesvol gestart."
+
+msgid "Boat images sync stopped."
+msgstr "Synchronisatie van bootafbeeldingen gestopt."
+
+msgid "Boat images cache reset successfully."
+msgstr "Cache van bootafbeeldingen succesvol gereset."
+
+msgid "Boat images cache was reset and sync started again."
+msgstr "De cache van bootafbeeldingen is gereset en de synchronisatie is opnieuw gestart."
+
+msgid "Boat images sync is disabled. Enable local image storage first."
+msgstr "Synchronisatie van bootafbeeldingen is uitgeschakeld. Schakel eerst lokale afbeeldingsopslag in."
+
+msgid "Gutenberg master template restored to plugin defaults."
+msgstr "Het Gutenberg-hoofdsjabloon is hersteld naar de standaardwaarden van de plugin."
+
+msgid "Could not restore the Gutenberg master template."
+msgstr "Kon het Gutenberg-hoofdsjabloon niet herstellen."
+
+msgid "Boat details"
+msgstr "Bootdetails"
+
+msgid "pers."
+msgstr "pers."
+
+msgid "Maradigma logo"
+msgstr "Maradigma logo"
+
+msgid "SEO"
+msgstr "SEO"
+
+msgid "Advanced settings"
+msgstr "Geavanceerde instellingen"
+
+msgid "Configuration sections"
+msgstr "Configuratiesecties"
+
+msgid "Step 1"
+msgstr "Stap 1"
+
+msgid "Connection"
+msgstr "Verbinding"
+
+msgid "API credentials, local media and generated boat pages."
+msgstr "API-gegevens, lokale media en gegenereerde bootpagina’s."
+
+msgid "Step 2"
+msgstr "Stap 2"
+
+msgid "Boats sync"
+msgstr "Boten synchroniseren"
+
+msgid "Create/update boat pages, images and cache tools."
+msgstr "Maak/update bootpagina’s, afbeeldingen en cachehulpmiddelen."
+
+msgid "Step 3"
+msgstr "Stap 3"
+
+msgid "Templates"
+msgstr "Sjablonen"
+
+msgid "Manage Elementor or Gutenberg master layouts."
+msgstr "Beheer Elementor- of Gutenberg-hoofdlay-outs."
+
+msgid "Status"
+msgstr "Status"
+
+msgid "Compatibility"
+msgstr "Compatibiliteit"
+
+msgid "Detected builders, SEO and multilingual integrations."
+msgstr "Gedetecteerde builders, SEO en meertalige integraties."
+
+msgid "Store boat images in WordPress"
+msgstr "Bootafbeeldingen opslaan in WordPress"
+
+msgid "Download and serve boat images from this WordPress Media Library"
+msgstr "Download en lever bootafbeeldingen vanuit deze WordPress-mediabibliotheek"
+
+msgid "Recommended ON. This avoids hotlinking Maradigma images and improves privacy/performance. Use the sync tool below to fetch/update images in batches."
+msgstr "Aanbevolen aan. Dit voorkomt hotlinking van Maradigma-afbeeldingen en verbetert privacy/prestaties. Gebruik de synchronisatietool hieronder om afbeeldingen in batches op te halen/bij te werken."
+
+msgid "Boat pages sync (opt-in)"
+msgstr "Synchronisatie van bootpagina’s (opt-in)"
+
+msgid "Allow Maradigma to create/update one public page per boat"
+msgstr "Sta Maradigma toe om één openbare pagina per boot te maken/bij te werken"
+
+msgid "Recommended OFF by default. Enable only if you want the plugin to generate and keep updated a public WordPress page for each boat."
+msgstr "Standaard uit aanbevolen. Schakel dit alleen in als de plugin voor elke boot een openbare WordPress-pagina moet genereren en bijhouden."
+
+msgid "Boat page builder"
+msgstr "Builder voor bootpagina’s"
+
+msgid "Elementor"
+msgstr "Elementor"
+
+msgid "Use the Elementor master template for generated boat pages. Gutenberg template sync will be disabled."
+msgstr "Gebruik het Elementor-hoofdsjabloon voor gegenereerde bootpagina’s. Gutenberg-sjabloonsynchronisatie wordt uitgeschakeld."
+
+msgid "Gutenberg"
+msgstr "Gutenberg"
+
+msgid "Use the editable Gutenberg master template for generated boat pages. Elementor template sync will be disabled."
+msgstr "Gebruik het bewerkbare Gutenberg-hoofdsjabloon voor gegenereerde bootpagina’s. Elementor-sjabloonsynchronisatie wordt uitgeschakeld."
+
+msgid "Boat binding metabox"
+msgstr "Metabox voor bootkoppeling"
+
+msgid "Choose in which post types the Maradigma boat selector should appear. This is intended for custom pages/posts created by the client, not for the internal Maradigma boat CPT."
+msgstr "Kies in welke berichttypen de Maradigma-bootselector moet verschijnen. Dit is bedoeld voor aangepaste pagina’s/berichten die door de klant zijn gemaakt, niet voor de interne Maradigma-boot-CPT."
+
+msgid "No eligible public post types were detected."
+msgstr "Er zijn geen geschikte openbare berichttypen gedetecteerd."
+
+msgid "Use these tools after the connection is ready. They keep boat pages, images and cached data aligned with your Maradigma account."
+msgstr "Gebruik deze hulpmiddelen nadat de verbinding gereed is. Ze houden bootpagina’s, afbeeldingen en cachegegevens gelijk met je Maradigma-account."
+
+msgid "Boats synced:"
+msgstr "Gesynchroniseerde boten:"
+
+msgid "Pages touched:"
+msgstr "Aangepaste pagina’s:"
+
+msgid "Created:"
+msgstr "Aangemaakt:"
+
+msgid "Updated:"
+msgstr "Bijgewerkt:"
+
+msgid "Pages per language:"
+msgstr "Pagina’s per taal:"
+
+msgid "Sync options"
+msgstr "Synchronisatieopties"
+
+msgid "Update post title & slug"
+msgstr "Berichttitel en slug bijwerken"
+
+msgid "Update payload (cached boat data)"
+msgstr "Payload bijwerken (bootgegevens in cache)"
+
+msgid "Sync images (download/attach)"
+msgstr "Afbeeldingen synchroniseren (downloaden/koppelen)"
+
+msgid "Yoast SEO"
+msgstr "Yoast SEO"
+
+msgid "Fix multi-language values (recommended)"
+msgstr "Meertalige waarden corrigeren (aanbevolen)"
+
+msgid "Only if missing"
+msgstr "Alleen indien ontbrekend"
+
+msgid "Do not touch"
+msgstr "Niet wijzigen"
+
+msgid "Force overwrite (danger)"
+msgstr "Overschrijven forceren (gevaar)"
+
+msgid "Gutenberg template"
+msgstr "Gutenberg-sjabloon"
+
+msgid "Seed only if content is empty"
+msgstr "Alleen vullen als de inhoud leeg is"
+
+msgid "Overwrite managed Gutenberg layouts only"
+msgstr "Alleen beheerde Gutenberg-lay-outs overschrijven"
+
+msgid "Do not touch Gutenberg content"
+msgstr "Gutenberg-inhoud niet wijzigen"
+
+msgid "Elementor template"
+msgstr "Elementor-sjabloon"
+
+msgid "Seed only if missing"
+msgstr "Alleen vullen indien ontbrekend"
+
+msgid "Overwrite non-custom Elementor layouts"
+msgstr "Niet-aangepaste Elementor-lay-outs overschrijven"
+
+msgid "Do not touch Elementor data"
+msgstr "Elementor-gegevens niet wijzigen"
+
+msgid "Boat images (Media Library)"
+msgstr "Bootafbeeldingen (mediabibliotheek)"
+
+msgid "Cached boats:"
+msgstr "Boten in cache:"
+
+msgid "Cached images:"
+msgstr "Afbeeldingen in cache:"
+
+msgid "Sync status:"
+msgstr "Synchronisatiestatus:"
+
+msgid "Progress:"
+msgstr "Voortgang:"
+
+msgid "Current boat:"
+msgstr "Huidige boot:"
+
+msgid "Current boat images:"
+msgstr "Afbeeldingen van huidige boot:"
+
+msgid "This run:"
+msgstr "Deze uitvoering:"
+
+msgid "Force re-download (use only if needed)"
+msgstr "Opnieuw downloaden forceren (alleen indien nodig)"
+
+msgid "Resume / Keep syncing"
+msgstr "Hervatten / blijven synchroniseren"
+
+msgid "Sync images now"
+msgstr "Afbeeldingen nu synchroniseren"
+
+msgid "Stop"
+msgstr "Stoppen"
+
+msgid "This will DELETE all cached Maradigma images from the Media Library and rebuild them. Continue?"
+msgstr "Dit VERWIJDERT alle gecachte Maradigma-afbeeldingen uit de mediabibliotheek en bouwt ze opnieuw op. Doorgaan?"
+
+msgid "Reset and start syncing again"
+msgstr "Resetten en opnieuw synchroniseren"
+
+msgid "Reset images cache (nuclear)"
+msgstr "Afbeeldingencache resetten (nucleair)"
+
+msgid "This runs in small batches to avoid timeouts. You can close this page; it will continue via WP-Cron."
+msgstr "Dit draait in kleine batches om time-outs te voorkomen. Je kunt deze pagina sluiten; het gaat verder via WP-Cron."
+
+msgid "This will DELETE all boat pages created by Maradigma (all languages). Continue?"
+msgstr "Dit VERWIJDERT alle door Maradigma gemaakte bootpagina’s (alle talen). Doorgaan?"
+
+msgid "Delete permanently (skip trash)"
+msgstr "Permanent verwijderen (prullenbak overslaan)"
+
+msgid "Reset boats (delete all boat pages)"
+msgstr "Boten resetten (alle bootpagina’s verwijderen)"
+
+msgid "Deletes ALL maradigma_boat posts (including translations). Useful to start sync from scratch."
+msgstr "Verwijdert ALLE maradigma_boat-berichten (inclusief vertalingen). Handig om synchronisatie vanaf nul te starten."
+
+msgid "%s template status (boats)"
+msgstr "%s-sjabloonstatus (boten)"
+
+msgid "Master template ID:"
+msgstr "ID hoofdsjabloon:"
+
+msgid "Not synced boats:"
+msgstr "Niet gesynchroniseerde boten:"
+
+msgid "Custom layout boats:"
+msgstr "Boten met aangepaste lay-out:"
+
+msgid "Total boats:"
+msgstr "Totaal boten:"
+
+msgid "Note: %d boats have no Gutenberg content yet."
+msgstr "Opmerking: %d boten hebben nog geen Gutenberg-inhoud."
+
+msgid "Note: %d boats have no Elementor data yet (_elementor_data empty)."
+msgstr "Opmerking: %d boten hebben nog geen Elementor-gegevens (_elementor_data leeg)."
+
+msgid "Edit Gutenberg boat template"
+msgstr "Gutenberg-bootsjabloon bewerken"
+
+msgid "Open directly"
+msgstr "Direct openen"
+
+msgid "This will replace the editable Gutenberg master template with the plugin default layout. Boat pages are not changed until you apply the template to all boats. Continue?"
+msgstr "Dit vervangt het bewerkbare Gutenberg-hoofdsjabloon door de standaardlay-out van de plugin. Bootpagina’s worden pas gewijzigd nadat je het sjabloon op alle boten toepast. Doorgaan?"
+
+msgid "Restore default Gutenberg template"
+msgstr "Standaard Gutenberg-sjabloon herstellen"
+
+msgid "Edit the master template in Gutenberg, or restore it to the plugin default layout. Restoring the master template does not update existing boat pages until you apply the template below."
+msgstr "Bewerk het hoofdsjabloon in Gutenberg of herstel het naar de standaardlay-out van de plugin. Het herstellen van het hoofdsjabloon werkt bestaande bootpagina’s pas bij nadat je het sjabloon hieronder toepast."
+
+msgid "Edit master template in %s"
+msgstr "Hoofdsjabloon bewerken in %s"
+
+msgid "Master template not found yet. Run a boats sync in %s mode to create it."
+msgstr "Hoofdsjabloon nog niet gevonden. Voer een bootsynchronisatie uit in %s-modus om het te maken."
+
+msgid "Master hash:"
+msgstr "Hoofdhash:"
+
+msgid "Apply %s master template to all boats"
+msgstr "%s-hoofdsjabloon toepassen op alle boten"
+
+msgid "This will apply the current Gutenberg master template to boat pages in batches via WP-Cron. Non-forced mode only overwrites managed Gutenberg layouts."
+msgstr "Dit past het huidige Gutenberg-hoofdsjabloon in batches via WP-Cron toe op bootpagina’s. De niet-geforceerde modus overschrijft alleen beheerde Gutenberg-lay-outs."
+
+msgid "This will overwrite Elementor layout on all boats except those marked as Custom layout. Runs in batches via WP-Cron."
+msgstr "Dit overschrijft de Elementor-lay-out op alle boten behalve die met een aangepaste lay-out. Wordt in batches uitgevoerd via WP-Cron."
+
+msgid "Batch size:"
+msgstr "Batchgrootte:"
+
+msgid "Mode:"
+msgstr "Modus:"
+
+msgid "Overwrite managed/non-custom layouts"
+msgstr "Beheerde/niet-aangepaste lay-outs overschrijven"
+
+msgid "Force overwrite all boats"
+msgstr "Overschrijven van alle boten forceren"
+
+msgid "This can overwrite boat page layouts. Continue?"
+msgstr "Dit kan lay-outs van bootpagina’s overschrijven. Doorgaan?"
+
+msgid "Apply template to all boats"
+msgstr "Sjabloon toepassen op alle boten"
+
+msgid "Status:"
+msgstr "Status:"
+
+msgid "⚠ No multilingual plugin detected (Polylang/WPML)"
+msgstr "⚠ Geen meertalige plugin gedetecteerd (Polylang/WPML)"
+
+msgid "✔ WPML detected - Multilang active"
+msgstr "✔ WPML gedetecteerd - Meertalig actief"
+
+msgid "✔ Multilang detected"
+msgstr "✔ Meertalig gedetecteerd"
+
+msgid "✔ Boats post type is translatable in Polylang (language columns enabled)."
+msgstr "✔ Het berichttype Boten is vertaalbaar in Polylang (taalkolommen ingeschakeld)."
+
+msgid "⚠ Boats post type is NOT enabled for translation in Polylang. Go to Languages → Settings → Custom post types and enable “Boats (maradigma_boat)”, then save."
+msgstr "⚠ Het berichttype Boten is NIET ingeschakeld voor vertaling in Polylang. Ga naar Talen → Instellingen → Aangepaste berichttypen en schakel “Boats (maradigma_boat)” in, en sla daarna op."
+
+msgid "⚠ Boats post type is NOT marked as translatable in WPML. Enable it in WPML settings or add wpml-config.xml."
+msgstr "⚠ Het berichttype Boten is NIET als vertaalbaar gemarkeerd in WPML. Schakel het in via de WPML-instellingen of voeg wpml-config.xml toe."
+
+msgid "⚠ Boats post type is NOT marked as translatable."
+msgstr "⚠ Het berichttype Boten is NIET als vertaalbaar gemarkeerd."
+
+msgid "ID"
+msgstr "ID"
+
+msgid "This section helps diagnose multilingual and translation issues, including locale detection, textdomain loading and gettext results."
+msgstr "Deze sectie helpt bij het diagnosticeren van meertalige en vertaalproblemen, inclusief locale-detectie, laden van het textdomain en gettext-resultaten."
+
+msgid "Translation diagnostics"
+msgstr "Vertaaldiagnose"
+
+msgid "WordPress locale"
+msgstr "WordPress-locale"
+
+msgid "Current language"
+msgstr "Huidige taal"
+
+msgid "Multilang provider"
+msgstr "Meertaligheidsprovider"
+
+msgid "Textdomain loaded"
+msgstr "Textdomain geladen"
+
+msgid "Expected MO file"
+msgstr "Verwacht MO-bestand"
+
+msgid "Expected MO exists"
+msgstr "Expected MO exists"
+
+msgid "Expected PO file"
+msgstr "Verwacht PO-bestand"
+
+msgid "Expected PO exists"
+msgstr "Expected PO exists"
+
+msgid "Gettext probes"
+msgstr "Gettext-controles"
+
+msgid "Original string"
+msgstr "Originele tekst"
+
+msgid "Translation returned by WordPress"
+msgstr "Vertaling teruggegeven door WordPress"
+
+msgid "Debug logs"
+msgstr "Debuglogs"
+
+msgid "Here you can inspect the latest plugin logs generated by the image sync and debugging tools."
+msgstr "Hier kun je de nieuwste pluginlogs bekijken die zijn gegenereerd door de afbeeldingssynchronisatie en debughulpmiddelen."
+
+msgid "Channel"
+msgstr "Channel"
+
+msgid "File exists"
+msgstr "File exists"
+
+msgid "Size"
+msgstr "Size"
+
+msgid "Path"
+msgstr "Path"
+
+msgid "Refresh log view"
+msgstr "Logweergave vernieuwen"
+
+msgid "Download log"
+msgstr "Log downloaden"
+
+msgid "This will clear the selected log file. Continue?"
+msgstr "Dit wist het geselecteerde logbestand. Doorgaan?"
+
+msgid "Clear log"
+msgstr "Log wissen"
+
+msgid "Showing the last part of the log file for performance reasons."
+msgstr "Om prestatieredenen wordt het laatste deel van het logbestand getoond."
+
+msgid "E.g.: \"boats\" or \"alquiler-barcos\". Simple multi-language: \"es:barcos,en:boats,fr:bateaux\"."
+msgstr "Bijv.: \"boats\" of \"alquiler-barcos\". Eenvoudig meertalig: \"es:barcos,en:boats,fr:bateaux\"."
+
+msgid "Boats list updated successfully."
+msgstr "Botenlijst succesvol bijgewerkt."
+
+msgid "Could not update the boats list."
+msgstr "Kon de botenlijst niet bijwerken."
+
+msgid "Available boats in Maradigma"
+msgstr "Beschikbare boten in Maradigma"
+
+msgid "View the currently available boats and refresh the list to reflect the latest changes."
+msgstr "Bekijk de momenteel beschikbare boten en vernieuw de lijst om de laatste wijzigingen weer te geven."
+
+msgid "Refresh list"
+msgstr "Lijst vernieuwen"
+
+msgid "Per page:"
+msgstr "Per pagina:"
+
+msgid "Showing:"
+msgstr "Weergegeven:"
+
+msgid "to"
+msgstr "tot"
+
+msgid "of"
+msgstr "van"
+
+msgid "First page"
+msgstr "Eerste pagina"
+
+msgid "Previous page"
+msgstr "Vorige pagina"
+
+msgid "Current page"
+msgstr "Huidige pagina"
+
+msgid "of %s"
+msgstr "of %s"
+
+msgid "Next page"
+msgstr "Volgende pagina"
+
+msgid "Last page"
+msgstr "Laatste pagina"
+
+msgid "%d boats"
+msgstr "%d boten"
+
+msgid "Home port"
+msgstr "Thuishaven"
+
+msgid "No boats available to display."
+msgstr "Geen boten beschikbaar om weer te geven."
+
+msgid "Active"
+msgstr "Actief"
+
+msgid "Inactive"
+msgstr "Inactief"
+
+msgid "Unknown"
+msgstr "Onbekend"
+
+msgid "Not featured"
+msgstr "Niet uitgelicht"
+
+msgid "Featured: unknown"
+msgstr "Uitgelicht: onbekend"
+
+msgid "Shortcodes"
+msgstr "Shortcodes"
+
+msgid "Shortcodes documentation for webmasters and developers."
+msgstr "Shortcode-documentatie voor webmasters en ontwikkelaars."
+
+msgid "Troubleshooting"
+msgstr "Probleemoplossing"
+
+msgid "If boats do not appear, check API keys and connection status in Configuration tab."
+msgstr "Als boten niet verschijnen, controleer dan de API-sleutels en verbindingsstatus op het tabblad Configuratie."
+
+msgid "If cache looks stale, use \"Clear plugin cache\"."
+msgstr "Als de cache verouderd lijkt, gebruik dan \"Plugin-cache wissen\"."
+
+
+msgid "Support"
+msgstr "Ondersteuning"
+
+msgid "Need help? Contact Maradigma support."
+msgstr "Hulp nodig? Neem contact op met Maradigma-support."
+
+msgid "Open support form"
+msgstr "Supportformulier openen"
+
+msgid "Getting started"
+msgstr "Aan de slag"
+
+msgid "Go to Configuration tab and set your Public key + Secret key."
+msgstr "Ga naar het tabblad Configuratie en stel je openbare sleutel + geheime sleutel in."
+
+msgid "Verify connection shows \"Ready\"."
+msgstr "Controleer of de verbinding \"Gereed\" toont."
+
+msgid "Add [maradigma_boats] into a page to list boats."
+msgstr "Voeg [maradigma_boats] toe aan een pagina om boten weer te geven."
+
+msgid "Documentation file not found."
+msgstr "Documentatiebestand niet gevonden."
+
+msgid "Documentation file is empty."
+msgstr "Het documentatiebestand is leeg."
+
+msgid "Documentation"
+msgstr "Documentatie"
+
+msgid "Readable HTML format for webmasters and developers."
+msgstr "Leesbaar HTML-formaat voor webmasters en ontwikkelaars."
+
+msgid "File:"
+msgstr "Bestand:"
+
+msgid "Unable to initialize the WordPress filesystem."
+msgstr "Kan het WordPress-bestandssysteem niet initialiseren."
+
+msgid "running"
+msgstr "bezig"
+
+msgid "done"
+msgstr "voltooid"
+
+msgid "stopped"
+msgstr "gestopt"
+
+msgid "error"
+msgstr "fout"
+
+msgid "idle"
+msgstr "inactief"
+
+
+
+
+msgid "All boats processed."
+msgstr "Alle boten zijn verwerkt."
+
+msgid "All boats processed successfully"
+msgstr "Alle boten zijn succesvol verwerkt"
+
+msgid "No more boats to process"
+msgstr "Geen boten meer om te verwerken"
+
+msgid "Boat skipped: missing id"
+msgstr "Boot overgeslagen: ID ontbreekt"
+
+msgid "Boat pages"
+msgstr "Bootpagina’s"
+
+msgid "Gutenberg templates"
+msgstr "Gutenberg-sjablonen"
+
+msgid "Add new Gutenberg template"
+msgstr "Nieuw Gutenberg-sjabloon toevoegen"
+
+msgid "Edit Gutenberg template"
+msgstr "Gutenberg-sjabloon bewerken"
+
+msgid "New Gutenberg template"
+msgstr "Nieuw Gutenberg-sjabloon"
+
+msgid "View Gutenberg template"
+msgstr "Gutenberg-sjabloon bekijken"
+
+msgid "Search Gutenberg templates"
+msgstr "Gutenberg-sjablonen zoeken"
+
+msgid "No Gutenberg templates found"
+msgstr "Geen Gutenberg-sjablonen gevonden"
+
+msgid "No Gutenberg templates found in trash"
+msgstr "Geen Gutenberg-sjablonen gevonden in de prullenbak"
+
+msgid "Default editable Gutenberg template for Maradigma boat detail pages."
+msgstr "Standaard bewerkbaar Gutenberg-sjabloon voor Maradigma-bootdetailpagina’s."
+
+msgid "If Elementor widgets or Gutenberg blocks do not show, verify the builder is active."
+msgstr "Als Elementor-widgets of Gutenberg-blokken niet verschijnen, controleer dan of de builder actief is."
+
+msgid "Elementor detected - Widgets enabled"
+msgstr "Elementor gedetecteerd - Widgets ingeschakeld"
+
+msgid "Elementor not detected"
+msgstr "Elementor niet gedetecteerd"
+
+msgid "Yoast SEO detected - SEO integration available"
+msgstr "Yoast SEO gedetecteerd - SEO-integratie beschikbaar"
+
+msgid "Yoast SEO not detected"
+msgstr "Yoast SEO niet gedetecteerd"
+
+msgid "No multilingual plugin detected (Polylang/WPML)"
+msgstr "Geen meertalige plugin gedetecteerd (Polylang/WPML)"
+
+msgid "Polylang detected - Multilang active"
+msgstr "Polylang gedetecteerd - Meertalig actief"
+
+msgid "WPML detected - Multilang active"
+msgstr "WPML gedetecteerd - Meertalig actief"
+
+msgid "Multilang detected"
+msgstr "Meertalig gedetecteerd"
+
+msgid "Boats post type is translatable in Polylang (language columns enabled)."
+msgstr "Het berichttype Boten is vertaalbaar in Polylang (taalkolommen ingeschakeld)."
+
+msgid "Boats post type is NOT enabled for translation in Polylang. Go to Languages > Settings > Custom post types and enable \"Boats (maradigma_boat)\", then save."
+msgstr "Het berichttype Boten is NIET ingeschakeld voor vertaling in Polylang. Ga naar Talen > Instellingen > Aangepaste berichttypen en schakel \"Boats (maradigma_boat)\" in, en sla daarna op."
+
+msgid "Boats post type is NOT marked as translatable in WPML. Enable it in WPML settings or add wpml-config.xml."
+msgstr "Het berichttype Boten is NIET als vertaalbaar gemarkeerd in WPML. Schakel het in via de WPML-instellingen of voeg wpml-config.xml toe."
+
+msgid "Boats post type is NOT marked as translatable."
+msgstr "Het berichttype Boten is NIET als vertaalbaar gemarkeerd."
+
+msgid "We couldn't connect to Maradigma. Please try again later or contact support."
+msgstr "We konden geen verbinding maken met Maradigma. Probeer het later opnieuw of neem contact op met support."
+
+msgid "Sync is disabled. Enable \"Boat pages sync (opt-in)\" and save changes first."
+msgstr "Synchronisatie is uitgeschakeld. Schakel eerst \"Synchronisatie van bootpagina’s (opt-in)\" in en sla de wijzigingen op."
+
+msgid "Recommended: \"Boat hire {{service_name}} | {{port}}\"."
+msgstr "Aanbevolen: \"Bootverhuur {{service_name}} | {{port}}\"."
+
+msgid "Select a variable..."
+msgstr "Selecteer een variabele..."
+
+msgid "total %1$d | +%2$d | ~%3$d"
+msgstr "totaal %1$d | +%2$d | ~%3$d"
+
+msgid "imported %1$d | reused %2$d | failed %3$d"
+msgstr "geïmporteerd %1$d | hergebruikt %2$d | mislukt %3$d"
+
+msgid "scanned %1$d / %2$s | updated %3$d | skipped %4$d | failed %5$d"
+msgstr "gescand %1$d / %2$s | bijgewerkt %3$d | overgeslagen %4$d | mislukt %5$d"
+
+msgid "Quick reference for the main shortcodes available in Maradigma."
+msgstr "Snelle referentie voor de belangrijkste shortcodes in Maradigma."
+
+msgid "Boat listing"
+msgstr "Botenlijst"
+
+msgid "Displays a searchable list of boats."
+msgstr "Toont een doorzoekbare lijst met boten."
+
+msgid "Single boat"
+msgstr "Enkele boot"
+
+msgid "Displays the complete boat page using the plugin template."
+msgstr "Toont de volledige bootpagina met de plugintemplate."
+
+msgid "Boat title"
+msgstr "Boottitel"
+
+msgid "Displays the boat title, with configurable title parts."
+msgstr "Toont de boottitel met configureerbare onderdelen."
+
+msgid "Boat specifications"
+msgstr "Bootspecificaties"
+
+msgid "Displays the main boat specifications."
+msgstr "Toont de belangrijkste bootspecificaties."
+
+msgid "Boat prices"
+msgstr "Bootprijzen"
+
+msgid "Displays boat prices using the selected layout."
+msgstr "Toont bootprijzen met de geselecteerde lay-out."
+
+msgid "Boat gallery"
+msgstr "Bootgalerij"
+
+msgid "Displays the boat image gallery."
+msgstr "Toont de afbeeldingengalerij van de boot."
+
+msgid "Displays optional and included additional services."
+msgstr "Toont optionele en inbegrepen aanvullende diensten."
+
+msgid "Displays the booking button and booking flow."
+msgstr "Toont de boekingsknop en het boekingsproces."
+
+msgid "Boat calendar"
+msgstr "Bootkalender"
+
+msgid "Displays the boat availability calendar."
+msgstr "Toont de beschikbaarheidskalender van de boot."
+
+msgid "Shortcode"
+msgstr "Shortcode"
+
+msgid "Description"
+msgstr "Beschrijving"
+
+msgid "For the full technical documentation, open the bundled shortcode reference."
+msgstr "Open de meegeleverde shortcode-referentie voor de volledige technische documentatie."
+
+msgid "Open shortcode documentation"
+msgstr "Shortcode-documentatie openen"
+
+#: integrations/Elementor/Widgets/SingleBoat/BoatTitleWidget.php
+msgid "Show alias"
+msgstr "Alias tonen"
+
+#: integrations/Elementor/Widgets/SingleBoat/BoatTitleWidget.php
+msgid "Fallback text"
+msgstr "Fallbacktekst"
+
+#: integrations/Elementor/Widgets/SingleBoat/BoatTitleWidget.php
+msgid "Use service name as fallback"
+msgstr "Servicenaam als fallback gebruiken"
+
+#: integrations/Elementor/Widgets/SingleBoat/BoatTitleWidget.php
+msgid "Boat ID override"
+msgstr "Boot-ID overschrijven"
+
+#: integrations/Elementor/Widgets/SingleBoat/BoatTitleWidget.php
+msgid "Optional. Leave empty to use the current boat context."
+msgstr "Optioneel. Laat leeg om de huidige bootcontext te gebruiken."
+
+#: integrations/Elementor/Widgets/SingleBoat/BoatTitleWidget.php
+msgid "Separator"
+msgstr "Scheidingsteken"
+
+#: integrations/Elementor/Widgets/SingleBoat/BoatTitleWidget.php
+msgid "Show model"
+msgstr "Model tonen"
+
+#: integrations/Elementor/Widgets/SingleBoat/BoatTitleWidget.php
+msgid "Show builder"
+msgstr "Bouwer tonen"
+
+#: integrations/Elementor/Widgets/SingleBoat/BoatTitleWidget.php
+msgid "Quote alias"
+msgstr "Alias tussen aanhalingstekens"
+
+#: integrations/Elementor/Widgets/SingleBoat/BoatTitleWidget.php
+msgid "Boat slug override"
+msgstr "Bootslug overschrijven"
+
+#: integrations/Elementor/Widgets/SingleBoat/BoatTitleWidget.php
+msgid "Optional. If set, the slug takes priority over the boat ID."
+msgstr "Optioneel. Indien ingesteld heeft de slug voorrang op de boot-ID."
+
+#: includes/SettingsPage.php
+msgid "Obsolete page cleanup:"
+msgstr "Opschoning van verouderde pagina’s:"
+
+#: includes/SettingsPage.php
+msgid "action %1$s | candidates %2$d | changed %3$d | failed %4$d"
+msgstr "actie %1$s | kandidaten %2$d | gewijzigd %3$d | mislukt %4$d"
+
+#: includes/SettingsPage.php
+msgid "Obsolete boat pages"
+msgstr "Verouderde bootpagina’s"
+
+#: includes/SettingsPage.php
+msgid "Optional cleanup for managed boat pages whose boat ID no longer appears in the Maradigma API response. It only runs after a valid non-empty API list has been processed."
+msgstr "Optionele opschoning voor beheerde bootpagina’s waarvan de boot-ID niet meer voorkomt in de Maradigma API-respons. Dit wordt alleen uitgevoerd nadat een geldige, niet-lege API-lijst is verwerkt."
+
+#: includes/SettingsPage.php
+msgid "When a synced boat no longer exists in Maradigma"
+msgstr "Wanneer een gesynchroniseerde boot niet meer bestaat in Maradigma"
+
+#: includes/SettingsPage.php
+msgid "Do nothing"
+msgstr "Niets doen"
+
+#: includes/SettingsPage.php
+msgid "Move managed pages to trash"
+msgstr "Beheerde pagina’s naar de prullenbak verplaatsen"
+
+#: includes/SettingsPage.php
+msgid "Unpublish managed pages"
+msgstr "Beheerde pagina’s depubliceren"
+
+#: includes/SettingsPage.php
+msgid "Delete managed pages permanently"
+msgstr "Beheerde pagina’s permanent verwijderen"
+
+#: includes/SettingsPage.php
+msgid "I understand permanent deletion cannot be undone."
+msgstr "Ik begrijp dat permanent verwijderen niet ongedaan kan worden gemaakt."
+
+#: includes/SettingsPage.php
+msgid "Required only if you choose permanent deletion. Pages marked as custom/no-sync are never cleaned automatically."
+msgstr "Alleen vereist als je permanent verwijderen kiest. Pagina’s die als aangepast/niet synchroniseren zijn gemarkeerd, worden nooit automatisch opgeschoond."
+
+#: includes/SettingsPage.php
+msgid "No obsolete-page cleanup selected."
+msgstr "Geen opschoning van verouderde pagina’s geselecteerd."
+
+#: includes/SettingsPage.php
+msgid "Permanent delete was selected without explicit confirmation."
+msgstr "Permanent verwijderen is geselecteerd zonder expliciete bevestiging."
+
+#: includes/SettingsPage.php
+msgid "Cleanup skipped because the API list was empty or not fully trusted."
+msgstr "Opschoning overgeslagen omdat de API-lijst leeg was of niet volledig vertrouwd kon worden."
+
+#: includes/SettingsPage.php
+msgid "Cleanup skipped because the boat sync did not finish successfully."
+msgstr "Opschoning overgeslagen omdat de bootsynchronisatie niet succesvol is voltooid."
+
+#: includes/SettingsPage.php
+msgid "Obsolete-page cleanup finished: %1$s, candidates %2$d, changed %3$d, failed %4$d."
+msgstr "Opschoning van verouderde pagina’s voltooid: %1$s, kandidaten %2$d, gewijzigd %3$d, mislukt %4$d."
+
+#: includes/SettingsPage.php
+msgid "images deleted %1$d | image errors %2$d"
+msgstr "afbeeldingen verwijderd %1$d | afbeeldingsfouten %2$d"
+
+#: includes/SettingsPage.php
+msgid "Also delete locally cached images for obsolete boats."
+msgstr "Ook lokaal gecachte afbeeldingen voor verouderde boten verwijderen."
+
+#: includes/SettingsPage.php
+msgid "Only applies when permanent deletion is selected. It deletes Media Library attachments tagged with the obsolete Maradigma boat ID."
+msgstr "Alleen van toepassing wanneer permanent verwijderen is geselecteerd. Verwijdert mediabibliotheekbijlagen die zijn gemarkeerd met de verouderde Maradigma boot-ID."
+
+#: includes/SettingsPage.php
+msgid "Boat sync started. It will continue in batches via WP-Cron while this screen keeps it moving with AJAX."
+msgstr "Bootsynchronisatie gestart. Deze gaat in batches verder via WP-Cron terwijl dit scherm het proces met AJAX blijft voortzetten."
+
+#: includes/SettingsPage.php
+msgid "Maximum images per boat"
+msgstr "Maximaal aantal afbeeldingen per boot"
+
+#: includes/SettingsPage.php
+msgid "Use 0 to store all available images. Any custom limit must be between 1 and 25 images per boat."
+msgstr "Gebruik 0 om alle beschikbare afbeeldingen op te slaan. Een aangepaste limiet moet tussen 1 en 25 afbeeldingen per boot liggen."
+
+msgid "Charter"
+msgstr "Boeken"
+
+msgid "day"
+msgstr "dag"
+
+
+msgid "Availability dates"
+msgstr "Beschikbaarheidsdata"
+
+
+msgid "Date end (separate mode only)"
+msgstr "Einddatum (alleen aparte modus)"
+
+#: includes/SettingsPage.php
+msgid "Bookings"
+msgstr "Reserveringen"
+
+#: includes/SettingsPage.php
+msgid "Booking settings"
+msgstr "Reserveringsinstellingen"
+
+#: includes/SettingsPage.php
+msgid "Configure global options used by the booking experience on your website."
+msgstr "Configureer globale opties die door de reserveringservaring op je website worden gebruikt."
+
+#: includes/SettingsPage.php
+msgid "Payment step texts"
+msgstr "Teksten voor de betaalstap"
+
+#: includes/SettingsPage.php
+msgid "This text is shown above the payment method selector in the booking modal. Leave a language empty to use the fallback language."
+msgstr "Deze tekst wordt boven de keuze voor de betaalmethode in de reserveringsmodal weergegeven. Laat een taal leeg om de fallback-taal te gebruiken."
+
+#: includes/SettingsPage.php
+msgid "Payment method intro (%s)"
+msgstr "Introductietekst betaalmethode (%s)"
+
+#: includes/SettingsPage.php
+msgid "Example: Your reservation is almost ready. Select your secure payment method to continue."
+msgstr "Voorbeeld: je reservering is bijna klaar. Selecteer je veilige betaalmethode om door te gaan."
+

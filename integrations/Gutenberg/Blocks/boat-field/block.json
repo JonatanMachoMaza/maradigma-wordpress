@@ -1,0 +1,47 @@
+{
+  "apiVersion": 3,
+  "name": "maradigma/boat-field",
+  "version": "0.1.0",
+  "title": "Maradigma Boat Field",
+  "category": "maradigma",
+  "icon": "editor-code",
+  "description": "Generic boat field block.",
+  "textdomain": "maradigma",
+  "attributes": {
+    "id": {
+      "type": "string",
+      "default": ""
+    },
+    "slug": {
+      "type": "string",
+      "default": ""
+    },
+    "field": {
+      "type": "string",
+      "default": ""
+    },
+    "fallback": {
+      "type": "string",
+      "default": "",
+      "role": "content"
+    },
+    "format": {
+      "type": "string",
+      "default": "raw"
+    },
+    "decimals": {
+      "type": "string",
+      "default": "0"
+    },
+    "esc": {
+      "type": "string",
+      "default": "true"
+    }
+  },
+  "supports": {
+    "html": false
+  },
+  "usesContext": [
+    "postId"
+  ]
+}

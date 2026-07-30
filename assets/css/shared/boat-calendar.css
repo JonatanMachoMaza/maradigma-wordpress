@@ -1,0 +1,191 @@
+/* =========================================================
+ * Maradigma Boat Calendar (scoped + theme-safe)
+ * ========================================================= */
+
+.md-boat-calendar{
+  --mdcal-available: #d4edda;
+  --mdcal-booked: #ffc0bd;
+  --mdcal-option: #ffe8a1;
+  --mdcal-muted: #eee;
+
+  max-width: 520px;
+}
+
+/* Controller */
+.md-boat-calendar .mdcal__controller{
+  display:flex;
+  gap:10px;
+  align-items:center;
+  margin-bottom:10px;
+}
+
+.md-boat-calendar .mdcal__btn{
+  padding:10px 14px;
+  border-radius:6px;
+  cursor:pointer;
+  line-height:1;
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+}
+
+.md-boat-calendar .mdcal__btn:disabled{
+  opacity:.5;
+  cursor:not-allowed;
+}
+
+.md-boat-calendar .mdcal__select{
+  flex:1;
+  padding:10px 12px;
+  border-radius:6px;
+  border:1px solid rgba(0,0,0,.15);
+  background:#fff;
+}
+
+/* Table wrap */
+.md-boat-calendar .mdcal__tablewrap{ position:relative; }
+
+.md-boat-calendar .mdcal__loading{
+  padding:12px;
+  font-size:14px;
+  color:rgba(0,0,0,.65);
+}
+
+.md-boat-calendar .mdcal__error{
+  padding:12px;
+  font-size:14px;
+  color:#b00020;
+}
+
+/* =========================================================
+ * Calendar table (no double border between head/body)
+ * ========================================================= */
+.md-boat-calendar .mdcal__table{
+  width:100%;
+  table-layout:fixed;
+
+  /* ✅ Hard reset against theme/Elementor table rules */
+  border-collapse:separate !important;
+  border-spacing:0 !important;
+  box-shadow:none !important;
+
+  border:1px solid rgba(0,0,0,.08);
+  border-radius:8px;
+  overflow:hidden;
+
+  background:#fff;
+  background-clip: padding-box;
+}
+
+/* ✅ Hard reset against theme head rules that create “thick top line” */
+.md-boat-calendar .mdcal__table thead,
+.md-boat-calendar .mdcal__table thead tr,
+.md-boat-calendar .mdcal__table thead th{
+  border-top:0 !important;
+  outline:0 !important;
+  box-shadow:none !important;
+}
+
+/* Cells base */
+.md-boat-calendar .mdcal__table th,
+.md-boat-calendar .mdcal__table td{
+  border:0;
+  text-align:center;
+  vertical-align:middle;
+  font-size:14px;
+  background-clip: padding-box;
+
+  /* ✅ prevent theme shadows/outlines on cells */
+  outline:0 !important;
+  box-shadow:none !important;
+}
+
+/* Header */
+.md-boat-calendar .mdcal__table th{
+  font-weight:600;
+  font-size:12px;
+  text-transform:lowercase;
+  padding:8px 0;
+
+  background:#f6f6f6;
+
+  /* Single separator line under the header */
+  border-bottom:1px solid rgba(0,0,0,.06);
+
+  /* Vertical grid */
+  border-right:1px solid rgba(0,0,0,.06);
+}
+
+.md-boat-calendar .mdcal__table thead tr > th:last-child{
+  border-right:0;
+}
+
+/* Body cells: grid */
+.md-boat-calendar .mdcal__table td{
+  height:44px;
+
+  /* Horizontal grid */
+  border-top:1px solid rgba(0,0,0,.04);
+
+  /* Vertical grid */
+  border-right:1px solid rgba(0,0,0,.04);
+}
+
+/* ✅ FIX: avoid "double/thick" line below header */
+.md-boat-calendar .mdcal__table tbody tr:first-child > td{
+  border-top:0 !important;
+}
+
+/* No right border for last column */
+.md-boat-calendar .mdcal__table tbody tr > td:last-child{
+  border-right:0;
+}
+
+/* Empty cells (outside month) */
+.md-boat-calendar .mdcal__table td.mdcal__empty{
+  background:var(--mdcal-muted);
+}
+
+/* States */
+.md-boat-calendar .mdcal__table td.mdcal__day{
+  background:var(--mdcal-available);
+}
+
+.md-boat-calendar .mdcal__table td.mdcal__day--booked{
+  background:var(--mdcal-booked);
+}
+
+.md-boat-calendar .mdcal__table td.mdcal__day--option{
+  background:var(--mdcal-option);
+}
+
+.md-boat-calendar .mdcal__table td.mdcal__day:hover{
+  filter: brightness(0.98);
+}
+
+/* Legend */
+.md-boat-calendar .mdcal__legend{
+  display:flex;
+  gap:14px;
+  flex-wrap:wrap;
+  margin-top:10px;
+  font-size:13px;
+  align-items:center;
+}
+
+.md-boat-calendar .mdcal__legend-item{
+  display:inline-flex;
+  align-items:center;
+  gap:8px;
+}
+
+.md-boat-calendar .mdcal__dot{
+  width:14px;
+  height:14px;
+  border-radius:999px;
+  display:inline-block;
+}
+
+.md-boat-calendar .mdcal__dot--available{ background:var(--mdcal-available); }
+.md-boat-calendar .mdcal__dot--booked{ background:var(--mdcal-booked); }
+.md-boat-calendar .mdcal__dot--option{ background:var(--mdcal-option); }

@@ -1,0 +1,144 @@
+{
+  "apiVersion": 3,
+  "name": "maradigma/boat-additional-services",
+  "version": "0.1.0",
+  "title": "Maradigma Boat Additional Services",
+  "category": "maradigma",
+  "icon": "plus-alt2",
+  "description": "Additional services rendered as a dynamic Gutenberg block.",
+  "textdomain": "maradigma",
+  "attributes": {
+    "id": {
+      "type": "string",
+      "default": ""
+    },
+    "slug": {
+      "type": "string",
+      "default": ""
+    },
+    "title": {
+      "type": "string",
+      "default": "Additional services",
+      "role": "content"
+    },
+    "show_title": {
+      "type": "boolean",
+      "default": true
+    },
+    "fallback": {
+      "type": "string",
+      "default": "",
+      "role": "content"
+    },
+    "layout": {
+      "type": "string",
+      "default": "blocks"
+    },
+    "show_headers": {
+      "type": "boolean",
+      "default": true
+    },
+    "group_by_category": {
+      "type": "boolean",
+      "default": true
+    },
+    "show_category_title": {
+      "type": "boolean",
+      "default": true
+    },
+    "show_badges": {
+      "type": "boolean",
+      "default": true
+    },
+    "show_badge_optional_type": {
+      "type": "boolean",
+      "default": true
+    },
+    "show_badge_price_type": {
+      "type": "boolean",
+      "default": true
+    },
+    "show_badge_payment": {
+      "type": "boolean",
+      "default": true
+    },
+    "badge_style": {
+      "type": "string",
+      "default": "friendly"
+    },
+    "show_description": {
+      "type": "boolean",
+      "default": false
+    },
+    "show_quantity": {
+      "type": "boolean",
+      "default": true
+    },
+    "price_display": {
+      "type": "string",
+      "default": "total_html"
+    },
+    "vat_mode": {
+      "type": "string",
+      "default": "included"
+    },
+    "vat_position": {
+      "type": "string",
+      "default": "below"
+    },
+    "vat_text_included": {
+      "type": "string",
+      "default": "VAT included",
+      "role": "content"
+    },
+    "vat_text_excluded": {
+      "type": "string",
+      "default": "+ VAT",
+      "role": "content"
+    },
+    "currency_display": {
+      "type": "string",
+      "default": "symbol"
+    },
+    "decimals_mode": {
+      "type": "string",
+      "default": "auto"
+    },
+    "thousands_sep": {
+      "type": "string",
+      "default": "."
+    },
+    "decimal_sep": {
+      "type": "string",
+      "default": ","
+    }
+  },
+  "supports": {
+    "html": false,
+    "color": {
+      "text": true,
+      "background": true,
+      "heading": true,
+      "enableContrastChecker": true
+    },
+    "typography": {
+      "fontSize": true,
+      "lineHeight": true
+    },
+    "spacing": {
+      "margin": true,
+      "padding": true,
+      "blockGap": true
+    },
+    "border": {
+      "color": true,
+      "radius": true,
+      "style": true,
+      "width": true
+    },
+    "shadow": true
+  },
+  "usesContext": [
+    "postId"
+  ]
+}

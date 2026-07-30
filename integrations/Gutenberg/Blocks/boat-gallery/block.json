@@ -1,0 +1,106 @@
+{
+  "apiVersion": 3,
+  "name": "maradigma/boat-gallery",
+  "version": "0.1.0",
+  "title": "Maradigma Boat Gallery",
+  "category": "maradigma",
+  "icon": "format-gallery",
+  "description": "Boat gallery block.",
+  "textdomain": "maradigma",
+  "attributes": {
+    "id": {
+      "type": "string",
+      "default": ""
+    },
+    "slug": {
+      "type": "string",
+      "default": ""
+    },
+    "layout": {
+      "type": "string",
+      "default": "grid"
+    },
+    "columns": {
+      "type": "string",
+      "default": "3"
+    },
+    "enable_lightbox": {
+      "type": "string",
+      "default": "1"
+    },
+    "start_index": {
+      "type": "string",
+      "default": "1"
+    },
+    "end_index": {
+      "type": "string",
+      "default": "0"
+    },
+    "max_images": {
+      "type": "string",
+      "default": "12"
+    },
+    "prefer_size_key": {
+      "type": "string",
+      "default": "large"
+    },
+    "prefer_wp_cache": {
+      "type": "string",
+      "default": "1"
+    },
+    "gap": {
+      "type": "string",
+      "default": "10"
+    },
+    "radius": {
+      "type": "string",
+      "default": "10"
+    },
+    "slider_autoplay": {
+      "type": "string",
+      "default": "0"
+    },
+    "slider_delay": {
+      "type": "string",
+      "default": "3500"
+    },
+    "slider_loop": {
+      "type": "string",
+      "default": "1"
+    },
+    "slider_speed": {
+      "type": "string",
+      "default": "400"
+    },
+    "slider_space_between": {
+      "type": "string",
+      "default": "10"
+    },
+    "slider_per_view_desktop": {
+      "type": "string",
+      "default": "1"
+    },
+    "slider_per_view_tablet": {
+      "type": "string",
+      "default": "1"
+    },
+    "slider_per_view_mobile": {
+      "type": "string",
+      "default": "1"
+    },
+    "slider_navigation": {
+      "type": "string",
+      "default": "1"
+    },
+    "slider_pagination": {
+      "type": "string",
+      "default": "1"
+    }
+  },
+  "supports": {
+    "html": false
+  },
+  "usesContext": [
+    "postId"
+  ]
+}

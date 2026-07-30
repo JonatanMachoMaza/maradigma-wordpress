@@ -1,0 +1,687 @@
+/*
+  Maradigma Boat Cards (frontend)
+  Scoped, no Bootstrap required
+*/
+
+:root {
+  --mrd-card-bg: #fff;
+  --mrd-card-border: rgba(15, 23, 42, 0.10);
+  --mrd-card-shadow: 0 10px 26px rgba(15, 23, 42, 0.08);
+  --mrd-card-shadow-hover: 0 16px 40px rgba(15, 23, 42, 0.14);
+
+  --mrd-text: #0f172a;
+  --mrd-muted: rgba(15, 23, 42, 0.68);
+  --mrd-muted-2: rgba(15, 23, 42, 0.48);
+
+  --mrd-radius: 14px;
+  --mrd-gap: 18px;
+
+  --mrd-accent: #0ea5e9;
+  --mrd-accent-2: #0284c7;
+
+  --mrd-featured: #f59e0b;
+
+  --mrd-media-bg: #f3f4f6;
+  --mrd-media-overlay: linear-gradient(to top, rgba(0,0,0,.28), rgba(0,0,0,0) 55%);
+  --mrd-focus: rgba(14, 165, 233, 0.45);
+}
+
+/* Scope fuerte (y defensivo contra themes) */
+.maradigma-boats,
+.maradigma-boats * {
+  box-sizing: border-box;
+}
+/* =========================================================
+   MARADIGMA BOATS - GRID (FINAL)
+   - Funciona con y sin Elementor
+   - Elementor puede sobrescribir --mrd-results-columns
+   - Sin Elementor usa fallback responsive automático
+   ========================================================= */
+
+.maradigma-boats-shortcode-list{
+  container-type: inline-size;
+  --mrd-gap: 24px;
+  --mrd-card-min: 320px;
+  display: block;
+  margin-bottom: 0;
+  padding-bottom: 0;
+  max-width: 100%;
+  overflow-x: clip;
+}
+
+.maradigma-boats-archive-widget{
+  display: block;
+  margin-bottom: 0;
+  padding-bottom: 0;
+}
+
+.elementor-widget-maradigma_boats_archive,
+.elementor-widget-maradigma_boats_archive > .elementor-widget-container,
+.elementor-widget-maradigma_boats_archive .maradigma-boats-archive-widget,
+.elementor-widget-maradigma_boats_archive .maradigma-boats-shortcode-list{
+  min-height: 0;
+  height: auto;
+}
+
+.elementor-widget-maradigma_boats_archive > .elementor-widget-container{
+  display: flow-root;
+}
+
+@media (max-width: 767px){
+  .e-con.e-flex:has(> .elementor-widget-maradigma_boats_archive),
+  .e-con.e-flex:has(> .e-con-inner > .elementor-widget-maradigma_boats_archive){
+    --flex-wrap-mobile: nowrap;
+    --flex-wrap: nowrap;
+    flex-wrap: nowrap;
+  }
+
+  .elementor-widget-maradigma_boats_archive{
+    flex-basis: auto;
+  }
+}
+
+.maradigma-boats-archive{
+  display: grid;
+  gap: var(--mrd-gap);
+  align-items: start;
+  width: 100%;
+
+  /* fallback base */
+  --mrd-results-columns: 1;
+
+  /* siempre pinta desde variable */
+  grid-template-columns: repeat(var(--mrd-results-columns), minmax(0, 1fr));
+}
+
+/* Evita desbordes internos */
+.maradigma-boats-archive > *{
+  min-width: 0;
+}
+
+/* =========================================================
+   FALLBACK AUTOMÁTICO SIN ELEMENTOR
+   ========================================================= */
+@container (min-width: 640px){
+  .maradigma-boats-archive{
+    --mrd-results-columns: 2;
+  }
+}
+
+@container (min-width: 980px){
+  .maradigma-boats-archive{
+    --mrd-results-columns: 3;
+  }
+}
+
+@container (min-width: 1280px){
+  .maradigma-boats-archive{
+    --mrd-results-columns: 4;
+  }
+}
+
+/* Fallback para navegadores sin container queries */
+@supports not (container-type: inline-size){
+  @media (min-width: 640px){
+    .maradigma-boats-archive{
+      --mrd-results-columns: 2;
+    }
+  }
+
+  @media (min-width: 980px){
+    .maradigma-boats-archive{
+      --mrd-results-columns: 3;
+    }
+  }
+
+  @media (min-width: 1280px){
+    .maradigma-boats-archive{
+      --mrd-results-columns: 4;
+    }
+  }
+}
+
+/* =========================================================
+   MARADIGMA BOAT CARD
+   ========================================================= */
+
+.maradigma-boats svg {
+  width: auto;
+  height: auto;
+  max-width: 100%;
+  max-height: 100%;
+}
+
+/* Card */
+.maradigma-boat-card {
+  background: var(--mrd-card-bg);
+  border: 1px solid var(--mrd-card-border);
+  border-radius: var(--mrd-radius);
+  overflow: hidden;
+  box-shadow: var(--mrd-card-shadow);
+  color: var(--mrd-text);
+
+  contain: layout paint style;
+
+  transition: transform .18s ease, box-shadow .18s ease, border-color .18s ease;
+}
+
+.maradigma-boat-card:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--mrd-card-shadow-hover);
+  border-color: rgba(15, 23, 42, 0.16);
+}
+
+/* Link wrapper */
+.maradigma-boat-card__link {
+  display: grid;
+  grid-template-rows: auto 1fr;
+  text-decoration: none;
+  color: inherit;
+  outline: none;
+}
+/* =========================================================
+   MEDIA (imagen principal / cover)
+   - Mantiene ratio 3:2
+   - Evita “franja gris” aunque el <img> NO lleve la clase
+   - Defensivo contra wrappers típicos (a, figure) y márgenes de themes
+   - Blindado contra Elementor (.elementor img { height:auto; max-width:100%; })
+   ========================================================= */
+
+/* Contenedor */
+.maradigma-boat-card__media{
+  position: relative;
+  background: var(--mrd-media-bg);
+  overflow: hidden;
+
+  /* ❌ NO pongas line-height:0 aquí, rompe badges/textos */
+  /* line-height: 0; */
+}
+
+/* Ratio box (3:2) */
+.maradigma-boat-card__media::before{
+  content: "";
+  display: block;
+  padding-top: 66.6667%;
+}
+
+/* Reset por si el theme mete figure con margen */
+.maradigma-boat-card__media figure{
+  margin: 0 !important;
+  padding: 0 !important;
+  border: 0 !important;
+}
+
+/* Asegura que wrappers no rompan el “absolute fill” */
+.maradigma-boat-card__media > a,
+.maradigma-boat-card__media > figure,
+.maradigma-boat-card__media > a > figure{
+  position: absolute;
+  inset: 0;
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+/* (Opcional) si el theme mete <a> raro */
+.maradigma-boat-card__media > a{
+  text-decoration: none;
+  color: inherit;
+}
+
+/* ✅ Regla unificada: imagen con clase o sin clase
+   (Blindada contra Elementor y themes que fuerzan height:auto / max-width:100%) */
+.maradigma-boat-card__media img,
+.maradigma-boat-card__img{
+  position: absolute !important;
+  inset: 0 !important;
+
+  width: 100% !important;
+  height: 100% !important;
+
+  max-width: none !important;
+  max-height: none !important;
+
+  object-fit: cover !important;
+  object-position: center !important;
+
+  display: block !important;
+  vertical-align: top !important;
+
+  border: 0 !important;
+  border-radius: 0 !important;
+  box-shadow: none !important;
+}
+
+/* Overlay */
+.maradigma-boat-card__media::after{
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: var(--mrd-media-overlay);
+  opacity: .9;
+  z-index: 1;
+}
+
+/* =========================================================
+   ELEMENTOR CUSTOM IMAGE WRAP
+   - Overlay helper for custom Elementor HTML card templates
+   ========================================================= */
+/* =========================================================
+   ELEMENTOR CUSTOM IMAGE WRAP
+   - Overlay helper for custom Elementor HTML card templates
+   ========================================================= */
+
+.maradigma-boats-archive-widget {
+  --mrd-card-image-overlay-color-1: rgba(0,0,0,0.55);
+  --mrd-card-image-overlay-color-2: rgba(0,0,0,0);
+  --mrd-card-image-overlay-direction: to top;
+}
+
+.maradigma-boats-archive-widget.has-card-image-overlay .maradigma-boat-card__image-wrap {
+  position: relative;
+}
+
+.maradigma-boats-archive-widget.has-card-image-overlay.overlay-type-gradient .maradigma-boat-card__image-overlay {
+  display: block;
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+  background: linear-gradient(
+    var(--mrd-card-image-overlay-direction, to top),
+    var(--mrd-card-image-overlay-color-1, rgba(0,0,0,0.55)) 0%,
+    var(--mrd-card-image-overlay-color-2, rgba(0,0,0,0)) 65%
+  );
+}
+
+.maradigma-boats-archive-widget.has-card-image-overlay.overlay-type-solid .maradigma-boat-card__image-overlay {
+  display: block;
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+  background: var(--mrd-card-image-overlay-color-1, rgba(0,0,0,0.55));
+}
+
+.maradigma-boats-archive-widget.has-no-card-image-overlay .maradigma-boat-card__image-overlay {
+  display: none;
+}
+
+.maradigma-boats-archive-widget.has-card-image-overlay .maradigma-boat-card__image-title {
+  position: relative;
+  z-index: 2;
+  width: 100%;
+}
+
+/* =========================================================
+   BADGES
+   - Blindaje extra contra herencias raras (themes/Elementor)
+   ========================================================= */
+
+.maradigma-boat-card__badges{
+  position: absolute;
+  top: 12px;
+  left: 12px;
+  right: 12px;
+  z-index: 2;
+
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  flex-wrap: wrap;
+
+  /* ✅ clave: asegurar que el texto NO herede line-height raro */
+  line-height: 1.2;
+}
+
+.maradigma-boat-card__badge{
+  font-size: 12px;
+  font-weight: 800;
+  letter-spacing: .2px;
+
+  /* ✅ asegura altura consistente del badge */
+  line-height: 1;
+
+  padding: 7px 10px;
+  border-radius: 999px;
+
+  background: rgba(15, 23, 42, 0.85);
+  color: #fff;
+
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+}
+
+.maradigma-boat-card__badge--featured{
+  background: rgba(245, 158, 11, 0.95);
+  color: #1f2937;
+}
+
+/* Dots */
+.maradigma-boat-card__dots {
+  position: absolute;
+  bottom: 10px;
+  left: 12px;
+  z-index: 2;
+  display: inline-flex;
+  gap: 6px;
+  align-items: center;
+}
+
+.maradigma-boat-card__dots span {
+  width: 7px;
+  height: 7px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.55);
+  box-shadow: 0 1px 2px rgba(0,0,0,.18);
+}
+
+.maradigma-boat-card__dots span.is-active {
+  background: rgba(255, 255, 255, 0.92);
+}
+
+/* Body */
+.maradigma-boat-card__body {
+  padding: 14px 14px 16px 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  min-width: 0;
+}
+
+/* Top (titulo + rating opcional) */
+.maradigma-boat-card__top {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  min-width: 0;
+}
+
+.maradigma-boat-card__header {
+  flex: 1 1 auto;
+  min-width: 0;
+}
+
+/* Title */
+.maradigma-boat-card__title {
+  margin: 0;
+  font-size: 16px;
+  line-height: 1.2;
+  font-weight: 900;
+  letter-spacing: -0.2px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+/* Subtitle */
+.maradigma-boat-card__subtitle {
+  margin: 0;
+  font-size: 13px;
+  line-height: 1.25;
+  color: var(--mrd-muted);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+/* =========================================================
+   Bullets (Samboat-like): inline + wrap (NO 2 columns)
+   ========================================================= */
+.maradigma-boat-card__bullets {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px 14px;              /* row / col */
+  color: rgba(15, 23, 42, 0.85);
+  font-size: 13px;
+  line-height: 1.2;
+
+  /* que no te meta márgenes raros (si viniera de ul/li) */
+  margin: 0;
+  padding: 0;
+}
+
+.maradigma-bullet {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  min-width: 0;
+}
+
+/* Truncate solo para textos largos como el puerto o skipper */
+.maradigma-truncate {
+  max-width: 220px; /* ajustable */
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+/* Iconos: forzamos tamaño SIEMPRE */
+.maradigma-bullet .maradigma-boat-chip__icon {
+  width: 14px !important;
+  height: 14px !important;
+  flex: 0 0 14px !important;
+  display: block !important;
+  opacity: .9;
+  overflow: visible;
+}
+
+/* Defensa extra contra themes que inflan SVG */
+.maradigma-bullet svg,
+.maradigma-bullet svg * {
+  max-width: 14px !important;
+  max-height: 14px !important;
+}
+
+/* =========================================================
+   Footer
+   ========================================================= */
+.maradigma-boat-card__footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+
+  margin-top: 2px;
+  padding-top: 10px;
+  border-top: 1px solid rgba(15, 23, 42, 0.08);
+}
+
+.maradigma-boat-card__price {
+  display: flex;
+  align-items: baseline;
+  gap: 8px;
+}
+
+.maradigma-boat-card__price-label {
+  font-size: 12px;
+  color: var(--mrd-muted-2);
+}
+
+.maradigma-boat-card__price-value {
+  font-size: 18px;
+  font-weight: 900;
+  letter-spacing: -0.2px;
+  color: var(--mrd-text);
+}
+
+/* CTA */
+.maradigma-boat-card__cta {
+  display: inline-flex;
+  align-items: center;
+  padding: 9px 12px;
+  border-radius: 999px;
+
+  background: rgba(14, 165, 233, 0.10);
+  border: 1px solid rgba(14, 165, 233, 0.18);
+
+  font-size: 13px;
+  font-weight: 900;
+  color: var(--mrd-accent-2);
+  user-select: none;
+
+  transition: background .18s ease, border-color .18s ease, color .18s ease;
+}
+
+.maradigma-boat-card:hover .maradigma-boat-card__cta {
+  background: rgba(14, 165, 233, 0.14);
+  border-color: rgba(14, 165, 233, 0.24);
+  color: var(--mrd-accent);
+}
+
+/* Focus accesible */
+.maradigma-boat-card__link:focus-visible {
+  outline: 3px solid var(--mrd-focus);
+  outline-offset: 3px;
+  border-radius: var(--mrd-radius);
+}
+
+/* Reduce motion */
+@media (prefers-reduced-motion: reduce) {
+  .maradigma-boat-card,
+  .maradigma-boat-card__cta {
+    transition: none;
+  }
+}
+
+/* Fallback content-visibility */
+@supports not (content-visibility: auto) {
+  .maradigma-boat-card { content-visibility: visible; }
+}
+
+/* =========================================================
+   Carrusel (si {{carousel_html}} lo genera tu PHP)
+   Estructura esperada:
+   <div class="maradigma-boat-card__carousel" data-count="3">
+     <div class="maradigma-boat-card__carousel-track">
+        <img ...>
+        <img ...>
+        <img ...>
+     </div>
+     <div class="maradigma-boat-card__carousel-indicators">
+        <button class="is-active" ...></button>...
+     </div>
+     <button class="maradigma-boat-card__carousel-prev" ...>...</button>
+     <button class="maradigma-boat-card__carousel-next" ...>...</button>
+   </div>
+   ========================================================= */
+
+.maradigma-boat-card__carousel {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+}
+
+.maradigma-boat-card__carousel-track {
+  position: absolute;
+  inset: 0;
+  display: flex;
+}
+
+.maradigma-boat-card__carousel-track img {
+  width: 100%;
+  height: 100%;
+  flex: 0 0 100%;
+  object-fit: cover;
+  object-position: center;
+  display: block;
+}
+
+.maradigma-boat-card__carousel-indicators {
+  position: absolute;
+  left: 12px;
+  bottom: 10px;
+  z-index: 2;
+  display: inline-flex;
+  gap: 6px;
+}
+
+.maradigma-boat-card__carousel-indicators button {
+  width: 7px;
+  height: 7px;
+  border-radius: 999px;
+  border: 0;
+  padding: 0;
+  background: rgba(255,255,255,.55);
+  cursor: pointer;
+}
+
+.maradigma-boat-card__carousel-indicators button.is-active {
+  background: rgba(255,255,255,.92);
+}
+
+.maradigma-boat-card__carousel-prev,
+.maradigma-boat-card__carousel-next {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 2;
+
+  width: 34px;
+  height: 34px;
+  border: 0;
+  border-radius: 999px;
+  cursor: pointer;
+
+  background: rgba(15, 23, 42, 0.35);
+  color: #fff;
+
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+}
+
+.maradigma-boat-card__carousel-prev { left: 10px; }
+.maradigma-boat-card__carousel-next { right: 10px; }
+
+.maradigma-boat-card__carousel-prev svg,
+.maradigma-boat-card__carousel-next svg {
+  width: 18px !important;
+  height: 18px !important;
+  display: block;
+}
+
+/* Si solo hay 1 imagen, puedes ocultar controls/indicadores desde PHP o con data-count */
+.maradigma-boat-card__carousel[data-count="1"] .maradigma-boat-card__carousel-indicators,
+.maradigma-boat-card__carousel[data-count="1"] .maradigma-boat-card__carousel-prev,
+.maradigma-boat-card__carousel[data-count="1"] .maradigma-boat-card__carousel-next {
+  display: none !important;
+}
+
+.maradigma-pagination {
+  width: 100%;
+  margin-bottom: 0;
+}
+
+.maradigma-pagination .page-numbers {
+  display: flex;
+  justify-content: center;
+  gap: 8px;
+  list-style: none;
+  padding: 0;
+  margin: 20px 0 0;
+}
+
+[data-md-boats-archive-pagination="1"]{
+  margin-bottom: 0;
+  padding-bottom: 0;
+  max-width: 100%;
+  overflow-x: clip;
+}
+
+.maradigma-pagination .page-numbers a,
+.maradigma-pagination .page-numbers span {
+  padding: 8px 12px;
+  border: 1px solid rgba(0,0,0,.12);
+  border-radius: 6px;
+  text-decoration: none;
+}
+
+.maradigma-pagination .page-numbers .current {
+  font-weight: 700;
+}

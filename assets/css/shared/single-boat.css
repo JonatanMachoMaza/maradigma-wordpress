@@ -1,0 +1,961 @@
+/* =========================================================
+ * Maradigma Boat Gallery
+ * ========================================================= */
+
+.maradigma-boat-gallery{
+  --swiper-theme-color: rgba(0,0,0,.85);
+  --md-gallery-gap: 10px;
+  --md-gallery-radius: 10px;
+  --md-gallery-cols: 3;
+  --md-gallery-ratio: 16 / 9;
+}
+
+/* =========================================================
+ * Grid gallery
+ * ========================================================= */
+
+.maradigma-boat-gallery--grid{
+  display: grid;
+  gap: var(--md-gallery-gap, 10px);
+  grid-template-columns: repeat(var(--md-gallery-cols, 3), minmax(0, 1fr));
+}
+
+@media (max-width: 768px){
+  .maradigma-boat-gallery--grid{
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 520px){
+  .maradigma-boat-gallery--grid{
+    grid-template-columns: 1fr;
+  }
+}
+
+.maradigma-boat-gallery--grid .maradigma-boat-gallery__item{
+  margin: 0;
+  overflow: hidden;
+  border-radius: var(--md-gallery-radius, 10px);
+  aspect-ratio: var(--md-gallery-ratio, 16 / 9);
+}
+
+.maradigma-boat-gallery--grid .maradigma-boat-gallery__item > a{
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+/* =========================================================
+ * Slider gallery
+ * ========================================================= */
+
+.maradigma-boat-gallery--slider .maradigma-swiper{
+  width: 100%;
+  aspect-ratio: var(--md-gallery-ratio, 16 / 9);
+  overflow: hidden;
+}
+
+.maradigma-boat-gallery--slider .swiper,
+.maradigma-boat-gallery--slider .swiper-wrapper,
+.maradigma-boat-gallery--slider .swiper-slide{
+  height: 100%;
+}
+
+.maradigma-boat-gallery--slider .swiper-slide{
+  display: flex;
+  align-items: stretch;
+}
+
+.maradigma-boat-gallery--slider .swiper-slide > a{
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+/* =========================================================
+ * Common gallery image styles
+ * ========================================================= */
+
+.maradigma-boat-gallery__img{
+  width: 100%;
+  height: 100%;
+  display: block;
+  object-fit: cover;
+  border-radius: var(--md-gallery-radius, 10px);
+}
+
+.maradigma-boat-gallery--grid .maradigma-boat-gallery__img,
+.maradigma-boat-gallery--slider .maradigma-boat-gallery__img{
+  height: 100% !important;
+}
+
+.maradigma-boat-gallery__item{
+  margin: 0;
+}
+
+/* =========================================================
+ * Swiper arrows and bullets
+ * ========================================================= */
+
+.maradigma-boat-gallery--slider .swiper-button-prev,
+.maradigma-boat-gallery--slider .swiper-button-next{
+  color: var(--swiper-theme-color);
+}
+
+.maradigma-boat-gallery--slider .swiper-button-prev::after,
+.maradigma-boat-gallery--slider .swiper-button-next::after{
+  content: none;
+  display: none;
+}
+
+.maradigma-boat-gallery--slider .swiper-navigation-icon{
+  display: block;
+  width: 22px;
+  height: 40px;
+}
+
+.maradigma-boat-gallery--slider .swiper-pagination-bullet{
+  background: var(--swiper-theme-color);
+  opacity: .35;
+}
+
+.maradigma-boat-gallery--slider .swiper-pagination-bullet-active{
+  opacity: 1;
+}
+
+/* =========================================================
+ * Native lightbox
+ * ========================================================= */
+
+.md-lightbox{
+  position: fixed;
+  inset: 0;
+  z-index: 999999;
+  display: none;
+}
+
+.md-lightbox--open{
+  display: block;
+}
+
+.md-lightbox__backdrop{
+  position: absolute;
+  inset: 0;
+  background: rgba(0,0,0,.85);
+}
+
+.md-lightbox__panel{
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  padding: 24px;
+}
+
+.md-lightbox__img{
+  max-width: min(1200px, 92vw);
+  max-height: 86vh;
+  border-radius: 10px;
+  display: block;
+}
+
+.md-lightbox__btn{
+  position: absolute;
+  top: 16px;
+  background: rgba(0,0,0,.35);
+  border: 0;
+  color: #fff;
+  width: 40px;
+  height: 40px;
+  border-radius: 999px;
+  cursor: pointer;
+  font-size: 26px;
+  line-height: 40px;
+  text-align: center;
+}
+
+.md-lightbox__btn--close{
+  right: 16px;
+}
+
+.md-lightbox__btn--prev{
+  left: 16px;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+.md-lightbox__btn--next{
+  right: 16px;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+.md-lightbox__counter{
+  position: absolute;
+  left: 16px;
+  top: 16px;
+  color: rgba(255,255,255,.9);
+  font-size: 13px;
+  background: rgba(0,0,0,.35);
+  padding: 6px 10px;
+  border-radius: 999px;
+}
+
+/* =========================================================
+ * Maradigma Boat Specs
+ * ========================================================= */
+
+.maradigma-boat-specs{
+  width: 100%;
+  display: block;
+  min-width: 0;
+  text-align: left;
+}
+
+/* Main wrapper rendered as dl */
+.maradigma-boat-specs__dl{
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  min-width: 0;
+}
+
+/* Each spec row */
+.maradigma-boat-specs__row{
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  padding: 10px 0;
+  border-bottom: 1px solid rgba(0,0,0,.08);
+  min-width: 0;
+  box-sizing: border-box;
+  text-align: left;
+}
+
+.maradigma-boat-specs__row:last-child{
+  border-bottom: 0;
+}
+
+/* Icon wrapper */
+.maradigma-boat-specs__icon{
+  width: 22px;
+  height: 22px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex: 0 0 22px;
+  margin-top: 2px;
+  color: rgba(0,0,0,.65);
+}
+
+.maradigma-boat-specs__icon--empty{
+  opacity: 0;
+}
+
+/* SVG icon */
+.maradigma-boat-specs__svg{
+  width: 16px;
+  height: 16px;
+  display: block;
+}
+
+.maradigma-boat-specs__icon svg{
+  width: 1em;
+  height: 1em;
+  fill: currentColor;
+}
+
+/* Text content */
+.maradigma-boat-specs__content{
+  min-width: 0;
+  flex: 1;
+  text-align: left;
+}
+
+/* Label */
+.maradigma-boat-specs__dt{
+  margin: 0;
+  font-weight: 600;
+  font-size: 13px;
+  line-height: 1.2;
+  color: rgba(0,0,0,.75);
+  overflow-wrap: anywhere;
+  word-break: break-word;
+}
+
+/* Value */
+.maradigma-boat-specs__dd{
+  margin: 0;
+  font-size: 14px;
+  line-height: 1.3;
+  color: rgba(0,0,0,.9);
+  overflow-wrap: anywhere;
+  word-break: break-word;
+}
+
+/* Modifier when icons are disabled */
+.maradigma-boat-specs--no-icons .maradigma-boat-specs__row{
+  gap: 0;
+}
+
+.maradigma-boat-specs--no-icons .maradigma-boat-specs__icon{
+  display: none;
+}
+
+/* Modifier when labels are disabled */
+.maradigma-boat-specs--no-labels .maradigma-boat-specs__dt{
+  display: none;
+}
+
+.maradigma-boat-specs--no-labels .maradigma-boat-specs__dd{
+  display: block;
+}
+
+/* =========================================================
+ * Boat Specs layout: two columns
+ * ========================================================= */
+
+.maradigma-boat-specs--two_cols .maradigma-boat-specs__dl{
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0 18px;
+}
+
+.maradigma-boat-specs--two_cols .maradigma-boat-specs__row{
+  border-bottom: 1px solid rgba(0,0,0,.08);
+  padding: 10px 0;
+}
+
+@media (max-width: 768px){
+  .maradigma-boat-specs--two_cols .maradigma-boat-specs__dl{
+    grid-template-columns: 1fr;
+  }
+}
+
+/* =========================================================
+ * Boat Specs layout: list
+ * ========================================================= */
+
+.maradigma-boat-specs--list .maradigma-boat-specs__dl{
+  display: block;
+}
+
+.maradigma-boat-specs--list .maradigma-boat-specs__row{
+  display: flex;
+}
+
+.maradigma-boat-specs--list .maradigma-boat-specs__dt{
+  display: inline;
+}
+
+.maradigma-boat-specs--list .maradigma-boat-specs__dd{
+  display: inline;
+}
+
+.maradigma-boat-specs--list .maradigma-boat-specs__dd:before{
+  content: " ";
+}
+
+/* =========================================================
+ * Elementor support for Boat Specs
+ * These selectors allow style controls using render_type selectors
+ * ========================================================= */
+
+/* Container */
+.maradigma-boat-specs[data-widget-style],
+.elementor-widget-maradigma_boat_specs .maradigma-boat-specs{
+  width: 100%;
+}
+
+/* Row card mode compatibility */
+.maradigma-boat-specs--card .maradigma-boat-specs__row{
+  padding: 14px;
+  border: 1px solid rgba(0,0,0,.08);
+  border-radius: 10px;
+  background: #fff;
+  margin-bottom: 10px;
+}
+
+.maradigma-boat-specs--card .maradigma-boat-specs__row:last-child{
+  margin-bottom: 0;
+}
+
+/* Inline mode compatibility */
+.maradigma-boat-specs--inline .maradigma-boat-specs__row{
+  display: inline-flex;
+  border-bottom: 0;
+  padding: 0;
+  margin-right: 18px;
+  margin-bottom: 10px;
+}
+
+.maradigma-boat-specs--inline .maradigma-boat-specs__content{
+  display: inline-flex;
+  gap: 6px;
+  align-items: baseline;
+}
+
+.maradigma-boat-specs--inline .maradigma-boat-specs__dt,
+.maradigma-boat-specs--inline .maradigma-boat-specs__dd{
+  display: inline;
+}
+
+/* =========================================================
+ * Boat Equipments
+ * ========================================================= */
+
+.maradigma-boat-equipments{
+  text-align: left;
+}
+
+.maradigma-boat-equipments__list{
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 10px 20px;
+}
+
+@media (max-width: 1024px){
+  .maradigma-boat-equipments__list{
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 600px){
+  .maradigma-boat-equipments__list{
+    grid-template-columns: 1fr;
+  }
+}
+
+.maradigma-boat-equipments__item{
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+  margin: 0;
+  min-width: 0;
+}
+
+.maradigma-boat-equipments__icon{
+  line-height: 1.2;
+  flex: 0 0 auto;
+}
+
+.maradigma-boat-equipments__label{
+  flex: 1 1 auto;
+  min-width: 0;
+  text-align: left;
+  line-height: 1.25;
+  overflow-wrap: anywhere;
+  word-break: break-word;
+  hyphens: auto;
+}
+
+/* =========================================================
+ * Boat Included
+ * ========================================================= */
+
+.maradigma-boat-included{
+  text-align: left;
+}
+
+.maradigma-boat-included__list{
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 10px 20px;
+}
+
+@media (max-width: 1024px){
+  .maradigma-boat-included__list{
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 600px){
+  .maradigma-boat-included__list{
+    grid-template-columns: 1fr;
+  }
+}
+
+.maradigma-boat-included__item{
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+  margin: 0;
+  min-width: 0;
+}
+
+.maradigma-boat-included__tick{
+  line-height: 1.2;
+  flex: 0 0 auto;
+}
+
+.maradigma-boat-included__label{
+  flex: 1 1 auto;
+  min-width: 0;
+  text-align: left;
+  line-height: 1.25;
+  overflow-wrap: anywhere;
+  word-break: break-word;
+  hyphens: auto;
+}
+
+/* =========================================================
+ * Boat Not Included
+ * ========================================================= */
+
+.maradigma-boat-not-included{
+  text-align: left;
+}
+
+.maradigma-boat-not-included__list{
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 10px 20px;
+}
+
+@media (max-width: 1024px){
+  .maradigma-boat-not-included__list{
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 600px){
+  .maradigma-boat-not-included__list{
+    grid-template-columns: 1fr;
+  }
+}
+
+.maradigma-boat-not-included__item{
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+  margin: 0;
+  min-width: 0;
+}
+
+.maradigma-boat-not-included__cross{
+  line-height: 1.2;
+  flex: 0 0 auto;
+}
+
+.maradigma-boat-not-included__label{
+  flex: 1 1 auto;
+  min-width: 0;
+  text-align: left;
+  line-height: 1.25;
+  overflow-wrap: anywhere;
+  word-break: break-word;
+  hyphens: auto;
+}
+
+/* =========================================================
+ * Boat Additional Services
+ * ========================================================= */
+
+.maradigma-boat-additionals{
+  --maradigma-boat-additionals-row-gap: 8px;
+  --maradigma-boat-additionals-row-padding: 12px 14px;
+  --maradigma-boat-additionals-row-radius: 8px;
+  --maradigma-boat-additionals-row-bg: #fff;
+  --maradigma-boat-additionals-row-border-color: rgba(0,0,0,.08);
+  --maradigma-boat-additionals-title-color: inherit;
+  --maradigma-boat-additionals-text-color: inherit;
+  --maradigma-boat-additionals-muted-color: rgba(0,0,0,.58);
+  --maradigma-boat-additionals-category-color: rgba(0,0,0,.68);
+  --maradigma-boat-additionals-price-color: inherit;
+  --maradigma-boat-additionals-badge-bg: rgba(0,0,0,.045);
+  --maradigma-boat-additionals-badge-color: inherit;
+  --maradigma-boat-additionals-table-header-bg: rgba(0,0,0,.035);
+  text-align: left;
+  width: 100%;
+  color: var(--maradigma-boat-additionals-text-color);
+}
+
+.maradigma-boat-additionals--empty{
+  padding: 12px 14px;
+  border: 1px solid rgba(0,0,0,.08);
+  border-radius: 8px;
+  background: #fff;
+  color: rgba(0,0,0,.62);
+}
+
+.maradigma-boat-additionals__title{
+  margin: 0 0 14px;
+  color: var(--maradigma-boat-additionals-title-color);
+}
+
+.maradigma-boat-additionals__category{
+  margin: 18px 0 10px;
+  font-size: 13px;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: .08em;
+  color: var(--maradigma-boat-additionals-category-color);
+}
+
+.maradigma-boat-additionals__category:first-child{
+  margin-top: 0;
+}
+
+.maradigma-boat-additionals__list{
+  display: grid;
+  gap: var(--maradigma-boat-additionals-row-gap);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.maradigma-boat-additionals__item{
+  min-width: 0;
+}
+
+.maradigma-boat-additionals__row{
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 14px;
+  min-width: 0;
+  padding: var(--maradigma-boat-additionals-row-padding);
+  border: 1px solid var(--maradigma-boat-additionals-row-border-color);
+  border-radius: var(--maradigma-boat-additionals-row-radius);
+  background: var(--maradigma-boat-additionals-row-bg);
+}
+
+.maradigma-boat-additionals__left{
+  flex: 1 1 auto;
+  min-width: 0;
+}
+
+.maradigma-boat-additionals__right{
+  flex: 0 0 auto;
+  max-width: 42%;
+  text-align: right;
+}
+
+.maradigma-boat-additionals__name{
+  font-weight: 700;
+  line-height: 1.25;
+  overflow-wrap: anywhere;
+  word-break: break-word;
+  hyphens: auto;
+}
+
+.maradigma-boat-additionals__qty{
+  display: inline-block;
+  margin-left: 4px;
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--maradigma-boat-additionals-muted-color);
+}
+
+.maradigma-boat-additionals__desc{
+  margin-top: 5px;
+  font-size: 13px;
+  line-height: 1.4;
+  color: var(--maradigma-boat-additionals-muted-color);
+  overflow-wrap: anywhere;
+}
+
+.maradigma-boat-additionals__badges{
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 4px;
+  margin-top: 7px;
+  font-size: 12px;
+  line-height: 1.2;
+  color: var(--maradigma-boat-additionals-muted-color);
+}
+
+.maradigma-boat-additionals__badge{
+  display: inline-flex;
+  align-items: center;
+  min-width: 0;
+  padding: 3px 7px;
+  border-radius: var(--maradigma-boat-additionals-badge-radius, 999px);
+  background: var(--maradigma-boat-additionals-badge-bg);
+  color: var(--maradigma-boat-additionals-badge-color);
+  font-weight: 600;
+}
+
+.maradigma-boat-additionals__badge-sep{
+  display: none;
+}
+
+.maradigma-boat-additionals__price{
+  font-weight: 800;
+  line-height: 1.2;
+  color: var(--maradigma-boat-additionals-price-color);
+}
+
+.maradigma-boat-additionals__value{
+  white-space: nowrap;
+}
+
+.maradigma-boat-additionals__vat{
+  display: inline-block;
+  margin-top: 3px;
+  font-size: 12px;
+  font-weight: 500;
+  color: var(--maradigma-boat-additionals-muted-color);
+}
+
+.maradigma-boat-additionals__vat--tooltip{
+  cursor: help;
+}
+
+.maradigma-boat-additionals__table{
+  width: 100%;
+  border-collapse: collapse;
+  border: 1px solid var(--maradigma-boat-additionals-row-border-color);
+  border-radius: var(--maradigma-boat-additionals-row-radius);
+  overflow: hidden;
+  background: var(--maradigma-boat-additionals-row-bg);
+}
+
+.maradigma-boat-additionals__table th,
+.maradigma-boat-additionals__td{
+  padding: 11px 12px;
+  border-bottom: 1px solid var(--maradigma-boat-additionals-row-border-color);
+  vertical-align: top;
+}
+
+.maradigma-boat-additionals__table th{
+  background: var(--maradigma-boat-additionals-table-header-bg);
+  font-size: 12px;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: .06em;
+  color: rgba(0,0,0,.66);
+}
+
+.maradigma-boat-additionals__tr:last-child .maradigma-boat-additionals__td{
+  border-bottom: 0;
+}
+
+.maradigma-boat-additionals__td--price{
+  white-space: nowrap;
+}
+
+@media (max-width: 575.98px){
+  .maradigma-boat-additionals__row{
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .maradigma-boat-additionals__right{
+    max-width: none;
+    text-align: left;
+  }
+
+  .maradigma-boat-additionals__table{
+    display: block;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+}
+
+/* =========================================================
+ * Boat Prices
+ * ========================================================= */
+
+.maradigma-boat-prices{
+  text-align: left;
+  --maradigma-prices-gap: 10px;
+  --maradigma-prices-border: rgba(0,0,0,.08);
+  --maradigma-prices-muted: rgba(17,24,39,.62);
+}
+
+.maradigma-boat-prices__title{
+  margin: 0 0 12px;
+  font-size: 20px;
+  line-height: 1.25;
+  font-weight: 700;
+  color: inherit;
+}
+
+.maradigma-boat-prices__cards,
+.maradigma-boat-prices__blocks{
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--maradigma-prices-gap, 8px);
+  align-items: stretch;
+}
+
+.maradigma-boat-prices__card,
+.maradigma-boat-prices__block{
+  flex: 1 1 140px;
+  min-width: 120px;
+  max-width: 220px;
+  text-align: center;
+  padding: 10px 12px;
+  border: 1px solid var(--maradigma-prices-border);
+  border-radius: 8px;
+  background: #fff;
+  min-width: 0;
+}
+
+.maradigma-boat-prices__card .maradigma-boat-prices__season,
+.maradigma-boat-prices__block .maradigma-boat-prices__season{
+  font-weight: 700;
+  font-size: 12px;
+  text-transform: uppercase;
+  letter-spacing: 0;
+  margin-bottom: 6px;
+  color: var(--maradigma-prices-muted);
+}
+
+.maradigma-boat-prices__amount,
+.maradigma-boat-prices__block .maradigma-boat-prices__value{
+  display: inline-block;
+  font-weight: 800;
+  font-size: 16px;
+  white-space: nowrap;
+}
+
+.maradigma-boat-prices__card .maradigma-boat-prices__vat,
+.maradigma-boat-prices__block .maradigma-boat-prices__vat{
+  display: inline-block;
+  margin-top: 4px;
+  font-size: 12px;
+  color: var(--maradigma-prices-muted);
+}
+
+.maradigma-boat-prices__table{
+  width: 100%;
+  border-collapse: collapse;
+  border: 1px solid var(--maradigma-prices-border);
+  border-radius: 8px;
+  overflow: hidden;
+  background: #fff;
+}
+
+.maradigma-boat-prices__row{
+  border-bottom: 1px solid var(--maradigma-prices-border);
+}
+
+.maradigma-boat-prices__row:last-child{
+  border-bottom: 0;
+}
+
+.maradigma-boat-prices__table .maradigma-boat-prices__season,
+.maradigma-boat-prices__table .maradigma-boat-prices__price{
+  padding: 12px 14px;
+  vertical-align: middle;
+}
+
+.maradigma-boat-prices__table .maradigma-boat-prices__season{
+  font-weight: 700;
+  color: inherit;
+}
+
+.maradigma-boat-prices__table .maradigma-boat-prices__price{
+  text-align: right;
+}
+
+.maradigma-boat-prices__table .maradigma-boat-prices__vat{
+  display: inline-block;
+  margin-top: 4px;
+  font-size: 12px;
+  color: var(--maradigma-prices-muted);
+}
+
+@media (max-width: 575.98px){
+  .maradigma-boat-prices__cards,
+  .maradigma-boat-prices__blocks{
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    padding-bottom: 6px;
+  }
+
+  .maradigma-boat-prices__card,
+  .maradigma-boat-prices__block{
+    flex: 0 0 180px;
+    max-width: none;
+  }
+
+  .maradigma-boat-prices__table{
+    display: block;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .maradigma-boat-prices__table .maradigma-boat-prices__season,
+  .maradigma-boat-prices__table .maradigma-boat-prices__price{
+    white-space: nowrap;
+  }
+}
+
+.maradigma-boat-videos {
+    display: grid;
+    gap: 20px;
+}
+
+.maradigma-boat-videos--grid {
+    grid-template-columns: repeat(var(--md-videos-cols, 2), minmax(0, 1fr));
+}
+
+.maradigma-boat-videos--list {
+    grid-template-columns: 1fr;
+}
+
+.maradigma-boat-videos__item {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.maradigma-boat-videos__embed {
+    position: relative;
+    width: 100%;
+    padding-bottom: 56.25%;
+    overflow: hidden;
+    border-radius: 12px;
+    background: #000;
+}
+
+.maradigma-boat-videos__embed iframe {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    border: 0;
+}
+
+.maradigma-boat-videos__thumb-link {
+    display: block;
+    text-decoration: none;
+}
+
+.maradigma-boat-videos__thumb {
+    width: 100%;
+    height: auto;
+    display: block;
+    border-radius: 12px;
+}
+
+.maradigma-boat-videos__thumb-placeholder {
+    min-height: 240px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 12px;
+    background: #f5f5f5;
+    color: #666;
+    padding: 20px;
+    text-align: center;
+}
+
+.maradigma-boat-videos__title {
+    font-size: 0.95rem;
+    font-weight: 600;
+}

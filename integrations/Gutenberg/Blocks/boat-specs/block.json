@@ -1,0 +1,50 @@
+{
+  "apiVersion": 3,
+  "name": "maradigma/boat-specs",
+  "version": "0.1.0",
+  "title": "Maradigma Boat Specs",
+  "category": "maradigma",
+  "icon": "list-view",
+  "description": "Configurable boat specs block.",
+  "textdomain": "maradigma",
+  "attributes": {
+    "id": {
+      "type": "string",
+      "default": ""
+    },
+    "slug": {
+      "type": "string",
+      "default": ""
+    },
+    "layout": {
+      "type": "string",
+      "default": "two_cols"
+    },
+    "show_labels": {
+      "type": "string",
+      "default": "1"
+    },
+    "show_icons": {
+      "type": "string",
+      "default": "1"
+    },
+    "icons": {
+      "type": "string",
+      "default": ""
+    },
+    "fields": {
+      "type": "string",
+      "default": "boat_capacity,boat_length,boat_beam,boat_builder,boat_base_port_name"
+    },
+    "items_json": {
+      "type": "string",
+      "default": ""
+    }
+  },
+  "supports": {
+    "html": false
+  },
+  "usesContext": [
+    "postId"
+  ]
+}
