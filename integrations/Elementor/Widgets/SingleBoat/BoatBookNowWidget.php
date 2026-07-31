@@ -18,26 +18,41 @@ use Elementor\Group_Control_Typography;
  */
 final class BoatBookNowWidget extends BaseSingleBoatWidget
 {
+    /**
+     * Returns the widget's stable Elementor identifier.
+     */
     public function get_name(): string
     {
         return 'maradigma_boat_book_now';
     }
 
+    /**
+     * Returns the widget title shown in Elementor.
+     */
     public function get_title(): string
     {
         return esc_html__('Maradigma Boat Book Now', 'maradigma');
     }
 
+    /**
+     * Returns the Elementor icon identifier for the widget.
+     */
     public function get_icon(): string
     {
         return 'eicon-button';
     }
 
+    /**
+     * Returns the Elementor categories assigned to the widget.
+     */
     public function get_categories(): array
     {
         return ['maradigma'];
     }
 
+    /**
+     * Registers the controls exposed by the widget.
+     */
     protected function register_controls(): void
     {
         $shellSelector = '{{WRAPPER}} .md-booking-widget-shell';
@@ -1510,6 +1525,9 @@ final class BoatBookNowWidget extends BaseSingleBoatWidget
         $this->end_controls_section();
     }
 
+    /**
+     * Renders the component output.
+     */
     protected function render(): void {
         $expandRaw = trim((string) $this->get_settings_for_display('api_expand'));
 

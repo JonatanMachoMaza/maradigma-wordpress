@@ -1,11 +1,30 @@
 <?php
+/**
+ * Compile Maradigma gettext PO catalogs into binary MO catalogs.
+ *
+ * This PHP 8.3-compatible CLI entry point can compile either one PO catalog or
+ * every PO catalog in a configured languages directory. Relative paths are
+ * resolved from the plugin root, and an existing destination MO file may be
+ * overwritten.
+ *
+ * Exit codes:
+ * - 0: Help was displayed, or every requested catalog compiled successfully.
+ * - 1: Invocation, bootstrap, compilation, or output validation failed.
+ *
+ * @package Maradigma
+ * @internal
+ */
+
 declare(strict_types=1);
+
+use Maradigma\Autoload;
+use Maradigma\Support\PoToMoCompiler;
 
 if (!defined('ABSPATH') && PHP_SAPI !== 'cli') {
     exit;
 }
 
-// ✅ Hard block: only CLI
+// Refuse direct web execution even when WordPress has already defined ABSPATH.
 if (PHP_SAPI !== 'cli') {
     header('HTTP/1.1 403 Forbidden');
     echo "Forbidden\n";
@@ -18,9 +37,7 @@ if ($root === false) {
     exit(1);
 }
 
-// ---------------------------------------------------------------------
-// Bootstrap minimal del plugin (para que funcione tu autoload interno)
-// ---------------------------------------------------------------------
+// Define only the constants required by the plugin's internal autoloader.
 if (!defined('MARADIGMA_PLUGIN_DIR')) {
     define('MARADIGMA_PLUGIN_DIR', $root . DIRECTORY_SEPARATOR);
 }
@@ -28,13 +45,13 @@ if (!defined('MARADIGMA_INCLUDES_DIR')) {
     define('MARADIGMA_INCLUDES_DIR', MARADIGMA_PLUGIN_DIR . 'includes' . DIRECTORY_SEPARATOR);
 }
 
-// 1) Composer autoload (si existe)
+// Load Composer first when dependencies have been installed.
 $composerAutoload = $root . '/vendor/autoload.php';
 if (is_file($composerAutoload)) {
     require_once $composerAutoload;
 }
 
-// 2) Autoload interno del plugin (tu caso)
+// Bootstrap the plugin's internal PSR-4-compatible autoloader.
 $pluginAutoload = MARADIGMA_INCLUDES_DIR . 'Autoload.php';
 if (!is_file($pluginAutoload)) {
     fwrite(STDERR, "ERROR: Plugin autoload not found at: {$pluginAutoload}\n");
@@ -42,44 +59,44 @@ if (!is_file($pluginAutoload)) {
 }
 require_once $pluginAutoload;
 
-if (!class_exists(\Maradigma\Autoload::class)) {
+if (!class_exists(Autoload::class)) {
     fwrite(STDERR, "ERROR: Maradigma\\Autoload not found after requiring Autoload.php\n");
     exit(1);
 }
-\Maradigma\Autoload::register(MARADIGMA_PLUGIN_DIR);
+Autoload::register(MARADIGMA_PLUGIN_DIR);
 
-// Ahora ya debería existir la clase
-if (!class_exists(\Maradigma\Support\PoToMoCompiler::class)) {
+if (!class_exists(PoToMoCompiler::class)) {
     fwrite(STDERR, "ERROR: Class Maradigma\\Support\\PoToMoCompiler not found. Check file path + namespace.\n");
     exit(1);
 }
 
-use Maradigma\Support\PoToMoCompiler;
-
-// ---------------------------------------------------------------------
-// Helpers CLI
-// ---------------------------------------------------------------------
+/** @var list<string> $argv Command-line arguments, including the script name. */
 $argv = $_SERVER['argv'] ?? [];
 $argc = $_SERVER['argc'] ?? 0;
 
+/**
+ * Write command usage instructions to standard output.
+ */
 function usage(): void
 {
-    echo <<<TXT
-Maradigma PO->MO compiler (CLI)
+    $lines = [
+        'Maradigma PO-to-MO compiler (CLI)',
+        '',
+        'Usage:',
+        '  php bin/compile-translations.php --all',
+        '  php bin/compile-translations.php --po=languages/maradigma-es_ES.po',
+        '  php bin/compile-translations.php --po=... --mo=...',
+        '',
+        'Options:',
+        '  --all                 Compile all *.po files in the languages directory',
+        '  --po=PATH             PO path, absolute or relative to the plugin root',
+        '  --mo=PATH             Optional MO output path, absolute or relative',
+        '  --languages-dir=PATH  Languages directory (default: languages)',
+        '  --help                Show this help',
+        '',
+    ];
 
-Usage:
-  php bin/compile-translations.php --all
-  php bin/compile-translations.php --po=languages/maradigma-es_ES.po
-  php bin/compile-translations.php --po=... --mo=...
-
-Options:
-  --all                 Compile all *.po inside /languages
-  --po=PATH             Path to a .po file (relative to plugin root or absolute)
-  --mo=PATH             Optional output .mo path (relative to plugin root or absolute)
-  --languages-dir=PATH  Optional languages directory (default: languages)
-  --help                Show this help
-
-TXT;
+    fwrite(STDOUT, implode(PHP_EOL, $lines) . PHP_EOL);
 }
 
 if ($argc <= 1 || in_array('--help', $argv, true) || in_array('-h', $argv, true)) {
@@ -87,7 +104,16 @@ if ($argc <= 1 || in_array('--help', $argv, true) || in_array('-h', $argv, true)
     exit(0);
 }
 
-// Parse args
+/**
+ * Normalized compiler arguments.
+ *
+ * @var array{
+ *     all: bool,
+ *     po: string|null,
+ *     mo: string|null,
+ *     languages_dir: string
+ * } $args
+ */
 $args = [
     'all'           => in_array('--all', $argv, true),
     'po'            => null,
@@ -95,26 +121,41 @@ $args = [
     'languages_dir' => 'languages',
 ];
 
-foreach ($argv as $a) {
-    if (str_starts_with($a, '--po=')) {
-        $args['po'] = substr($a, 5);
-    } elseif (str_starts_with($a, '--mo=')) {
-        $args['mo'] = substr($a, 5);
-    } elseif (str_starts_with($a, '--languages-dir=')) {
-        $args['languages_dir'] = substr($a, 16);
+foreach ($argv as $argument) {
+    if (str_starts_with($argument, '--po=')) {
+        $args['po'] = substr($argument, 5);
+    } elseif (str_starts_with($argument, '--mo=')) {
+        $args['mo'] = substr($argument, 5);
+    } elseif (str_starts_with($argument, '--languages-dir=')) {
+        $args['languages_dir'] = substr($argument, 16);
     }
 }
 
-$resolvePath = static function (string $p) use ($root): string {
-    $p = trim($p);
-    if ($p === '') {
+/**
+ * Resolve a user-supplied path without requiring the destination to exist.
+ *
+ * Absolute Windows, UNC, and Unix paths are returned unchanged. Relative paths
+ * are anchored to the plugin root.
+ *
+ * @param string $path Absolute or plugin-root-relative path.
+ *
+ * @return string Resolved path, or an empty string for empty input.
+ */
+$resolvePath = static function (string $path) use ($root): string {
+    $path = trim($path);
+    if ($path === '') {
         return '';
     }
-    // Absolute Windows (C:\) or UNC (\\server\share) or unix (/)
-    if (preg_match('~^[A-Za-z]:\\\\~', $p) === 1 || str_starts_with($p, '\\\\') || str_starts_with($p, '/')) {
-        return $p;
+
+    if (
+        preg_match('~^[A-Za-z]:\\\\~', $path) === 1
+        || str_starts_with($path, '\\\\')
+        || str_starts_with($path, '/')
+    ) {
+        return $path;
     }
-    return $root . DIRECTORY_SEPARATOR . ltrim($p, '/\\');
+
+    return $root . DIRECTORY_SEPARATOR . ltrim($path, '/\\');
 };
 
 try {
@@ -128,6 +169,7 @@ try {
         if ($files === false || empty($files)) {
             throw new RuntimeException("No .po files found in: {$langDir}");
         }
+        /** @var list<string> $files */
 
         echo "Plugin root: {$root}\n";
         echo "Languages dir: {$langDir}\n\n";
@@ -136,7 +178,7 @@ try {
         $fail = 0;
 
         foreach ($files as $poPath) {
-            $poPath = (string)$poPath;
+            $poPath = (string) $poPath;
             $moPath = preg_replace('~\.po$~i', '.mo', $poPath) ?: ($poPath . '.mo');
 
             echo "Compiling:\n  PO: {$poPath}\n  MO: {$moPath}\n";
@@ -144,13 +186,13 @@ try {
             PoToMoCompiler::compile($poPath, $moPath);
 
             clearstatcache(true, $moPath);
-            $size = is_file($moPath) ? (int)filesize($moPath) : 0;
+            $size = is_file($moPath) ? (int) filesize($moPath) : 0;
 
             if ($size > 0) {
-                echo "  ✅ OK ({$size} bytes)\n\n";
+                echo "  [OK] {$size} bytes\n\n";
                 $ok++;
             } else {
-                echo "  ❌ FAILED (empty output)\n\n";
+                echo "  [FAILED] Empty output\n\n";
                 $fail++;
             }
         }
@@ -180,16 +222,15 @@ try {
     PoToMoCompiler::compile($poPath, $moPath);
 
     clearstatcache(true, $moPath);
-    $size = is_file($moPath) ? (int)filesize($moPath) : 0;
+    $size = is_file($moPath) ? (int) filesize($moPath) : 0;
 
     if ($size <= 0) {
         throw new RuntimeException('MO file generated but empty (0 bytes).');
     }
 
-    echo "✅ OK ({$size} bytes)\n";
+    echo "[OK] {$size} bytes\n";
     exit(0);
-
 } catch (Throwable $e) {
-    fwrite(STDERR, "ERROR: " . $e->getMessage() . "\n");
+    fwrite(STDERR, 'ERROR: ' . $e->getMessage() . PHP_EOL);
     exit(1);
 }

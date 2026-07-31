@@ -29,6 +29,9 @@ use Maradigma\Support\RuntimeContext;
  */
 final class BoatPermalinks
 {
+    /**
+     * Registers the component's WordPress hooks.
+     */
     public static function init(): void
     {
         /**
@@ -39,6 +42,9 @@ final class BoatPermalinks
         add_action('init', [__CLASS__, 'addRewriteRules'], 20);
     }
 
+    /**
+     * Filters boat permalink.
+     */
     public static function filterBoatPermalink(string $permalink, \WP_Post $post): string
     {
         if ($post->post_type !== BoatPostType::POST_TYPE) {
@@ -69,6 +75,9 @@ final class BoatPermalinks
         return trailingslashit(trailingslashit($langRootUrl) . $baseSlug . '/' . $postSlug);
     }
 
+    /**
+     * Adds rewrite rules.
+     */
     public static function addRewriteRules(): void
     {
         if (!self::isBoatPagesSyncEnabled()) {
@@ -120,11 +129,17 @@ final class BoatPermalinks
         }
     }
 
+    /**
+     * Determines whether boat pages sync enabled.
+     */
     private static function isBoatPagesSyncEnabled(): bool
     {
         return RuntimeContext::isBoatPagesSyncEnabled();
     }
 
+    /**
+     * Returns the language assigned to a post.
+     */
     private static function getPostLang(int $postId): string
     {
         $lang = '';
@@ -152,6 +167,9 @@ final class BoatPermalinks
         return $lang;
     }
 
+    /**
+     * Returns the plugin default language.
+     */
     private static function getPluginDefaultLang(): string
     {
         $lang = '';
@@ -222,11 +240,17 @@ final class BoatPermalinks
         return $fallback;
     }
 
+    /**
+     * Returns the localized boat archive base slug for a language.
+     */
     private static function getBoatsBaseSlugForLang(string $lang): string
     {
         return RuntimeContext::getBoatsBaseSlugForLang($lang);
     }
 
+    /**
+     * Normalizes base slug.
+     */
     private static function normalizeBaseSlug(string $baseSlug, string $fallback = 'boats'): string
     {
         $baseSlug = trim($baseSlug);

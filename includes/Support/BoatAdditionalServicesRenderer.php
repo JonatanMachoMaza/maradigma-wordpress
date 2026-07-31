@@ -670,6 +670,9 @@ final class BoatAdditionalServicesRenderer
         return null;
     }
 
+    /**
+     * Selects amount to show.
+     */
     private static function chooseAmountToShow(?float $baseAmount, ?float $totalAmount, string $vatMode): float
     {
         return match ($vatMode) {
@@ -954,6 +957,9 @@ final class BoatAdditionalServicesRenderer
         return \trim($number . ' ' . $currency);
     }
 
+    /**
+     * Returns the display symbol for a currency code.
+     */
     private static function currencySymbol(string $currency): string
     {
         return match (\strtoupper($currency)) {

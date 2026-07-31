@@ -8,8 +8,14 @@ if (!defined('ABSPATH')) {
     exit;
 }
 
+/**
+ * Handles administrative actions for settings log.
+ */
 final class SettingsLogActions
 {
+    /**
+     * Streams the selected log file as a download.
+     */
     public static function download(): void
     {
         if (!current_user_can('manage_options')) {
@@ -52,6 +58,9 @@ final class SettingsLogActions
         exit;
     }
 
+    /**
+     * Clears the stored data for this component.
+     */
     public static function clear(): void
     {
         if (!current_user_can('manage_options')) {

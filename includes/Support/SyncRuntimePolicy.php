@@ -25,6 +25,9 @@ final class SyncRuntimePolicy
             || ($now - $lastActivityAt) >= self::LOCK_STALE_SECONDS;
     }
 
+    /**
+     * Determines whether yield.
+     */
     public static function shouldYield(float $startedAt, float $now): bool
     {
         if ($startedAt <= 0.0 || $now < $startedAt) {
@@ -34,6 +37,9 @@ final class SyncRuntimePolicy
         return ($now - $startedAt) >= self::BATCH_TIME_BUDGET_SECONDS;
     }
 
+    /**
+     * Calculates the elapsed runtime in milliseconds.
+     */
     public static function elapsedMilliseconds(float $startedAt, float $now): int
     {
         if ($startedAt <= 0.0 || $now <= $startedAt) {

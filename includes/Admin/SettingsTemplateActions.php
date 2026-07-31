@@ -8,8 +8,14 @@ if (!defined('ABSPATH')) {
     exit;
 }
 
+/**
+ * Handles administrative actions for settings template.
+ */
 final class SettingsTemplateActions
 {
+    /**
+     * Imports boat into Elementor master template.
+     */
     public static function importBoatIntoElementorMasterTemplate(): void
     {
         if (!current_user_can('manage_options')) {
@@ -66,6 +72,9 @@ final class SettingsTemplateActions
         self::redirect('elementor_template_imported');
     }
 
+    /**
+     * Opens Gutenberg template.
+     */
     public static function openGutenbergTemplate(): void
     {
         if (!current_user_can('manage_options')) {
@@ -92,6 +101,9 @@ final class SettingsTemplateActions
         exit;
     }
 
+    /**
+     * Resets Gutenberg template.
+     */
     public static function resetGutenbergTemplate(): void
     {
         if (!current_user_can('manage_options')) {
@@ -111,6 +123,9 @@ final class SettingsTemplateActions
         self::redirect($ok ? 'gutenberg_template_reset' : 'gutenberg_template_reset_error');
     }
 
+    /**
+     * Starts propagation of the master layout to synchronized boat pages.
+     */
     public static function startTemplateSync(): void
     {
         if (!current_user_can('manage_options')) {
@@ -138,6 +153,9 @@ final class SettingsTemplateActions
         self::redirect('template_sync_started');
     }
 
+    /**
+     * Stops propagation of the master layout to synchronized boat pages.
+     */
     public static function stopTemplateSync(): void
     {
         if (!current_user_can('manage_options')) {
@@ -168,6 +186,9 @@ final class SettingsTemplateActions
         return class_exists($class) ? $class : '';
     }
 
+    /**
+     * Redirects back to the settings page with a status notice.
+     */
     private static function redirect(string $notice): void
     {
         wp_safe_redirect(add_query_arg([
@@ -178,6 +199,9 @@ final class SettingsTemplateActions
         exit;
     }
 
+    /**
+     * Regenerates Elementor CSS safe.
+     */
     private static function regenerateElementorCssSafe(int $postId): void
     {
         try {
@@ -191,6 +215,9 @@ final class SettingsTemplateActions
         }
     }
 
+    /**
+     * Clears Elementor cache safe.
+     */
     private static function clearElementorCacheSafe(): void
     {
         try {

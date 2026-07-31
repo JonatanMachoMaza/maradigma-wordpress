@@ -28,6 +28,9 @@ final class Plugin
 {
     private static bool $bootstrapped = false;
 
+    /**
+     * Registers the component's WordPress hooks.
+     */
     public static function init(): void
     {
         if (self::$bootstrapped) {
@@ -87,6 +90,9 @@ final class Plugin
         }
     }
 
+    /**
+     * Initializes integrations after all WordPress plugins have loaded.
+     */
     public static function onPluginsLoaded(): void
     {
         try {
@@ -243,6 +249,9 @@ final class Plugin
         }
     }
 
+    /**
+     * Adds admin bar nodes.
+     */
     public static function addAdminBarNodes(\WP_Admin_Bar $adminBar): void
     {
         if (!\is_admin_bar_showing() || !\current_user_can('manage_options')) {
@@ -283,6 +292,9 @@ final class Plugin
         ]);
     }
 
+    /**
+     * Ensures Elementor cpt support is available and correctly configured.
+     */
     private static function ensureElementorCptSupport(): void
     {
         \add_action('elementor/init', static function (): void {
@@ -306,6 +318,9 @@ final class Plugin
         }, 20);
     }
 
+    /**
+     * Runs plugin activation tasks.
+     */
     public static function onActivate(): void
     {
         if (\class_exists(\Maradigma\Support\MultilangAdapter::class)) {
@@ -333,6 +348,9 @@ final class Plugin
         \flush_rewrite_rules();
     }
 
+    /**
+     * Runs plugin deactivation tasks.
+     */
     public static function onDeactivate(): void
     {
         \flush_rewrite_rules();

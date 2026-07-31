@@ -8,6 +8,9 @@ if (!defined('ABSPATH')) {
     exit;
 }
 
+/**
+ * Calculates synchronization and template statistics for the settings interface.
+ */
 final class SettingsTemplateStats
 {
     /**
@@ -61,6 +64,9 @@ final class SettingsTemplateStats
         return $out;
     }
 
+    /**
+     * Returns master template ID.
+     */
     public static function getMasterTemplateId(): int
     {
         $settings = \Maradigma\SettingsPage::getSettings();

@@ -18,21 +18,33 @@ use Elementor\Group_Control_Box_Shadow;
  */
 final class BoatGalleryWidget extends BaseSingleBoatWidget
 {
+    /**
+     * Returns the widget's stable Elementor identifier.
+     */
     public function get_name(): string
     {
         return 'maradigma_boat_gallery';
     }
 
+    /**
+     * Returns the widget title shown in Elementor.
+     */
     public function get_title(): string
     {
         return \esc_html__('Maradigma Boat Gallery', 'maradigma');
     }
 
+    /**
+     * Returns the Elementor icon identifier for the widget.
+     */
     public function get_icon(): string
     {
         return 'eicon-gallery-grid';
     }
 
+    /**
+     * Returns the Elementor categories assigned to the widget.
+     */
     public function get_categories(): array
     {
         return ['maradigma'];
@@ -46,11 +58,17 @@ final class BoatGalleryWidget extends BaseSingleBoatWidget
         return ['maradigma-swiper-css'];
     }
 
+    /**
+     * Returns the script handles required by the widget.
+     */
     public function get_script_depends(): array
     {
         return ['maradigma-swiper', 'maradigma-boat-gallery'];
     }
 
+    /**
+     * Registers the controls exposed by the widget.
+     */
     protected function register_controls(): void
     {
         $this->start_controls_section(
@@ -475,6 +493,9 @@ final class BoatGalleryWidget extends BaseSingleBoatWidget
         $this->end_controls_section();
     }
 
+    /**
+     * Renders the component output.
+     */
     protected function render(): void
     {
         // Pedimos imágenes desde API

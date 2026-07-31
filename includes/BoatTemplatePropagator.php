@@ -29,6 +29,9 @@ final class BoatTemplatePropagator
     private const DEBUG_CHANNEL = 'elementor-template-sync';
     private const TEMPLATE_SYNC_BATCH_SIZE = 100;
 
+    /**
+     * Registers the component's WordPress hooks.
+     */
     public static function init(): void
     {
         add_action('elementor/document/after_save', [__CLASS__, 'onElementorAfterSave'], 10, 2);
@@ -101,6 +104,9 @@ final class BoatTemplatePropagator
         self::handleSavedPost($postId, 'save_post_elementor_library');
     }
 
+    /**
+     * Handles saved post.
+     */
     private static function handleSavedPost(int $postId, string $source): void
     {
         self::debug('handle_saved_post_start', [
@@ -269,6 +275,9 @@ final class BoatTemplatePropagator
         return true;
     }
 
+    /**
+     * Returns Elementor master template ID.
+     */
     private static function getElementorMasterTemplateId(): int
     {
         // This method runs from Elementor save hooks. Creating a missing template
@@ -278,6 +287,9 @@ final class BoatTemplatePropagator
         return $templateId;
     }
 
+    /**
+     * Determines whether sync Elementor templates.
+     */
     private static function canSyncElementorTemplates(): bool
     {
         if (!class_exists(SettingsPage::class) || !method_exists(SettingsPage::class, 'getSettings')) {
@@ -300,6 +312,9 @@ final class BoatTemplatePropagator
         return $allowed;
     }
 
+    /**
+     * Marks boat as custom layout.
+     */
     private static function markBoatAsCustomLayout(int $postId): void
     {
         if ($postId <= 0 || !class_exists(MetaManager::class)) {
@@ -322,6 +337,9 @@ final class BoatTemplatePropagator
         ]);
     }
 
+    /**
+     * Determines whether autosave or revision.
+     */
     private static function isAutosaveOrRevision(int $postId): bool
     {
         if (defined('DOING_AUTOSAVE') && DOING_AUTOSAVE) {
@@ -383,6 +401,9 @@ final class BoatTemplatePropagator
         Debugger::log(self::DEBUG_CHANNEL, $message, $context);
     }
 
+    /**
+     * Returns a sanitized scalar value from the current request.
+     */
     private static function requestValue(string $key): string
     {
         // Elementor owns and validates the save request before invoking these hooks.

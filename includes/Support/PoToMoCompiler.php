@@ -172,6 +172,9 @@ final class PoToMoCompiler
         return $entries;
     }
 
+    /**
+     * Extracts and decodes the quoted value from a PO line.
+     */
     private static function extractQuotedString(string $line): string
     {
         // Find first " and last "
@@ -188,6 +191,9 @@ final class PoToMoCompiler
         return self::unescapePoString($inside);
     }
 
+    /**
+     * Decodes escape sequences from a PO string.
+     */
     private static function unescapePoString(string $s): string
     {
         // PO uses C-like escapes

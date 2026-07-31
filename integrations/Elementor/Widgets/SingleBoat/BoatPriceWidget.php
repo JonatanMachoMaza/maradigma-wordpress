@@ -18,26 +18,41 @@ use Maradigma\Support\BoatPricesRenderer;
  */
 final class BoatPriceWidget extends BaseSingleBoatWidget
 {
+    /**
+     * Returns the widget's stable Elementor identifier.
+     */
     public function get_name(): string
     {
         return 'maradigma_boat_price';
     }
 
+    /**
+     * Returns the widget title shown in Elementor.
+     */
     public function get_title(): string
     {
         return esc_html__('Maradigma Boat Prices', 'maradigma');
     }
 
+    /**
+     * Returns the Elementor icon identifier for the widget.
+     */
     public function get_icon(): string
     {
         return 'eicon-price-table';
     }
 
+    /**
+     * Returns the Elementor categories assigned to the widget.
+     */
     public function get_categories(): array
     {
         return ['maradigma'];
     }
 
+    /**
+     * Registers the controls exposed by the widget.
+     */
     protected function register_controls(): void
     {
         // -----------------------
@@ -303,6 +318,9 @@ final class BoatPriceWidget extends BaseSingleBoatWidget
         $this->end_controls_section();
     }
 
+    /**
+     * Renders the component output.
+     */
     protected function render(): void
     {
         $ctx = $this->resolveContext(['service_prices']);
@@ -646,6 +664,9 @@ final class BoatPriceWidget extends BaseSingleBoatWidget
         });
     }
 
+    /**
+     * Formats range.
+     */
     private function formatRange(
         ?\DateTimeImmutable $from,
         ?\DateTimeImmutable $to,
@@ -695,6 +716,9 @@ final class BoatPriceWidget extends BaseSingleBoatWidget
         return $a . ' - ' . $b;
     }
 
+    /**
+     * Returns the localized month name for a date.
+     */
     private function i18nMonthName(\DateTimeImmutable $d): string
     {
         $ts = $d->getTimestamp();
@@ -712,6 +736,9 @@ final class BoatPriceWidget extends BaseSingleBoatWidget
         return mb_strtoupper($first, 'UTF-8') . $rest;
     }
 
+    /**
+     * Formats a date using WordPress localization.
+     */
     private function i18nDate(\DateTimeImmutable $d, string $format): string
     {
         $ts = $d->getTimestamp();
@@ -719,6 +746,9 @@ final class BoatPriceWidget extends BaseSingleBoatWidget
         return trim($s);
     }
 
+    /**
+     * Parses a date value or returns null when it is invalid.
+     */
     private function parseDateOrNull(string $v): ?\DateTimeImmutable
     {
         $v = trim($v);
@@ -751,6 +781,9 @@ final class BoatPriceWidget extends BaseSingleBoatWidget
         }
     }
 
+    /**
+     * Selects first numeric.
+     */
     private function pickFirstNumeric(array $node, array $keys): ?float
     {
         foreach ($keys as $k) {
@@ -764,6 +797,9 @@ final class BoatPriceWidget extends BaseSingleBoatWidget
         return null;
     }
 
+    /**
+     * Selects first string.
+     */
     private function pickFirstString(array $node, array $keys): string
     {
         foreach ($keys as $k) {
@@ -777,6 +813,9 @@ final class BoatPriceWidget extends BaseSingleBoatWidget
         return '';
     }
 
+    /**
+     * Selects first bool or null.
+     */
     private function pickFirstBoolOrNull(array $node, array $keys): ?bool
     {
         foreach ($keys as $k) {
@@ -891,6 +930,9 @@ final class BoatPriceWidget extends BaseSingleBoatWidget
         return $num . ' ' . $currency;
     }
 
+    /**
+     * Returns the display symbol for a currency code.
+     */
     private function currencySymbol(string $currency): string
     {
         switch (strtoupper($currency)) {

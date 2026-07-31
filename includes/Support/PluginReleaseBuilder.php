@@ -310,6 +310,9 @@ final class PluginReleaseBuilder
         $this->removeDirectoryRecursive($this->tempBuildDirPath);
     }
 
+    /**
+     * Removes a directory and all of its contents recursively.
+     */
     private function removeDirectoryRecursive(string $directory): void
     {
         $items = @scandir($directory);

@@ -899,6 +899,9 @@ final class WPBakeryIntegration
         return true;
     }
 
+    /**
+     * Determines whether the post content matches the current WPBakery master template.
+     */
     public static function postMatchesWPBakeryMasterTemplate(int $postId): bool
     {
         if ($postId <= 0) {
@@ -916,6 +919,9 @@ final class WPBakeryIntegration
         );
     }
 
+    /**
+     * Returns WPBakery template apply skip reason.
+     */
     public static function getWPBakeryTemplateApplySkipReason(int $postId, string $mode = 'seed_missing'): string
     {
         if ($postId <= 0) {
@@ -977,6 +983,9 @@ final class WPBakeryIntegration
         ]);
     }
 
+    /**
+     * Marks as WPBakery.
+     */
     private static function markAsWPBakery(int $postId, string $content): void
     {
         \update_post_meta($postId, self::META_LAYOUT_BUILDER, 'wpbakery');
@@ -985,17 +994,26 @@ final class WPBakeryIntegration
         \update_post_meta($postId, self::META_WPBAKERY_CONTENT_HASH, self::hashWPBakeryTemplateContent($content));
     }
 
+    /**
+     * Determines whether managed WPBakery layout.
+     */
     private static function isManagedWPBakeryLayout(int $postId): bool
     {
         return (bool) \get_post_meta($postId, self::META_WPBAKERY_SEEDED, true)
             || \get_post_meta($postId, self::META_LAYOUT_BUILDER, true) === 'wpbakery';
     }
 
+    /**
+     * Returns post content.
+     */
     private static function getPostContent(int $postId): string
     {
         return (string) \get_post_field('post_content', $postId);
     }
 
+    /**
+     * Returns boat post type.
+     */
     private static function getBoatPostType(): string
     {
         if (\class_exists(BoatPostType::class) && \defined(BoatPostType::class . '::POST_TYPE')) {
@@ -1005,6 +1023,9 @@ final class WPBakeryIntegration
         return 'maradigma_boat';
     }
 
+    /**
+     * Returns configured layout builder.
+     */
     private static function getConfiguredLayoutBuilder(): string
     {
         $settings = \class_exists(SettingsPage::class) ? SettingsPage::getSettings() : [];
@@ -1013,6 +1034,9 @@ final class WPBakeryIntegration
         return \in_array($builder, ['elementor', 'gutenberg', 'wpbakery'], true) ? $builder : 'elementor';
     }
 
+    /**
+     * Determines whether show template menu.
+     */
     private static function shouldShowTemplateMenu(): bool
     {
         $settings = \class_exists(SettingsPage::class) ? SettingsPage::getSettings() : [];

@@ -169,6 +169,9 @@ final class BoatCardEngine
         'multilang_provider',
     ];
 
+    /**
+     * Renders the component output.
+     */
     public function render(string $templateHtml, array $boat, array $context = []): string
     {
         $locale = self::localeForLanguage(
@@ -203,6 +206,9 @@ final class BoatCardEngine
         }
     }
 
+    /**
+     * Normalizes legacy slug href.
+     */
     private function normalizeLegacySlugHref(string $template): string
     {
         return (string) preg_replace(
@@ -274,6 +280,9 @@ final class BoatCardEngine
         }
     }
 
+    /**
+     * Normalizes language code.
+     */
     private static function normalizeLanguageCode(string $language): string
     {
         $language = strtolower(trim($language));
@@ -287,6 +296,9 @@ final class BoatCardEngine
         return preg_replace('/[^a-z0-9]/', '', $language) ?: '';
     }
 
+    /**
+     * Resolves the WordPress locale for a language code.
+     */
     private static function localeForLanguage(string $language, string $fallbackLocale): string
     {
         $language = self::normalizeLanguageCode($language);
@@ -303,6 +315,11 @@ final class BoatCardEngine
         return $locales[$language] ?? $fallbackLocale;
     }
 
+    /**
+     * Normalizes a value to its boolean representation.
+     *
+     * @param mixed $value Value to process.
+     */
     private static function truthy($value): bool
     {
         if (\is_bool($value)) {
@@ -784,6 +801,9 @@ final class BoatCardEngine
         return $out;
     }
 
+    /**
+     * Resolves boat ID.
+     */
     private function resolveBoatId(array $boat): string
     {
         foreach (['id', 'id_gi', 'id_group_item'] as $k) {
@@ -798,6 +818,9 @@ final class BoatCardEngine
         return '';
     }
 
+    /**
+     * Builds media tokens from WordPress cache.
+     */
     private function buildMediaTokensFromWpCache(string $boatId, array $context, bool $force = false): array
     {
         $boatId = trim($boatId);
@@ -833,6 +856,9 @@ final class BoatCardEngine
         return $out;
     }
 
+    /**
+     * Builds media tokens.
+     */
     private function buildMediaTokens(string $boatId, array $context, string $forcedImageMain = ''): array
     {
         $forcedImageMain = trim($forcedImageMain);
@@ -894,6 +920,9 @@ final class BoatCardEngine
         return $out;
     }
 
+    /**
+     * Sanitizes token suffix.
+     */
     private function sanitizeTokenSuffix(string $raw): string
     {
         $raw = strtolower(trim($raw));
@@ -905,6 +934,9 @@ final class BoatCardEngine
         return trim($raw, '_');
     }
 
+    /**
+     * Builds image from service images cache.
+     */
     private function buildImageFromServiceImagesCache(string $boatId, array $context): string
     {
         $boatId = trim($boatId);
@@ -1129,6 +1161,9 @@ final class BoatCardEngine
         return $template;
     }
 
+    /**
+     * Evaluates a conditional expression used by a boat card template.
+     */
     private function evaluateTemplateCondition(string $condition, array $values, array $context): bool
     {
         $condition = \strtolower(\trim($condition));
@@ -1171,6 +1206,9 @@ final class BoatCardEngine
         return true;
     }
 
+    /**
+     * Determines whether selected date range.
+     */
     private static function hasSelectedDateRange(array $context): bool
     {
         $dateStart = trim((string) ($context['date_start'] ?? ''));
@@ -1185,6 +1223,9 @@ final class BoatCardEngine
         self::$moneyFormatStack[] = $format;
     }
 
+    /**
+     * Restores the previous monetary formatting context.
+     */
     public static function popMoneyFormat(): void
     {
         \array_pop(self::$moneyFormatStack);
@@ -1252,6 +1293,9 @@ final class BoatCardEngine
         ]);
     }
 
+    /**
+     * Determines whether price debug request.
+     */
     private static function isPriceDebugRequest(): bool
     {
         // Read-only diagnostic flag; Debugger still controls whether output is recorded.
@@ -1387,6 +1431,9 @@ final class BoatCardEngine
         return $found ? $summary : [];
     }
 
+    /**
+     * Builds boat URL.
+     */
     private function buildBoatUrl(string $slug, string $id, array $context, string $preferUrl = ''): string
     {
         $preferUrl = trim((string) $preferUrl);
@@ -1877,6 +1924,9 @@ final class BoatCardEngine
         return self::sanitizeHtml($html);
     }
 
+    /**
+     * Sanitizes HTML.
+     */
     private static function sanitizeHtml(string $html): string
     {
         return wp_kses($html, self::getAllowedHtml());

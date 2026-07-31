@@ -51,6 +51,9 @@ final class BoatTemplateSyncAllService
     private const DEFAULT_BATCH = 100;
     private const MAX_BATCH     = 500;
 
+    /**
+     * Registers the component's WordPress hooks.
+     */
     public static function init(): void
     {
         \add_action(self::CRON_HOOK, [self::class, 'tick']);
@@ -58,6 +61,9 @@ final class BoatTemplateSyncAllService
         \add_action('wp_ajax_' . self::AJAX_PUMP_ACTION, [self::class, 'handleAdminPump']);
     }
 
+    /**
+     * Starts the background workflow.
+     */
     public static function start(int $batchSize = self::DEFAULT_BATCH, ?string $layoutBuilder = null, string $mode = 'overwrite'): void
     {
         $batchSize = max(1, min(self::MAX_BATCH, $batchSize));
@@ -182,6 +188,9 @@ final class BoatTemplateSyncAllService
         }
     }
 
+    /**
+     * Stops the background workflow and clears pending work.
+     */
     public static function stop(): void
     {
         $state = self::getState();
@@ -196,6 +205,9 @@ final class BoatTemplateSyncAllService
         }
     }
 
+    /**
+     * Handles admin status.
+     */
     public static function handleAdminStatus(): void
     {
         self::registerFatalLogger('ajax_status');
@@ -204,6 +216,9 @@ final class BoatTemplateSyncAllService
         \wp_send_json_success(self::getUiStatusPayload());
     }
 
+    /**
+     * Handles admin pump.
+     */
     public static function handleAdminPump(): void
     {
         self::registerFatalLogger('ajax_pump');
@@ -227,6 +242,9 @@ final class BoatTemplateSyncAllService
         \wp_send_json_success(self::getUiStatusPayload());
     }
 
+    /**
+     * Processes the next scheduled workflow batch.
+     */
     public static function tick(): void
     {
         self::registerFatalLogger('tick');
@@ -446,12 +464,18 @@ final class BoatTemplateSyncAllService
         ];
     }
 
+    /**
+     * Returns the timestamp of the next scheduled template synchronization batch.
+     */
     public static function getNextScheduledAt(): int
     {
         $next = \wp_next_scheduled(self::CRON_HOOK);
         return $next ? (int) $next : 0;
     }
 
+    /**
+     * Validates the nonce and capabilities for a background AJAX request.
+     */
     private static function checkAdminAjaxRequest(): void
     {
         if (!\current_user_can('manage_options')) {
@@ -618,6 +642,9 @@ final class BoatTemplateSyncAllService
         $state[$legacyKey] = $state[$pageKey];
     }
 
+    /**
+     * Removes all pending cron events for the template synchronization workflow.
+     */
     private static function unscheduleAllTicks(): void
     {
         $ts = wp_next_scheduled(self::CRON_HOOK);
@@ -633,6 +660,9 @@ final class BoatTemplateSyncAllService
         update_option(self::OPTION_STATE, $state, false);
     }
 
+    /**
+     * Returns configured layout builder.
+     */
     private static function getConfiguredLayoutBuilder(): string
     {
         $settings = \Maradigma\SettingsPage::getSettings();
@@ -641,6 +671,9 @@ final class BoatTemplateSyncAllService
         return in_array($builder, ['elementor', 'gutenberg', 'wpbakery'], true) ? $builder : 'elementor';
     }
 
+    /**
+     * Loads Gutenberg integration.
+     */
     private static function loadGutenbergIntegration(): bool
     {
         if (class_exists(GutenbergIntegration::class)) {
@@ -655,6 +688,9 @@ final class BoatTemplateSyncAllService
         return class_exists(GutenbergIntegration::class);
     }
 
+    /**
+     * Loads WPBakery integration.
+     */
     private static function loadWPBakeryIntegration(): bool
     {
         if (class_exists(WPBakeryIntegration::class)) {
@@ -669,6 +705,9 @@ final class BoatTemplateSyncAllService
         return class_exists(WPBakeryIntegration::class);
     }
 
+    /**
+     * Regenerates Elementor CSS when the integration is available.
+     */
     private static function regenerateElementorCssSafe(int $postId): void
     {
         try {
@@ -716,6 +755,9 @@ final class BoatTemplateSyncAllService
         Debugger::log(self::DEBUG_CHANNEL, $message, $context);
     }
 
+    /**
+     * Registers a shutdown handler that records fatal template synchronization errors.
+     */
     private static function registerFatalLogger(string $stage): void
     {
         static $registered = [];

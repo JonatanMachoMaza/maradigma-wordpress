@@ -14,26 +14,41 @@ use Elementor\Group_Control_Typography;
  */
 final class BoatTitleWidget extends BaseSingleBoatWidget
 {
+    /**
+     * Returns the widget's stable Elementor identifier.
+     */
     public function get_name(): string
     {
         return 'maradigma_boat_title';
     }
 
+    /**
+     * Returns the widget title shown in Elementor.
+     */
     public function get_title(): string
     {
         return \esc_html__('Maradigma Boat Title', 'maradigma');
     }
 
+    /**
+     * Returns the Elementor icon identifier for the widget.
+     */
     public function get_icon(): string
     {
         return 'eicon-t-letter';
     }
 
+    /**
+     * Returns the Elementor categories assigned to the widget.
+     */
     public function get_categories(): array
     {
         return ['maradigma'];
     }
 
+    /**
+     * Registers the controls exposed by the widget.
+     */
     protected function register_controls(): void
     {
         $this->start_controls_section(
@@ -246,6 +261,9 @@ final class BoatTitleWidget extends BaseSingleBoatWidget
         $this->end_controls_section();
     }
 
+    /**
+     * Renders the component output.
+     */
     protected function render(): void
     {
         $tag = (string) $this->get_settings_for_display('html_tag');

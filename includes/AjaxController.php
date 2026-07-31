@@ -15,8 +15,14 @@ use Maradigma\ExternalApiClient;
 use Maradigma\Support\Debugger;
 use RuntimeException;
 
+/**
+ * Registers and handles the plugin's REST endpoints and AJAX actions.
+ */
 final class AjaxController
 {
+    /**
+     * Registers the component's WordPress hooks.
+     */
     public static function init(): void
     {
         // REST API (frontend / headless, etc.)
@@ -59,6 +65,9 @@ final class AjaxController
         add_action('wp_ajax_nopriv_maradigma_frontend_log', [__CLASS__, 'frontendLog']);
     }
 
+    /**
+     * Handles the front-end end log request.
+     */
     public static function frontendLog(): void
     {
         if (!check_ajax_referer('wp_rest', 'nonce', false)) {
@@ -197,6 +206,9 @@ final class AjaxController
         return 'Boat #' . $fallbackId;
     }
 
+    /**
+     * Registers routes.
+     */
     public static function registerRoutes(): void
     {
 
@@ -312,6 +324,9 @@ final class AjaxController
         return SettingsPage::makeExternalApiClient();
     }
 
+    /**
+     * Normalizes request language candidate.
+     */
     private static function normalizeRequestLanguageCandidate(string $language): string
     {
         $language = strtolower(trim(str_replace('-', '_', $language)));
@@ -334,6 +349,9 @@ final class AjaxController
         return $supported[$base] ?? '';
     }
 
+    /**
+     * Detects language from URL.
+     */
     private static function detectLanguageFromUrl(string $url): string
     {
         $path = (string) wp_parse_url($url, PHP_URL_PATH);
@@ -345,6 +363,9 @@ final class AjaxController
         return self::normalizeRequestLanguageCandidate((string) ($segments[0] ?? ''));
     }
 
+    /**
+     * Detects request language.
+     */
     private static function detectRequestLanguage(
         string $acceptLanguage,
         string $pllCookie,
@@ -882,6 +903,9 @@ final class AjaxController
         }
     }
 
+    /**
+     * Handles boat get.
+     */
     public static function handleBoatGet(WP_REST_Request $request): WP_REST_Response
     {
         $boatId = (string) $request->get_param('id');
@@ -1216,6 +1240,9 @@ final class AjaxController
         }
     }
 
+    /**
+     * Handles booking online.
+     */
     public static function handleBookingOnline(WP_REST_Request $request): WP_REST_Response
     {
         $params = $request->get_json_params() ?? [];
@@ -1339,6 +1366,9 @@ final class AjaxController
         }
     }
 
+    /**
+     * Sanitizes return URL after payment.
+     */
     private static function sanitizeReturnUrlAfterPayment(string $url): string
     {
         $url = trim($url);
@@ -1376,6 +1406,9 @@ final class AjaxController
         return $cleanUrl;
     }
 
+    /**
+     * Handles shop cart validate.
+     */
     public static function handleShopCartValidate(WP_REST_Request $request): WP_REST_Response
     {
         try {
@@ -1399,6 +1432,9 @@ final class AjaxController
         }
     }
 
+    /**
+     * Handles rental terms get.
+     */
     public static function handleRentalTermsGet(WP_REST_Request $request): WP_REST_Response
     {
         try {
@@ -2091,6 +2127,9 @@ final class AjaxController
         }
     }
 
+    /**
+     * Handles Elementor's boat type search request.
+     */
     public static function elementorSearchBoatTypes(): void
     {
         if (!current_user_can('edit_posts')) {
@@ -2259,6 +2298,9 @@ final class AjaxController
         }
     }
 
+    /**
+     * Checks public AJAX security.
+     */
     private static function checkPublicAjaxSecurity(): void
     {
         /**
@@ -2279,6 +2321,9 @@ final class AjaxController
         }
     }
 
+    /**
+     * Handles the front-end search builders request.
+     */
     public static function frontSearchBuilders(): void
     {
         self::checkPublicAjaxSecurity();
@@ -2329,6 +2374,9 @@ final class AjaxController
         }
     }
 
+    /**
+     * Handles the administrative get builder by ID request.
+     */
     public static function adminGetBuilderById(): void
     {
         if (!current_user_can('edit_posts')) {
@@ -2346,6 +2394,9 @@ final class AjaxController
         self::sendBuilderByIdResponse();
     }
 
+    /**
+     * Sends builder by ID response.
+     */
     private static function sendBuilderByIdResponse(): void
     {
         // The only caller validates an admin AJAX nonce before entering this helper.
@@ -2431,6 +2482,9 @@ final class AjaxController
         return [];
     }
 
+    /**
+     * Handles the front-end search boat types request.
+     */
     public static function frontSearchBoatTypes(): void
     {
         self::checkPublicAjaxSecurity();
@@ -2481,6 +2535,9 @@ final class AjaxController
         }
     }
 
+    /**
+     * Handles the front-end search boats request.
+     */
     public static function frontSearchBoats(): void
     {
         self::checkPublicAjaxSecurity();
@@ -2581,6 +2638,9 @@ final class AjaxController
         }
     }
 
+    /**
+     * Handles the front-end get boat by ID request.
+     */
     public static function frontGetBoatById(): void
     {
         self::checkPublicAjaxSecurity();
@@ -2648,6 +2708,9 @@ final class AjaxController
         }
     }
 
+    /**
+     * Handles the front-end search tags request.
+     */
     public static function frontSearchTags(): void
     {
         self::checkPublicAjaxSecurity();
@@ -2695,6 +2758,9 @@ final class AjaxController
         }
     }
 
+    /**
+     * Handles the front-end search base ports request.
+     */
     public static function frontSearchBasePorts(): void
     {
         self::checkPublicAjaxSecurity();

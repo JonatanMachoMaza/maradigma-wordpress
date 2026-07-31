@@ -10,6 +10,9 @@ if (!defined('ABSPATH')) {
 
 use Maradigma\Integrations\Gutenberg\GutenbergIntegration;
 
+/**
+ * Integrates Maradigma with GeneratePress.
+ */
 final class GeneratePressIntegration
 {
     private const META_TEMPLATE_SIDEBAR_LAYOUT = '_maradigma_generatepress_sidebar_layout';
@@ -30,6 +33,9 @@ final class GeneratePressIntegration
 
     private static bool $registered = false;
 
+    /**
+     * Registers the component with WordPress.
+     */
     public static function register(): void
     {
         if (self::$registered) {
@@ -43,11 +49,17 @@ final class GeneratePressIntegration
         \add_action('maradigma_gutenberg_template_applied_to_boat', [self::class, 'onGutenbergTemplateAppliedToBoat'], 10, 2);
     }
 
+    /**
+     * Registers the component's WordPress hooks.
+     */
     public static function init(): void
     {
         self::register();
     }
 
+    /**
+     * Adds template layout meta box.
+     */
     public static function addTemplateLayoutMetaBox(): void
     {
         \add_meta_box(
@@ -60,6 +72,9 @@ final class GeneratePressIntegration
         );
     }
 
+    /**
+     * Renders template layout meta box.
+     */
     public static function renderTemplateLayoutMetaBox(\WP_Post $post): void
     {
         \wp_nonce_field(self::NONCE_ACTION, self::NONCE_NAME);
@@ -155,6 +170,9 @@ final class GeneratePressIntegration
         <?php
     }
 
+    /**
+     * Persists template layout meta box.
+     */
     public static function saveTemplateLayoutMetaBox(int $postId, \WP_Post $post): void
     {
         if ($post->post_type !== self::getGutenbergTemplatePostType()) {
@@ -197,11 +215,17 @@ final class GeneratePressIntegration
         \update_post_meta($postId, self::META_TEMPLATE_DISABLE_CONTENT_TITLE, $disableContentTitle ? '1' : '0');
     }
 
+    /**
+     * Responds when Gutenberg template applied to boat.
+     */
     public static function onGutenbergTemplateAppliedToBoat(int $boatPostId, int $templatePostId): void
     {
         self::applyTemplateLayoutToBoatPost($boatPostId, $templatePostId);
     }
 
+    /**
+     * Applies template layout to boat post.
+     */
     public static function applyTemplateLayoutToBoatPost(int $boatPostId, int $templatePostId): void
     {
         if ($boatPostId <= 0 || $templatePostId <= 0) {
@@ -240,6 +264,9 @@ final class GeneratePressIntegration
         }
     }
 
+    /**
+     * Determines whether GeneratePress active.
+     */
     public static function isGeneratePressActive(): bool
     {
         $theme = \wp_get_theme();
@@ -249,6 +276,9 @@ final class GeneratePressIntegration
         return $template === 'generatepress' || $stylesheet === 'generatepress';
     }
 
+    /**
+     * Returns template sidebar layout.
+     */
     private static function getTemplateSidebarLayout(int $templatePostId): string
     {
         $value = (string) \get_post_meta($templatePostId, self::META_TEMPLATE_SIDEBAR_LAYOUT, true);
@@ -256,6 +286,9 @@ final class GeneratePressIntegration
         return self::normalizeSidebarLayout($value !== '' ? $value : 'no-sidebar');
     }
 
+    /**
+     * Returns template content layout.
+     */
     private static function getTemplateContentLayout(int $templatePostId): string
     {
         $value = (string) \get_post_meta($templatePostId, self::META_TEMPLATE_CONTENT_LAYOUT, true);
@@ -263,6 +296,9 @@ final class GeneratePressIntegration
         return self::normalizeContentLayout($value !== '' ? $value : 'default');
     }
 
+    /**
+     * Returns template footer widgets.
+     */
     private static function getTemplateFooterWidgets(int $templatePostId): string
     {
         $value = (string) \get_post_meta($templatePostId, self::META_TEMPLATE_FOOTER_WIDGETS, true);
@@ -270,11 +306,17 @@ final class GeneratePressIntegration
         return self::normalizeFooterWidgets($value !== '' ? $value : 'default');
     }
 
+    /**
+     * Returns template disable content title.
+     */
     private static function getTemplateDisableContentTitle(int $templatePostId): bool
     {
         return (string) \get_post_meta($templatePostId, self::META_TEMPLATE_DISABLE_CONTENT_TITLE, true) === '1';
     }
 
+    /**
+     * Normalizes sidebar layout.
+     */
     private static function normalizeSidebarLayout(string $value): string
     {
         $value = \sanitize_key($value);
@@ -284,6 +326,9 @@ final class GeneratePressIntegration
             : 'no-sidebar';
     }
 
+    /**
+     * Normalizes content layout.
+     */
     private static function normalizeContentLayout(string $value): string
     {
         $value = \sanitize_key($value);
@@ -293,6 +338,9 @@ final class GeneratePressIntegration
             : 'default';
     }
 
+    /**
+     * Normalizes footer widgets.
+     */
     private static function normalizeFooterWidgets(string $value): string
     {
         $value = \sanitize_key($value);
@@ -302,6 +350,9 @@ final class GeneratePressIntegration
             : 'default';
     }
 
+    /**
+     * Returns Gutenberg template post type.
+     */
     private static function getGutenbergTemplatePostType(): string
     {
         return \class_exists(GutenbergIntegration::class)

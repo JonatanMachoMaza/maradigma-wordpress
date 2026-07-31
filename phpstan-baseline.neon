@@ -457,57 +457,6 @@ parameters:
 			path: includes/ExternalApiClient.php
 
 		-
-			message: '''
-				#^PHPDoc tag @return has invalid value \(array\{
-				  status\?\: 'success'\|'error'\|string,
-				  success\?\: bool,
-				  message\?\: string,
-				  data\?\: array\{
-				    search_result\?\: array\<int, array\{
-				      id\?\: int,
-				      reference\?\: string,
-				      slug\?\: string,
-				      service_name\?\: string,
-				      boat_alias\?\: string,
-				      boat_model\?\: string,
-				      boat_builder\?\: string,
-				      boat_id_builder\?\: int,
-				      boat_year_construction\?\: int,
-				      boat_year_refit\?\: int,
-				      boat_length\?\: string\|float\|int,
-				      boat_beam\?\: string\|float\|int,
-				      boat_capacity\?\: int,
-				      boat_capacity_crew\?\: int,
-				      boat_capacity_pernocta\?\: int,
-				      boat_base_port_name\?\: string,
-				      base_price\?\: string\|float\|int,
-				      mandatory_skipper\?\: bool,
-				      is_bareboat\?\: bool,
-				      main_image\?\: string,
-				      images\?\: array\<int, array\{
-				        url\?\: string,
-				        url_sizes\?\: array\<string,string\>
-				      \}\>,
-				      is_owner\?\: int\|bool,
-				      status\?\: int,
-				      /\*\* Any additional fields returned by the API for this tenant/catalog\. \*\\/
-				      _extra\?\: array\<string,mixed\>
-				    \}\>,
-				    min_price\?\: string\|float\|int,
-				    max_price\?\: string\|float\|int,
-				    average_price\?\: string\|float\|int,
-				    total_results\?\: int,
-				    limit\?\: int,
-				    offset\?\: int,
-				    calculated_page\?\: int
-				  \}
-				\}\)\: Unexpected token "\?", expected '\}' at offset 836 on line 29$#
-			'''
-			identifier: phpDoc.parseError
-			count: 1
-			path: includes/ExternalApiClient.php
-
-		-
 			message: '#^PHPDoc tag @throws with type Maradigma\\RuntimeException is not subtype of Throwable$#'
 			identifier: throws.notThrowable
 			count: 1

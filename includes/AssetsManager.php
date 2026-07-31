@@ -10,6 +10,9 @@ if (!defined('ABSPATH')) {
 
 use Maradigma\Support\MultilangAdapter;
 
+/**
+ * Manages assets registration and runtime behavior.
+ */
 final class AssetsManager
 {
     public const ASSETS_ADMIN_JS     = 'assets/js/admin';
@@ -23,6 +26,9 @@ final class AssetsManager
     public const ASSETS_DIST_JS      = 'assets/dist/js';
     public const ASSETS_DIST_CSS     = 'assets/dist/css';
 
+    /**
+     * Registers the component's WordPress hooks.
+     */
     public static function init(): void
     {
         add_action('wp_enqueue_scripts', [__CLASS__, 'enqueueFrontend']);
@@ -36,6 +42,9 @@ final class AssetsManager
     // FRONTEND BASE
     // ─────────────────────────────────────────────
 
+    /**
+     * Enqueues frontend assets.
+     */
     public static function enqueueFrontend(): void
     {
         $ver = self::getVersion();
@@ -62,6 +71,9 @@ final class AssetsManager
         ];
     }
 
+    /**
+     * Enqueues frontend core scripts assets.
+     */
     private static function enqueueFrontendCoreScripts(string $ver): void
     {
         $iconsHandle = 'maradigma-icons';
@@ -133,6 +145,9 @@ final class AssetsManager
         // CSS handled globally by frontend bundle.
     }
 
+    /**
+     * Enqueues the booking modal assets.
+     */
     public static function enqueueBookingModalAssets(): void
     {
         $ver = self::getVersion();
@@ -158,6 +173,9 @@ final class AssetsManager
         self::addBookingModalI18n('maradigma-booking-modal');
     }
 
+    /**
+     * Enqueues the boat archive filter assets.
+     */
     public static function enqueueArchiveFiltersAssets(): void
     {
         $ver = self::getVersion();
@@ -175,26 +193,41 @@ final class AssetsManager
         );
     }
 
+    /**
+     * Enqueues the frontend remote Select2 assets.
+     */
     public static function enqueueFrontendRemoteSelect2Assets(): void
     {
         self::enqueueSharedRemoteSelect2('frontend', self::getVersion());
     }
 
+    /**
+     * Enqueues the admin remote Select2 assets.
+     */
     public static function enqueueAdminRemoteSelect2Assets(): void
     {
         self::enqueueSharedRemoteSelect2('admin', self::getVersion());
     }
 
+    /**
+     * Enqueues Swiper assets.
+     */
     public static function enqueueSwiperAssets(): void
     {
         self::enqueueSwiper();
     }
 
+    /**
+     * Registers boat gallery script.
+     */
     public static function registerBoatGalleryScript(): void
     {
         self::registerSwiperOnce();
     }
 
+    /**
+     * Enqueues the boat calendar assets.
+     */
     public static function enqueueBoatCalendarAssets(): void
     {
         $ver = self::getVersion();
@@ -214,6 +247,9 @@ final class AssetsManager
         wp_enqueue_script('maradigma-boat-calendar');
     }
 
+    /**
+     * Registers boat calendar script.
+     */
     public static function registerBoatCalendarScript(): void
     {
         self::registerBoatCalendarOnce(self::getVersion());
@@ -223,6 +259,9 @@ final class AssetsManager
     // INTL-TEL-INPUT
     // ─────────────────────────────────────────────
 
+    /**
+     * Registers the international telephone input assets once.
+     */
     private static function registerIntlTelInputOnce(): void
     {
         static $done = false;
@@ -252,6 +291,9 @@ final class AssetsManager
         );
     }
 
+    /**
+     * Enqueues the international telephone input assets.
+     */
     private static function enqueueIntlTelInput(): void
     {
         self::registerIntlTelInputOnce();
@@ -259,6 +301,9 @@ final class AssetsManager
         wp_enqueue_script('maradigma-iti');
     }
 
+    /**
+     * Returns the URL of the international telephone input utilities script.
+     */
     private static function getIntlTelInputUtilsUrl(): string
     {
         $base = trailingslashit(MARADIGMA_PLUGIN_URL) . 'vendors/intl-tel-input/';
@@ -269,6 +314,9 @@ final class AssetsManager
     // SELECT2
     // ─────────────────────────────────────────────
 
+    /**
+     * Registers select2 once.
+     */
     private static function registerSelect2Once(): void
     {
         static $done = false;
@@ -286,6 +334,9 @@ final class AssetsManager
         wp_register_style('maradigma-select2', $select2Css, [], '4.0.13');
     }
 
+    /**
+     * Enqueues select2 assets.
+     */
     private static function enqueueSelect2(): void
     {
         self::registerSelect2Once();
@@ -294,6 +345,9 @@ final class AssetsManager
         self::addSelect2FrontendOverrides();
     }
 
+    /**
+     * Adds select2 frontend overrides.
+     */
     private static function addSelect2FrontendOverrides(): void
     {
         wp_add_inline_style(
@@ -302,6 +356,9 @@ final class AssetsManager
         );
     }
 
+    /**
+     * Registers the jQuery UI datepicker stylesheet once.
+     */
     private static function registerJqueryUiDatepickerStyleOnce(string $ver): void
     {
         if (!wp_style_is('jquery-ui-css', 'registered')) {
@@ -314,12 +371,18 @@ final class AssetsManager
         }
     }
 
+    /**
+     * Enqueues jquery UI datepicker style assets.
+     */
     private static function enqueueJqueryUiDatepickerStyle(string $ver): void
     {
         self::registerJqueryUiDatepickerStyleOnce($ver);
         wp_enqueue_style('jquery-ui-css');
     }
 
+    /**
+     * Registers the noUiSlider assets once.
+     */
     private static function registerNoUiSliderOnce(string $ver): void
     {
         if (!wp_style_is('nouislider', 'registered')) {
@@ -342,6 +405,9 @@ final class AssetsManager
         }
     }
 
+    /**
+     * Enqueues the noUiSlider assets.
+     */
     private static function enqueueNoUiSlider(string $ver): void
     {
         self::registerNoUiSliderOnce($ver);
@@ -353,6 +419,9 @@ final class AssetsManager
     // FLATPICKR
     // ─────────────────────────────────────────────
 
+    /**
+     * Registers flatpickr once.
+     */
     private static function registerFlatpickrOnce(string $ver): void
     {
         static $done = false;
@@ -379,6 +448,9 @@ final class AssetsManager
         );
     }
 
+    /**
+     * Detects the Flatpickr language code for the current locale.
+     */
     private static function detectFlatpickrLangCode(): string
     {
         if (class_exists(\Maradigma\Support\MultilangAdapter::class)) {
@@ -402,6 +474,9 @@ final class AssetsManager
         return 'en';
     }
 
+    /**
+     * Maps a language code to its Flatpickr locale file.
+     */
     private static function mapFlatpickrLocaleFile(string $lang): string
     {
         $lang = strtolower(trim($lang));
@@ -413,6 +488,9 @@ final class AssetsManager
         return $map[$lang] ?? $lang;
     }
 
+    /**
+     * Enqueues flatpickr assets.
+     */
     private static function enqueueFlatpickr(string $ver): void
     {
         self::registerFlatpickrOnce($ver);
@@ -425,6 +503,9 @@ final class AssetsManager
     // SWIPER
     // ─────────────────────────────────────────────
 
+    /**
+     * Registers swiper once.
+     */
     private static function registerSwiperOnce(): void
     {
         static $done = false;
@@ -461,6 +542,9 @@ final class AssetsManager
         );
     }
 
+    /**
+     * Enqueues swiper assets.
+     */
     private static function enqueueSwiper(): void
     {
         self::registerSwiperOnce();
@@ -473,6 +557,9 @@ final class AssetsManager
     // BOAT CALENDAR
     // ─────────────────────────────────────────────
 
+    /**
+     * Registers boat calendar once.
+     */
     private static function registerBoatCalendarOnce(string $ver): void
     {
         static $done = false;
@@ -505,6 +592,9 @@ final class AssetsManager
     // I18N BOOKING MODAL
     // ─────────────────────────────────────────────
 
+    /**
+     * Adds booking modal i18n.
+     */
     private static function addBookingModalI18n(string $handle): void {
         $ctx = MultilangAdapter::getCurrentContext();
 
@@ -668,6 +758,9 @@ final class AssetsManager
     // ADMIN
     // ─────────────────────────────────────────────
 
+    /**
+     * Enqueues admin assets.
+     */
     public static function enqueueAdmin(string $hookSuffix): void
     {
         if (self::isMaradigmaSettingsPage()) {
@@ -682,6 +775,9 @@ final class AssetsManager
         self::enqueuePageEditorAssets();
     }
 
+    /**
+     * Determines whether maradigma settings page.
+     */
     private static function isMaradigmaSettingsPage(): bool
     {
         // Read-only admin routing value used only to decide which assets to enqueue.
@@ -690,6 +786,9 @@ final class AssetsManager
         return $page === 'maradigma-settings';
     }
 
+    /**
+     * Determines whether block editor screen.
+     */
     private static function isBlockEditorScreen(): bool
     {
         if (!function_exists('get_current_screen')) {
@@ -701,6 +800,9 @@ final class AssetsManager
         return $screen && method_exists($screen, 'is_block_editor') && $screen->is_block_editor();
     }
 
+    /**
+     * Enqueues assets for the Maradigma settings screen.
+     */
     private static function enqueueSettingsAssets(string $hookSuffix): void
     {
         $ver = self::getVersion();
@@ -939,6 +1041,9 @@ final class AssetsManager
         );
     }
 
+    /**
+     * Enqueues admin svg sprite shared assets.
+     */
     private static function enqueueAdminSvgSpriteShared(string $ver): void
     {
         $iconsHandle = 'maradigma-icons-admin';
@@ -963,6 +1068,9 @@ final class AssetsManager
         );
     }
 
+    /**
+     * Enqueues shared remote select2 assets.
+     */
     private static function enqueueSharedRemoteSelect2(string $context, string $ver): void
     {
         self::enqueueSelect2();
@@ -1029,6 +1137,9 @@ final class AssetsManager
         );
     }
 
+    /**
+     * Enqueues the boat page editor assets.
+     */
     private static function enqueuePageEditorAssets(): void
     {
         $screen = function_exists('get_current_screen') ? get_current_screen() : null;
@@ -1102,11 +1213,17 @@ final class AssetsManager
     // ELEMENTOR
     // ─────────────────────────────────────────────
 
+    /**
+     * Enqueues the block editor boat-binding assets.
+     */
     public static function enqueueBlockEditorBoatBindingAssets(): void
     {
         // Gutenberg uses native WordPress controls configured by GutenbergIntegration.
     }
 
+    /**
+     * Enqueues the Elementor editor assets.
+     */
     public static function enqueueElementorEditorAssets(): void
     {
         $ver = self::getVersion();
@@ -1226,6 +1343,9 @@ final class AssetsManager
         self::registerSwiperOnce();
     }
 
+    /**
+     * Enqueues Elementor preview styles assets.
+     */
     public static function enqueueElementorPreviewStyles(): void
     {
         $ver = self::getVersion();
@@ -1239,6 +1359,9 @@ final class AssetsManager
         self::enqueueNoUiSlider($ver);
     }
 
+    /**
+     * Enqueues Elementor preview scripts assets.
+     */
     public static function enqueueElementorPreviewScripts(): void
     {
         $ver = self::getVersion();
@@ -1415,6 +1538,9 @@ final class AssetsManager
     // BOOTSTRAP
     // ─────────────────────────────────────────────
 
+    /**
+     * Registers bootstrap once.
+     */
     private static function registerBootstrapOnce(): void
     {
         // Bootstrap is intentionally not bundled/enqueued. The plugin uses its own UI.
@@ -1424,6 +1550,9 @@ final class AssetsManager
     // CSS BUNDLES
     // ─────────────────────────────────────────────
 
+    /**
+     * Enqueues frontend CSS bundle assets.
+     */
     private static function enqueueFrontendCssBundle(string $ver): void
     {
         wp_enqueue_style(
@@ -1434,6 +1563,9 @@ final class AssetsManager
         );
     }
 
+    /**
+     * Enqueues the compiled administrative CSS bundle.
+     */
     private static function enqueueAdminCssBundle(string $ver): void
     {
         wp_enqueue_style(
@@ -1448,6 +1580,9 @@ final class AssetsManager
     // HELPERS
     // ─────────────────────────────────────────────
 
+    /**
+     * Determines whether compiled CSS assets should be used.
+     */
     private static function useDistCss(): bool
     {
         if (defined('MARADIGMA_ASSETS_MIN_CSS')) {
@@ -1457,6 +1592,9 @@ final class AssetsManager
         return true;
     }
 
+    /**
+     * Determines whether compiled JavaScript assets should be used.
+     */
     private static function useDistJs(): bool
     {
         if (defined('MARADIGMA_ASSETS_MIN_JS')) {
@@ -1466,26 +1604,41 @@ final class AssetsManager
         return true;
     }
 
+    /**
+     * Returns CSS base path.
+     */
     private static function getCssBasePath(): string
     {
         return self::useDistCss() ? self::ASSETS_DIST_CSS : 'assets/css';
     }
 
+    /**
+     * Returns js base path.
+     */
     private static function getJsBasePath(): string
     {
         return self::useDistJs() ? self::ASSETS_DIST_JS : 'assets/js';
     }
 
+    /**
+     * Returns CSS suffix.
+     */
     private static function getCssSuffix(): string
     {
         return self::useDistCss() ? '.min' : '';
     }
 
+    /**
+     * Returns js suffix.
+     */
     private static function getJsSuffix(): string
     {
         return self::useDistJs() ? '.min' : '';
     }
 
+    /**
+     * Returns version.
+     */
     private static function getVersion(): string
     {
         return defined('MARADIGMA_PLUGIN_VERSION') ? (string) MARADIGMA_PLUGIN_VERSION : '0.1.0';

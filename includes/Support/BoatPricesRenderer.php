@@ -4,6 +4,9 @@ declare(strict_types=1);
 
 namespace Maradigma\Support;
 
+/**
+ * Builds the front-end markup for boat prices.
+ */
 final class BoatPricesRenderer
 {
     /**
@@ -361,6 +364,9 @@ final class BoatPricesRenderer
         return $html . '<br><small class="maradigma-boat-prices__vat">' . \esc_html($vatText) . '</small>';
     }
 
+    /**
+     * Parses a date value or returns null when it is invalid.
+     */
     private static function parseDateOrNull(string $value): ?\DateTimeImmutable
     {
         $value = \trim($value);
@@ -390,6 +396,9 @@ final class BoatPricesRenderer
         }
     }
 
+    /**
+     * Returns the localized month name for a date.
+     */
     private static function i18nMonthName(\DateTimeImmutable $date): string
     {
         $value = \function_exists('date_i18n')
@@ -410,6 +419,9 @@ final class BoatPricesRenderer
         return \ucfirst($value);
     }
 
+    /**
+     * Formats a date using WordPress localization.
+     */
     private static function i18nDate(\DateTimeImmutable $date, string $format): string
     {
         return \trim(\function_exists('date_i18n') ? (string) \date_i18n($format, $date->getTimestamp()) : $date->format($format));
@@ -450,6 +462,9 @@ final class BoatPricesRenderer
         return \trim($symbol . ' ' . $formatted);
     }
 
+    /**
+     * Returns the display symbol for a currency code.
+     */
     private static function currencySymbol(string $currency): string
     {
         return match (\strtoupper(\trim($currency))) {

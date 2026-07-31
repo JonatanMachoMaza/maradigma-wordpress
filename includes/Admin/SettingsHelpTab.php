@@ -8,8 +8,14 @@ if (!defined('ABSPATH')) {
     exit;
 }
 
+/**
+ * Renders the contextual help navigation and bundled plugin documentation.
+ */
 final class SettingsHelpTab
 {
+    /**
+     * Renders the component output.
+     */
     public static function render(string $pageUrl): void
     {
         $activeSection = self::getActiveSection();
@@ -55,6 +61,9 @@ final class SettingsHelpTab
         echo '</div>';
     }
 
+    /**
+     * Returns active section.
+     */
     private static function getActiveSection(): string
     {
         // Read-only navigation within the help tab.
@@ -75,6 +84,9 @@ final class SettingsHelpTab
         return $section;
     }
 
+    /**
+     * Renders nav.
+     */
     private static function renderNav(string $pageUrl, string $activeSection): string
     {
         $items = [
@@ -98,6 +110,9 @@ final class SettingsHelpTab
         return $html;
     }
 
+    /**
+     * Renders HTML file in iframe.
+     */
     private static function renderHtmlFileInIframe(string $relativePath): string
     {
         $file = plugin_dir_path(MARADIGMA_PLUGIN_FILE) . ltrim($relativePath, '/');

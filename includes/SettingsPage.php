@@ -38,6 +38,9 @@ final class SettingsPage
     private static ?string $adminPageHook = null;
     private static ?string $adminApiBoatsHook = null;
 
+    /**
+     * Registers the component's WordPress hooks.
+     */
     public static function init(): void
     {
         add_action('admin_menu', [__CLASS__, 'registerMenu']);
@@ -63,6 +66,9 @@ final class SettingsPage
         add_action('admin_post_maradigma_clear_log', [SettingsLogActions::class, 'clear']);
     }
 
+    /**
+     * Registers menu.
+     */
     public static function registerMenu(): void
     {
         $pageTitle  = __('Maradigma', 'maradigma');
@@ -173,11 +179,17 @@ final class SettingsPage
         });
     }
 
+    /**
+     * Renders API boats page.
+     */
     public static function renderApiBoatsPage(): void
     {
         AvailableBoatsPage::render();
     }
 
+    /**
+     * Handles refresh API boats post.
+     */
     public static function handleRefreshApiBoatsPost(): void
     {
         AvailableBoatsPage::refresh();
@@ -289,6 +301,9 @@ final class SettingsPage
         );
     }
 
+    /**
+     * Registers settings.
+     */
     public static function registerSettings(): void
     {
         register_setting(
@@ -346,6 +361,9 @@ final class SettingsPage
         );
     }
 
+    /**
+     * Sanitizes settings.
+     */
     public static function sanitizeSettings(array $input): array
     {
         // Start from current saved settings (merge strategy)
@@ -566,6 +584,9 @@ final class SettingsPage
         return $output;
     }
 
+    /**
+     * Renders the API secret settings field.
+     */
     public static function fieldApiSecret(): void
     {
         $settings = self::getSettings();
@@ -751,11 +772,17 @@ final class SettingsPage
         );
     }
 
+    /**
+     * Builds admin notice HTML.
+     */
     private static function buildAdminNoticeHtml(string $type, string $message): string
     {
         return SettingsNotices::html($type, $message);
     }
 
+    /**
+     * Renders settings page.
+     */
     public static function renderSettingsPage(): void
     {
         if (!current_user_can('manage_options')) {
@@ -3127,6 +3154,9 @@ final class SettingsPage
     <?php
     }
 
+    /**
+     * Returns eligible boat binding post types.
+     */
     public static function getEligibleBoatBindingPostTypes(): array
     {
         $objects = get_post_types(
@@ -3199,6 +3229,9 @@ final class SettingsPage
         return $postTypes;
     }
 
+    /**
+     * Returns enabled boat binding post types.
+     */
     public static function getEnabledBoatBindingPostTypes(): array
     {
         $settings = self::getSettings();
@@ -3234,11 +3267,17 @@ final class SettingsPage
         return array_values(array_unique(array_intersect($enabled, $eligible)));
     }
 
+    /**
+     * Handles images sync start post.
+     */
     public static function handleImagesSyncStartPost(): void
     {
         SettingsImageSyncActions::start();
     }
 
+    /**
+     * Handles images sync stop post.
+     */
     public static function handleImagesSyncStopPost(): void
     {
         SettingsImageSyncActions::stop();
@@ -3252,16 +3291,25 @@ final class SettingsPage
         SettingsImageSyncActions::reset();
     }
 
+    /**
+     * Handles boat cards post.
+     */
     public static function handleBoatCardsPost(): void
     {
         BoatCardsActions::handle();
     }
 
+    /**
+     * Handles delete all boats post.
+     */
     public static function handleDeleteAllBoatsPost(): void
     {
         SettingsSyncActions::deleteAllBoats();
     }
 
+    /**
+     * Handles open Gutenberg template post.
+     */
     public static function handleOpenGutenbergTemplatePost(): void
     {
         SettingsTemplateActions::openGutenbergTemplate();
@@ -3275,16 +3323,25 @@ final class SettingsPage
         SettingsTemplateActions::resetGutenbergTemplate();
     }
 
+    /**
+     * Handles force template sync post.
+     */
     public static function handleForceTemplateSyncPost(): void
     {
         SettingsTemplateActions::startTemplateSync();
     }
 
+    /**
+     * Handles force template sync stop post.
+     */
     public static function handleForceTemplateSyncStopPost(): void
     {
         SettingsTemplateActions::stopTemplateSync();
     }
 
+    /**
+     * Renders the external API base URL settings field.
+     */
     public static function fieldApiBaseUrl(): void
     {
         $settings = self::getSettings();
@@ -3298,6 +3355,9 @@ final class SettingsPage
     <?php
     }
 
+    /**
+     * Renders the public API key settings field.
+     */
     public static function fieldApiKey(): void
     {
         $settings = self::getSettings();
@@ -3309,6 +3369,9 @@ final class SettingsPage
     <?php
     }
 
+    /**
+     * Renders the default language settings field.
+     */
     public static function fieldDefaultLanguage(): void
     {
         $settings = self::getSettings();
@@ -3320,6 +3383,9 @@ final class SettingsPage
     <?php
     }
 
+    /**
+     * Renders the boat archive base slug settings field.
+     */
     public static function fieldBoatsBaseSlug(): void
     {
         $settings = self::getSettings();
@@ -3335,6 +3401,9 @@ final class SettingsPage
 <?php
     }
 
+    /**
+     * Returns boats base slug for current locale.
+     */
     public static function getBoatsBaseSlugForCurrentLocale(): string
     {
         $settings = self::getSettings();
@@ -3373,6 +3442,9 @@ final class SettingsPage
         return $map[$short] ?? ($first !== '' ? $first : 'boats');
     }
 
+    /**
+     * Selects localized value.
+     */
     public static function pickLocalizedValue(string $raw, string $lang, string $fallbackLang = 'en'): string
     {
         $raw = trim($raw);
@@ -3420,6 +3492,9 @@ final class SettingsPage
         return $first !== '' ? $first : $raw;
     }
 
+    /**
+     * Returns booking payment intro text.
+     */
     public static function getBookingPaymentIntroText(?string $language = null): string
     {
         $settings = self::getSettings();
@@ -3481,6 +3556,9 @@ final class SettingsPage
         return array_values(array_unique($languages));
     }
 
+    /**
+     * Normalizes language code.
+     */
     private static function normalizeLanguageCode(string $language): string
     {
         $language = strtolower(trim(str_replace('_', '-', $language)));
@@ -3527,6 +3605,9 @@ final class SettingsPage
         return $out;
     }
 
+    /**
+     * Translates sync status.
+     */
     private static function translateSyncStatus(string $status): string
     {
         switch (strtolower(trim($status))) {
@@ -3545,6 +3626,9 @@ final class SettingsPage
         }
     }
 
+    /**
+     * Translates sync message.
+     */
     private static function translateSyncMessage(string $message): string
     {
         switch (trim($message)) {
@@ -3616,6 +3700,9 @@ final class SettingsPage
         return $message;
     }
 
+    /**
+     * Translates image worker label.
+     */
     private static function translateImageWorkerLabel(string $label): string
     {
         switch (strtolower(trim($label))) {
@@ -3642,6 +3729,9 @@ final class SettingsPage
         }
     }
 
+    /**
+     * Translates async kick label.
+     */
     private static function translateAsyncKickLabel(string $label): string
     {
         switch (strtolower(trim($label))) {
@@ -3656,6 +3746,9 @@ final class SettingsPage
         }
     }
 
+    /**
+     * Handles sync boats post.
+     */
     public static function handleSyncBoatsPost(): void
     {
         SettingsSyncActions::syncBoats();
@@ -3697,11 +3790,17 @@ final class SettingsPage
         return SettingsTemplateStats::getSyncStats();
     }
 
+    /**
+     * Handles download log post.
+     */
     public static function handleDownloadLogPost(): void
     {
         SettingsLogActions::download();
     }
 
+    /**
+     * Handles clear log post.
+     */
     public static function handleClearLogPost(): void
     {
         SettingsLogActions::clear();

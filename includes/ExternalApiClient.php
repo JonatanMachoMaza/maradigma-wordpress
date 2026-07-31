@@ -4,6 +4,9 @@ declare(strict_types=1);
 
 namespace Maradigma;
 use Maradigma\Support\Debugger;
+/**
+ * Signs and sends requests to the Maradigma external API.
+ */
 class ExternalApiClient {
     private const BOAT_DETAILS_EXPAND_OPTIONS = [
         'service_accounting',
@@ -59,6 +62,9 @@ class ExternalApiClient {
     private string $language;
     private int $defaultTimeout;
 
+    /**
+     * Initializes the external API client.
+     */
     public function __construct(
         string $baseUrl,
         string $publicKey,
@@ -76,6 +82,9 @@ class ExternalApiClient {
         $this->defaultTimeout = $defaultTimeout;
     }
 
+    /**
+     * Creates an API client from the stored plugin settings.
+     */
     public static function fromSettings(array $settings): self
     {
         // Keys reales del SettingsPage
@@ -97,6 +106,9 @@ class ExternalApiClient {
         return new self($baseUrl, $publicKey, $secretKey, $clientDomain, $language, 10);
     }
 
+    /**
+     * Sets language.
+     */
     public function setLanguage(string $language): void
     {
         $language = trim($language);
@@ -105,6 +117,9 @@ class ExternalApiClient {
         }
     }
 
+    /**
+     * Returns language.
+     */
     public function getLanguage(): string
     {
         return $this->language;
@@ -368,6 +383,9 @@ class ExternalApiClient {
         }
     }
 
+    /**
+     * Returns rental terms.
+     */
     public function getRentalTerms(string $group, string $language = 'EN', bool $decodedHtml = true): array
     {
         $group = trim($group);
@@ -486,6 +504,9 @@ class ExternalApiClient {
         return $query;
     }
 
+    /**
+     * Normalizes language.
+     */
     private function normaliseLanguage(string $locale): string
     {
         // es_ES → es-ES, en_US → en-US, etc.
@@ -499,6 +520,9 @@ class ExternalApiClient {
         return strtolower($parts[0]) . '-' . strtoupper($parts[1]);
     }
 
+    /**
+     * Builds an absolute API URL with encoded query parameters.
+     */
     private function buildUrl(string $path, array $query = []): string
     {
         $url = $this->baseUrl . '/' . ltrim($path, '/');
@@ -516,11 +540,17 @@ class ExternalApiClient {
         return $url;
     }
 
+    /**
+     * Builds the HMAC signature for a request payload.
+     */
     private function buildSignature(string $rawBody): string
     {
         return hash_hmac('sha256', $rawBody, $this->secretKey);
     }
 
+    /**
+     * Builds the signed HTTP headers required by the external API.
+     */
     private function buildHeaders(string $rawBody, string $contentType): array
     {
         $acceptLanguage = $this->normaliseLanguage($this->language);
@@ -644,6 +674,9 @@ class ExternalApiClient {
         );
     }
 
+    /**
+     * Creates log excerpt.
+     */
     private static function makeLogExcerpt(string $text): string
     {
         $text = trim(wp_strip_all_tags($text));
@@ -788,8 +821,7 @@ class ExternalApiClient {
      *       }>,
      *       is_owner?: int|bool,
      *       status?: int,
-     *       /** Any additional fields returned by the API for this tenant/catalog. *\/
-     *       _extra?: array<string,mixed>
+     *       ...<string,mixed>
      *     }>,
      *     min_price?: string|float|int,
      *     max_price?: string|float|int,

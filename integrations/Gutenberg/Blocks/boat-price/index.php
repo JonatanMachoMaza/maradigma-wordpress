@@ -10,6 +10,9 @@ if (!defined('ABSPATH')) {
 
 use Maradigma\Integrations\Gutenberg\GutenbergIntegration;
 
+/**
+ * Registers and renders the dynamic Gutenberg block for boat price.
+ */
 final class BoatPriceBlock
 {
     /**

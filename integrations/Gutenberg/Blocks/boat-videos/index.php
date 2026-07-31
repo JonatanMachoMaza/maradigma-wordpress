@@ -10,6 +10,9 @@ if (!defined('ABSPATH')) {
 
 use Maradigma\Integrations\Gutenberg\GutenbergIntegration;
 
+/**
+ * Registers and renders the dynamic Gutenberg block for boat videos.
+ */
 final class BoatVideosBlock
 {
     /**

@@ -421,6 +421,9 @@ final class GutenbergIntegration
         }
     }
 
+    /**
+     * Returns Gutenberg template apply skip reason.
+     */
     public static function getGutenbergTemplateApplySkipReason(int $postId, string $mode = 'seed_missing'): string
     {
         if ($postId <= 0 || !self::isBoatPostType((string) \get_post_type($postId))) {
@@ -455,6 +458,9 @@ final class GutenbergIntegration
         return '';
     }
 
+    /**
+     * Determines whether the post content matches the current Gutenberg master template.
+     */
     public static function postMatchesGutenbergMasterTemplate(int $postId): bool
     {
         if ($postId <= 0 || !self::isBoatPostType((string) \get_post_type($postId))) {
@@ -504,6 +510,9 @@ final class GutenbergIntegration
         return self::getGutenbergOverwriteBlockReason($postId, $currentContent) === '';
     }
 
+    /**
+     * Returns Gutenberg overwrite block reason.
+     */
     private static function getGutenbergOverwriteBlockReason(int $postId, string $currentContent): string
     {
         if ((bool) \get_post_meta($postId, self::META_GUTENBERG_CUSTOM_LAYOUT, true)) {
@@ -525,6 +534,9 @@ final class GutenbergIntegration
         return '';
     }
 
+    /**
+     * Calculates the hash for Gutenberg template content.
+     */
     public static function hashGutenbergTemplateContent(string $content): string
     {
         $content = \str_replace(["\r\n", "\r"], "\n", $content);
@@ -991,6 +1003,9 @@ final class GutenbergIntegration
         );
     }
 
+    /**
+     * Determines whether editor block render request.
+     */
     public static function isEditorBlockRenderRequest(): bool
     {
         if (\is_admin()) {
@@ -1009,6 +1024,9 @@ final class GutenbergIntegration
             || \strpos($uri, '/wp/v2/block-renderer?') !== false;
     }
 
+    /**
+     * Renders editor placeholder.
+     */
     public static function renderEditorPlaceholder(string $title, string $message): string
     {
         return '<div class="maradigma-gutenberg-placeholder">'
@@ -1051,6 +1069,9 @@ final class GutenbergIntegration
         ];
     }
 
+    /**
+     * Renders block wrapper.
+     */
     public static function renderBlockWrapper(string $content, string $className = ''): string
     {
         if (\trim($content) === '') {
@@ -1522,6 +1543,9 @@ final class GutenbergIntegration
         return BoatAdditionalServicesRenderer::render($data, $options);
     }
 
+    /**
+     * Renders notice.
+     */
     public static function renderNotice(string $message): string
     {
         return '<div class="maradigma-gutenberg-notice"><strong>' .
@@ -1698,6 +1722,9 @@ final class GutenbergIntegration
         return $html;
     }
 
+    /**
+     * Parses a date value or returns null when it is invalid.
+     */
     private static function parseDateOrNull(string $value): ?\DateTimeImmutable
     {
         $value = \trim($value);
@@ -1729,6 +1756,9 @@ final class GutenbergIntegration
         }
     }
 
+    /**
+     * Returns the localized month name for a date.
+     */
     private static function i18nMonthName(\DateTimeImmutable $date): string
     {
         $value = \function_exists('date_i18n')
@@ -1749,11 +1779,17 @@ final class GutenbergIntegration
         return \ucfirst($value);
     }
 
+    /**
+     * Formats a date using WordPress localization.
+     */
     private static function i18nDate(\DateTimeImmutable $date, string $format): string
     {
         return \trim(\function_exists('date_i18n') ? (string) \date_i18n($format, $date->getTimestamp()) : $date->format($format));
     }
 
+    /**
+     * Formats money.
+     */
     private static function formatMoney(float $amount, string $currency): string
     {
         $formatted = \function_exists('number_format_i18n')
@@ -2057,6 +2093,9 @@ final class GutenbergIntegration
         return $postType === 'maradigma_boat';
     }
 
+    /**
+     * Returns configured layout builder.
+     */
     private static function getConfiguredLayoutBuilder(): string
     {
         $settings = \class_exists(SettingsPage::class) ? SettingsPage::getSettings() : [];
@@ -2065,6 +2104,9 @@ final class GutenbergIntegration
         return \in_array($builder, ['elementor', 'gutenberg', 'wpbakery'], true) ? $builder : 'elementor';
     }
 
+    /**
+     * Determines whether show template menu.
+     */
     private static function shouldShowTemplateMenu(): bool
     {
         $settings = \class_exists(SettingsPage::class) ? SettingsPage::getSettings() : [];
@@ -2073,6 +2115,9 @@ final class GutenbergIntegration
             && self::getConfiguredLayoutBuilder() === 'gutenberg';
     }
 
+    /**
+     * Writes a Gutenberg integration diagnostic message.
+     */
     private static function logDebug(string $message): void
     {
         if (\defined('WP_DEBUG') && WP_DEBUG === true) {
@@ -2080,6 +2125,9 @@ final class GutenbergIntegration
         }
     }
 
+    /**
+     * Writes a caught Gutenberg integration exception to diagnostics.
+     */
     private static function logException(\Throwable $e, string $where): void
     {
         if (\class_exists(Logger::class)) {

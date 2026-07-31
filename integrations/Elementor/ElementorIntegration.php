@@ -10,8 +10,14 @@ if (!defined('ABSPATH')) {
 
 use Maradigma\Support\Logger;
 
+/**
+ * Integrates Maradigma with Elementor.
+ */
 final class ElementorIntegration
 {
+    /**
+     * Registers the component's WordPress hooks.
+     */
     public static function init(): void
     {
         // Elementor must be loaded
@@ -29,6 +35,11 @@ final class ElementorIntegration
         \add_action('elementor/editor/after_enqueue_scripts', [__CLASS__, 'enqueueEditorAssets']);
     }
 
+    /**
+     * Registers category.
+     *
+     * @param mixed $elementsManager The elements manager value.
+     */
     public static function registerCategory($elementsManager): void
     {
         try {
@@ -49,6 +60,11 @@ final class ElementorIntegration
         }
     }
 
+    /**
+     * Registers widgets.
+     *
+     * @param mixed $widgetsManager The widgets manager value.
+     */
     public static function registerWidgets($widgetsManager): void
     {
         try {
@@ -189,6 +205,9 @@ final class ElementorIntegration
         }
     }
 
+    /**
+     * Enqueues the Elementor editor assets.
+     */
     public static function enqueueEditorAssets(): void
     {
         try {

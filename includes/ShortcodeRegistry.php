@@ -8,6 +8,9 @@ use Maradigma\Support\BoatBookingAvailability;
 use Maradigma\Support\Sanitizer;
 use Maradigma\Support\Utils;
 
+/**
+ * Registers and renders the plugin's public shortcodes.
+ */
 final class ShortcodeRegistry
 {
 
@@ -382,6 +385,9 @@ final class ShortcodeRegistry
         ]
     ];
 
+    /**
+     * Registers the component's WordPress hooks.
+     */
     public static function init(): void
     {
         // Listado de barcos
@@ -486,6 +492,11 @@ final class ShortcodeRegistry
         return $lang2 !== '' ? $lang2 : 'EN';
     }
 
+    /**
+     * Normalizes language slug.
+     *
+     * @param mixed $language Language or locale identifier.
+     */
     private static function normalizeLanguageSlug($language): string
     {
         if (!\is_scalar($language)) {
@@ -598,6 +609,9 @@ final class ShortcodeRegistry
         return null;
     }
 
+    /**
+     * Resolves identifier from post context.
+     */
     private static function resolveIdentifierFromPostContext(): ?string
     {
         if (!class_exists(\Maradigma\MetaManager::class)) {
@@ -678,6 +692,9 @@ final class ShortcodeRegistry
         return $contextId !== null ? $contextId : '';
     }
 
+    /**
+     * Loads boat.
+     */
     private static function loadBoat(
         array $atts,
         array $requiredDataKeys = [],
@@ -1498,6 +1515,9 @@ final class ShortcodeRegistry
 
         return (string) \ob_get_clean();
     }
+    /**
+     * Normalizes builders options mode.
+     */
     private static function normalizeBuildersOptionsMode(string $mode): string
     {
         $mode = \strtolower(\trim($mode));
@@ -1574,6 +1594,9 @@ final class ShortcodeRegistry
         return $options;
     }
 
+    /**
+     * Resolves boat builder display name.
+     */
     private static function resolveBoatBuilderDisplayName(string $builderId, string $labelsJson = ''): string
     {
         $builderId = \trim($builderId);
@@ -1639,6 +1662,9 @@ final class ShortcodeRegistry
         return $builderNames;
     }
 
+    /**
+     * Resolves label from json map.
+     */
     private static function resolveLabelFromJsonMap(string $id, string $labelsJson): string
     {
         $id = \trim($id);
@@ -2973,6 +2999,9 @@ final class ShortcodeRegistry
         return (string) \ob_get_clean();
     }
 
+    /**
+     * Renders related boats empty.
+     */
     private static function renderRelatedBoatsEmpty(string $message): string
     {
         $message = \trim($message);
@@ -3306,6 +3335,9 @@ final class ShortcodeRegistry
         return $score;
     }
 
+    /**
+     * Calculates the priority distance used to rank a related boat.
+     */
     private static function relatedBoatsPriorityDistance(string $priority, array $currentBoat, array $candidate): float
     {
         switch ($priority) {
@@ -3357,6 +3389,9 @@ final class ShortcodeRegistry
         return 1000.0;
     }
 
+    /**
+     * Extracts the comparable price used to rank a related boat.
+     */
     private static function relatedBoatsPriceValue(array $boat): ?float
     {
         return self::relatedBoatsNumericValue($boat, [
@@ -3395,6 +3430,9 @@ final class ShortcodeRegistry
         return null;
     }
 
+    /**
+     * Calculates the numeric distance between two related-boat values.
+     */
     private static function relatedBoatsNumericDistance(?float $current, ?float $candidate, float $unit): float
     {
         if ($current === null || $candidate === null) {
@@ -3435,6 +3473,9 @@ final class ShortcodeRegistry
         return 1000.0;
     }
 
+    /**
+     * Normalizes boat card image token.
+     */
     private static function normalizeBoatCardImageToken(string $imageToken): string
     {
         $imageToken = \trim($imageToken);
@@ -3606,6 +3647,9 @@ final class ShortcodeRegistry
         return '';
     }
 
+    /**
+     * Normalizes boat card template image token.
+     */
     private static function normalizeBoatCardTemplateImageToken(string $template, string $imageToken): string
     {
         $imageToken = self::normalizeBoatCardImageToken($imageToken);
@@ -3788,6 +3832,9 @@ final class ShortcodeRegistry
         return $out;
     }
 
+    /**
+     * Returns translated post thumbnail URL.
+     */
     private static function getTranslatedPostThumbnailUrl(int $postId): string
     {
         $postIds = [$postId];
@@ -6352,6 +6399,9 @@ final class ShortcodeRegistry
         return (string) ob_get_clean();
     }
 
+    /**
+     * Resolves boat description from boat.
+     */
     public static function resolveBoatDescriptionFromBoat(array $boat, string $language, string $mode = 'auto'): string
     {
         $mode = strtolower(trim($mode));
@@ -6432,6 +6482,9 @@ final class ShortcodeRegistry
 
         return $fallback;
     }
+    /**
+     * Renders search form.
+     */
     public static function renderSearchForm(array $atts = []): string
     {
         $atts = shortcode_atts(
@@ -6557,6 +6610,9 @@ final class ShortcodeRegistry
 
         return (string) ob_get_clean();
     }
+    /**
+     * Renders boats listing from config.
+     */
     public static function renderBoatsListingFromConfig(array $config = []): string
     {
         // Por ahora, simplemente traduce "config" a los atts que ya tenías,

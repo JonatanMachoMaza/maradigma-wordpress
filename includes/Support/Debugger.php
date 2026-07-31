@@ -100,6 +100,9 @@ final class Debugger
         @\file_put_contents($path, $json . PHP_EOL, FILE_APPEND | LOCK_EX);
     }
 
+    /**
+     * Determines whether Maradigma debug logging is enabled.
+     */
     private static function isEnabled(): bool
     {
         return (\defined('MARADIGMA_PLUGIN_DEBUG') && MARADIGMA_PLUGIN_DEBUG === true);

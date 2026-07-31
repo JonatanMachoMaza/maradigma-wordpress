@@ -10,8 +10,14 @@ if (!defined('ABSPATH')) {
     exit;
 }
 
+/**
+ * Handles administrative actions for boat cards.
+ */
 final class BoatCardsActions
 {
+    /**
+     * Handles the submitted administrative action.
+     */
     public static function handle(): void
     {
         if (!current_user_can('manage_options')) {

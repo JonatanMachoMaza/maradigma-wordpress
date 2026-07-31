@@ -74,6 +74,9 @@ final class BoatSyncService
     private const DEFAULT_BATCH_BOATS = 10; // boats per tick (tune to your server)
     private const MAX_BATCH_BOATS     = 50;
 
+    /**
+     * Registers the component's WordPress hooks.
+     */
     public static function init(): void
     {
         add_action(self::CRON_HOOK, [self::class, 'tick']);
@@ -734,6 +737,9 @@ final class BoatSyncService
         return is_array($s) ? $s : [];
     }
 
+    /**
+     * Acquires lock.
+     */
     private static function acquireLock(string $runId): string
     {
         self::clearStaleLockIfNeeded(self::getState());
@@ -760,6 +766,9 @@ final class BoatSyncService
         return $token;
     }
 
+    /**
+     * Determines whether lock active.
+     */
     private static function isLockActive(): bool
     {
         $state = self::getState();
@@ -899,6 +908,9 @@ final class BoatSyncService
         );
     }
 
+    /**
+     * Releases lock.
+     */
     private static function releaseLock(string $token): void
     {
         if ($token === '') {
@@ -924,6 +936,9 @@ final class BoatSyncService
         delete_transient(self::LOCK_TRANSIENT);
     }
 
+    /**
+     * Refreshes lock.
+     */
     private static function heartbeatLock(string $token, string $runId, string $phase): bool
     {
         $lock = self::getLockData();
@@ -1015,6 +1030,9 @@ final class BoatSyncService
         return SyncRuntimePolicy::shouldYield($batchStartedAt, microtime(true));
     }
 
+    /**
+     * Handles admin status.
+     */
     public static function handleAdminStatus(): void
     {
         if (!current_user_can('manage_options')) {
@@ -1032,6 +1050,9 @@ final class BoatSyncService
         wp_send_json_success(self::getUiStatusPayload());
     }
 
+    /**
+     * Handles admin pump.
+     */
     public static function handleAdminPump(): void
     {
         if (!current_user_can('manage_options')) {
@@ -1071,6 +1092,9 @@ final class BoatSyncService
         wp_send_json_success(self::getUiStatusPayload());
     }
 
+    /**
+     * Handles admin stop.
+     */
     public static function handleAdminStop(): void
     {
         self::registerFatalLogger('ajax_stop');
@@ -1135,6 +1159,9 @@ final class BoatSyncService
         Debugger::error(self::DEBUG_CHANNEL, $message, $context);
     }
 
+    /**
+     * Registers a shutdown handler that records fatal boat synchronization errors.
+     */
     private static function registerFatalLogger(string $stage, string $runId = ''): void
     {
         static $registered = [];
@@ -1294,6 +1321,9 @@ final class BoatSyncService
         }
     }
 
+    /**
+     * Assigns the featured image when the post does not already have one.
+     */
     private static function setFeaturedImageOnce(int $postId, int $attachmentId): void
     {
         if ($postId <= 0 || $attachmentId <= 0) return;
@@ -1599,6 +1629,9 @@ final class BoatSyncService
     // Post lookup
     // ─────────────────────────────────────────────
 
+    /**
+     * Finds a synchronized boat post for an external boat ID and language.
+     */
     private static function findPostIdByBoatIdAndLang(string $boatId, string $lang): int
     {
         $q = new \WP_Query([
@@ -1643,6 +1676,9 @@ final class BoatSyncService
     // Layout builder / Gutenberg helpers
     // ─────────────────────────────────────────────
 
+    /**
+     * Returns the configured boat layout builder.
+     */
     private static function getConfiguredLayoutBuilder(): string
     {
         $settings = \Maradigma\SettingsPage::getSettings();
@@ -1651,6 +1687,9 @@ final class BoatSyncService
         return in_array($builder, ['elementor', 'gutenberg', 'wpbakery'], true) ? $builder : 'elementor';
     }
 
+    /**
+     * Loads the Gutenberg integration when it is available.
+     */
     private static function loadGutenbergIntegration(): bool
     {
         if (class_exists(GutenbergIntegration::class)) {
@@ -1665,6 +1704,9 @@ final class BoatSyncService
         return class_exists(GutenbergIntegration::class);
     }
 
+    /**
+     * Loads the WPBakery integration when it is available.
+     */
     private static function loadWPBakeryIntegration(): bool
     {
         if (class_exists(WPBakeryIntegration::class)) {
@@ -1679,6 +1721,9 @@ final class BoatSyncService
         return class_exists(WPBakeryIntegration::class);
     }
 
+    /**
+     * Ensures WPBakery master template is available and correctly configured.
+     */
     public static function ensureWPBakeryMasterTemplate(): int
     {
         if (!self::loadWPBakeryIntegration()) {
@@ -1688,6 +1733,9 @@ final class BoatSyncService
         return WPBakeryIntegration::ensureWPBakeryMasterTemplate();
     }
 
+    /**
+     * Seeds WPBakery master content into a synchronized boat post.
+     */
     private static function seedWPBakeryToBoatPost(int $postId, string $mode = 'seed_missing'): void
     {
         if ($postId <= 0 || !self::loadWPBakeryIntegration()) {
@@ -1702,6 +1750,9 @@ final class BoatSyncService
         WPBakeryIntegration::applyWPBakeryTemplateToBoatPost($postId, $mode);
     }
 
+    /**
+     * Ensures Gutenberg master template is available and correctly configured.
+     */
     public static function ensureGutenbergMasterTemplate(): int
     {
         if (!self::loadGutenbergIntegration()) {
@@ -1711,6 +1762,9 @@ final class BoatSyncService
         return GutenbergIntegration::ensureGutenbergMasterTemplate();
     }
 
+    /**
+     * Seeds Gutenberg master content into a synchronized boat post.
+     */
     private static function seedGutenbergToBoatPost(int $postId, string $mode = 'seed_missing'): void
     {
         if ($postId <= 0 || !self::loadGutenbergIntegration()) {
@@ -1729,11 +1783,17 @@ final class BoatSyncService
     // Elementor helpers (as you had them)
     // ─────────────────────────────────────────────
 
+    /**
+     * Determines whether Elementor active.
+     */
     private static function isElementorActive(): bool
     {
         return did_action('elementor/loaded') || class_exists('\\Elementor\\Plugin');
     }
 
+    /**
+     * Determines whether overwrite Elementor.
+     */
     private static function shouldOverwriteElementor(int $postId, int $templateId): bool
     {
         if ($templateId <= 0 || !get_post($templateId)) return false;
@@ -1744,6 +1804,9 @@ final class BoatSyncService
         return self::isElementorActive();
     }
 
+    /**
+     * Seeds Elementor master data into a synchronized boat post.
+     */
     private static function seedElementorToBoatPost(int $postId, int $templateId): void
     {
         if ($templateId <= 0 || !get_post($templateId) || !self::isElementorActive()) return;
@@ -1769,6 +1832,9 @@ final class BoatSyncService
         self::regenerateElementorCss($postId);
     }
 
+    /**
+     * Regenerates Elementor CSS.
+     */
     private static function regenerateElementorCss(int $postId): void
     {
         if ($postId <= 0) return;
@@ -1895,6 +1961,9 @@ final class BoatSyncService
         ];
     }
 
+    /**
+     * Generates a stable-format random Elementor element identifier.
+     */
     private static function randomElementorId(): string
     {
         $chars = 'abcdefghijklmnopqrstuvwxyz0123456789';
@@ -1905,6 +1974,9 @@ final class BoatSyncService
         return $out;
     }
 
+    /**
+     * Ensures Elementor master template is available and correctly configured.
+     */
     public static function ensureElementorMasterTemplate(): int
     {
         if (self::$ensuringElementorMasterTemplate) {

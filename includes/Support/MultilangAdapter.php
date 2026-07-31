@@ -40,6 +40,9 @@ final class MultilangAdapter
         return '';
     }
 
+    /**
+     * Determines whether a supported multilingual plugin is active.
+     */
     public static function isActive(): bool
     {
         return self::detectProvider() !== '';
@@ -360,6 +363,9 @@ final class MultilangAdapter
         }
     }
 
+    /**
+     * Determines whether post type translatable.
+     */
     public static function isPostTypeTranslatable(string $postType): bool
     {
         $postType = strtolower(trim($postType));

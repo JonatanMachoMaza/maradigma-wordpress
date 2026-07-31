@@ -8,6 +8,9 @@ if (!defined('ABSPATH')) {
     exit;
 }
 
+/**
+ * Registers and manages boat binding metadata for posts and terms.
+ */
 final class MetaManager
 {
     public const META_PAGE_BOATS_MODE = '_maradigma_boats_mode';
@@ -30,6 +33,9 @@ final class MetaManager
     public const META_TERM_IS_BOAT_PAGE = '_maradigma_is_boat_page';
     public const META_TERM_BOAT_ID      = '_maradigma_page_boat_id';
 
+    /**
+     * Registers the component's WordPress hooks.
+     */
     public static function init(): void
     {
         add_action('init', [__CLASS__, 'registerMeta']);
@@ -46,6 +52,9 @@ final class MetaManager
         self::registerTaxonomyHooks();
     }
 
+    /**
+     * Registers meta.
+     */
     public static function registerMeta(): void
     {
         // ─────────────────────────────────────────────
@@ -197,6 +206,9 @@ final class MetaManager
         return current_user_can('edit_posts');
     }
 
+    /**
+     * Registers boat binding meta box.
+     */
     public static function registerBoatBindingMetaBox(): void
     {
         foreach (self::getSupportedBoatBindingPostTypes() as $screen) {
@@ -226,6 +238,9 @@ final class MetaManager
         }
     }
 
+    /**
+     * Renders boat binding meta box.
+     */
     public static function renderBoatBindingMetaBox(\WP_Post $post): void
     {
         wp_nonce_field('maradigma_boat_binding', 'maradigma_boat_binding_nonce');
@@ -248,6 +263,9 @@ final class MetaManager
         echo esc_html__('Unsupported post type.', 'maradigma');
     }
 
+    /**
+     * Renders page boat binding UI.
+     */
     private static function renderPageBoatBindingUI(\WP_Post $post): void
     {
         $isBoatPage = (bool) get_post_meta($post->ID, self::META_PAGE_IS_BOAT_PAGE, true);
@@ -322,6 +340,9 @@ final class MetaManager
         <?php
     }
 
+    /**
+     * Renders the custom post type boat binding interface.
+     */
     private static function renderCptBoatBindingUI(\WP_Post $post): void
     {
         $boatId                  = trim((string) get_post_meta($post->ID, self::META_CPT_BOAT_ID, true));
@@ -409,6 +430,9 @@ final class MetaManager
         <?php
     }
 
+    /**
+     * Registers taxonomy hooks.
+     */
     private static function registerTaxonomyHooks(): void
     {
         foreach (self::getSupportedBoatTaxonomies() as $taxonomy) {
@@ -419,6 +443,9 @@ final class MetaManager
         }
     }
 
+    /**
+     * Renders term boat binding add fields.
+     */
     public static function renderTermBoatBindingAddFields(string $taxonomy): void
     {
         unset($taxonomy);
@@ -461,6 +488,9 @@ final class MetaManager
         <?php
     }
 
+    /**
+     * Renders term boat binding edit fields.
+     */
     public static function renderTermBoatBindingEditFields(\WP_Term $term, string $taxonomy): void
     {
         unset($taxonomy);
@@ -519,6 +549,9 @@ final class MetaManager
         <?php
     }
 
+    /**
+     * Persists boat binding meta box.
+     */
     public static function saveBoatBindingMetaBox(int $postId, \WP_Post $post = null): void
     {
         $nonce = isset($_POST['maradigma_boat_binding_nonce'])
@@ -617,6 +650,9 @@ final class MetaManager
         }
     }
 
+    /**
+     * Persists term boat binding fields.
+     */
     public static function saveTermBoatBindingFields(int $termId, int $ttId = 0): void
     {
         unset($ttId);
@@ -664,16 +700,25 @@ final class MetaManager
         }
     }
 
+    /**
+     * Returns supported boat binding post types.
+     */
     public static function getSupportedBoatBindingPostTypes(): array
     {
         return \Maradigma\SettingsPage::getEnabledBoatBindingPostTypes();
     }
 
+    /**
+     * Determines whether supported boat binding post type.
+     */
     public static function isSupportedBoatBindingPostType(string $postType): bool
     {
         return in_array($postType, self::getSupportedBoatBindingPostTypes(), true);
     }
 
+    /**
+     * Returns supported boat taxonomies.
+     */
     public static function getSupportedBoatTaxonomies(): array
     {
         $taxonomies = apply_filters(
@@ -698,6 +743,9 @@ final class MetaManager
         return array_values(array_unique($taxonomies));
     }
 
+    /**
+     * Counts translation siblings.
+     */
     private static function countTranslationSiblings(int $postId): int
     {
         return count(self::getTranslationSiblingPostIds($postId));
@@ -739,6 +787,9 @@ final class MetaManager
         return array_filter($siblings, static fn(int $id): bool => $id > 0);
     }
 
+    /**
+     * Synchronizes page boat binding to translations.
+     */
     private static function syncPageBoatBindingToTranslations(int $postId, bool $isBoatPage, string $boatId): void
     {
         foreach (self::getTranslationSiblingPostIds($postId) as $translatedPostId) {
@@ -753,22 +804,34 @@ final class MetaManager
         }
     }
 
+    /**
+     * Determines whether use native boat cpt panel.
+     */
     private static function shouldUseNativeBoatCptPanel(): bool
     {
         return self::shouldUseNativeBoatBindingPanel(BoatPostType::POST_TYPE);
     }
 
+    /**
+     * Determines whether use native boat binding panel.
+     */
     private static function shouldUseNativeBoatBindingPanel(string $postType): bool
     {
         return function_exists('use_block_editor_for_post_type')
             && use_block_editor_for_post_type($postType);
     }
 
+    /**
+     * Determines whether supported boat taxonomy.
+     */
     public static function isSupportedBoatTaxonomy(string $taxonomy): bool
     {
         return in_array($taxonomy, self::getSupportedBoatTaxonomies(), true);
     }
 
+    /**
+     * Determines whether post protected from boat binding.
+     */
     public static function isPostProtectedFromBoatBinding(int $postId, ?\WP_Post $post = null): bool
     {
         if ($postId <= 0) {
@@ -786,6 +849,9 @@ final class MetaManager
         return (bool) apply_filters('maradigma_is_post_protected_from_boat_binding', false, $postId, $post);
     }
 
+    /**
+     * Returns bound boat ID for post.
+     */
     public static function getBoundBoatIdForPost(int $postId): string
     {
         $post = get_post($postId);
@@ -813,6 +879,9 @@ final class MetaManager
         return '';
     }
 
+    /**
+     * Returns bound boat ID for term.
+     */
     public static function getBoundBoatIdForTerm(int $termId): string
     {
         $isBoatPage = (bool) get_term_meta($termId, self::META_TERM_IS_BOAT_PAGE, true);

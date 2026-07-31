@@ -1,12 +1,34 @@
 #!/usr/bin/env php
 <?php
+/**
+ * Build a distributable ZIP archive for the Maradigma WordPress plugin.
+ *
+ * This PHP 8.3-compatible CLI entry point bootstraps the plugin autoloader and
+ * delegates release validation, staging, and archive creation to
+ * PluginReleaseBuilder. It accepts no command-line options.
+ *
+ * The builder writes the generated archive to the plugin's release directory
+ * and may replace an existing archive for the same plugin version.
+ *
+ * Exit codes:
+ * - 0: The release archive was built and validated successfully.
+ * - 1: Bootstrap, validation, staging, or archive creation failed.
+ *
+ * @package Maradigma
+ * @internal
+ */
 
 declare(strict_types=1);
 
 use Maradigma\Support\PluginReleaseBuilder;
 
+/** @var non-falsy-string $rootDir Absolute path to the plugin root directory. */
 $rootDir = dirname(__DIR__);
+
+/** @var non-falsy-string $autoloadFile Absolute path to the internal autoloader. */
 $autoloadFile = $rootDir . '/includes/Autoload.php';
+
+/** @var non-falsy-string $pluginMainFile Absolute path to the main plugin file. */
 $pluginMainFile = $rootDir . '/maradigma.php';
 
 if (!is_file($autoloadFile)) {
@@ -30,6 +52,18 @@ if (!class_exists(PluginReleaseBuilder::class)) {
 
 try {
     $builder = new PluginReleaseBuilder($rootDir, $pluginMainFile);
+
+    /**
+     * Metadata for the generated and validated release archive.
+     *
+     * @var array{
+     *     version: string,
+     *     zip_path: string,
+     *     zip_filename: string,
+     *     release_dir: string,
+     *     release_slug: string
+     * } $result
+     */
     $result = $builder->build();
 
     fwrite(STDOUT, PHP_EOL);

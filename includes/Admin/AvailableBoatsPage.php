@@ -8,10 +8,16 @@ if (!defined('ABSPATH')) {
     exit;
 }
 
+/**
+ * Renders and processes the administrative page for available boats.
+ */
 final class AvailableBoatsPage
 {
     private const PAGE_SLUG = 'maradigma-api-boats';
 
+    /**
+     * Renders the component output.
+     */
     public static function render(): void
     {
         if (!current_user_can('manage_options')) {
@@ -136,6 +142,9 @@ final class AvailableBoatsPage
         echo '</div>';
     }
 
+    /**
+     * Refreshes the available data from the external API.
+     */
     public static function refresh(): void
     {
         if (!current_user_can('manage_options')) {
@@ -177,6 +186,9 @@ final class AvailableBoatsPage
         }
     }
 
+    /**
+     * Renders pagination.
+     */
     private static function renderPagination(int $current, int $pages, int $perPage, string $pageSlug): string
     {
         if ($pages <= 1) {
@@ -246,6 +258,9 @@ final class AvailableBoatsPage
         return (string) ob_get_clean();
     }
 
+    /**
+     * Renders pagination summary.
+     */
     private static function renderPaginationSummary(int $total, string $paginationHtml): void
     {
         echo '<div class="tablenav-pages" id="table-paging">';

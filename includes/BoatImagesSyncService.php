@@ -80,6 +80,9 @@ final class BoatImagesSyncService
         'maradigma_max_1600'           => ['w' => 1600, 'h' => 0,    'crop' => false],
     ];
 
+    /**
+     * Registers the component's WordPress hooks.
+     */
     public static function init(): void
     {
         \add_action(self::CRON_HOOK, [self::class, 'tick']);
@@ -92,6 +95,9 @@ final class BoatImagesSyncService
         \add_action('init', [self::class, 'registerImageSizes'], 20);
     }
 
+    /**
+     * Registers image sizes.
+     */
     public static function registerImageSizes(): void
     {
         if (!\function_exists('add_image_size')) {
@@ -123,6 +129,9 @@ final class BoatImagesSyncService
         ]);
     }
 
+    /**
+     * Starts the background workflow.
+     */
     public static function start(bool $forceResync = false): void
     {
         $state = self::buildFreshState($forceResync);
@@ -136,6 +145,9 @@ final class BoatImagesSyncService
         self::scheduleNextTick(2);
     }
 
+    /**
+     * Stops the background workflow and clears pending work.
+     */
     public static function stop(): void
     {
         $state = self::getState();
@@ -152,6 +164,9 @@ final class BoatImagesSyncService
         ]);
     }
 
+    /**
+     * Handles async kick.
+     */
     public static function handleAsyncKick(): void
     {
         if (\function_exists('ignore_user_abort')) {
@@ -206,12 +221,18 @@ final class BoatImagesSyncService
         exit;
     }
 
+    /**
+     * Handles admin status.
+     */
     public static function handleAdminStatus(): void
     {
         self::checkAdminAjaxRequest();
         \wp_send_json_success(self::getUiStatusPayload());
     }
 
+    /**
+     * Handles admin pump.
+     */
     public static function handleAdminPump(): void
     {
         self::checkAdminAjaxRequest();
@@ -226,6 +247,9 @@ final class BoatImagesSyncService
         \wp_send_json_success(self::getUiStatusPayload());
     }
 
+    /**
+     * Processes the next scheduled workflow batch.
+     */
     public static function tick(): void
     {
         self::registerShutdownHandler();
@@ -928,6 +952,9 @@ final class BoatImagesSyncService
         return $out;
     }
 
+    /**
+     * Returns max images per boat.
+     */
     private static function getMaxImagesPerBoat(): int
     {
         $settings = \Maradigma\SettingsPage::getSettings();
@@ -1009,6 +1036,9 @@ final class BoatImagesSyncService
         return 'imported';
     }
 
+    /**
+     * Ensures attachment meta is available and correctly configured.
+     */
     private static function ensureAttachmentMeta(int $attId, string $boatId, int $numberOrder): bool
     {
         $changed = false;
@@ -1077,6 +1107,9 @@ final class BoatImagesSyncService
         return $out;
     }
 
+    /**
+     * Imports attachment from URL.
+     */
     private static function importAttachmentFromUrl(string $remoteUrl, string $boatId): int
     {
         self::debug('import_attachment_started', [
@@ -1178,6 +1211,9 @@ final class BoatImagesSyncService
         return $attId;
     }
 
+    /**
+     * Returns attachment URL by size.
+     */
     public static function getAttachmentUrlBySize(int $attachmentId, string $sizeName): string
     {
         $attachmentId = (int) $attachmentId;
@@ -1291,12 +1327,18 @@ final class BoatImagesSyncService
         return '';
     }
 
+    /**
+     * Returns boat main URL by boat ID.
+     */
     public static function getBoatMainUrlByBoatId(string $boatId): string
     {
         $cover = self::getBoatCoverUrlsByBoatId($boatId);
         return self::pickMainUrlFromCoverUrls($cover);
     }
 
+    /**
+     * Sanitizes token suffix.
+     */
     private static function sanitizeTokenSuffix(string $raw): string
     {
         $raw = \strtolower(\trim($raw));
@@ -1358,6 +1400,9 @@ final class BoatImagesSyncService
         return $out;
     }
 
+    /**
+     * Returns cover attachment ID by boat ID.
+     */
     public static function getCoverAttachmentIdByBoatId(string $boatId): int
     {
         $boatId = \trim($boatId);
@@ -1410,6 +1455,9 @@ final class BoatImagesSyncService
         return !empty($q3->posts[0]) ? (int) $q3->posts[0] : 0;
     }
 
+    /**
+     * Finds attachment by remote URL and boat ID.
+     */
     private static function findAttachmentByRemoteUrlAndBoatId(string $remoteUrl, string $boatId): int
     {
         $ids = self::findAttachmentIdsByRemoteUrlAndBoatId($remoteUrl, $boatId);
@@ -1450,6 +1498,9 @@ final class BoatImagesSyncService
         return \array_values(\array_filter(\array_map('intval', $q->posts)));
     }
 
+    /**
+     * Cleans up duplicate attachments by remote URL and boat ID.
+     */
     private static function cleanupDuplicateAttachmentsByRemoteUrlAndBoatId(string $remoteUrl, string $boatId): void
     {
         $ids = self::findAttachmentIdsByRemoteUrlAndBoatId($remoteUrl, $boatId);
@@ -1619,6 +1670,9 @@ final class BoatImagesSyncService
         return $ids;
     }
 
+    /**
+     * Schedules next tick.
+     */
     private static function scheduleNextTick(int $delaySeconds = 2, bool $dispatchAsync = true): void
     {
         $delaySeconds = max(1, $delaySeconds);
@@ -1641,6 +1695,9 @@ final class BoatImagesSyncService
         }
     }
 
+    /**
+     * Dispatches async kick.
+     */
     private static function dispatchAsyncKick(int $delaySeconds = 1): void
     {
         $state = self::getState();
@@ -1689,6 +1746,9 @@ final class BoatImagesSyncService
         ]);
     }
 
+    /**
+     * Builds async kick URL.
+     */
     private static function buildAsyncKickUrl(array $state): string
     {
         $asyncKey = (string) ($state['async_key'] ?? '');
@@ -1699,12 +1759,18 @@ final class BoatImagesSyncService
         return \admin_url('admin-ajax.php?action=' . self::AJAX_ACTION . '&async_key=' . rawurlencode($asyncKey));
     }
 
+    /**
+     * Returns the timestamp of the next scheduled image synchronization batch.
+     */
     public static function getNextScheduledAt(): int
     {
         $next = \wp_next_scheduled(self::CRON_HOOK);
         return $next ? (int) $next : 0;
     }
 
+    /**
+     * Validates the nonce and capabilities for a background AJAX request.
+     */
     private static function checkAdminAjaxRequest(): void
     {
         if (!\current_user_can('manage_options')) {
@@ -1789,6 +1855,9 @@ final class BoatImagesSyncService
         return 'ok';
     }
 
+    /**
+     * Acquires lock.
+     */
     private static function acquireLock(): string
     {
         if (self::isLockActive()) {
@@ -1802,6 +1871,9 @@ final class BoatImagesSyncService
         return \get_transient(self::LOCK_TRANSIENT) === $token ? $token : '';
     }
 
+    /**
+     * Releases lock.
+     */
     private static function releaseLock(string $token): void
     {
         if ($token !== '' && \get_transient(self::LOCK_TRANSIENT) === $token) {
@@ -1809,23 +1881,35 @@ final class BoatImagesSyncService
         }
     }
 
+    /**
+     * Clears lock.
+     */
     private static function clearLock(): void
     {
         \delete_transient(self::LOCK_TRANSIENT);
         \delete_transient(self::LOCK_TRANSIENT . '_until');
     }
 
+    /**
+     * Determines whether lock active.
+     */
     private static function isLockActive(): bool
     {
         return (string) \get_transient(self::LOCK_TRANSIENT) !== '';
     }
 
+    /**
+     * Determines whether stop requested.
+     */
     private static function isStopRequested(): bool
     {
         $state = self::getState();
         return (string) ($state['status'] ?? '') !== 'running';
     }
 
+    /**
+     * Removes all pending cron events for the image synchronization workflow.
+     */
     private static function unscheduleAllTicks(): void
     {
         $ts = \wp_next_scheduled(self::CRON_HOOK);
@@ -1835,6 +1919,9 @@ final class BoatImagesSyncService
         }
     }
 
+    /**
+     * Registers a shutdown handler that records fatal synchronization errors.
+     */
     private static function registerShutdownHandler(): void
     {
         \register_shutdown_function(static function (): void {

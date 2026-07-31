@@ -14,6 +14,9 @@ namespace Maradigma\Support;
  */
 final class RuntimeContext
 {
+    /**
+     * Returns locale.
+     */
     public static function getLocale(): string
     {
         if (\function_exists('determine_locale')) {
@@ -29,6 +32,9 @@ final class RuntimeContext
         return 'en_US';
     }
 
+    /**
+     * Returns language.
+     */
     public static function getLanguage(): string
     {
         $locale = self::getLocale();
@@ -36,16 +42,25 @@ final class RuntimeContext
         return $lang !== '' ? $lang : 'en';
     }
 
+    /**
+     * Determines whether admin.
+     */
     public static function isAdmin(): bool
     {
         return \function_exists('is_admin') ? (bool) \is_admin() : false;
     }
 
+    /**
+     * Determines whether AJAX.
+     */
     public static function isAjax(): bool
     {
         return \defined('DOING_AJAX') && DOING_AJAX === true;
     }
 
+    /**
+     * Determines whether REST.
+     */
     public static function isRest(): bool
     {
         if (\defined('REST_REQUEST') && REST_REQUEST === true) {
@@ -60,6 +75,9 @@ final class RuntimeContext
         return false;
     }
 
+    /**
+     * Determines whether Elementor preview.
+     */
     public static function isElementorPreview(): bool
     {
         // Builder query parameters only identify a read-only editor/preview context.
@@ -79,6 +97,9 @@ final class RuntimeContext
         return false;
     }
 
+    /**
+     * Determines whether Elementor editor context.
+     */
     public static function isElementorEditorContext(): bool
     {
         if (!\did_action('elementor/loaded')) {
@@ -113,6 +134,9 @@ final class RuntimeContext
         return self::isElementorPreview();
     }
 
+    /**
+     * Determines whether WPBakery editor context.
+     */
     public static function isWPBakeryEditorContext(): bool
     {
         // WPBakery uses public query flags to identify its read-only editor context.
@@ -134,16 +158,25 @@ final class RuntimeContext
         return false;
     }
 
+    /**
+     * Determines whether builder preview.
+     */
     public static function isBuilderPreview(): bool
     {
         return self::isElementorPreview() || self::isWPBakeryEditorContext();
     }
 
+    /**
+     * Determines whether bypass cache.
+     */
     public static function shouldBypassCache(): bool
     {
         return self::isBuilderPreview() || self::isAdmin() || self::isAjax() || self::isRest();
     }
 
+    /**
+     * Returns plugin default language.
+     */
     public static function getPluginDefaultLanguage(): string
     {
         $opt = \get_option('maradigma_settings', []);
@@ -166,6 +199,9 @@ final class RuntimeContext
         return \is_array($opt) && !empty($opt['enable_boat_pages_sync']);
     }
 
+    /**
+     * Detects current language.
+     */
     public static function detectCurrentLanguage(): string
     {
         if (\class_exists(\Maradigma\Support\MultilangAdapter::class)) {
@@ -370,6 +406,9 @@ final class RuntimeContext
             $slug
         );
     }
+    /**
+     * Returns home URL for language.
+     */
     public static function getHomeUrlForLanguage(?string $lang = null): string
     {
         $lang = $lang !== null ? \strtolower(\trim($lang)) : self::detectCurrentLanguage();

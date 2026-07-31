@@ -15,6 +15,9 @@ final class Cache
 {
     private ExternalApiClient $client;
 
+    /**
+     * Initializes the cache.
+     */
     public function __construct(?ExternalApiClient $client = null)
     {
         if ($client !== null) {
@@ -126,6 +129,9 @@ final class Cache
         return $this->normalizeResult($result, 'success');
     }
 
+    /**
+     * Determines whether price debug request.
+     */
     private static function isPriceDebugRequest(): bool
     {
         // Read-only diagnostic flag; Debugger still controls whether output is recorded.
@@ -480,6 +486,9 @@ final class Cache
         return $this->normalizeResult($result, 'success');
     }
 
+    /**
+     * Clears every cache entry managed by the plugin.
+     */
     public static function flushAll(): void
     {
         global $wpdb;

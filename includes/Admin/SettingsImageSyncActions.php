@@ -8,8 +8,14 @@ if (!defined('ABSPATH')) {
     exit;
 }
 
+/**
+ * Handles administrative actions for settings image sync.
+ */
 final class SettingsImageSyncActions
 {
+    /**
+     * Starts the background workflow.
+     */
     public static function start(): void
     {
         if (!current_user_can('manage_options')) {
@@ -30,6 +36,9 @@ final class SettingsImageSyncActions
         self::redirect('images_sync_started');
     }
 
+    /**
+     * Stops the background workflow and clears pending work.
+     */
     public static function stop(): void
     {
         if (!current_user_can('manage_options')) {
@@ -43,6 +52,9 @@ final class SettingsImageSyncActions
         self::redirect('images_sync_stopped');
     }
 
+    /**
+     * Resets the component state.
+     */
     public static function reset(): void
     {
         if (!current_user_can('manage_options')) {
@@ -62,6 +74,9 @@ final class SettingsImageSyncActions
         self::redirect($alsoStart ? 'images_sync_reset_started' : 'images_sync_reset');
     }
 
+    /**
+     * Redirects back to the settings page with a status notice.
+     */
     private static function redirect(string $notice): void
     {
         wp_safe_redirect(add_query_arg([

@@ -8,8 +8,14 @@ if (!defined('ABSPATH')) {
     exit;
 }
 
+/**
+ * Builds escaped administrative notices for settings actions.
+ */
 final class SettingsNotices
 {
+    /**
+     * Builds escaped HTML for an administrative notice.
+     */
     public static function html(string $type, string $message): string
     {
         $type = sanitize_key($type);

@@ -4,6 +4,9 @@ declare(strict_types=1);
 
 namespace Maradigma;
 
+/**
+ * Persists and retrieves boat card definitions.
+ */
 final class BoatCardRepository
 {
     public const OPTION_KEY = 'maradigma_boat_cards';
@@ -70,6 +73,9 @@ final class BoatCardRepository
         return $cfg;
     }
 
+    /**
+     * Returns default card ID.
+     */
     public static function getDefaultCardId(): string
     {
         $cfg = self::getConfig();
@@ -119,6 +125,9 @@ final class BoatCardRepository
         return $out;
     }
 
+    /**
+     * Persists card.
+     */
     public static function saveCard(string $cardId, string $name, string $template): void
     {
         $cfg = self::getConfig();
@@ -133,6 +142,9 @@ final class BoatCardRepository
         update_option(self::OPTION_KEY, $cfg, false);
     }
 
+    /**
+     * Deletes card.
+     */
     public static function deleteCard(string $cardId): void
     {
         $cfg = self::getConfig();
@@ -151,6 +163,9 @@ final class BoatCardRepository
         update_option(self::OPTION_KEY, $cfg, false);
     }
 
+    /**
+     * Sets default card ID.
+     */
     public static function setDefaultCardId(string $cardId): void
     {
         $cfg = self::getConfig();
@@ -164,6 +179,9 @@ final class BoatCardRepository
         update_option(self::OPTION_KEY, $cfg, false);
     }
 
+    /**
+     * Restores the bundled default boat card template.
+     */
     public static function restoreDefaultCardTemplate(): void
     {
         $cfg = self::getConfig();
@@ -177,6 +195,9 @@ final class BoatCardRepository
         update_option(self::OPTION_KEY, $cfg, false);
     }
 
+    /**
+     * Normalizes card ID.
+     */
     private static function normalizeCardId(string $cardId): string
     {
         $id = strtolower(trim($cardId));
@@ -186,11 +207,17 @@ final class BoatCardRepository
         return $id !== '' ? $id : self::DEFAULT_CARD_ID;
     }
 
+    /**
+     * Calculates the hash for template.
+     */
     private static function hashTemplate(string $template): string
     {
         return hash('sha256', $template);
     }
 
+    /**
+     * Returns default template.
+     */
     private static function getDefaultTemplate(): string
     {
         $templateFile = dirname(__DIR__) . '/templates/boat-card-default.php';

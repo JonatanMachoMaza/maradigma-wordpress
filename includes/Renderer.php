@@ -7,11 +7,17 @@ use Maradigma\Support\Logger;
 use Maradigma\Support\RuntimeContext;
 use Maradigma\Support\Sanitizer;
 
+/**
+ * Renders plugin templates with cached Maradigma data.
+ */
 final class Renderer
 {
     private TemplateResolver $templates;
     private Cache $cache;
 
+    /**
+     * Initializes the renderer.
+     */
     public function __construct(TemplateResolver $templates, Cache $cache)
     {
         $this->templates = $templates;

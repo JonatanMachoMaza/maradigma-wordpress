@@ -27,6 +27,9 @@ final class BoatPostType
     private const META_BOAT_ID = '_maradigma_boat_id';
     private const META_ATTACHMENT_BOAT_ID = '_maradigma_boat_id';
 
+    /**
+     * Registers the component's WordPress hooks.
+     */
     public static function init(): void
     {
         \add_action('init', [__CLASS__, 'register'], 1);
@@ -38,6 +41,9 @@ final class BoatPostType
         }
     }
 
+    /**
+     * Registers the component with WordPress.
+     */
     public static function register(): void
     {
         if (\post_type_exists(self::POST_TYPE)) {
@@ -104,6 +110,9 @@ final class BoatPostType
         ]);
     }
 
+    /**
+     * Adds admin columns.
+     */
     public static function addAdminColumns(array $columns): array
     {
         $out = [];
@@ -128,6 +137,9 @@ final class BoatPostType
         return $out;
     }
 
+    /**
+     * Renders admin columns.
+     */
     public static function renderAdminColumns(string $column, int $postId): void
     {
         if ($postId <= 0 || \get_post_type($postId) !== self::POST_TYPE) {
@@ -170,6 +182,9 @@ final class BoatPostType
         }
     }
 
+    /**
+     * Enqueues styles for the custom boat administration columns.
+     */
     public static function enqueueAdminColumnsCss(string $hookSuffix): void
     {
         if ($hookSuffix !== 'edit.php' || !\function_exists('get_current_screen')) {
@@ -189,6 +204,9 @@ final class BoatPostType
         );
     }
 
+    /**
+     * Returns external boat ID from post.
+     */
     private static function getExternalBoatIdFromPost(int $postId): string
     {
         if ($postId <= 0) {
@@ -198,6 +216,9 @@ final class BoatPostType
         return \trim((string) \get_post_meta($postId, self::META_BOAT_ID, true));
     }
 
+    /**
+     * Counts cached images by boat ID.
+     */
     private static function countCachedImagesByBoatId(string $boatId): int
     {
         $boatId = \trim($boatId);
@@ -224,6 +245,9 @@ final class BoatPostType
         return isset($q->found_posts) ? (int) $q->found_posts : 0;
     }
 
+    /**
+     * Returns post language slug.
+     */
     private static function getPostLanguageSlug(int $postId): string
     {
         if (\function_exists('pll_get_post_language')) {
@@ -257,6 +281,9 @@ final class BoatPostType
         return '';
     }
 
+    /**
+     * Converts a language slug into its normalized language code.
+     */
     private static function langSlugToCode(string $lang): string
     {
         $lang = \strtolower(\trim($lang));

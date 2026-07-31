@@ -19,6 +19,9 @@ final class BoatsAdminPage
 {
     private const META_KEY = '_maradigma_boats_page';
 
+    /**
+     * Registers the component's WordPress hooks.
+     */
     public static function init(): void
     {
 
@@ -68,6 +71,9 @@ final class BoatsAdminPage
         );
     }
 
+    /**
+     * Registers meta box.
+     */
     public static function registerMetaBox(string $postType, \WP_Post $post): void
     {
         // DEBUG

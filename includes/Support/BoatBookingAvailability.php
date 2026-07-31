@@ -4,6 +4,9 @@ declare(strict_types=1);
 
 namespace Maradigma\Support;
 
+/**
+ * Evaluates whether booking and calendar interfaces can be shown for a boat.
+ */
 final class BoatBookingAvailability
 {
     /** @param array<string,mixed> $boat */

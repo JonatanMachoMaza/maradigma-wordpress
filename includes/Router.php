@@ -13,11 +13,17 @@ if (!defined('ABSPATH')) {
  */
 final class Router
 {
+    /**
+     * Registers the component's WordPress hooks.
+     */
     public static function init(): void
     {
         add_filter('template_include', [__CLASS__, 'filterTemplate']);
     }
 
+    /**
+     * Selects the plugin template for synchronized boat detail requests.
+     */
     public static function filterTemplate(string $template): string
     {
         if (is_post_type_archive(BoatPostType::POST_TYPE)) {

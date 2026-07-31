@@ -4,6 +4,9 @@ declare(strict_types=1);
 
 namespace Maradigma\Support;
 
+/**
+ * Builds the front-end markup for boat specs.
+ */
 final class BoatSpecsRenderer
 {
     /**
@@ -323,6 +326,9 @@ final class BoatSpecsRenderer
         return null;
     }
 
+    /**
+     * Formats value.
+     */
     private static function formatValue(mixed $raw, string $format): string
     {
         if ($raw === null) {
@@ -374,6 +380,9 @@ final class BoatSpecsRenderer
         return $s;
     }
 
+    /**
+     * Returns default label for key.
+     */
     private static function getDefaultLabelForKey(string $key): string
     {
         $config = self::getAvailableFieldsConfig();

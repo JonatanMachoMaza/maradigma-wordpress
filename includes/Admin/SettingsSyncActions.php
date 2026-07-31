@@ -8,8 +8,14 @@ if (!defined('ABSPATH')) {
     exit;
 }
 
+/**
+ * Handles administrative actions for settings sync.
+ */
 final class SettingsSyncActions
 {
+    /**
+     * Synchronizes boats.
+     */
     public static function syncBoats(): void
     {
         if (!current_user_can('manage_options')) {
@@ -54,6 +60,9 @@ final class SettingsSyncActions
         }
     }
 
+    /**
+     * Flushes cache.
+     */
     public static function flushCache(): void
     {
         if (!current_user_can('manage_options')) {
@@ -71,6 +80,9 @@ final class SettingsSyncActions
         }
     }
 
+    /**
+     * Deletes all boats.
+     */
     public static function deleteAllBoats(): void
     {
         if (!current_user_can('manage_options')) {
@@ -192,6 +204,9 @@ final class SettingsSyncActions
         return $options;
     }
 
+    /**
+     * Redirects back to the settings page with a status notice.
+     */
     private static function redirect(string $notice): void
     {
         wp_safe_redirect(add_query_arg([

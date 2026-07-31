@@ -104,6 +104,9 @@ final class Utils
         return \number_format($amount, $decimals, '.', '') . ' ' . $currency;
     }
 
+    /**
+     * Formats money advanced.
+     */
     public static function formatMoneyAdvanced(float $amount, string $currency, array $fmt = []): string
     {
         $currency = strtoupper(trim($currency ?: 'EUR'));
@@ -137,6 +140,9 @@ final class Utils
         return $num . ' ' . $currency;
     }
 
+    /**
+     * Returns the display symbol for a currency code.
+     */
     private static function currencySymbol(string $currency): string
     {
         return match (strtoupper($currency)) {
@@ -149,6 +155,9 @@ final class Utils
         };
     }
 
+    /**
+     * Normalizes a numeric value to a float or null.
+     */
     public static function toFloatOrNull(mixed $v): ?float
     {
         if (is_int($v) || is_float($v)) return (float)$v;

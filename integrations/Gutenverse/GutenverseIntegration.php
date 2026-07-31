@@ -8,12 +8,18 @@ if (!defined('ABSPATH')) {
     exit;
 }
 
+/**
+ * Integrates Maradigma with Gutenverse.
+ */
 final class GutenverseIntegration
 {
     private const CACHE_OPTION = 'gutenverse-style-cache-id';
 
     private static bool $registered = false;
 
+    /**
+     * Registers the component with WordPress.
+     */
     public static function register(): void
     {
         if (self::$registered) {
@@ -27,6 +33,9 @@ final class GutenverseIntegration
         \add_filter('gutenverse_conditional_style_handles', [self::class, 'normalizeConditionalHandles'], PHP_INT_MAX);
     }
 
+    /**
+     * Registers the component's WordPress hooks.
+     */
     public static function init(): void
     {
         self::register();
@@ -50,6 +59,9 @@ final class GutenverseIntegration
             $handles
         )));
     }
+    /**
+     * Responds when Gutenberg template applied to boat.
+     */
     public static function onGutenbergTemplateAppliedToBoat(int $boatPostId, int $templatePostId): void
     {
         if ($boatPostId <= 0 || !self::isGutenverseActive()) {
@@ -69,6 +81,9 @@ final class GutenverseIntegration
         \clean_post_cache($boatPostId);
     }
 
+    /**
+     * Determines whether Gutenverse active.
+     */
     public static function isGutenverseActive(): bool
     {
         return \defined('GUTENVERSE')
@@ -76,6 +91,9 @@ final class GutenverseIntegration
             || \class_exists('\Gutenverse\Framework\Init');
     }
 
+    /**
+     * Determines whether content contains Gutenverse blocks.
+     */
     private static function contentHasGutenverseBlocks(string $content): bool
     {
         return \strpos($content, 'wp:gutenverse/') !== false
@@ -83,6 +101,9 @@ final class GutenverseIntegration
             || \strpos($content, 'wp-block-gutenverse-') !== false;
     }
 
+    /**
+     * Rotates the Gutenverse style cache identifier.
+     */
     private static function rollStyleCacheId(): void
     {
         $frontendCache = self::getFrontendCacheInstance();
@@ -94,6 +115,9 @@ final class GutenverseIntegration
         \update_option(self::CACHE_OPTION, \wp_rand(111111, 999999), true);
     }
 
+    /**
+     * Returns frontend cache instance.
+     */
     private static function getFrontendCacheInstance()
     {
         if (!\class_exists('\Gutenverse\Framework\Init') || !\method_exists('\Gutenverse\Framework\Init', 'instance')) {
@@ -107,6 +131,9 @@ final class GutenverseIntegration
             : null;
     }
 
+    /**
+     * Deletes generated files for post.
+     */
     private static function deleteGeneratedFilesForPost(int $postId): void
     {
         $prefix = 'gutenverse-content-' . $postId . '-';
@@ -114,6 +141,9 @@ final class GutenverseIntegration
         self::deleteGeneratedFilesWithPrefix(self::getConditionalPath(), $prefix);
     }
 
+    /**
+     * Deletes generated files with prefix.
+     */
     private static function deleteGeneratedFilesWithPrefix(string $directory, string $prefix): void
     {
         $directory = \wp_normalize_path($directory);
@@ -137,6 +167,9 @@ final class GutenverseIntegration
         }
     }
 
+    /**
+     * Returns CSS path.
+     */
     private static function getCssPath(): string
     {
         if (\function_exists('gutenverse_css_path')) {
@@ -148,6 +181,9 @@ final class GutenverseIntegration
         return \trailingslashit((string) ($uploadDir['basedir'] ?? '')) . 'gutenverse/css';
     }
 
+    /**
+     * Returns conditional path.
+     */
     private static function getConditionalPath(): string
     {
         if (\function_exists('gutenverse_conditional_path')) {

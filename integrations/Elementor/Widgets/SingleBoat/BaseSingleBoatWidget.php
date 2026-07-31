@@ -8,6 +8,9 @@ use Maradigma\Cache;
 use Maradigma\MetaManager;
 use Maradigma\BoatPostType;
 
+/**
+ * Provides shared boat context and rendering helpers for single-boat Elementor widgets.
+ */
 abstract class BaseSingleBoatWidget extends Widget_Base
 {
     /**
@@ -19,6 +22,9 @@ abstract class BaseSingleBoatWidget extends Widget_Base
     /** Option fallback for the preview boat post id. */
     private const OPTION_PREVIEW_BOAT_POST_ID = 'maradigma_elementor_preview_boat_post_id';
 
+    /**
+     * Returns boat ID from current post.
+     */
     protected function getBoatIdFromCurrentPost(): string
     {
         $postId = $this->resolveCurrentPostIdForElementor();
@@ -227,6 +233,9 @@ abstract class BaseSingleBoatWidget extends Widget_Base
         return 0;
     }
 
+    /**
+     * Returns current language for API.
+     */
     protected function getCurrentLanguageForApi(): string
     {
         // 1) Idioma ACTUAL de la página (Polylang/WPML) => 'es','en',...

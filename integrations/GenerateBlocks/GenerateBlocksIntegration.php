@@ -8,10 +8,16 @@ if (!defined('ABSPATH')) {
     exit;
 }
 
+/**
+ * Integrates Maradigma with GenerateBlocks.
+ */
 final class GenerateBlocksIntegration
 {
     private static bool $registered = false;
 
+    /**
+     * Registers the component with WordPress.
+     */
     public static function register(): void
     {
         if (self::$registered) {
@@ -23,11 +29,17 @@ final class GenerateBlocksIntegration
         \add_action('maradigma_gutenberg_template_applied_to_boat', [self::class, 'onGutenbergTemplateAppliedToBoat'], 10, 2);
     }
 
+    /**
+     * Registers the component's WordPress hooks.
+     */
     public static function init(): void
     {
         self::register();
     }
 
+    /**
+     * Responds when Gutenberg template applied to boat.
+     */
     public static function onGutenbergTemplateAppliedToBoat(int $boatPostId, int $templatePostId): void
     {
         if ($boatPostId <= 0) {
@@ -54,6 +66,9 @@ final class GenerateBlocksIntegration
         \clean_post_cache($boatPostId);
     }
 
+    /**
+     * Synchronizes reusable block references.
+     */
     private static function syncReusableBlockReferences(int $boatPostId, string $content): void
     {
         $matches = [];
@@ -74,6 +89,9 @@ final class GenerateBlocksIntegration
         \update_post_meta($boatPostId, '_generateblocks_reusable_blocks', $refs);
     }
 
+    /**
+     * Returns GenerateBlocks version.
+     */
     private static function getGenerateBlocksVersion(): string
     {
         if (\defined('GENERATEBLOCKS_VERSION')) {

@@ -48,6 +48,9 @@ final class SeoIntegration
     private const META_MD_YOAST_TITLE_HASH = '_maradigma_yoast_title_hash';
     private const META_MD_YOAST_DESC_HASH  = '_maradigma_yoast_desc_hash';
 
+    /**
+     * Registers the component's WordPress hooks.
+     */
     public static function init(): void
     {
         // Frontend filters (fallback only)
@@ -193,6 +196,9 @@ final class SeoIntegration
     // Yoast filters (frontend fallback)
     // ─────────────────────────────────────────────
 
+    /**
+     * Filters the Yoast SEO document title for a boat post.
+     */
     public static function filterYoastTitle(string $current): string
     {
         $postId = self::getCurrentPostId();
@@ -246,6 +252,9 @@ final class SeoIntegration
         return $computed !== '' ? $computed : $current;
     }
 
+    /**
+     * Filters the Yoast SEO meta description for a boat post.
+     */
     public static function filterYoastMetadesc(string $current): string
     {
         $postId = self::getCurrentPostId();
@@ -299,11 +308,17 @@ final class SeoIntegration
         return $computed !== '' ? $computed : $current;
     }
 
+    /**
+     * Filters the Yoast Open Graph title for a boat post.
+     */
     public static function filterYoastOgTitle(string $current): string
     {
         return self::filterYoastTitle($current);
     }
 
+    /**
+     * Filters the Yoast Open Graph description for a boat post.
+     */
     public static function filterYoastOgDesc(string $current): string
     {
         return self::filterYoastMetadesc($current);
@@ -313,6 +328,9 @@ final class SeoIntegration
     // Helpers
     // ─────────────────────────────────────────────
 
+    /**
+     * Returns current post ID.
+     */
     private static function getCurrentPostId(): int
     {
         $postId = 0;
@@ -328,6 +346,9 @@ final class SeoIntegration
         return $postId;
     }
 
+    /**
+     * Determines whether boat post.
+     */
     private static function isBoatPost(int $postId): bool
     {
         $pt = (string) \get_post_type($postId);
