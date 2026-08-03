@@ -2656,3 +2656,123 @@ msgstr "Testo introduttivo del metodo di pagamento (%s)"
 msgid "Example: Your reservation is almost ready. Select your secure payment method to continue."
 msgstr "Esempio: la tua prenotazione è quasi pronta. Seleziona il tuo metodo di pagamento sicuro per continuare."
 
+#: includes/BoatsAdminPage.php
+msgid "Maradigma settings - Boat page"
+msgstr "Impostazioni Maradigma - Pagina dell'imbarcazione"
+
+#: includes/BoatsAdminPage.php
+msgid "Maradigma - boat listing settings"
+msgstr "Maradigma - impostazioni dell'elenco delle imbarcazioni"
+
+#: includes/BoatsAdminPage.php
+msgid "Choose which type of boat listing to display on this page."
+msgstr "Scegli il tipo di elenco delle imbarcazioni da mostrare in questa pagina."
+
+#: includes/BoatsAdminPage.php
+msgid "Listing page"
+msgstr "Pagina dell'elenco"
+
+#: includes/BoatsAdminPage.php
+msgid "No integration (standard page)"
+msgstr "Nessuna integrazione (pagina standard)"
+
+#: includes/BoatsAdminPage.php
+msgid "Boat listing (general listing)"
+msgstr "Elenco imbarcazioni (elenco generale)"
+
+#: includes/BoatsAdminPage.php
+msgid "Boats by type (single type)"
+msgstr "Imbarcazioni per tipo (un solo tipo)"
+
+#: includes/BoatsAdminPage.php
+msgid "Select a single boat type. The listing will only show boats of that type."
+msgstr "Seleziona un solo tipo di imbarcazione. L'elenco mostrerà solo le imbarcazioni di quel tipo."
+
+#: includes/BoatsAdminPage.php
+msgid "The dropdown is populated from the Maradigma API (boat types)."
+msgstr "Il menu a discesa viene popolato dall'API Maradigma (tipi di imbarcazione)."
+
+#: includes/BoatsAdminPage.php
+msgid "Select multiple boat types. The listing will show boats matching any of those types."
+msgstr "Seleziona più tipi di imbarcazione. L'elenco mostrerà le imbarcazioni che corrispondono a uno di questi tipi."
+
+#: includes/BoatsAdminPage.php
+msgid "You can select multiple types. They are loaded from the Maradigma API."
+msgstr "Puoi selezionare più tipi. Vengono caricati dall'API Maradigma."
+
+#: includes/BoatsAdminPage.php
+msgid "Combine service types, tags, builders, and specific boats with special options (bareboat, featured, etc.)."
+msgstr "Combina tipi di servizio, tag, costruttori e imbarcazioni specifiche con opzioni speciali (bareboat, in evidenza, ecc.)."
+
+#: includes/BoatsAdminPage.php
+msgid "Service or boat types to include in the listing."
+msgstr "Tipi di servizio o di imbarcazione da includere nell'elenco."
+
+#: includes/BoatsAdminPage.php
+msgid "Specific tags (for example, Modern or Open)."
+msgstr "Tag specifici (ad esempio, Modern o Open)."
+
+#: includes/BoatsAdminPage.php
+msgid "Specific builders (Astondoa, Sunseeker, etc.)."
+msgstr "Costruttori specifici (Astondoa, Sunseeker, ecc.)."
+
+#: includes/BoatsAdminPage.php
+msgid "Specific boats selected through search (do not enter IDs manually)."
+msgstr "Imbarcazioni specifiche selezionate tramite la ricerca (non inserire manualmente gli ID)."
+
+#: includes/BoatsAdminPage.php
+msgid "List of boats by multiple types"
+msgstr "Elenco imbarcazioni per più tipi"
+
+#: includes/BoatsAdminPage.php
+msgid "Custom listing (advanced filters)"
+msgstr "Elenco personalizzato (filtri avanzati)"
+
+#: includes/BoatsAdminPage.php
+msgid "List of boats by type (single)"
+msgstr "Elenco imbarcazioni per tipo (singolo)"
+
+#: includes/BoatsAdminPage.php
+msgid "Type #%d"
+msgstr "Tipo #%d"
+
+#: includes/BoatsAdminPage.php
+msgid "Boat types (multiple)"
+msgstr "Tipi di imbarcazione (multipli)"
+
+#: includes/BoatsAdminPage.php
+msgid "Service type (id_gc_type)"
+msgstr "Tipo di servizio (id_gc_type)"
+
+#: includes/BoatsAdminPage.php
+msgid "Tag #%d"
+msgstr "Tag #%d"
+
+#: includes/BoatsAdminPage.php
+msgid "Builder #%d"
+msgstr "Costruttore #%d"
+
+#: includes/BoatsAdminPage.php
+msgid "Specific boats (searchable)"
+msgstr "Imbarcazioni specifiche (ricercabili)"
+
+#: includes/BoatsAdminPage.php
+msgid "Boat #%d"
+msgstr "Imbarcazione #%d"
+
+#: includes/BoatsAdminPage.php
+msgid "Options"
+msgstr "Opzioni"
+
+#: includes/BoatsAdminPage.php
+msgid "Bareboat"
+msgstr "Senza skipper"
+
+#: includes/BoatsAdminPage.php
+msgid "Discount"
+msgstr "Sconto"
+
+#: includes/BoatsAdminPage.php
+msgid "Last minute"
+msgstr "Last minute"
+

@@ -2696,3 +2696,123 @@ msgstr "Payment method intro (%s)"
 msgid "Example: Your reservation is almost ready. Select your secure payment method to continue."
 msgstr "Example: Your reservation is almost ready. Select your secure payment method to continue."
 
+#: includes/BoatsAdminPage.php
+msgid "Maradigma settings - Boat page"
+msgstr "Maradigma settings - Boat page"
+
+#: includes/BoatsAdminPage.php
+msgid "Maradigma - boat listing settings"
+msgstr "Maradigma - boat listing settings"
+
+#: includes/BoatsAdminPage.php
+msgid "Choose which type of boat listing to display on this page."
+msgstr "Choose which type of boat listing to display on this page."
+
+#: includes/BoatsAdminPage.php
+msgid "Listing page"
+msgstr "Listing page"
+
+#: includes/BoatsAdminPage.php
+msgid "No integration (standard page)"
+msgstr "No integration (standard page)"
+
+#: includes/BoatsAdminPage.php
+msgid "Boat listing (general listing)"
+msgstr "Boat listing (general listing)"
+
+#: includes/BoatsAdminPage.php
+msgid "Boats by type (single type)"
+msgstr "Boats by type (single type)"
+
+#: includes/BoatsAdminPage.php
+msgid "Select a single boat type. The listing will only show boats of that type."
+msgstr "Select a single boat type. The listing will only show boats of that type."
+
+#: includes/BoatsAdminPage.php
+msgid "The dropdown is populated from the Maradigma API (boat types)."
+msgstr "The dropdown is populated from the Maradigma API (boat types)."
+
+#: includes/BoatsAdminPage.php
+msgid "Select multiple boat types. The listing will show boats matching any of those types."
+msgstr "Select multiple boat types. The listing will show boats matching any of those types."
+
+#: includes/BoatsAdminPage.php
+msgid "You can select multiple types. They are loaded from the Maradigma API."
+msgstr "You can select multiple types. They are loaded from the Maradigma API."
+
+#: includes/BoatsAdminPage.php
+msgid "Combine service types, tags, builders, and specific boats with special options (bareboat, featured, etc.)."
+msgstr "Combine service types, tags, builders, and specific boats with special options (bareboat, featured, etc.)."
+
+#: includes/BoatsAdminPage.php
+msgid "Service or boat types to include in the listing."
+msgstr "Service or boat types to include in the listing."
+
+#: includes/BoatsAdminPage.php
+msgid "Specific tags (for example, Modern or Open)."
+msgstr "Specific tags (for example, Modern or Open)."
+
+#: includes/BoatsAdminPage.php
+msgid "Specific builders (Astondoa, Sunseeker, etc.)."
+msgstr "Specific builders (Astondoa, Sunseeker, etc.)."
+
+#: includes/BoatsAdminPage.php
+msgid "Specific boats selected through search (do not enter IDs manually)."
+msgstr "Specific boats selected through search (do not enter IDs manually)."
+
+#: includes/BoatsAdminPage.php
+msgid "List of boats by multiple types"
+msgstr "List of boats by multiple types"
+
+#: includes/BoatsAdminPage.php
+msgid "Custom listing (advanced filters)"
+msgstr "Custom listing (advanced filters)"
+
+#: includes/BoatsAdminPage.php
+msgid "List of boats by type (single)"
+msgstr "List of boats by type (single)"
+
+#: includes/BoatsAdminPage.php
+msgid "Type #%d"
+msgstr "Type #%d"
+
+#: includes/BoatsAdminPage.php
+msgid "Boat types (multiple)"
+msgstr "Boat types (multiple)"
+
+#: includes/BoatsAdminPage.php
+msgid "Service type (id_gc_type)"
+msgstr "Service type (id_gc_type)"
+
+#: includes/BoatsAdminPage.php
+msgid "Tag #%d"
+msgstr "Tag #%d"
+
+#: includes/BoatsAdminPage.php
+msgid "Builder #%d"
+msgstr "Builder #%d"
+
+#: includes/BoatsAdminPage.php
+msgid "Specific boats (searchable)"
+msgstr "Specific boats (searchable)"
+
+#: includes/BoatsAdminPage.php
+msgid "Boat #%d"
+msgstr "Boat #%d"
+
+#: includes/BoatsAdminPage.php
+msgid "Options"
+msgstr "Options"
+
+#: includes/BoatsAdminPage.php
+msgid "Bareboat"
+msgstr "Bareboat"
+
+#: includes/BoatsAdminPage.php
+msgid "Discount"
+msgstr "Discount"
+
+#: includes/BoatsAdminPage.php
+msgid "Last minute"
+msgstr "Last minute"
+

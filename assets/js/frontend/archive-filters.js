@@ -802,6 +802,7 @@ function ensureSkeletonStylesInjected() {
 
     if ($archiveRoot.length) {
       var limitValue = String($archiveRoot.attr('data-md-archive-limit') || '').trim();
+      var orderByValue = String($archiveRoot.attr('data-md-archive-order-by') || '').trim();
       var cardValue = String($archiveRoot.attr('data-md-archive-card') || '').trim();
       var currentLangValue = String($archiveRoot.attr('data-md-archive-current-lang') || '').trim();
       var buildersOptionsValue = String($archiveRoot.attr('data-md-archive-builders-options') || '').trim();
@@ -818,6 +819,13 @@ function ensureSkeletonStylesInjected() {
 
       if (limitValue !== '') {
         serializedData.limit_services = limitValue;
+      }
+
+      if (
+        orderByValue !== '' &&
+        !Object.prototype.hasOwnProperty.call(serializedData, 'md_order_by')
+      ) {
+        serializedData.md_order_by = orderByValue;
       }
 
       if (cardValue !== '') {
@@ -1118,6 +1126,7 @@ function ensureSkeletonStylesInjected() {
       var idGroupValue = String($archiveRoot.attr('data-md-archive-id-group') || '').trim();
       var limitValue = String($archiveRoot.attr('data-md-archive-limit') || '').trim();
       var offsetValue = String($archiveRoot.attr('data-md-archive-offset') || '').trim();
+      var orderByValue = String($archiveRoot.attr('data-md-archive-order-by') || '').trim();
       var cardValue = String($archiveRoot.attr('data-md-archive-card') || '').trim();
       var imageTokenValue = String($archiveRoot.attr('data-md-archive-image-token') || '').trim();
       var dateModeValue = String($archiveRoot.attr('data-md-archive-date-mode') || '').trim();
@@ -1144,6 +1153,10 @@ function ensureSkeletonStylesInjected() {
 
       if (offsetValue !== '' && !Object.prototype.hasOwnProperty.call(serializedData, 'offset_services')) {
         serializedData.offset_services = offsetValue;
+      }
+
+      if (orderByValue !== '' && !Object.prototype.hasOwnProperty.call(serializedData, 'md_order_by')) {
+        serializedData.md_order_by = orderByValue;
       }
 
       if (cardValue !== '' && !Object.prototype.hasOwnProperty.call(serializedData, 'card')) {

@@ -85,7 +85,7 @@ final class BoatsAdminPage
 
         add_meta_box(
             'maradigma_boats_page',
-            __('Configuración Maradigma - Página de barcos', 'maradigma'),
+            __('Maradigma settings - Boat page', 'maradigma'),
             [__CLASS__, 'renderMetaBox'],
             'page',
             'normal',
@@ -167,17 +167,17 @@ final class BoatsAdminPage
                 <div>
                     <h3 class="maradigma-meta-title">
                         <span class="maradigma-meta-title-dot"></span>
-                        <?php esc_html_e('Maradigma - configuración de listado de barcos', 'maradigma'); ?>
+                        <?php esc_html_e('Maradigma - boat listing settings', 'maradigma'); ?>
                     </h3>
                     <p class="maradigma-meta-tagline">
                         <?php esc_html_e(
-                            'Elige qué tipo de listado de barcos quieres mostrar en esta página.',
+                            'Choose which type of boat listing to display on this page.',
                             'maradigma'
                         ); ?>
                     </p>
                 </div>
                 <span class="maradigma-meta-pill">
-                    <?php esc_html_e('Página de listados', 'maradigma'); ?>
+                    <?php esc_html_e('Listing page', 'maradigma'); ?>
                 </span>
             </div>
 
@@ -187,7 +187,7 @@ final class BoatsAdminPage
                         name="maradigma_boats_page[mode]"
                         value=""
                         <?php checked($mode, ''); ?> />
-                    <?php esc_html_e('Sin integración (página normal)', 'maradigma'); ?>
+                    <?php esc_html_e('No integration (standard page)', 'maradigma'); ?>
                 </label>
 
                 <label>
@@ -195,7 +195,7 @@ final class BoatsAdminPage
                         name="maradigma_boats_page[mode]"
                         value="listing"
                         <?php checked($mode, 'listing'); ?> />
-                    <?php esc_html_e('Listing boats (listado general)', 'maradigma'); ?>
+                    <?php esc_html_e('Boat listing (general listing)', 'maradigma'); ?>
                 </label>
 
                 <label>
@@ -203,7 +203,7 @@ final class BoatsAdminPage
                         name="maradigma_boats_page[mode]"
                         value="by_type"
                         <?php checked($mode, 'by_type'); ?> />
-                    <?php esc_html_e('List of boats by type (un solo tipo)', 'maradigma'); ?>
+                    <?php esc_html_e('Boats by type (single type)', 'maradigma'); ?>
                 </label>
 
                 <label>
@@ -219,7 +219,7 @@ final class BoatsAdminPage
                         name="maradigma_boats_page[mode]"
                         value="custom_list"
                         <?php checked($mode, 'custom_list'); ?> />
-                    <?php esc_html_e('Custom listing (filtros avanzados)', 'maradigma'); ?>
+                    <?php esc_html_e('Custom listing (advanced filters)', 'maradigma'); ?>
                 </label>
             </div>
 
@@ -230,7 +230,7 @@ final class BoatsAdminPage
                 <h4><?php esc_html_e('List of boats by type (single)', 'maradigma'); ?></h4>
                 <p class="description">
                     <?php esc_html_e(
-                        'Selecciona un solo tipo de barco. El listado mostrará únicamente ese tipo.',
+                        'Select a single boat type. The listing will only show boats of that type.',
                         'maradigma'
                     ); ?>
                 </p>
@@ -260,7 +260,7 @@ final class BoatsAdminPage
                     </select>
                     <p class="maradigma-meta-hint">
                         <?php esc_html_e(
-                            'El desplegable se rellenará desde la API de Maradigma (tipos de barco).',
+                            'The dropdown is populated from the Maradigma API (boat types).',
                             'maradigma'
                         ); ?>
                     </p>
@@ -274,7 +274,7 @@ final class BoatsAdminPage
                 <h4><?php esc_html_e('List of boats by multiple types', 'maradigma'); ?></h4>
                 <p class="description">
                     <?php esc_html_e(
-                        'Selecciona varios tipos de barco. El listado mostrará cualquier barco que encaje en esos tipos.',
+                        'Select multiple boat types. The listing will show boats matching any of those types.',
                         'maradigma'
                     ); ?>
                 </p>
@@ -305,7 +305,7 @@ final class BoatsAdminPage
                     </select>
                     <p class="maradigma-meta-hint">
                         <?php esc_html_e(
-                            'Puedes seleccionar varios tipos. Se cargan desde la API de Maradigma.',
+                            'You can select multiple types. They are loaded from the Maradigma API.',
                             'maradigma'
                         ); ?>
                     </p>
@@ -319,7 +319,7 @@ final class BoatsAdminPage
                 <h4><?php esc_html_e('Custom listing (advanced filters)', 'maradigma'); ?></h4>
                 <p class="description">
                     <?php esc_html_e(
-                        'Combina tipos de servicio, tags, builders y barcos concretos, junto con opciones especiales (bareboat, featured, etc.).',
+                        'Combine service types, tags, builders, and specific boats with special options (bareboat, featured, etc.).',
                         'maradigma'
                     ); ?>
                 </p>
@@ -352,7 +352,7 @@ final class BoatsAdminPage
                         </select>
                         <p class="maradigma-meta-hint">
                             <?php esc_html_e(
-                                'Tipos de servicio / barco que quieres incluir en el listing.',
+                                'Service or boat types to include in the listing.',
                                 'maradigma'
                             ); ?>
                         </p>
@@ -385,7 +385,7 @@ final class BoatsAdminPage
                         </select>
                         <p class="maradigma-meta-hint">
                             <?php esc_html_e(
-                                'Tags específicos (por ejemplo Modern, Open...).',
+                                'Specific tags (for example, Modern or Open).',
                                 'maradigma'
                             ); ?>
                         </p>
@@ -418,7 +418,7 @@ final class BoatsAdminPage
                         </select>
                         <p class="maradigma-meta-hint">
                             <?php esc_html_e(
-                                'Constructores concretos (Astondoa, Sunseeker, etc.).',
+                                'Specific builders (Astondoa, Sunseeker, etc.).',
                                 'maradigma'
                             ); ?>
                         </p>
@@ -451,7 +451,7 @@ final class BoatsAdminPage
                         </select>
                         <p class="maradigma-meta-hint">
                             <?php esc_html_e(
-                                'Barcos concretos seleccionados por búsqueda (no introducir IDs a mano).',
+                                'Specific boats selected through search (do not enter IDs manually).',
                                 'maradigma'
                             ); ?>
                         </p>

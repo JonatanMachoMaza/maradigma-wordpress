@@ -86,7 +86,7 @@ final class ShortcodeRegistry
             'type' => 'int',
             'default' => '0',
             'description' => 'Orden del listado (por número).',
-            'notes' => 'Valores: 0=relevancia, 1=precio (menor a mayor), 2=precio (mayor a menor), 3=destacados primero, 4=novedades (más recientes primero).',
+            'notes' => 'Valores: 0=relevancia, 1=precio (menor a mayor), 2=precio (mayor a menor), 3=destacados primero, 4=novedades (más recientes primero), 5=eslora (mayor a menor), 6=eslora (menor a mayor).',
         ],
         [
             'attr' => 'custom_orderby_field',
@@ -753,6 +753,35 @@ final class ShortcodeRegistry
     }
 
     /**
+     * Returns the canonical shortcode defaults for every supported boat search attribute.
+     *
+     * Keeping these defaults derived from the public search documentation prevents
+     * WordPress shortcode normalization from discarding valid attributes supplied
+     * by Elementor, Gutenberg, WPBakery, or a shortcode author.
+     *
+     * @return array<string,string>
+     */
+    public static function getBoatsSearchAttributeDefaults(): array
+    {
+        $defaults = [];
+
+        foreach (self::$DOC_SEARCH_BOATS_ATTRS as $definition) {
+            if (!\is_array($definition)) {
+                continue;
+            }
+
+            $attribute = \trim((string) ($definition['attr'] ?? ''));
+            if ($attribute === '') {
+                continue;
+            }
+
+            $defaults[$attribute] = (string) ($definition['default'] ?? '');
+        }
+
+        return $defaults;
+    }
+
+    /**
      * In range mode the date_start UI control renders the full availability range.
      *
      * @param list<string> $fields
@@ -1348,17 +1377,21 @@ final class ShortcodeRegistry
                     break;
 
                 case 'order_by':
+                    $selectedOrder = $value('order_by');
+                    if (!\in_array($selectedOrder, ['0', '1', '2', '3', '4', '5', '6'], true)) {
+                        $selectedOrder = '0';
+                    }
                     ?>
                     <div class="md-sortby">
                         <span class="md-sortby__label"><?php \esc_html_e('Sort by', 'maradigma'); ?></span>
                         <select class="md-select" name="md_order_by" style="min-width:220px;">
-                            <option value="0" <?php \selected(self::getUiQuery('order_by', $uiQuery), '0'); ?>><?php \esc_html_e('Relevance', 'maradigma'); ?></option>
-                            <option value="1" <?php \selected(self::getUiQuery('order_by', $uiQuery), '1'); ?>><?php \esc_html_e('Price: low to high', 'maradigma'); ?></option>
-                            <option value="2" <?php \selected(self::getUiQuery('order_by', $uiQuery), '2'); ?>><?php \esc_html_e('Price: high to low', 'maradigma'); ?></option>
-                            <option value="6" <?php \selected(self::getUiQuery('order_by', $uiQuery), '6'); ?>><?php \esc_html_e('Length: low to high', 'maradigma'); ?></option>
-                            <option value="5" <?php \selected(self::getUiQuery('order_by', $uiQuery), '5'); ?>><?php \esc_html_e('Length: high to low', 'maradigma'); ?></option>
-                            <option value="3" <?php \selected(self::getUiQuery('order_by', $uiQuery), '3'); ?>><?php \esc_html_e('Featured first', 'maradigma'); ?></option>
-                            <option value="4" <?php \selected(self::getUiQuery('order_by', $uiQuery), '4'); ?>><?php \esc_html_e('Newest first', 'maradigma'); ?></option>
+                            <option value="0" <?php \selected($selectedOrder, '0'); ?>><?php \esc_html_e('Relevance', 'maradigma'); ?></option>
+                            <option value="1" <?php \selected($selectedOrder, '1'); ?>><?php \esc_html_e('Price: low to high', 'maradigma'); ?></option>
+                            <option value="2" <?php \selected($selectedOrder, '2'); ?>><?php \esc_html_e('Price: high to low', 'maradigma'); ?></option>
+                            <option value="6" <?php \selected($selectedOrder, '6'); ?>><?php \esc_html_e('Length: low to high', 'maradigma'); ?></option>
+                            <option value="5" <?php \selected($selectedOrder, '5'); ?>><?php \esc_html_e('Length: high to low', 'maradigma'); ?></option>
+                            <option value="3" <?php \selected($selectedOrder, '3'); ?>><?php \esc_html_e('Featured first', 'maradigma'); ?></option>
+                            <option value="4" <?php \selected($selectedOrder, '4'); ?>><?php \esc_html_e('Newest first', 'maradigma'); ?></option>
                         </select>
                     </div>
                     <?php
@@ -1719,7 +1752,9 @@ final class ShortcodeRegistry
         $defaultRightFieldsSentinel = '__maradigma_default_right_fields__';
 
         $atts = \shortcode_atts(
-            [
+            \array_replace(
+                self::getBoatsSearchAttributeDefaults(),
+                [
                 // legacy aliases
                 'q'        => '',
                 'port'     => '',
@@ -1729,7 +1764,7 @@ final class ShortcodeRegistry
                 'offset_services' => '0',
 
                 // routing/template
-                'id_group' => '',
+                'id_group' => 'boats',
                 'card'     => '',
                 'lang'     => '',
                 'current_lang' => '',
@@ -1763,7 +1798,8 @@ final class ShortcodeRegistry
                 'more_filters_button_text'     => '',
                 'more_filters_offcanvas_title' => '',
                 'date_picker_mode'             => 'range',
-            ],
+                ]
+            ),
             $atts,
             'maradigma_boats'
         );
@@ -2599,6 +2635,7 @@ final class ShortcodeRegistry
             data-md-archive-id-group="<?php echo \esc_attr((string) ($attsUsed['id_group'] ?? 'boats')); ?>"
             data-md-archive-limit="<?php echo \esc_attr((string) ($attsUsed['limit_services'] ?? '10')); ?>"
             data-md-archive-offset="<?php echo \esc_attr((string) ($attsUsed['offset_services'] ?? '0')); ?>"
+            data-md-archive-order-by="<?php echo \esc_attr((string) ($filters['order_by'] ?? $attsUsed['order_by'] ?? '0')); ?>"
             data-md-archive-card="<?php echo \esc_attr((string) ($attsUsed['card'] ?? '')); ?>"
             data-md-archive-image-token="<?php echo \esc_attr((string) ($attsUsed['image_token'] ?? '')); ?>"
             data-md-archive-date-mode="<?php echo \esc_attr($dateMode); ?>"
@@ -2626,6 +2663,7 @@ final class ShortcodeRegistry
                     'guests'     => (string) ($filters['guests'] ?? ''),
                     'location'   => (string) ($filters['location'] ?? ''),
                     'q'          => (string) ($filters['q'] ?? ''),
+                    'order_by'   => (string) ($filters['order_by'] ?? $attsUsed['order_by'] ?? '0'),
                     'builders_labels_json' => (string) ($attsUsed['builders_labels_json'] ?? ''),
                     'builders_options' => (string) ($archiveContext['builders_options'] ?? 'api'),
                     'available_builder_options' => (array) ($archiveContext['available_builder_options'] ?? []),
