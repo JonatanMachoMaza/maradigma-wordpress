@@ -230,6 +230,9 @@ msgstr "Sincronitzar barques ara"
 msgid "This will clear Maradigma cache. Continue?"
 msgstr "Això netejarà la memòria cau de Maradigma. Continuar?"
 
+msgid "Clear cache"
+msgstr "Netejar la memòria cau"
+
 msgid "Clear plugin cache"
 msgstr "Netejar la memòria cau del connector"
 

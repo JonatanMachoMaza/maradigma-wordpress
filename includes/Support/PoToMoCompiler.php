@@ -285,7 +285,9 @@ final class PoToMoCompiler
         $magic = 0x950412de; // little-endian magic
         $revision = 0;
         $hashSize = 0;
-        $hashOffset = 0;
+        // Even without a hash table, WordPress expects this offset to point
+        // immediately after both string-index tables.
+        $hashOffset = $stringBlockOffset;
 
         $header = pack(
             'V7',

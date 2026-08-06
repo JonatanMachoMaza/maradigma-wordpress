@@ -45,7 +45,24 @@ final class Plugin
         \register_deactivation_hook(MARADIGMA_PLUGIN_FILE, [__CLASS__, 'onDeactivate']);
 
         \add_action('plugins_loaded', [__CLASS__, 'onPluginsLoaded'], 0);
+        \add_action('init', [__CLASS__, 'loadTextDomain'], 0);
         \add_action('update_option_' . SettingsPage::OPTION_KEY, [__CLASS__, 'onSettingsUpdated'], 10, 3);
+    }
+
+    /**
+     * Loads the bundled translations after WordPress has initialized.
+     *
+     * Registering the text domain on `init` keeps translation loading compatible
+     * with WordPress 6.7 and later while making the plugin's bundled MO files
+     * available outside WordPress.org language packs.
+     */
+    public static function loadTextDomain(): void
+    {
+        \load_plugin_textdomain(
+            'maradigma',
+            false,
+            \dirname(\plugin_basename(MARADIGMA_PLUGIN_FILE)) . '/languages'
+        );
     }
 
     /**

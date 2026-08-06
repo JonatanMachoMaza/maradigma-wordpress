@@ -265,6 +265,9 @@ msgstr "Sincronizza barche ora"
 msgid "This will clear Maradigma cache. Continue?"
 msgstr "Questo svuoterà la cache di Maradigma. Continuare?"
 
+msgid "Clear cache"
+msgstr "Svuota cache"
+
 msgid "Clear plugin cache"
 msgstr "Svuota la cache del plugin"
 

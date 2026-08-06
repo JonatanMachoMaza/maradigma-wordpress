@@ -271,6 +271,9 @@ msgstr ""
 msgid "This will clear Maradigma cache. Continue?"
 msgstr ""
 
+msgid "Clear cache"
+msgstr ""
+
 msgid "Clear plugin cache"
 msgstr ""
 

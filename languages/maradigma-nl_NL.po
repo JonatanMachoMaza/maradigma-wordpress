@@ -266,6 +266,9 @@ msgstr "Boten nu synchroniseren"
 msgid "This will clear Maradigma cache. Continue?"
 msgstr "Hiermee wordt de Maradigma-cache gewist. Doorgaan?"
 
+msgid "Clear cache"
+msgstr "Cache wissen"
+
 msgid "Clear plugin cache"
 msgstr "Plugin-cache wissen"
 
