@@ -4,7 +4,7 @@ Tags: boat rental, yacht charter, booking, availability, fleet management
 Requires at least: 6.0
 Tested up to: 7.0
 Requires PHP: 8.1
-Stable tag: 0.1.165
+Stable tag: 0.1.168
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -117,6 +117,10 @@ Yes. The plugin includes compatibility layers for WPML and Polylang and can sync
 
 When Yoast SEO is installed and active, the plugin can synchronize or generate boat metadata according to the configured SEO options.
 
+= Can synchronized boat URLs include their destination? =
+
+Yes. The boat base slug setting accepts the `{{destination}}` placeholder. For example, `es:alquiler-barcos-{{destination}},en:boat-rental-{{destination}}` generates localized paths such as `/alquiler-barcos-mallorca/boat-slug/`. The destination is synchronized from the connected Maradigma account. Re-synchronize existing boats after enabling this route format.
+
 = Does the plugin load frontend libraries from public CDNs? =
 
 No. The supported frontend libraries distributed with the plugin are bundled locally. Boat media returned by the connected Maradigma account may still be displayed from Maradigma-provided URLs.
@@ -152,6 +156,24 @@ The repository includes `package.json`, `package-lock.json`, and the Vite config
 6. Boat synchronization workflow and status.
 
 == Changelog ==
+
+= 0.1.168 =
+* Updated the bundled Select2 library to the stable 4.1.0 release.
+* Sanitized dynamic Gutenberg block output and legacy page-listing shortcode output with an explicit frontend HTML allowlist.
+* Restricted pricing diagnostics and cache bypasses to the server-side `MARADIGMA_PLUGIN_DEBUG` constant.
+* Removed direct writes to Elementor, GenerateBlocks, and Gutenverse-owned options.
+* Simplified the GeneratePress template nonce flow and retained capability checks.
+
+= 0.1.167 =
+* Fixed excessive vertical space around archive filters on mobile layouts.
+* Included compiled runtime translation catalogs in release packages while keeping PO source files excluded.
+* Added localized date-range placeholder and clear-button labels.
+
+= 0.1.166 =
+* Added destination-aware boat permalinks through the `{{destination}}` route placeholder.
+* Synchronized localized service destinations and exposed destination tokens to boat cards and SEO templates.
+* Added matching rewrite rules, safe fallback routes, and WooCommerce-compatible route sanitization.
+* Added `service_destination` to the supported single-boat API expansions.
 
 = 0.1.165 =
 * Added complete GPL, MIT, Apache-2.0, and ODbL license texts to release packages.
@@ -200,6 +222,15 @@ The repository includes `package.json`, `package-lock.json`, and the Vite config
 * Improved readme documentation for the current feature set.
 
 == Upgrade Notice ==
+
+= 0.1.168 =
+Security and compatibility hardening requested during the WordPress.org plugin review, including Select2 4.1.0.
+
+= 0.1.167 =
+Fixes mobile archive-filter sizing and restores bundled frontend translations in direct plugin installations.
+
+= 0.1.166 =
+Adds localized destination-aware URLs for synchronized boat pages. Re-save permalinks and re-synchronize existing boats when enabling `{{destination}}`.
 
 = 0.1.165 =
 Licensing, text-encoding, payment-return security, and release-package hardening for public distribution.

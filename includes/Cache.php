@@ -98,7 +98,7 @@ final class Cache
     public function getBoatsList(array $filters = []): array
     {
         // No-cache mode => direct call
-        if (!$this->isCacheEnabled() || self::isPriceDebugRequest()) {
+        if (!$this->isCacheEnabled() || self::isPriceDebugEnabled()) {
             return $this->normalizeResult($this->client->getBoatsList($filters), 'success');
         }
 
@@ -130,16 +130,15 @@ final class Cache
     }
 
     /**
-     * Determines whether price debug request.
+     * Determines whether server-side price diagnostics are enabled.
      */
-    private static function isPriceDebugRequest(): bool
+    private static function isPriceDebugEnabled(): bool
     {
-        // Read-only diagnostic flag; Debugger still controls whether output is recorded.
-        // phpcs:disable WordPress.Security.NonceVerification.Recommended
-        $enabled = isset($_GET['maradigma_price_debug'])
-            && \sanitize_text_field((string) \wp_unslash($_GET['maradigma_price_debug'])) === '1';
-        // phpcs:enable WordPress.Security.NonceVerification.Recommended
-        return $enabled;
+        if (!\defined('MARADIGMA_PLUGIN_DEBUG')) {
+            return false;
+        }
+
+        return (bool) \constant('MARADIGMA_PLUGIN_DEBUG');
     }
 
     /**

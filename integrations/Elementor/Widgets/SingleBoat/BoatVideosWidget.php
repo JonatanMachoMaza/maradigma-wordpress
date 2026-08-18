@@ -8,6 +8,7 @@ use Elementor\Controls_Manager;
 use Elementor\Group_Control_Border;
 use Elementor\Group_Control_Box_Shadow;
 use Elementor\Group_Control_Typography;
+use Maradigma\BoatCardEngine;
 
 /**
  * Provides the Elementor widget for displaying boat videos.
@@ -717,8 +718,7 @@ final class BoatVideosWidget extends BaseSingleBoatWidget
         }
 
         echo '<div class="' . esc_attr(implode(' ', $wrapperClasses)) . '">';
-        // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- WordPress shortcode output may legitimately contain iframe and provider-specific markup.
-        echo $html;
+        echo wp_kses($html, BoatCardEngine::getAllowedHtml());
         echo '</div>';
     }
 }

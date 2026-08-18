@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Maradigma\Integrations\Elementor\Widgets\SingleBoat;
 
 use Elementor\Controls_Manager;
+use Maradigma\BoatCardEngine;
 
 /**
  * Elementor widget: Maradigma Boat Calendar
@@ -257,7 +258,7 @@ final class BoatCalendarWidget extends BaseSingleBoatWidget
         );
 
         echo '<div class="maradigma-boat-calendar">';
-        echo do_shortcode($shortcode);
+        echo wp_kses((string) do_shortcode($shortcode), BoatCardEngine::getAllowedHtml());
         echo '</div>';
     }
 }

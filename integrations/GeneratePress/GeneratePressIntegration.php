@@ -183,11 +183,13 @@ final class GeneratePressIntegration
             return;
         }
 
-        $nonce = isset($_POST[self::NONCE_NAME])
-            ? \sanitize_text_field((string) \wp_unslash($_POST[self::NONCE_NAME]))
-            : '';
+        if (!isset($_POST[self::NONCE_NAME])) {
+            return;
+        }
 
-        if ($nonce === '' || !\wp_verify_nonce($nonce, self::NONCE_ACTION)) {
+        $nonce = \sanitize_text_field((string) \wp_unslash($_POST[self::NONCE_NAME]));
+
+        if (!\wp_verify_nonce($nonce, self::NONCE_ACTION)) {
             return;
         }
 

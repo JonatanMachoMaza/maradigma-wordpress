@@ -366,6 +366,7 @@ Supported `expand` values:
 - `service_admin_tools`
 - `service_payment_methods`
 - `service_descriptions`
+- `service_destination`
 - `service_equipments`
 - `service_group_category`
 - `service_images`

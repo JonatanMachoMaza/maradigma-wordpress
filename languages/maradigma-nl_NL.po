@@ -2777,3 +2777,23 @@ msgstr "Korting"
 msgid "Last minute"
 msgstr "Last minute"
 
+#: includes/BoatCardEngine.php
+msgid "Destination"
+msgstr "Bestemming"
+
+#: includes/BoatCardEngine.php
+msgid "Destination slug"
+msgstr "Bestemmingsslug"
+
+#: includes/SettingsPage.php
+msgid "Examples: \"boats\" or \"alquiler-barcos\". Use {{destination}} for destination-aware URLs, for example \"es:alquiler-barcos-{{destination}},en:boat-rental-{{destination}}\"."
+msgstr "Voorbeelden: \"boats\" of \"alquiler-barcos\". Gebruik {{destination}} voor bestemmingsafhankelijke URL's, bijvoorbeeld \"es:alquiler-barcos-{{destination}},en:boat-rental-{{destination}}\"."
+
+#: includes/ShortcodeRegistry.php
+msgid "Check-in → Check-out"
+msgstr "Inchecken → Uitchecken"
+
+#: includes/ShortcodeRegistry.php
+msgid "Clear"
+msgstr "Wissen"
+

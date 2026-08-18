@@ -13,8 +13,6 @@ if (!defined('ABSPATH')) {
  */
 final class GutenverseIntegration
 {
-    private const CACHE_OPTION = 'gutenverse-style-cache-id';
-
     private static bool $registered = false;
 
     /**
@@ -109,10 +107,7 @@ final class GutenverseIntegration
         $frontendCache = self::getFrontendCacheInstance();
         if (\is_object($frontendCache) && \method_exists($frontendCache, 'generate_style_cache_id')) {
             $frontendCache->generate_style_cache_id();
-            return;
         }
-
-        \update_option(self::CACHE_OPTION, \wp_rand(111111, 999999), true);
     }
 
     /**

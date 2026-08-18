@@ -128,7 +128,6 @@ final class PluginReleaseBuilder
      */
     private array $excludedRelativePaths = [
         'bin',
-        'languages',
         'vendors/select2/i18n',
         'includes/Support/PluginReleaseBuilder.php',
         'includes/Support/PoToMoCompiler.php',
@@ -144,6 +143,8 @@ final class PluginReleaseBuilder
         '.log',
         '.tmp',
         '.swp',
+        '.po',
+        '.pot',
     ];
 
     /**

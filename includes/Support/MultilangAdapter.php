@@ -393,6 +393,7 @@ final class MultilangAdapter
         // ✅ WPML (best-effort)
         if ($provider === 'wpml') {
             if (has_filter('wpml_is_translated_post_type')) {
+                // Official WPML hook; its third-party-owned name must remain unchanged.
                 return (bool) apply_filters('wpml_is_translated_post_type', false, $postType);
             }
             return true; // si WPML activo, evitamos falso negativo

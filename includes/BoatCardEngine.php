@@ -61,6 +61,8 @@ final class BoatCardEngine
 
         // Location
         'port',
+        'destination',
+        'destination_slug',
         'boat_base_port',
         'boat_base_port_name',
         'maps_latitude',
@@ -373,6 +375,8 @@ final class BoatCardEngine
             '{{carousel_html}}'   => __('Carousel HTML (legacy)', 'maradigma'),
 
             '{{port}}'                => __('Port', 'maradigma'),
+            '{{destination}}'         => __('Destination', 'maradigma'),
+            '{{destination_slug}}'    => __('Destination slug', 'maradigma'),
             '{{boat_base_port}}'      => __('Base port ID', 'maradigma'),
             '{{boat_base_port_name}}' => __('Base port name', 'maradigma'),
             '{{maps_latitude}}'       => __('Latitude', 'maradigma'),
@@ -470,7 +474,7 @@ final class BoatCardEngine
             $preferUrl = trim((string) $boat['url']);
         }
 
-        $url      = $this->buildBoatUrl($slug, $id, $context, $preferUrl);
+        $url      = $this->buildBoatUrl($slug, $id, $boat, $context, $preferUrl);
         $currency = self::guessCurrencyFromPayload($boat);
 
         // Images: exact, WP-only
@@ -504,6 +508,8 @@ final class BoatCardEngine
         $len  = (string) ($boat['boat_length'] ?? ($boat['length'] ?? ''));
         $beam = (string) ($boat['boat_beam'] ?? '');
         $port = (string) ($boat['boat_base_port_name'] ?? ($boat['port'] ?? ''));
+        $destination = BoatUrlResolver::getDestinationName($boat);
+        $destinationSlug = BoatUrlResolver::getDestinationSlug($boat);
 
         $cabins    = (string) ($boat['boat_cabins'] ?? '');
         $beds      = (string) ($boat['boat_beds'] ?? '');
@@ -639,6 +645,8 @@ final class BoatCardEngine
 
         // Location
         $out['port']                = $port;
+        $out['destination']         = $destination;
+        $out['destination_slug']    = $destinationSlug;
         $out['boat_base_port']      = (string) ($boat['boat_base_port'] ?? '');
         $out['boat_base_port_name'] = (string) ($boat['boat_base_port_name'] ?? '');
         $out['maps_latitude']       = (string) ($boat['maps_latitude'] ?? '');
@@ -1259,7 +1267,7 @@ final class BoatCardEngine
      */
     private static function maybeLogMandatoryAdditionalsPriceDebug(array $boat, array $mandatoryAdditionalsPrice, array $resolved): void
     {
-        if (!self::isPriceDebugRequest() || !\class_exists(\Maradigma\Support\Debugger::class)) {
+        if (!self::isPriceDebugEnabled() || !\class_exists(\Maradigma\Support\Debugger::class)) {
             return;
         }
 
@@ -1294,16 +1302,15 @@ final class BoatCardEngine
     }
 
     /**
-     * Determines whether price debug request.
+     * Determines whether server-side price diagnostics are enabled.
      */
-    private static function isPriceDebugRequest(): bool
+    private static function isPriceDebugEnabled(): bool
     {
-        // Read-only diagnostic flag; Debugger still controls whether output is recorded.
-        // phpcs:disable WordPress.Security.NonceVerification.Recommended
-        $enabled = isset($_GET['maradigma_price_debug'])
-            && \sanitize_text_field((string) \wp_unslash($_GET['maradigma_price_debug'])) === '1';
-        // phpcs:enable WordPress.Security.NonceVerification.Recommended
-        return $enabled;
+        if (!\defined('MARADIGMA_PLUGIN_DEBUG')) {
+            return false;
+        }
+
+        return (bool) \constant('MARADIGMA_PLUGIN_DEBUG');
     }
 
     /** @param array<string,mixed> $boat */
@@ -1434,12 +1441,30 @@ final class BoatCardEngine
     /**
      * Builds boat URL.
      */
-    private function buildBoatUrl(string $slug, string $id, array $context, string $preferUrl = ''): string
+    private function buildBoatUrl(string $slug, string $id, array $boat, array $context, string $preferUrl = ''): string
     {
         $preferUrl = trim((string) $preferUrl);
         if ($preferUrl !== '') {
             $safe = esc_url($preferUrl);
             return ($safe !== '') ? $safe : $preferUrl;
+        }
+
+        $configuredBase = (string) ($context['boats_base_slug'] ?? 'boats');
+        if (BoatUrlResolver::hasDestinationPlaceholder($configuredBase)) {
+            $language = (string) ($context['current_lang'] ?? '');
+            if ($language === '') {
+                $language = Support\RuntimeContext::detectCurrentLanguage();
+            }
+
+            $resolvedUrl = BoatUrlResolver::buildBoatUrl(
+                $boat,
+                $language,
+                $slug !== '' ? $slug : $id
+            );
+
+            if ($resolvedUrl !== '') {
+                return $resolvedUrl;
+            }
         }
 
         $baseUrl = (string) ($context['boats_base_url'] ?? '');
@@ -1497,7 +1522,7 @@ final class BoatCardEngine
     /** @return array<string, array<string, bool|array<int,string>>> */
     public static function getAllowedHtml(): array
     {
-        return [
+        $allowedHtml = [
             'article' => [
                 'class' => true,
                 'id' => true,
@@ -1704,9 +1729,50 @@ final class BoatCardEngine
             ],
             'source' => [
                 'srcset' => true,
+                'src' => true,
                 'sizes' => true,
                 'media' => true,
                 'type' => true,
+            ],
+            'iframe' => [
+                'src' => true,
+                'title' => true,
+                'class' => true,
+                'id' => true,
+                'style' => true,
+                'width' => true,
+                'height' => true,
+                'loading' => true,
+                'allow' => true,
+                'allowfullscreen' => true,
+                'referrerpolicy' => true,
+                'frameborder' => true,
+                'data-*' => true,
+                'aria-*' => true,
+            ],
+            'video' => [
+                'src' => true,
+                'poster' => true,
+                'preload' => true,
+                'class' => true,
+                'id' => true,
+                'style' => true,
+                'width' => true,
+                'height' => true,
+                'controls' => true,
+                'autoplay' => true,
+                'loop' => true,
+                'muted' => true,
+                'playsinline' => true,
+                'data-*' => true,
+                'aria-*' => true,
+            ],
+            'track' => [
+                'src' => true,
+                'kind' => true,
+                'srclang' => true,
+                'label' => true,
+                'default' => true,
             ],
             'ul' => [
                 'class' => true,
@@ -1812,6 +1878,87 @@ final class BoatCardEngine
                 'aria-*' => true,
                 'itemprop' => true,
             ],
+            'form' => [
+                'action' => true,
+                'method' => true,
+                'enctype' => true,
+                'accept-charset' => true,
+                'autocomplete' => true,
+                'class' => true,
+                'id' => true,
+                'role' => true,
+                'data-*' => true,
+                'aria-*' => true,
+                'novalidate' => true,
+            ],
+            'label' => [
+                'for' => true,
+                'class' => true,
+                'id' => true,
+                'style' => true,
+                'title' => true,
+                'data-*' => true,
+                'aria-*' => true,
+            ],
+            'input' => [
+                'type' => true,
+                'name' => true,
+                'value' => true,
+                'class' => true,
+                'id' => true,
+                'placeholder' => true,
+                'autocomplete' => true,
+                'accept' => true,
+                'checked' => true,
+                'disabled' => true,
+                'readonly' => true,
+                'required' => true,
+                'multiple' => true,
+                'min' => true,
+                'max' => true,
+                'step' => true,
+                'pattern' => true,
+                'inputmode' => true,
+                'tabindex' => true,
+                'role' => true,
+                'data-*' => true,
+                'aria-*' => true,
+            ],
+            'select' => [
+                'name' => true,
+                'class' => true,
+                'id' => true,
+                'size' => true,
+                'multiple' => true,
+                'disabled' => true,
+                'required' => true,
+                'tabindex' => true,
+                'role' => true,
+                'data-*' => true,
+                'aria-*' => true,
+            ],
+            'option' => [
+                'value' => true,
+                'label' => true,
+                'selected' => true,
+                'disabled' => true,
+                'data-*' => true,
+            ],
+            'textarea' => [
+                'name' => true,
+                'class' => true,
+                'id' => true,
+                'rows' => true,
+                'cols' => true,
+                'maxlength' => true,
+                'placeholder' => true,
+                'autocomplete' => true,
+                'disabled' => true,
+                'readonly' => true,
+                'required' => true,
+                'data-*' => true,
+                'aria-*' => true,
+            ],
             'button' => [
                 'type' => true,
                 'class' => true,
@@ -1914,6 +2061,8 @@ final class BoatCardEngine
             'title' => [],
             'desc'  => [],
         ];
+
+        return \array_replace_recursive(\wp_kses_allowed_html('post'), $allowedHtml);
     }
 
     /**

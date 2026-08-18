@@ -165,7 +165,9 @@ final class Renderer
         }
 
         try {
-            $result = $this->cache->getBoatDetails($identifier, $lang);
+            $result = $this->cache->getBoatDetails($identifier, $lang, [
+                'expand' => ['service_destination'],
+            ]);
 
             $boat = [];
             if (\is_array($result['data'] ?? null)) {
@@ -181,7 +183,7 @@ final class Renderer
                     'locale'                  => RuntimeContext::getLocale(),
                     'is_builder_preview'      => RuntimeContext::isBuilderPreview(),
                     'boat_pages_sync_enabled' => RuntimeContext::isBoatPagesSyncEnabled(),
-                    'boats_base_url'          => RuntimeContext::getBoatsBaseUrl($lang),
+                    'boats_base_url'          => RuntimeContext::getBoatsBaseUrl($lang, $boat),
                 ],
             ]);
 

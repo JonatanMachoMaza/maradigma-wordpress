@@ -330,8 +330,8 @@ final class AssetsManager
         $select2Js  = trailingslashit(MARADIGMA_PLUGIN_URL) . 'vendors/select2/select2.full.min.js';
         $select2Css = trailingslashit(MARADIGMA_PLUGIN_URL) . 'vendors/select2/select2.min.css';
 
-        wp_register_script('maradigma-select2', $select2Js, ['jquery'], '4.0.13', true);
-        wp_register_style('maradigma-select2', $select2Css, [], '4.0.13');
+        wp_register_script('maradigma-select2', $select2Js, ['jquery'], '4.1.0', true);
+        wp_register_style('maradigma-select2', $select2Css, [], '4.1.0');
     }
 
     /**

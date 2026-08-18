@@ -89,18 +89,7 @@ if (!defined('WP_UNINSTALL_PLUGIN')) {
         }
     }
 
-    // 4) Optional: remove Elementor support entry (only our CPT).
-    $elementorSupport = get_option('elementor_cpt_support', []);
-    if (is_array($elementorSupport) && !empty($elementorSupport)) {
-        $elementorSupport = array_values(array_filter(
-            $elementorSupport,
-            static fn($v): bool => is_string($v) && $v !== $postType
-        ));
-
-        update_option('elementor_cpt_support', $elementorSupport);
-    }
-
-    // 5) Optional: delete uploads folder (default OFF).
+    // 4) Optional: delete uploads folder (default OFF).
     if ($deleteUploads === true && function_exists('wp_upload_dir')) {
         $uploads = wp_upload_dir();
         $baseDir = (string) ($uploads['basedir'] ?? '');

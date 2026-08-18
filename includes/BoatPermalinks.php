@@ -59,8 +59,7 @@ final class BoatPermalinks
 
         $langRootUrl = self::getLanguageRootUrl($lang);
 
-        $baseSlug = self::getBoatsBaseSlugForLang($lang);
-        $baseSlug = self::normalizeBaseSlug($baseSlug, 'boats');
+        $baseSlug = BoatUrlResolver::resolveBasePathForPost((int) $post->ID, $lang);
 
         $postSlug = trim((string) $post->post_name);
 
@@ -111,21 +110,36 @@ final class BoatPermalinks
                 continue;
             }
 
-            $baseSlug = self::normalizeBaseSlug(self::getBoatsBaseSlugForLang($lang), 'boats');
+            $baseTemplate = self::getBoatsBaseSlugForLang($lang);
+            $pattern = BoatUrlResolver::buildRewritePattern($baseTemplate);
 
             $rootPath = self::getLanguageRootPath($lang);
             $prefix   = trim($rootPath, '/');
 
             $rule = '^'
                 . ($prefix !== '' ? preg_quote($prefix, '#') . '/' : '')
-                . preg_quote($baseSlug, '#')
+                . $pattern['regex']
                 . '/([^/]+)/?$';
 
             add_rewrite_rule(
                 $rule,
-                'index.php?post_type=' . BoatPostType::POST_TYPE . '&name=$matches[1]',
+                'index.php?post_type=' . BoatPostType::POST_TYPE . '&name=$matches[' . $pattern['boat_match_index'] . ']',
                 'top'
             );
+
+            if (BoatUrlResolver::hasDestinationPlaceholder($baseTemplate)) {
+                $fallbackBase = BoatUrlResolver::resolveBasePath($baseTemplate);
+                $fallbackRule = '^'
+                    . ($prefix !== '' ? preg_quote($prefix, '#') . '/' : '')
+                    . preg_quote($fallbackBase, '#')
+                    . '/([^/]+)/?$';
+
+                add_rewrite_rule(
+                    $fallbackRule,
+                    'index.php?post_type=' . BoatPostType::POST_TYPE . '&name=$matches[1]',
+                    'top'
+                );
+            }
         }
     }
 
@@ -142,11 +156,7 @@ final class BoatPermalinks
      */
     private static function getPostLang(int $postId): string
     {
-        $lang = '';
-
-        if (function_exists('pll_get_post_language')) {
-            $lang = (string) pll_get_post_language($postId, 'slug');
-        }
+        $lang = (string) MultilangAdapter::getPostLanguage($postId);
 
         $lang = strtolower(trim($lang));
         $lang = (string) (preg_split('/[_-]/', $lang)[0] ?? $lang);
@@ -248,27 +258,4 @@ final class BoatPermalinks
         return RuntimeContext::getBoatsBaseSlugForLang($lang);
     }
 
-    /**
-     * Normalizes base slug.
-     */
-    private static function normalizeBaseSlug(string $baseSlug, string $fallback = 'boats'): string
-    {
-        $baseSlug = trim($baseSlug);
-
-        $baseSlug = preg_replace('~https?://[^/]+~i', '', $baseSlug) ?: $baseSlug;
-        $baseSlug = trim($baseSlug, '/');
-
-        if ($baseSlug === '') {
-            return $fallback;
-        }
-
-        if (strpos($baseSlug, '/') !== false) {
-            $parts = array_values(array_filter(array_map('trim', explode('/', $baseSlug))));
-            $baseSlug = (string) end($parts);
-        }
-
-        $baseSlug = sanitize_title($baseSlug);
-
-        return $baseSlug !== '' ? $baseSlug : $fallback;
-    }
 }

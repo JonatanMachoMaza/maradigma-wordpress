@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace Maradigma\Integrations\WooCommerce;
 
+use Maradigma\BoatUrlResolver;
+
 if (!defined('ABSPATH')) {
     exit;
 }
@@ -249,17 +251,17 @@ final class WooCommerceIntegration
      */
     private static function sanitizeSingleBoatsBaseSlug(string $slug, string $previous = '', string $fallback = 'boats'): string
     {
-        $slug = sanitize_title(trim($slug, "/ \t\n\r\0\x0B"));
+        $slug = BoatUrlResolver::normalizeBaseTemplate(trim($slug, "/ \t\n\r\0\x0B"), $fallback);
         if ($slug !== '' && !self::isReservedSlug($slug)) {
             return $slug;
         }
 
-        $previous = sanitize_title(trim($previous, "/ \t\n\r\0\x0B"));
+        $previous = BoatUrlResolver::normalizeBaseTemplate(trim($previous, "/ \t\n\r\0\x0B"), $fallback);
         if ($previous !== '' && strpos($previous, ':') === false && !self::isReservedSlug($previous)) {
             return $previous;
         }
 
-        $fallback = sanitize_title(trim($fallback, "/ \t\n\r\0\x0B"));
+        $fallback = BoatUrlResolver::normalizeBaseTemplate(trim($fallback, "/ \t\n\r\0\x0B"), 'boats');
         return $fallback !== '' && !self::isReservedSlug($fallback) ? $fallback : 'boats';
     }
 
@@ -324,10 +326,12 @@ final class WooCommerceIntegration
      */
     private static function isReservedSlug(string $slug): bool
     {
-        $slug = sanitize_title($slug);
+        $slug = BoatUrlResolver::normalizeBaseTemplate($slug);
         if ($slug === '') {
             return false;
         }
+
+        $slug = (string) (explode('/', $slug)[0] ?? $slug);
 
         return in_array($slug, self::getReservedSlugs(), true);
     }

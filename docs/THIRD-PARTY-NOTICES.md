@@ -17,7 +17,7 @@ Maradigma bundles local copies of the following libraries and data so production
 
 | Component | Version | License | Source | License text |
 | --- | --- | --- | --- | --- |
-| Select2 | 4.0.13 | MIT | https://github.com/select2/select2 | ../licenses/select2-LICENSE.md |
+| Select2 | 4.1.0 | MIT | https://github.com/select2/select2 | ../licenses/select2-LICENSE.md |
 | intl-tel-input | 26.3.1 | MIT | https://github.com/jackocnr/intl-tel-input | ../licenses/intl-tel-input-LICENSE.txt |
 
 ## Geographic Dataset

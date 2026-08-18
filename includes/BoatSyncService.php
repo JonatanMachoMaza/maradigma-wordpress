@@ -457,7 +457,7 @@ final class BoatSyncService
                             $boatId,
                             $apiLang,
                             [
-                                'expand'                 => ['service_images'],
+                                'expand'                 => ['service_images', 'service_destination'],
                                 'images'                 => 1,
                                 'url_images_main_domain' => 1,
                                 'only_load_cover_image'  => 0,

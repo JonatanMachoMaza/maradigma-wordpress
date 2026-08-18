@@ -2776,3 +2776,23 @@ msgstr "Rabatt"
 msgid "Last minute"
 msgstr "Last Minute"
 
+#: includes/BoatCardEngine.php
+msgid "Destination"
+msgstr "Reiseziel"
+
+#: includes/BoatCardEngine.php
+msgid "Destination slug"
+msgstr "Reiseziel-Slug"
+
+#: includes/SettingsPage.php
+msgid "Examples: \"boats\" or \"alquiler-barcos\". Use {{destination}} for destination-aware URLs, for example \"es:alquiler-barcos-{{destination}},en:boat-rental-{{destination}}\"."
+msgstr "Beispiele: \"boats\" oder \"alquiler-barcos\". Verwende {{destination}} für zielabhängige URLs, zum Beispiel \"es:alquiler-barcos-{{destination}},en:boat-rental-{{destination}}\"."
+
+#: includes/ShortcodeRegistry.php
+msgid "Check-in → Check-out"
+msgstr "Anreise → Abreise"
+
+#: includes/ShortcodeRegistry.php
+msgid "Clear"
+msgstr "Löschen"
+

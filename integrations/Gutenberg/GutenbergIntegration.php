@@ -8,6 +8,7 @@ if (!defined('ABSPATH')) {
     exit;
 }
 
+use Maradigma\BoatCardEngine;
 use Maradigma\BoatPostType;
 use Maradigma\Cache;
 use Maradigma\MetaManager;
@@ -988,7 +989,10 @@ final class GutenbergIntegration
                     );
                 }
 
-                $rendered = (string) \call_user_func($renderCallback, $attributes, $content, $block);
+                $rendered = \wp_kses(
+                    (string) \call_user_func($renderCallback, $attributes, $content, $block),
+                    BoatCardEngine::getAllowedHtml()
+                );
 
                 return GutenbergIntegration::renderBlockWrapper(
                     $rendered,

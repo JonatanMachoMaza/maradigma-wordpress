@@ -239,8 +239,11 @@ final class RuntimeContext
      * - Returns an empty string when public boat pages sync is disabled.
      * - This ensures the plugin does not emit /boats/... public URLs when the
      *   feature is disabled.
+     *
+     * @param string|null         $lang Requested language.
+     * @param array<string,mixed> $boat Optional boat payload used to resolve route placeholders.
      */
-    public static function getBoatsBaseUrl(?string $lang = null): string
+    public static function getBoatsBaseUrl(?string $lang = null, array $boat = []): string
     {
         if (!self::isBoatPagesSyncEnabled()) {
             return '';
@@ -254,11 +257,7 @@ final class RuntimeContext
         $home = rtrim(self::getHomeUrlForLanguage($lang), '/') . '/';
 
         $slug = self::getBoatsBaseSlugForLang($lang);
-        $slug = \trim((string) $slug, "/ \t\n\r\0\x0B");
-
-        if ($slug === '') {
-            $slug = 'boats';
-        }
+        $slug = \Maradigma\BoatUrlResolver::resolveBasePath($slug, $boat);
 
         return $home . \trim($slug, '/') . '/';
     }

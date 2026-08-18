@@ -35,6 +35,9 @@ final class PluginReleaseBuilderTest extends TestCase
         $this->writeFixture('assets/dist/js/vendor/flatpickr.min.js', 'flatpickr-js');
         $this->writeFixture('vendors/select2/select2.full.min.js', 'select2-runtime');
         $this->writeFixture('vendors/select2/i18n/eo.js', 'select2-unused-i18n');
+        $this->writeFixture('languages/maradigma-es_ES.mo', 'compiled-runtime-catalog');
+        $this->writeFixture('languages/maradigma-es_ES.po', 'translation-source');
+        $this->writeFixture('languages/maradigma.pot', 'translation-template');
         $this->writeFixture('vendor/autoload.php', '<?php');
 
         $builder = new PluginReleaseBuilder($this->pluginRoot, $mainFile, 'maradigma');
@@ -47,7 +50,10 @@ final class PluginReleaseBuilderTest extends TestCase
             self::assertNotFalse($zip->locateName('maradigma/assets/dist/css/vendor/flatpickr.min.css'));
             self::assertNotFalse($zip->locateName('maradigma/assets/dist/js/vendor/flatpickr.min.js'));
             self::assertNotFalse($zip->locateName('maradigma/vendors/select2/select2.full.min.js'));
+            self::assertNotFalse($zip->locateName('maradigma/languages/maradigma-es_ES.mo'));
             self::assertFalse($zip->locateName('maradigma/vendors/select2/i18n/eo.js'));
+            self::assertFalse($zip->locateName('maradigma/languages/maradigma-es_ES.po'));
+            self::assertFalse($zip->locateName('maradigma/languages/maradigma.pot'));
             self::assertFalse($zip->locateName('maradigma/vendor/autoload.php'));
         } finally {
             $zip->close();

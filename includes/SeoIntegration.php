@@ -429,9 +429,6 @@ final class SeoIntegration
     {
         $out = [];
 
-        // Prepare base URL (language-aware + mapped slug)
-        $baseUrl = RuntimeContext::getBoatsBaseUrl($lang);
-
         $id   = (string) ($boat['id'] ?? $boat['id_gi'] ?? $boat['id_group_item'] ?? '');
         $slug = (string) ($boat['slug'] ?? $boat['service_slug'] ?? '');
 
@@ -447,15 +444,11 @@ final class SeoIntegration
         $priceFrom = (string) ($boat['price_from'] ?? $boat['base_price'] ?? '');
         $priceFrom = \trim($priceFrom);
 
+        $destination = BoatUrlResolver::getDestinationName($boat);
+        $destinationSlug = BoatUrlResolver::getDestinationSlug($boat);
+
         // URL
-        $url = '';
-        if ($slug !== '') {
-            $url = \rtrim($baseUrl, '/') . '/' . \rawurlencode($slug) . '/';
-        } elseif ($id !== '') {
-            $url = \rtrim($baseUrl, '/') . '/' . \rawurlencode($id) . '/';
-        } else {
-            $url = \rtrim($baseUrl, '/') . '/';
-        }
+        $url = BoatUrlResolver::buildBoatUrl($boat, $lang, $slug !== '' ? $slug : $id);
 
         // Fill all tokens declared in BoatCardEngine, default empty
         foreach (BoatCardEngine::listTokens() as $token) {
@@ -471,6 +464,8 @@ final class SeoIntegration
         $out['name'] = $serviceName !== '' ? $serviceName : (string) ($boat['boat_alias'] ?? '');
 
         $out['port'] = $port;
+        $out['destination'] = $destination;
+        $out['destination_slug'] = $destinationSlug;
         $out['pax'] = $pax;
         $out['price_from'] = $priceFrom;
 

@@ -317,18 +317,6 @@ final class Plugin
         \add_action('elementor/init', static function (): void {
             $postType = BoatPostType::POST_TYPE;
 
-            $supported = \get_option('elementor_cpt_support', []);
-            if (!\is_array($supported)) {
-                $supported = [];
-            }
-
-            $mustHave = [$postType, 'page', 'post'];
-            $merged = \array_values(\array_unique(\array_merge($supported, $mustHave)));
-
-            if ($merged !== $supported) {
-                \update_option('elementor_cpt_support', $merged);
-            }
-
             if (\function_exists('add_post_type_support')) {
                 \add_post_type_support($postType, 'elementor');
             }
@@ -346,20 +334,6 @@ final class Plugin
 
         if (\class_exists(BoatPostType::class) && \method_exists(BoatPostType::class, 'register')) {
             BoatPostType::register();
-        }
-
-        if (\did_action('elementor/loaded')) {
-            $supported = \get_option('elementor_cpt_support', []);
-            if (!\is_array($supported)) {
-                $supported = [];
-            }
-
-            $mustHave = [BoatPostType::POST_TYPE, 'page', 'post'];
-            $merged = \array_values(\array_unique(\array_merge($supported, $mustHave)));
-
-            if ($merged !== $supported) {
-                \update_option('elementor_cpt_support', $merged);
-            }
         }
 
         \flush_rewrite_rules();

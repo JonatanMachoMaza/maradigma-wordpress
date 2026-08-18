@@ -2435,10 +2435,10 @@ final class SettingsPage
                                                 value="<?php echo esc_attr($boatsBaseSlug); ?>"
                                                 class="regular-text"
                                                 style="width:100%;max-width:520px;"
-                                                placeholder="boats / alquiler-barcos / es:barcos,en:boats,fr:bateaux" />
+                                                placeholder="boats / alquiler-barcos-{{destination}} / es:alquiler-barcos-{{destination}},en:boat-rental-{{destination}}" />
 
                                             <p class="description">
-                                                <?php esc_html_e('Examples: "boats" or "alquiler-barcos". Simple multi-language: "es:barcos,en:boats,fr:bateaux".', 'maradigma'); ?>
+                                                <?php esc_html_e('Examples: "boats" or "alquiler-barcos". Use {{destination}} for destination-aware URLs, for example "es:alquiler-barcos-{{destination}},en:boat-rental-{{destination}}".', 'maradigma'); ?>
                                             </p>
                                         </td>
                                     </tr>
@@ -3396,7 +3396,7 @@ final class SettingsPage
             value="<?php echo esc_attr($value); ?>"
             class="regular-text" />
         <p class="description">
-            <?php esc_html_e('E.g.: "boats" or "alquiler-barcos". Simple multi-language: "es:barcos,en:boats,fr:bateaux".', 'maradigma'); ?>
+            <?php esc_html_e('Examples: "boats" or "alquiler-barcos". Use {{destination}} for destination-aware URLs, for example "es:alquiler-barcos-{{destination}},en:boat-rental-{{destination}}".', 'maradigma'); ?>
         </p>
 <?php
     }

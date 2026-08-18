@@ -57,12 +57,6 @@ final class GenerateBlocksIntegration
             \delete_post_meta($boatPostId, '_generateblocks_reusable_blocks');
         }
 
-        $generatedCssPosts = \get_option('generateblocks_dynamic_css_posts', []);
-        if (\is_array($generatedCssPosts) && isset($generatedCssPosts[$boatPostId])) {
-            unset($generatedCssPosts[$boatPostId]);
-            \update_option('generateblocks_dynamic_css_posts', $generatedCssPosts);
-        }
-
         \clean_post_cache($boatPostId);
     }
 

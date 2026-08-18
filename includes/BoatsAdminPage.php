@@ -801,7 +801,10 @@ final class BoatsAdminPage
             $shortcode .= ']';
         }
 
-        $listingHtml = do_shortcode($shortcode);
+        $listingHtml = wp_kses(
+            (string) do_shortcode($shortcode),
+            BoatCardEngine::getAllowedHtml()
+        );
 
         return $content . "\n\n" .
             '<div class="maradigma-boats-page-listing">' . $listingHtml . '</div>';
