@@ -2796,3 +2796,17 @@ msgstr "Arrivée → Départ"
 msgid "Clear"
 msgstr "Effacer"
 
+msgid "The booking security token is missing or has expired. Reload the page and try again."
+msgstr "Le jeton de sécurité de la réservation est absent ou a expiré. Rechargez la page et réessayez."
+
+msgid "Too many booking attempts. Please wait a few minutes and try again."
+msgstr "Trop de tentatives de réservation. Veuillez patienter quelques minutes et réessayer."
+
+msgid "The booking request identifier is invalid. Reload the page and try again."
+msgstr "L'identifiant de la demande de réservation n'est pas valide. Rechargez la page et réessayez."
+
+msgid "This booking request identifier was already used with different data."
+msgstr "Cet identifiant de demande de réservation a déjà été utilisé avec des données différentes."
+
+msgid "This booking request is already being processed. Please wait before trying again."
+msgstr "Cette demande de réservation est déjà en cours de traitement. Veuillez patienter avant de réessayer."

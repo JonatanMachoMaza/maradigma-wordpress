@@ -2871,3 +2871,17 @@ msgstr "Entrada → Sortida"
 msgid "Clear"
 msgstr "Neteja"
 
+msgid "The booking security token is missing or has expired. Reload the page and try again."
+msgstr "El testimoni de seguretat de la reserva no existeix o ha caducat. Torna a carregar la pàgina i prova-ho de nou."
+
+msgid "Too many booking attempts. Please wait a few minutes and try again."
+msgstr "Massa intents de reserva. Espera uns minuts i torna-ho a provar."
+
+msgid "The booking request identifier is invalid. Reload the page and try again."
+msgstr "L'identificador de la sol·licitud de reserva no és vàlid. Torna a carregar la pàgina i prova-ho de nou."
+
+msgid "This booking request identifier was already used with different data."
+msgstr "Aquest identificador de sol·licitud de reserva ja s'ha utilitzat amb dades diferents."
+
+msgid "This booking request is already being processed. Please wait before trying again."
+msgstr "Aquesta sol·licitud de reserva ja s'està processant. Espera abans de tornar-ho a provar."

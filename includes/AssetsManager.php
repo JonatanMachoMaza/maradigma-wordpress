@@ -9,6 +9,7 @@ if (!defined('ABSPATH')) {
 }
 
 use Maradigma\Support\MultilangAdapter;
+use Maradigma\Support\PublicBookingGuard;
 
 /**
  * Manages assets registration and runtime behavior.
@@ -93,6 +94,7 @@ final class AssetsManager
             'MaradigmaConfig',
             [
                 'nonce'           => wp_create_nonce('wp_rest'),
+                'bookingNonce'    => PublicBookingGuard::createNonce(),
                 'svgs'            => $svgs,
                 'intlTelUtilsUrl' => self::getIntlTelInputUtilsUrl(),
                 'wpJsonBase'      => esc_url_raw(rest_url()),
@@ -1388,6 +1390,7 @@ final class AssetsManager
             'MaradigmaConfig',
             [
                 'nonce'           => wp_create_nonce('wp_rest'),
+                'bookingNonce'    => PublicBookingGuard::createNonce(),
                 'svgs'            => $svgs,
                 'intlTelUtilsUrl' => self::getIntlTelInputUtilsUrl(),
                 'wpJsonBase'      => esc_url_raw(rest_url()),

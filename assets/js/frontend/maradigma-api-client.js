@@ -7,6 +7,9 @@ class MaradigmaApiClient {
     const g = window.MaradigmaConfig || {};
 
     this.nonce = String(config.nonce ?? g.nonce ?? "").trim();
+    this.bookingNonce = String(config.bookingNonce ?? g.bookingNonce ?? "").trim();
+    this.bookingSession = this._getOrCreateBookingSession();
+    this.bookingIdempotencyKeys = new Map();
     this.timeoutMs = this._toInt(config.timeoutMs ?? g.timeoutMs ?? 15000, 15000);
     this.wpJsonBase = String(config.wpJsonBase ?? g.wpJsonBase ?? "/wp-json").trim() || "/wp-json";
 
@@ -89,6 +92,17 @@ class MaradigmaApiClient {
 
     const finalHeaders = this._buildHeaders(finalNonce, headers);
     finalHeaders["Content-Type"] = "application/json";
+
+    if (this.bookingNonce && this._isBookingWriteUrl(url)) {
+      finalHeaders["X-Maradigma-Booking-Nonce"] = this.bookingNonce;
+    }
+    if (this.bookingSession && this._isBookingWriteUrl(url)) {
+      finalHeaders["X-Maradigma-Booking-Session"] = this.bookingSession;
+    }
+    const idempotencyScope = this._bookingIdempotencyScope(url, payload);
+    if (idempotencyScope) {
+      finalHeaders["Idempotency-Key"] = this._getIdempotencyKey(idempotencyScope);
+    }
 
     const { ctrl, finalSignal, cancel } = this._buildTimeoutSignal(signal, timeoutMs);
     try {
@@ -178,6 +192,83 @@ class MaradigmaApiClient {
 
   _isPublicMaradigmaRestPath(pathname) {
     return /(?:^|\/)(?:wp-json\/)?maradigma\/v1\/(?:countries|quote|boats-archive|boats\/\d+|boat|boat\/price-on-booking|calendar|booking|booking\/online|shop-cart\/[0-9a-zA-Z_-]+|booking\/rental-terms(?:\/[^/]+)?)$/.test(String(pathname || ""));
+  }
+
+  _isBookingWriteUrl(url) {
+    try {
+      const base = window?.location?.href || undefined;
+      const parsed = new URL(String(url || ""), base);
+
+      if (window?.location?.origin && parsed.origin !== window.location.origin) {
+        return false;
+      }
+
+      const pathname = decodeURIComponent(parsed.pathname || "").replace(/\/+$/, "");
+      const restRoute = decodeURIComponent(parsed.searchParams.get("rest_route") || "").replace(/\/+$/, "");
+      const pattern = /(?:^|\/)(?:wp-json\/)?maradigma\/v1\/booking(?:\/online)?$/;
+
+      return pattern.test(pathname) || pattern.test(restRoute);
+    } catch {
+      return false;
+    }
+  }
+
+  _getOrCreateBookingSession() {
+    const storageKey = "maradigma_booking_session_v1";
+
+    try {
+      const stored = String(window.localStorage.getItem(storageKey) || "").trim();
+      if (/^[A-Za-z0-9_-]{20,128}$/.test(stored)) {
+        return stored;
+      }
+
+      const created = this._randomToken();
+      window.localStorage.setItem(storageKey, created);
+      return created;
+    } catch {
+      return this._randomToken();
+    }
+  }
+
+  _randomToken() {
+    if (window.crypto && typeof window.crypto.randomUUID === "function") {
+      return window.crypto.randomUUID().replace(/-/g, "");
+    }
+
+    if (window.crypto && typeof window.crypto.getRandomValues === "function") {
+      const bytes = new Uint8Array(24);
+      window.crypto.getRandomValues(bytes);
+      return Array.from(bytes, (byte) => byte.toString(16).padStart(2, "0")).join("");
+    }
+
+    return [
+      Date.now().toString(36),
+      Math.random().toString(36).slice(2),
+      Math.random().toString(36).slice(2)
+    ].join("");
+  }
+
+  _bookingIdempotencyScope(url, payload) {
+    if (!this._isBookingWriteUrl(url)) {
+      return "";
+    }
+
+    const step = Number(payload?.step || 0);
+    const isLegacyBooking = step === 0;
+    const isPaymentStep = step >= 3;
+    if (!isLegacyBooking && !isPaymentStep) {
+      return "";
+    }
+
+    return String(url || "") + "|" + JSON.stringify(payload || {});
+  }
+
+  _getIdempotencyKey(scope) {
+    if (!this.bookingIdempotencyKeys.has(scope)) {
+      this.bookingIdempotencyKeys.set(scope, this._randomToken());
+    }
+
+    return this.bookingIdempotencyKeys.get(scope);
   }
 
   _canRetryWithoutNonce(options) {

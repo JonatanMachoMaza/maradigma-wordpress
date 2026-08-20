@@ -10,6 +10,7 @@ if (!defined('ABSPATH')) {
 
 use Maradigma\Support\Logger;
 use Maradigma\Support\MultilangAdapter;
+use Maradigma\Support\PublicBookingGuard;
 
 /**
  * Main plugin bootstrap.
@@ -40,6 +41,7 @@ final class Plugin
         self::$bootstrapped = true;
 
         MultilangAdapter::ensurePostTypeTranslatable(\Maradigma\BoatPostType::POST_TYPE);
+        PublicBookingGuard::registerHooks();
 
         \register_activation_hook(MARADIGMA_PLUGIN_FILE, [__CLASS__, 'onActivate']);
         \register_deactivation_hook(MARADIGMA_PLUGIN_FILE, [__CLASS__, 'onDeactivate']);

@@ -361,9 +361,16 @@ final class Debugger
             \wp_mkdir_p($dir);
         }
 
-        $indexFile = $dir . 'index.php';
+        // Older releases created an executable PHP index file in this
+        // plugin-owned directory. Remove it and use inert HTML instead.
+        $legacyIndexFile = $dir . 'index.php';
+        if (\is_file($legacyIndexFile)) {
+            \wp_delete_file($legacyIndexFile);
+        }
+
+        $indexFile = $dir . 'index.html';
         if (!\file_exists($indexFile)) {
-            @\file_put_contents($indexFile, "<?php\n// Silence is golden.\n");
+            @\file_put_contents($indexFile, '');
         }
 
         $htaccess = $dir . '.htaccess';

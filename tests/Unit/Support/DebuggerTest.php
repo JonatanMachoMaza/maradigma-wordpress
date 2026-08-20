@@ -31,6 +31,15 @@ namespace {
         }
     }
 
+    if (!function_exists('wp_delete_file')) {
+        function wp_delete_file(string $path): void
+        {
+            if (is_file($path)) {
+                unlink($path);
+            }
+        }
+    }
+
     if (!function_exists('wp_json_encode')) {
         /** @param mixed $value */
         function wp_json_encode($value, int $flags = 0): string|false
@@ -79,6 +88,24 @@ namespace Maradigma\Tests\Unit\Support {
             self::assertSame('error', $entry['level'] ?? null);
             self::assertSame('Synchronization failed', $entry['message'] ?? null);
             self::assertSame('layout_template', $entry['context']['phase'] ?? null);
+            self::assertFileExists($this->uploadDir . '/maradigma/logs/index.html');
+            self::assertSame('', (string) file_get_contents($this->uploadDir . '/maradigma/logs/index.html'));
+            self::assertFileDoesNotExist($this->uploadDir . '/maradigma/logs/index.php');
+        }
+
+        public function testLegacyPhpIndexIsRemoved(): void
+        {
+            $logsDirectory = $this->uploadDir . '/maradigma/logs';
+            self::assertTrue(mkdir($logsDirectory, 0777, true));
+            self::assertNotFalse(file_put_contents(
+                $logsDirectory . '/index.php',
+                'legacy executable content'
+            ));
+
+            Debugger::error('boat-sync', 'Synchronization failed');
+
+            self::assertFileDoesNotExist($logsDirectory . '/index.php');
+            self::assertFileExists($logsDirectory . '/index.html');
         }
 
         public function testRoutineLogsStayDisabledInProduction(): void

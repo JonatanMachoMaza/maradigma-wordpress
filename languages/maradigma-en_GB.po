@@ -2839,3 +2839,17 @@ msgstr "Check-in → Check-out"
 msgid "Clear"
 msgstr "Clear"
 
+msgid "The booking security token is missing or has expired. Reload the page and try again."
+msgstr "The booking security token is missing or has expired. Reload the page and try again."
+
+msgid "Too many booking attempts. Please wait a few minutes and try again."
+msgstr "Too many booking attempts. Please wait a few minutes and try again."
+
+msgid "The booking request identifier is invalid. Reload the page and try again."
+msgstr "The booking request identifier is invalid. Reload the page and try again."
+
+msgid "This booking request identifier was already used with different data."
+msgstr "This booking request identifier was already used with different data."
+
+msgid "This booking request is already being processed. Please wait before trying again."
+msgstr "This booking request is already being processed. Please wait before trying again."

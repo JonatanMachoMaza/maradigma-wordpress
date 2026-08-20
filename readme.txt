@@ -4,7 +4,7 @@ Tags: boat rental, yacht charter, booking, availability, fleet management
 Requires at least: 6.0
 Tested up to: 7.0
 Requires PHP: 8.1
-Stable tag: 0.1.168
+Stable tag: 0.1.170
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -157,6 +157,15 @@ The repository includes `package.json`, `package-lock.json`, and the Vite config
 
 == Changelog ==
 
+= 0.1.170 =
+* Replaced the single anonymous booking counter with fixed-window IP, browser-session, cart, and payment policies.
+* Added standards-compatible HTTP 429 retry metadata and filterable policy limits.
+* Added idempotency protection to payment-producing booking requests to prevent duplicates after retries or timeouts.
+
+= 0.1.169 =
+* Replaced the executable uploads log index with an inert HTML index and removed the legacy generated PHP file.
+* Added explicit nonce authorization and anonymous rate limiting to public booking write endpoints.
+
 = 0.1.168 =
 * Updated the bundled Select2 library to the stable 4.1.0 release.
 * Sanitized dynamic Gutenberg block output and legacy page-listing shortcode output with an explicit frontend HTML allowlist.
@@ -222,6 +231,12 @@ The repository includes `package.json`, `package-lock.json`, and the Vite config
 * Improved readme documentation for the current feature set.
 
 == Upgrade Notice ==
+
+= 0.1.170 =
+Improves public booking abuse protection without imposing the previous low global threshold and prevents duplicate payment submissions.
+
+= 0.1.169 =
+Hardens public booking requests and removes executable files previously generated in the uploads log directory.
 
 = 0.1.168 =
 Security and compatibility hardening requested during the WordPress.org plugin review, including Select2 4.1.0.

@@ -13,6 +13,7 @@ use WP_REST_Response;
 use Maradigma\Settings;
 use Maradigma\ExternalApiClient;
 use Maradigma\Support\Debugger;
+use Maradigma\Support\PublicBookingGuard;
 use RuntimeException;
 
 /**
@@ -228,7 +229,7 @@ final class AjaxController
             [
                 'methods'             => 'POST',
                 'callback'            => [__CLASS__, 'handleQuote'],
-                'permission_callback' => '__return_true', // público; si quieres puedes endurecerlo
+                'permission_callback' => '__return_true',
             ]
         );
 
@@ -278,7 +279,7 @@ final class AjaxController
             [
                 'methods'             => 'POST',
                 'callback'            => [__CLASS__, 'handleBooking'],
-                'permission_callback' => '__return_true',
+                'permission_callback' => [PublicBookingGuard::class, 'authorize'],
             ]
         );
 
@@ -288,7 +289,7 @@ final class AjaxController
             [
                 'methods'             => 'POST',
                 'callback'            => [__CLASS__, 'handleBookingOnline'],
-                'permission_callback' => '__return_true',
+                'permission_callback' => [PublicBookingGuard::class, 'authorize'],
             ]
         );
 
@@ -1185,6 +1186,27 @@ final class AjaxController
     public static function handleBooking(WP_REST_Request $request): WP_REST_Response
     {
         $params = $request->get_json_params() ?? [];
+        $claim = PublicBookingGuard::beginIdempotentWrite($request);
+        if ($claim instanceof \WP_Error) {
+            $errorData = $claim->get_error_data();
+
+            return new WP_REST_Response(
+                [
+                    'success' => false,
+                    'error' => [
+                        'code' => $claim->get_error_code(),
+                        'message' => $claim->get_error_message(),
+                    ],
+                ],
+                (int) ($errorData['status'] ?? 409)
+            );
+        }
+        if (($claim['state'] ?? '') === 'replay') {
+            $response = new WP_REST_Response($claim['response'] ?? null, (int) ($claim['status'] ?? 200));
+            $response->header('X-Maradigma-Idempotent-Replay', 'true');
+
+            return $response;
+        }
 
         $boatId   = isset($params['boat_id']) ? (string) $params['boat_id'] : '';
         $fromDate = isset($params['from_date']) ? (string) $params['from_date'] : '';
@@ -1224,9 +1246,16 @@ final class AjaxController
             $additionalServices = [];
 
             $result = $client->createBookingWithoutPayment($booking, $customer, $additionalServices);
+            if (PublicBookingGuard::isSuccessfulResult($result)) {
+                PublicBookingGuard::completeIdempotentWrite($claim, $request, $result);
+            } else {
+                PublicBookingGuard::abortIdempotentWrite($claim);
+            }
 
             return new WP_REST_Response($result, 200);
         } catch (\Throwable $e) {
+            PublicBookingGuard::abortIdempotentWrite($claim);
+
             return new WP_REST_Response(
                 [
                     'success' => false,
@@ -1246,6 +1275,27 @@ final class AjaxController
     public static function handleBookingOnline(WP_REST_Request $request): WP_REST_Response
     {
         $params = $request->get_json_params() ?? [];
+        $claim = PublicBookingGuard::beginIdempotentWrite($request);
+        if ($claim instanceof \WP_Error) {
+            $errorData = $claim->get_error_data();
+
+            return new WP_REST_Response(
+                [
+                    'success' => false,
+                    'error' => [
+                        'code' => $claim->get_error_code(),
+                        'message' => $claim->get_error_message(),
+                    ],
+                ],
+                (int) ($errorData['status'] ?? 409)
+            );
+        }
+        if (($claim['state'] ?? '') === 'replay') {
+            $response = new WP_REST_Response($claim['response'] ?? null, (int) ($claim['status'] ?? 200));
+            $response->header('X-Maradigma-Idempotent-Replay', 'true');
+
+            return $response;
+        }
 
         try {
             $step = isset($params['step']) ? (int) $params['step'] : 0;
@@ -1347,9 +1397,15 @@ final class AjaxController
             ]);
 
             $result = $client->bookingOnline($post);
+            if (PublicBookingGuard::isSuccessfulResult($result)) {
+                PublicBookingGuard::completeIdempotentWrite($claim, $request, $result);
+            } else {
+                PublicBookingGuard::abortIdempotentWrite($claim);
+            }
 
             return new WP_REST_Response($result, 200);
         } catch (\Throwable $e) {
+            PublicBookingGuard::abortIdempotentWrite($claim);
             maradigma_debug_log('[handleBookingOnline] ERROR: ' . $e->getMessage());
             Debugger::log('booking-online', 'booking_online_error', [
                 'message' => $e->getMessage(),

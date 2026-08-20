@@ -2797,3 +2797,17 @@ msgstr "Inchecken → Uitchecken"
 msgid "Clear"
 msgstr "Wissen"
 
+msgid "The booking security token is missing or has expired. Reload the page and try again."
+msgstr "Het beveiligingstoken voor de boeking ontbreekt of is verlopen. Vernieuw de pagina en probeer het opnieuw."
+
+msgid "Too many booking attempts. Please wait a few minutes and try again."
+msgstr "Te veel boekingspogingen. Wacht enkele minuten en probeer het opnieuw."
+
+msgid "The booking request identifier is invalid. Reload the page and try again."
+msgstr "De identificatie van de boekingsaanvraag is ongeldig. Laad de pagina opnieuw en probeer het nogmaals."
+
+msgid "This booking request identifier was already used with different data."
+msgstr "Deze identificatie van de boekingsaanvraag is al met andere gegevens gebruikt."
+
+msgid "This booking request is already being processed. Please wait before trying again."
+msgstr "Deze boekingsaanvraag wordt al verwerkt. Wacht even voordat u het opnieuw probeert."
