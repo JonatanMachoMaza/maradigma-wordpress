@@ -53,6 +53,10 @@
       "type": "string",
       "default": "free",
       "role": "content"
+    },
+    "buttons_position": {
+      "type": "string",
+      "default": "inline"
     }
   },
   "supports": {

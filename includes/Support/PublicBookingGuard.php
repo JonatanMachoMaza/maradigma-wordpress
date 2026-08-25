@@ -50,6 +50,28 @@ final class PublicBookingGuard
     }
 
     /**
+     * Returns a fresh booking nonce without allowing intermediary caching.
+     */
+    public static function refreshNonce(): WP_REST_Response
+    {
+        $response = new WP_REST_Response(
+            [
+                'success' => true,
+                'data' => [
+                    'nonce' => self::createNonce(),
+                ],
+            ],
+            200
+        );
+
+        $response->header('Cache-Control', 'no-store, no-cache, must-revalidate, max-age=0');
+        $response->header('Pragma', 'no-cache');
+        $response->header('Expires', 'Wed, 11 Jan 1984 05:00:00 GMT');
+
+        return $response;
+    }
+
+    /**
      * REST permission callback for endpoints that create or update bookings.
      *
      * @return bool|WP_Error True when the request may continue, otherwise a

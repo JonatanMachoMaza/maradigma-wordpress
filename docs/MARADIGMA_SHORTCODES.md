@@ -571,6 +571,29 @@ or:
 [maradigma_boat_booking slug="alfastreet-marine-28-sanfil"]
 ```
 
+By default, the navigation buttons appear after the current step inside the
+scrollable modal body. To keep them persistently visible in the modal footer:
+
+```text
+[maradigma_boat_booking id="304" buttons_position="footer"]
+```
+
+### Attributes
+
+| Attribute | Default | Description |
+|---|---|---|
+| `id` / `slug` | `""` | Boat identifier. Context fallback is supported inside bound boat pages. |
+| `button_text` | `Book now` | Label of the button that opens the modal. |
+| `redirect_url_success` | `""` | Optional URL used after a successful booking/payment. |
+| `calendar_display` | `inline` | `inline` or `popup`. |
+| `calendar_months` | `1` | `1` or `2`. Inline calendars always use one month. |
+| `calendar_selection_mode` | `range` | `range` or `single`. |
+| `show_schedule_text` | `1` | Show the boat schedule text. |
+| `show_promo_code` | `1` | Show the promotional code field. |
+| `show_children_included` | `1` | Show the children-on-board option. |
+| `free_additional_label` | `free` | `free` or `included`. |
+| `buttons_position` | `inline` | `inline` places the actions after the current step inside the scrollable modal body; `footer` keeps them persistently visible in the modal footer. |
+
 ### How it works (high level)
 
 - The shortcode outputs:

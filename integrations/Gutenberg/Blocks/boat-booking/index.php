@@ -23,7 +23,7 @@ final class BoatBookingBlock
     public static function render(array $attributes = [], string $content = '', $block = null): string
     {
         $attributes = GutenbergIntegration::withContextIdentifier($attributes, $block);
-        $shortcodeAttributes = GutenbergIntegration::pickAttributes($attributes, ['id', 'slug', 'button_text', 'redirect_url_success', 'calendar_display', 'calendar_months', 'calendar_selection_mode', 'show_schedule_text', 'show_promo_code', 'show_children_included', 'free_additional_label']);
+        $shortcodeAttributes = GutenbergIntegration::pickAttributes($attributes, ['id', 'slug', 'button_text', 'redirect_url_success', 'calendar_display', 'calendar_months', 'calendar_selection_mode', 'show_schedule_text', 'show_promo_code', 'show_children_included', 'free_additional_label', 'buttons_position']);
 
         return GutenbergIntegration::renderShortcode(
             'maradigma_boat_booking',

@@ -705,6 +705,9 @@ msgstr "Questo extra può essere aggiunto se lo desideri."
 msgid "Free"
 msgstr "Gratuito"
 
+msgid "Occupied"
+msgstr "Occupato"
+
 msgid "This extra has no additional cost."
 msgstr "Questo extra non ha costi aggiuntivi."
 
@@ -1785,6 +1788,9 @@ msgstr "Dettagli barca"
 msgid "pers."
 msgstr "pers."
 
+msgid "Minimum passengers"
+msgstr "Numero minimo di passeggeri"
+
 msgid "Maradigma logo"
 msgstr "Maradigma logo"
 
@@ -2813,3 +2819,52 @@ msgstr "Questo identificatore della richiesta di prenotazione è già stato util
 
 msgid "This booking request is already being processed. Please wait before trying again."
 msgstr "Questa richiesta di prenotazione è già in fase di elaborazione. Attendi prima di riprovare."
+msgid "Navigation buttons position"
+msgstr "Posizione dei pulsanti di navigazione"
+
+msgid "Modal footer"
+msgstr "Piè di pagina della finestra modale"
+
+msgid "Inline with modal content"
+msgstr "Integrati nel contenuto della finestra modale"
+
+msgid "Previous"
+msgstr "Precedente"
+
+msgid "Next"
+msgstr "Successivo"
+
+msgid "Loading…"
+msgstr "Caricamento…"
+
+msgid "Loading terms…"
+msgstr "Caricamento dei termini…"
+
+msgid "Reload page"
+msgstr "Ricarica la pagina"
+
+msgid "The session has expired."
+msgstr "La sessione è scaduta."
+
+msgid "Calendar not available."
+msgstr "Calendario non disponibile."
+
+msgid "Legend"
+msgstr "Legenda"
+
+msgid "From {start} to {end}"
+msgstr "Dal {start} al {end}"
+
+msgid "This price already includes a management fee of %price%"
+msgstr "Questo prezzo include già una commissione di gestione di %price%"
+
+msgid "Reservation confirmed!"
+msgstr "Prenotazione confermata!"
+
+msgid "Quote received."
+msgstr "Preventivo ricevuto."
+
+msgid "We cannot process your request right now. Please try again later."
+msgstr "Al momento non possiamo elaborare la tua richiesta. Riprova più tardi."
+msgid "The selected schedule is no longer available. We refreshed the available schedules."
+msgstr "La fascia oraria selezionata non è più disponibile. Gli orari disponibili sono stati aggiornati."

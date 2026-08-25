@@ -38,11 +38,14 @@ final class SettingsPage
     private static ?string $adminPageHook = null;
     private static ?string $adminApiBoatsHook = null;
 
+    private static bool $legacyBoatsBaseSlugRepairChecked = false;
+
     /**
      * Registers the component's WordPress hooks.
      */
     public static function init(): void
     {
+        add_action('init', [__CLASS__, 'repairLegacyBoatsBaseSlug'], 0);
         add_action('admin_menu', [__CLASS__, 'registerMenu']);
         add_action('admin_init', [__CLASS__, 'registerSettings']);
 
@@ -423,7 +426,7 @@ final class SettingsPage
 
         $filteredBoatsBaseSlug = apply_filters('maradigma_boats_base_slug_before_save', $boatsBaseSlug, $input, $output);
         $boatsBaseSlug = trim(sanitize_text_field((string) $filteredBoatsBaseSlug));
-        if ($boatsBaseSlug === '') {
+        if ($boatsBaseSlug === '' || BoatUrlResolver::isMalformedLegacyBaseSlug($boatsBaseSlug)) {
             $boatsBaseSlug = 'boats';
         }
 
@@ -659,12 +662,47 @@ final class SettingsPage
             $settings['delete_uploads_on_uninstall'] = 0;
         }
 
-        $settings['boats_base_slug'] = $settings['boats_base_slug'] ?? 'boats';
+        $settings['boats_base_slug'] = trim((string) ($settings['boats_base_slug'] ?? 'boats'));
+        if (
+            $settings['boats_base_slug'] === ''
+            || BoatUrlResolver::isMalformedLegacyBaseSlug($settings['boats_base_slug'])
+        ) {
+            $settings['boats_base_slug'] = 'boats';
+        }
         $settings['seo_title_template'] = $settings['seo_title_template'] ?? 'Boat hire {{service_name}}';
         $settings['seo_meta_description_template'] = $settings['seo_meta_description_template'] ?? 'Rent the {{service_name}} in {{port}}. Capacity {{pax}} people, from {{price_from}}.';
         $settings['seo_h1_template'] = $settings['seo_h1_template'] ?? '{{service_name}}';
 
         return $settings;
+    }
+
+    /**
+     * Repairs boat URL bases corrupted by legacy multilingual sanitization.
+     *
+     * The repair is intentionally idempotent and persists the safe fallback so
+     * the settings screen, generated permalinks, and rewrite rules all share the
+     * same canonical value.
+     */
+    public static function repairLegacyBoatsBaseSlug(): void
+    {
+        if (self::$legacyBoatsBaseSlugRepairChecked) {
+            return;
+        }
+
+        self::$legacyBoatsBaseSlugRepairChecked = true;
+
+        $settings = get_option(self::OPTION_KEY, []);
+        if (!is_array($settings)) {
+            return;
+        }
+
+        $raw = trim((string) ($settings['boats_base_slug'] ?? ''));
+        if (!BoatUrlResolver::isMalformedLegacyBaseSlug($raw)) {
+            return;
+        }
+
+        $settings['boats_base_slug'] = 'boats';
+        update_option(self::OPTION_KEY, $settings);
     }
 
     /**

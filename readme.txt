@@ -4,7 +4,7 @@ Tags: boat rental, yacht charter, booking, availability, fleet management
 Requires at least: 6.0
 Tested up to: 7.0
 Requires PHP: 8.1
-Stable tag: 0.1.170
+Stable tag: 0.1.182
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -157,6 +157,52 @@ The repository includes `package.json`, `package-lock.json`, and the Vite config
 
 == Changelog ==
 
+= 0.1.182 =
+* Replaced the half-day dropdown with visible, accessible schedule cards.
+* Kept unavailable schedules visible, marked them as occupied, and prevented their selection.
+* Improved spacing between the schedule heading, help text, and available choices.
+
+= 0.1.181 =
+* Reduced the rental-terms text and toggle typography to match the booking modal hierarchy.
+
+= 0.1.180 =
+* Refreshed booking availability without browser cache whenever the modal opens.
+* Removed occupied half-day schedules from the selector and disabled full-day rental when any required schedule is unavailable.
+* Revalidated selected schedules against the live price response and refreshed the options when availability changes.
+
+= 0.1.179 =
+* Added an explicit translated reload action when silent booking-token renewal and its retry both fail.
+
+= 0.1.178 =
+* Prevented browser AbortSignal implementation messages from being exposed to customers.
+* Added a dedicated 45-second timeout for booking and payment operations while retaining the standard timeout for regular API reads.
+
+= 0.1.177 =
+* Prevented the rental-terms toggle from resetting the modal scroll position on small screens.
+* Replaced the terms anchor with an accessible button and retained loaded terms while toggling.
+
+= 0.1.176 =
+* Improved the booking modal heading hierarchy and typography.
+
+= 0.1.175 =
+* Added a theme-colored directional indicator to the payment breakdown toggles.
+
+= 0.1.174 =
+* Updated the booking modal overlay with a darker translucent background and an 8px backdrop blur.
+
+= 0.1.173 =
+* Added the missing localized “Loading terms…” message to the booking modal.
+
+= 0.1.172 =
+* Added a non-cacheable booking security-token refresh endpoint.
+* Automatically refreshes an invalid booking nonce and retries the protected request once.
+* Preserves the original idempotency key during the retry to prevent duplicate bookings or payments.
+
+= 0.1.171 =
+* Fixed built-in boat-card labels so `From`, `day`, and `Charter` use the bundled gettext translations.
+* Corrected Spanish translations for boat details and cabins.
+* Added the missing minimum-passengers translation to every bundled language catalog.
+
 = 0.1.170 =
 * Replaced the single anonymous booking counter with fixed-window IP, browser-session, cart, and payment policies.
 * Added standards-compatible HTTP 429 retry metadata and filterable policy limits.
@@ -231,6 +277,42 @@ The repository includes `package.json`, `package-lock.json`, and the Vite config
 * Improved readme documentation for the current feature set.
 
 == Upgrade Notice ==
+
+= 0.1.182 =
+Makes half-day availability clearer by showing every schedule and identifying occupied options.
+
+= 0.1.181 =
+Improves the visual hierarchy and readability of the rental-terms card.
+
+= 0.1.180 =
+Prevents an occupied half-day schedule or full-day rental from being offered again after availability changes.
+
+= 0.1.179 =
+Provides a clear recovery path when a booking session can no longer be renewed automatically.
+
+= 0.1.178 =
+Improves resilience and customer-facing error handling when booking or payment creation takes longer than expected.
+
+= 0.1.177 =
+Keeps customers at the terms control when opening or closing rental conditions on mobile.
+
+= 0.1.176 =
+Makes the booking title and current-step heading clearer and more consistent with the modal design.
+
+= 0.1.175 =
+Improves the visual affordance and open-state feedback of payment breakdown controls.
+
+= 0.1.174 =
+Refreshes the booking modal backdrop to improve focus and visual separation from the page.
+
+= 0.1.173 =
+Ensures the rental-terms loading state is shown in the active site language.
+
+= 0.1.172 =
+Prevents customers from being blocked by a stale booking security token while retaining duplicate-payment protection.
+
+= 0.1.171 =
+Fixes untranslated labels in custom boat cards and archive passenger filters.
 
 = 0.1.170 =
 Improves public booking abuse protection without imposing the previous low global threshold and prevents duplicate payment submissions.

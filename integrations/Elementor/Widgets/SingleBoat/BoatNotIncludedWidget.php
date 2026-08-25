@@ -128,11 +128,12 @@ final class BoatNotIncludedWidget extends BaseSingleBoatWidget
 
         $showTitle = ((string) $this->get_settings_for_display('show_title')) === 'yes';
         $title = trim((string) $this->get_settings_for_display('title'));
-        $title = \Maradigma\Support\MultilangAdapter::translateEditableString(
+        $title = \Maradigma\Support\MultilangAdapter::translateEditableDefault(
             $title,
+            'Not included',
+            (string) __('Not included', 'maradigma'),
             'Maradigma Elementor Widgets',
-            'boat_not_included_title_' . $this->get_id(),
-            'maradigma'
+            'boat_not_included_title_' . $this->get_id()
         );
 
         $showCross = ((string) $this->get_settings_for_display('show_cross_icon')) === 'yes';

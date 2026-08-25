@@ -551,6 +551,44 @@ final class MultilangAdapter
 
         return $value;
     }
+
+    /**
+     * Translates an editable value while preserving gettext for its built-in default.
+     *
+     * Page builders persist editable defaults as literal source strings. When the
+     * stored value still matches that canonical default, use the already translated
+     * gettext value supplied by the caller. Custom values continue through the
+     * multilingual string tables used by WPML and Polylang.
+     *
+     * @param string $value             Stored editable value.
+     * @param string $defaultValue      Canonical source-language default.
+     * @param string $translatedDefault Gettext translation of the default.
+     * @param string $context           Multilingual string-table context.
+     * @param string $name              Stable multilingual string identifier.
+     *
+     * @return string
+     */
+    public static function translateEditableDefault(
+        string $value,
+        string $defaultValue,
+        string $translatedDefault,
+        string $context = 'Maradigma',
+        string $name = ''
+    ): string {
+        $value = trim($value);
+        $defaultValue = trim($defaultValue);
+        $translatedDefault = trim($translatedDefault);
+
+        if ($value === '') {
+            return '';
+        }
+
+        if ($defaultValue !== '' && $value === $defaultValue) {
+            return $translatedDefault !== '' ? $translatedDefault : $defaultValue;
+        }
+
+        return self::translateEditableString($value, $context, $name);
+    }
     
     /**
      * Registers and translates a dynamic admin/editor string through Polylang or WPML.

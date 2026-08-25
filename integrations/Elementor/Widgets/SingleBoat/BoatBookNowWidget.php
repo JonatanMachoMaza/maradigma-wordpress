@@ -189,6 +189,19 @@ final class BoatBookNowWidget extends BaseSingleBoatWidget
         );
 
         $this->add_control(
+            'buttons_position',
+            [
+                'label'   => esc_html__('Navigation buttons position', 'maradigma'),
+                'type'    => Controls_Manager::SELECT,
+                'default' => 'inline',
+                'options' => [
+                    'footer' => esc_html__('Modal footer', 'maradigma'),
+                    'inline' => esc_html__('Inline with modal content', 'maradigma'),
+                ],
+            ]
+        );
+
+        $this->add_control(
             'redirect_url_after_booking',
             [
                 'label'         => esc_html__('Redirect URL after booking', 'maradigma'),
@@ -1549,16 +1562,8 @@ final class BoatBookNowWidget extends BaseSingleBoatWidget
         $boatId = trim((string) $this->getBoatIdFromCurrentPost());
 
         $btnText = trim((string) $this->get_settings_for_display('button_text'));
-
-        $btnText = \Maradigma\Support\MultilangAdapter::translateEditableString(
-            $btnText,
-            'Maradigma Elementor Widgets',
-            'boat_book_now_button_text',
-            'maradigma'
-        );
-
         if ($btnText === '') {
-            $btnText = (string) esc_html__('Book now', 'maradigma');
+            $btnText = 'Book now';
         }
 
         $redirectUrlControl = $this->get_settings_for_display('redirect_url_after_booking');
@@ -1591,6 +1596,7 @@ final class BoatBookNowWidget extends BaseSingleBoatWidget
         $showPromoCode = (string) $this->get_settings_for_display('show_promo_code');
         $showChildrenIncluded = (string) $this->get_settings_for_display('show_children_included');
         $freeAdditionalLabel = trim((string) $this->get_settings_for_display('free_additional_label'));
+        $buttonsPosition = trim((string) $this->get_settings_for_display('buttons_position'));
 
         $showScheduleText = $showScheduleText === '1' ? '1' : '0';
         $showPromoCode = $showPromoCode === '1' ? '1' : '0';
@@ -1598,6 +1604,10 @@ final class BoatBookNowWidget extends BaseSingleBoatWidget
 
         if ($freeAdditionalLabel === '' || !in_array($freeAdditionalLabel, ['free', 'included'], true)) {
             $freeAdditionalLabel = 'free';
+        }
+
+        if ($buttonsPosition === '' || !in_array($buttonsPosition, ['footer', 'inline'], true)) {
+            $buttonsPosition = 'inline';
         }
 
         /**
@@ -1618,6 +1628,7 @@ final class BoatBookNowWidget extends BaseSingleBoatWidget
                 'show_promo_code'         => $showPromoCode,
                 'show_children_included'  => $showChildrenIncluded,
                 'free_additional_label'   => $freeAdditionalLabel,
+                'buttons_position'        => $buttonsPosition,
             ]);
 
             // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- Booking renderer returns plugin-generated markup with escaped attributes and content.
@@ -1634,10 +1645,18 @@ final class BoatBookNowWidget extends BaseSingleBoatWidget
          * IMPORTANT:
          * - Keep the same shell/class structure used by style controls:
          *   .md-booking-widget-shell .md-btn[data-md-open]
-         * - Do not render the real booking shortcode here, because it would
-         *   output the "missing id/slug" notice and block the design workflow.
-         */
+        * - Do not render the real booking shortcode here, because it would
+        *   output the "missing id/slug" notice and block the design workflow.
+        */
         if ($this->isElementorEditor()) {
+            $btnText = \Maradigma\Support\MultilangAdapter::translateEditableDefault(
+                $btnText,
+                'Book now',
+                (string) __('Book now', 'maradigma'),
+                'Maradigma Elementor Widgets',
+                'boat_book_now_button_text'
+            );
+
             $wrapperAttributes = [
                 'class'         => 'md-btn md-btn--primary md-booking-widget-preview-button',
                 'type'          => 'button',

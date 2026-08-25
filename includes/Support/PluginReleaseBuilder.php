@@ -65,6 +65,7 @@ final class PluginReleaseBuilder
     private array $excludedDirectories = [
         '.git',
         '.github',
+        '.agents',
         '.idea',
         '.vscode',
         '.codebase-memory',

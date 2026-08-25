@@ -238,6 +238,23 @@ namespace Maradigma\Tests\Unit\Support {
             );
         }
 
+        public function testRefreshNonceResponseCannotBeCached(): void
+        {
+            $response = PublicBookingGuard::refreshNonce();
+            $data = $response->get_data();
+
+            self::assertSame(200, $response->get_status());
+            self::assertSame(
+                'nonce-' . PublicBookingGuard::NONCE_ACTION,
+                $data['data']['nonce'] ?? null
+            );
+            self::assertSame(
+                'no-store, no-cache, must-revalidate, max-age=0',
+                $response->get_header('Cache-Control')
+            );
+            self::assertSame('no-cache', $response->get_header('Pragma'));
+        }
+
         public function testRejectsRequestWithoutValidNonce(): void
         {
             $result = PublicBookingGuard::authorize(new WP_REST_Request());

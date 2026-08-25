@@ -331,35 +331,39 @@ final class BoatPriceWidget extends BaseSingleBoatWidget
         $data = (array) $ctx['data'];
 
         $title     = trim((string) $this->get_settings_for_display('title'));
-        $title     = \Maradigma\Support\MultilangAdapter::translateEditableString(
+        $title     = \Maradigma\Support\MultilangAdapter::translateEditableDefault(
             $title,
+            'Prices',
+            (string) __('Prices', 'maradigma'),
             'Maradigma Elementor Widgets',
-            'boat_price_title_' . $this->get_id(),
-            'maradigma'
+            'boat_price_title_' . $this->get_id()
         );
 
         $empty = trim((string) $this->get_settings_for_display('empty_text'));
-        $empty = \Maradigma\Support\MultilangAdapter::translateEditableString(
+        $empty = \Maradigma\Support\MultilangAdapter::translateEditableDefault(
             $empty,
+            'Prices not available.',
+            (string) __('Prices not available.', 'maradigma'),
             'Maradigma Elementor Widgets',
-            'boat_price_empty_text_' . $this->get_id(),
-            'maradigma'
+            'boat_price_empty_text_' . $this->get_id()
         );
 
         $vatIncluded = trim((string) $this->get_settings_for_display('vat_text_included'));
-        $vatIncluded = \Maradigma\Support\MultilangAdapter::translateEditableString(
+        $vatIncluded = \Maradigma\Support\MultilangAdapter::translateEditableDefault(
             $vatIncluded,
+            'VAT included',
+            (string) __('VAT included', 'maradigma'),
             'Maradigma Elementor Widgets',
-            'boat_price_vat_text_included_' . $this->get_id(),
-            'maradigma'
+            'boat_price_vat_text_included_' . $this->get_id()
         );
 
         $vatExcluded = trim((string) $this->get_settings_for_display('vat_text_excluded'));
-        $vatExcluded = \Maradigma\Support\MultilangAdapter::translateEditableString(
+        $vatExcluded = \Maradigma\Support\MultilangAdapter::translateEditableDefault(
             $vatExcluded,
+            '+ VAT',
+            (string) __('+ VAT', 'maradigma'),
             'Maradigma Elementor Widgets',
-            'boat_price_vat_text_excluded_' . $this->get_id(),
-            'maradigma'
+            'boat_price_vat_text_excluded_' . $this->get_id()
         );
 
         echo wp_kses_post(BoatPricesRenderer::render($data, [
@@ -470,18 +474,20 @@ final class BoatPriceWidget extends BaseSingleBoatWidget
         $textIncluded = trim((string) $this->get_settings_for_display('vat_text_included'));
         $textExcluded = trim((string) $this->get_settings_for_display('vat_text_excluded'));
 
-        $textIncluded = \Maradigma\Support\MultilangAdapter::translateEditableString(
+        $textIncluded = \Maradigma\Support\MultilangAdapter::translateEditableDefault(
             $textIncluded,
+            'VAT included',
+            (string) __('VAT included', 'maradigma'),
             'Maradigma Elementor Widgets',
-            'boat_price_vat_text_included_' . $this->get_id(),
-            'maradigma'
+            'boat_price_vat_text_included_' . $this->get_id()
         );
 
-        $textExcluded = \Maradigma\Support\MultilangAdapter::translateEditableString(
+        $textExcluded = \Maradigma\Support\MultilangAdapter::translateEditableDefault(
             $textExcluded,
+            '+ VAT',
+            (string) __('+ VAT', 'maradigma'),
             'Maradigma Elementor Widgets',
-            'boat_price_vat_text_excluded_' . $this->get_id(),
-            'maradigma'
+            'boat_price_vat_text_excluded_' . $this->get_id()
         );
 
         if ($textIncluded === '') {

@@ -371,7 +371,7 @@ final class RuntimeContext
         $resolved = self::resolveLangMappedValue($raw, $lang, $fallback);
         $resolved = \trim($resolved, "/ \t\n\r\0\x0B");
 
-        if (self::looksLikeFlattenedLanguageMappedSlug($resolved)) {
+        if (\Maradigma\BoatUrlResolver::isMalformedLegacyBaseSlug($resolved)) {
             $resolved = 'boats';
         }
 
@@ -380,31 +380,13 @@ final class RuntimeContext
             $resolved = \trim($resolved, "/ \t\n\r\0\x0B");
         }
 
-        if (self::looksLikeFlattenedLanguageMappedSlug($resolved)) {
+        if (\Maradigma\BoatUrlResolver::isMalformedLegacyBaseSlug($resolved)) {
             $resolved = 'boats';
         }
 
         return $resolved !== '' ? $resolved : 'boats';
     }
 
-    /**
-     * Detects language maps accidentally flattened by slug sanitization.
-     */
-    private static function looksLikeFlattenedLanguageMappedSlug(string $slug): bool
-    {
-        $slug = \function_exists('sanitize_title')
-            ? \sanitize_title($slug)
-            : \strtolower(\preg_replace('/[^a-z0-9]+/i', '', $slug) ?: '');
-
-        if ($slug === '') {
-            return false;
-        }
-
-        return (bool) \preg_match(
-            '/^(?:[a-z]{2,3}(?:product[a-z]*|produkt[a-z]*|producto[s]?|produit[s]?|prodotto|prodotti|produto[s]?)){2,}$/',
-            $slug
-        );
-    }
     /**
      * Returns home URL for language.
      */

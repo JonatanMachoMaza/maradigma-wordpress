@@ -365,11 +365,12 @@ final class BoatPdfDownloadWidget extends BaseSingleBoatWidget
             $buttonText = (string) __('Download PDF', 'maradigma');
         }
 
-        $buttonText = \Maradigma\Support\MultilangAdapter::translateEditableString(
+        $buttonText = \Maradigma\Support\MultilangAdapter::translateEditableDefault(
             $buttonText,
+            'Download PDF',
+            (string) __('Download PDF', 'maradigma'),
             'Maradigma Elementor Widgets',
-            'boat_pdf_download_widget_button_text',
-            'maradigma'
+            'boat_pdf_download_widget_button_text'
         );
 
         $openInNewTab = ((string) $this->get_settings_for_display('open_in_new_tab')) === 'yes';

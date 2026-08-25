@@ -705,6 +705,9 @@ msgstr "Diese Zusatzleistung kann bei Bedarf hinzugefügt werden."
 msgid "Free"
 msgstr "Kostenlos"
 
+msgid "Occupied"
+msgstr "Belegt"
+
 msgid "This extra has no additional cost."
 msgstr "Diese Zusatzleistung verursacht keine zusätzlichen Kosten."
 
@@ -1782,6 +1785,9 @@ msgstr "Bootsdetails"
 msgid "pers."
 msgstr "pers."
 
+msgid "Minimum passengers"
+msgstr "Mindestanzahl Passagiere"
+
 msgid "Maradigma logo"
 msgstr "Maradigma logo"
 
@@ -2810,3 +2816,52 @@ msgstr "Diese Kennung der Buchungsanfrage wurde bereits mit anderen Daten verwen
 
 msgid "This booking request is already being processed. Please wait before trying again."
 msgstr "Diese Buchungsanfrage wird bereits verarbeitet. Bitte warten Sie, bevor Sie es erneut versuchen."
+msgid "Navigation buttons position"
+msgstr "Position der Navigationsschaltflächen"
+
+msgid "Modal footer"
+msgstr "Fußbereich des Modals"
+
+msgid "Inline with modal content"
+msgstr "In den Modalinhalt eingebettet"
+
+msgid "Previous"
+msgstr "Zurück"
+
+msgid "Next"
+msgstr "Weiter"
+
+msgid "Loading…"
+msgstr "Wird geladen…"
+
+msgid "Loading terms…"
+msgstr "Bedingungen werden geladen…"
+
+msgid "Reload page"
+msgstr "Seite neu laden"
+
+msgid "The session has expired."
+msgstr "Die Sitzung ist abgelaufen."
+
+msgid "Calendar not available."
+msgstr "Kalender nicht verfügbar."
+
+msgid "Legend"
+msgstr "Legende"
+
+msgid "From {start} to {end}"
+msgstr "Von {start} bis {end}"
+
+msgid "This price already includes a management fee of %price%"
+msgstr "Dieser Preis enthält bereits eine Verwaltungsgebühr von %price%"
+
+msgid "Reservation confirmed!"
+msgstr "Reservierung bestätigt!"
+
+msgid "Quote received."
+msgstr "Angebot erhalten."
+
+msgid "We cannot process your request right now. Please try again later."
+msgstr "Wir können Ihre Anfrage derzeit nicht bearbeiten. Bitte versuchen Sie es später erneut."
+msgid "The selected schedule is no longer available. We refreshed the available schedules."
+msgstr "Der ausgewählte Zeitraum ist nicht mehr verfügbar. Die verfügbaren Zeiten wurden aktualisiert."

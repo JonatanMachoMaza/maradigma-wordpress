@@ -329,6 +329,13 @@ final class BoatIncludedWidget extends BaseSingleBoatWidget
 
         $showTitle = ((string) $this->get_settings_for_display('show_title')) === 'yes';
         $title     = trim((string) $this->get_settings_for_display('title'));
+        $title     = \Maradigma\Support\MultilangAdapter::translateEditableDefault(
+            $title,
+            'Included',
+            (string) __('Included', 'maradigma'),
+            'Maradigma Elementor Widgets',
+            'boat_included_title_' . $this->get_id()
+        );
 
         $showTick  = ((string) $this->get_settings_for_display('show_tick_icon')) === 'yes';
 

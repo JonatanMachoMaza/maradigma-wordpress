@@ -105,8 +105,22 @@ final class Plugin
                 BoatPostType::register();
             }
 
-            \flush_rewrite_rules(false);
+            if (\doing_action('init')) {
+                if (!\has_action('init', [__CLASS__, 'flushRewriteRules'])) {
+                    \add_action('init', [__CLASS__, 'flushRewriteRules'], PHP_INT_MAX);
+                }
+            } else {
+                self::flushRewriteRules();
+            }
         }
+    }
+
+    /**
+     * Flushes rewrite rules after every Maradigma route has been registered.
+     */
+    public static function flushRewriteRules(): void
+    {
+        \flush_rewrite_rules(false);
     }
 
     /**

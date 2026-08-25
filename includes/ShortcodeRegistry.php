@@ -782,6 +782,34 @@ final class ShortcodeRegistry
     }
 
     /**
+     * Aligns undated BCH price calculations with the amount shown by the card.
+     *
+     * The dated search response already uses the exact range summary_total, so
+     * this criterion must never be sent when a complete date range is present.
+     *
+     * @param array<string,mixed> $filters
+     * @return array<string,mixed>
+     */
+    private static function applyUndatedPriceOrderCriteria(array $filters, string $template): array
+    {
+        unset($filters['undated_price_order_criteria']);
+
+        $hasSelectedDateRange = \trim((string) ($filters['date_start'] ?? '')) !== ''
+            && \trim((string) ($filters['date_end'] ?? '')) !== '';
+
+        if (
+            !$hasSelectedDateRange
+            && \strpos($template, '{{price_from_service_with_mandatory_additionals_total}}') !== false
+        ) {
+            $filters['undated_price_order_criteria'] = 'total_with_mandatory_additionals';
+        }
+
+        \ksort($filters);
+
+        return $filters;
+    }
+
+    /**
      * In range mode the date_start UI control renders the full availability range.
      *
      * @param list<string> $fields
@@ -2035,6 +2063,28 @@ final class ShortcodeRegistry
 
         $settings = SettingsPage::getSettings();
 
+        /*
+         * Resolve the selected card before requesting the archive. The BCH price
+         * criterion must describe the amount rendered by that card, otherwise
+         * price sorting/filtering and the visible amount can disagree.
+         */
+        $cardId = isset($atts['card']) ? \trim((string) $atts['card']) : '';
+        if ($cardId === '') {
+            $cardId = \Maradigma\BoatCardRepository::getDefaultCardId();
+        }
+
+        $card = \Maradigma\BoatCardRepository::getCard($cardId);
+        if (!$card || empty($card['template'])) {
+            $card = \Maradigma\BoatCardRepository::getCard(\Maradigma\BoatCardRepository::DEFAULT_CARD_ID);
+        }
+
+        $template = (string) ($card['template'] ?? '');
+        if (\trim($template) === '') {
+            $template = (string) (\Maradigma\BoatCardRepository::getCard(\Maradigma\BoatCardRepository::DEFAULT_CARD_ID)['template'] ?? '');
+        }
+
+        $filters = self::applyUndatedPriceOrderCriteria($filters, $template);
+
         $defaultLang = self::normalizeLanguageSlug((string) ($settings['default_language'] ?? 'en'));
         if ($defaultLang === '') {
             $defaultLang = 'en';
@@ -2093,21 +2143,6 @@ final class ShortcodeRegistry
         $totalPages = ($perPage > 0) ? (int) \ceil($totalResults / $perPage) : 1;
         if ($totalPages < 1) {
             $totalPages = 1;
-        }
-
-        $cardId = isset($atts['card']) ? \trim((string) $atts['card']) : '';
-        if ($cardId === '') {
-            $cardId = \Maradigma\BoatCardRepository::getDefaultCardId();
-        }
-
-        $card = \Maradigma\BoatCardRepository::getCard($cardId);
-        if (!$card || empty($card['template'])) {
-            $card = \Maradigma\BoatCardRepository::getCard(\Maradigma\BoatCardRepository::DEFAULT_CARD_ID);
-        }
-
-        $template = (string) ($card['template'] ?? '');
-        if (\trim($template) === '') {
-            $template = (string) (\Maradigma\BoatCardRepository::getCard(\Maradigma\BoatCardRepository::DEFAULT_CARD_ID)['template'] ?? '');
         }
 
         $imageToken = \trim((string) ($atts['image_token'] ?? ''));
@@ -4261,14 +4296,6 @@ final class ShortcodeRegistry
         }
 
         $title = trim((string) $atts['title']);
-        if ($title !== '') {
-            $title = \Maradigma\Support\MultilangAdapter::translateEditableString(
-                $title,
-                'Maradigma Elementor Widgets',
-                'boat_additional_services_shortcode_title',
-                'maradigma'
-            );
-        }
 
         return \Maradigma\Support\BoatAdditionalServicesRenderer::render(
             $boat,
@@ -4359,21 +4386,23 @@ final class ShortcodeRegistry
 
         $title = trim((string) $atts['title']);
         if ($title !== '') {
-            $title = \Maradigma\Support\MultilangAdapter::translateEditableString(
+            $title = \Maradigma\Support\MultilangAdapter::translateEditableDefault(
                 $title,
+                'Prices',
+                (string) __('Prices', 'maradigma'),
                 'Maradigma Elementor Widgets',
-                'boat_prices_shortcode_title',
-                'maradigma'
+                'boat_prices_shortcode_title'
             );
         }
 
         $fallback = trim((string) ($atts['empty_text'] !== '' ? $atts['empty_text'] : $atts['fallback']));
         if ($fallback !== '') {
-            $fallback = \Maradigma\Support\MultilangAdapter::translateEditableString(
+            $fallback = \Maradigma\Support\MultilangAdapter::translateEditableDefault(
                 $fallback,
+                'Prices not available.',
+                (string) __('Prices not available.', 'maradigma'),
                 'Maradigma Elementor Widgets',
-                'boat_prices_shortcode_empty_text',
-                'maradigma'
+                'boat_prices_shortcode_empty_text'
             );
         }
 
@@ -5840,11 +5869,12 @@ final class ShortcodeRegistry
 
         $title = trim((string) $atts['title']);
         if ($title !== '') {
-            $title = \Maradigma\Support\MultilangAdapter::translateEditableString(
+            $title = \Maradigma\Support\MultilangAdapter::translateEditableDefault(
                 $title,
+                'Equipments',
+                (string) __('Equipments', 'maradigma'),
                 'Maradigma Elementor Widgets',
-                'boat_equipments_shortcode_title',
-                'maradigma'
+                'boat_equipments_shortcode_title'
             );
         }
 
@@ -5962,11 +5992,12 @@ final class ShortcodeRegistry
 
         $title = trim((string) $atts['title']);
         if ($title !== '') {
-            $title = \Maradigma\Support\MultilangAdapter::translateEditableString(
+            $title = \Maradigma\Support\MultilangAdapter::translateEditableDefault(
                 $title,
+                'Included',
+                (string) __('Included', 'maradigma'),
                 'Maradigma Elementor Widgets',
-                'boat_included_shortcode_title',
-                'maradigma'
+                'boat_included_shortcode_title'
             );
         }
 
@@ -6084,11 +6115,12 @@ final class ShortcodeRegistry
 
         $title = trim((string) $atts['title']);
         if ($title !== '') {
-            $title = \Maradigma\Support\MultilangAdapter::translateEditableString(
+            $title = \Maradigma\Support\MultilangAdapter::translateEditableDefault(
                 $title,
+                'Not included',
+                (string) __('Not included', 'maradigma'),
                 'Maradigma Elementor Widgets',
-                'boat_not_included_shortcode_title',
-                'maradigma'
+                'boat_not_included_shortcode_title'
             );
         }
 
@@ -6197,11 +6229,12 @@ final class ShortcodeRegistry
             $buttonText = (string) __('Download PDF', 'maradigma');
         }
 
-        $buttonText = \Maradigma\Support\MultilangAdapter::translateEditableString(
+        $buttonText = \Maradigma\Support\MultilangAdapter::translateEditableDefault(
             $buttonText,
+            'Download PDF',
+            (string) __('Download PDF', 'maradigma'),
             'Maradigma Elementor Widgets',
-            'boat_pdf_download_shortcode_button_text',
-            'maradigma'
+            'boat_pdf_download_shortcode_button_text'
         );
 
         $openInNewTab = filter_var($atts['open_in_new_tab'], FILTER_VALIDATE_BOOLEAN, FILTER_NULL_ON_FAILURE);
@@ -6707,6 +6740,7 @@ final class ShortcodeRegistry
      * - {@code show_promo_code}: 1|0
      * - {@code show_children_included}: 1|0
      * - {@code free_additional_label}: free|included
+     * - {@code buttons_position}: footer|inline
      *
      * Rules:
      * - If {@code calendar_display="inline"}, the number of visible months is forcibly set to 1.
@@ -6733,6 +6767,7 @@ final class ShortcodeRegistry
                 'show_promo_code'         => '1',
                 'show_children_included'  => '1',
                 'free_additional_label'   => 'free',
+                'buttons_position'        => 'inline',
             ],
             $atts,
             'maradigma_boat_booking'
@@ -6782,6 +6817,11 @@ final class ShortcodeRegistry
             $freeAdditionalLabel = 'free';
         }
 
+        $buttonsPosition = strtolower(trim((string) $atts['buttons_position']));
+        if (!in_array($buttonsPosition, ['footer', 'inline'], true)) {
+            $buttonsPosition = 'inline';
+        }
+
         $quoteEndpoint   = esc_url_raw(rest_url('maradigma/v1/quote'));
         $bookingEndpoint = esc_url_raw(rest_url('maradigma/v1/booking'));
 
@@ -6791,6 +6831,14 @@ final class ShortcodeRegistry
         $btnText = trim((string) $atts['button_text']);
         if ($btnText === '') {
             $btnText = (string) esc_html__('Book now', 'maradigma');
+        } else {
+            $btnText = \Maradigma\Support\MultilangAdapter::translateEditableDefault(
+                $btnText,
+                'Book now',
+                (string) __('Book now', 'maradigma'),
+                'Maradigma Elementor Widgets',
+                'boat_book_now_button_text'
+            );
         }
 
         $redirectUrlSuccess = '';
@@ -6825,7 +6873,8 @@ final class ShortcodeRegistry
             data-show-schedule-text="<?php echo $showScheduleText ? '1' : '0'; ?>"
             data-show-promo-code="<?php echo $showPromoCode ? '1' : '0'; ?>"
             data-show-children-included="<?php echo $showChildrenIncluded ? '1' : '0'; ?>"
-            data-free-additional-label="<?php echo esc_attr($freeAdditionalLabel); ?>">
+            data-free-additional-label="<?php echo esc_attr($freeAdditionalLabel); ?>"
+            data-buttons-position="<?php echo esc_attr($buttonsPosition); ?>">
 
             <button type="button"
                 class="md-btn md-btn--primary<?php echo $isInteractiveBooking ? ' is-loading' : ''; ?>"
@@ -6884,23 +6933,48 @@ final class ShortcodeRegistry
                         <div class="md-alert md-alert--error" data-md-error></div>
                         <div class="md-step-title" data-md-step-title></div>
                         <div data-md-step-container></div>
+
+                        <?php if ($buttonsPosition === 'inline'): ?>
+                            <?php self::renderBookingModalActions(true); ?>
+                        <?php endif; ?>
                     </div>
 
-                    <div class="md-modal__footer">
-                        <button type="button" class="md-btn md-btn--ghost md-footer__back md-d-none" data-md-back>
-                            <?php echo esc_html__('Back', 'maradigma'); ?>
-                        </button>
-
-                        <button type="button" class="md-btn md-btn--primary" data-md-next>
-                            <?php echo esc_html__('Continue', 'maradigma'); ?>
-                        </button>
-                    </div>
+                    <?php if ($buttonsPosition === 'footer'): ?>
+                        <?php self::renderBookingModalActions(false); ?>
+                    <?php endif; ?>
                 </div>
             </div>
         </div>
         <?php
 
         return (string) ob_get_clean();
+    }
+
+    /**
+     * Renders the booking modal navigation controls.
+     *
+     * Inline controls are placed inside the scrollable modal body. Footer controls
+     * remain outside that body and therefore stay visible while the body scrolls.
+     *
+     * @param bool $inline Whether the controls are rendered inside the modal body.
+     */
+    private static function renderBookingModalActions(bool $inline): void
+    {
+        $className = 'md-modal__footer';
+        if ($inline) {
+            $className .= ' md-modal__footer--inline';
+        }
+        ?>
+        <div class="<?php echo esc_attr($className); ?>" data-md-modal-actions>
+            <button type="button" class="md-btn md-btn--ghost md-footer__back md-d-none" data-md-back>
+                <?php echo esc_html__('Back', 'maradigma'); ?>
+            </button>
+
+            <button type="button" class="md-btn md-btn--primary" data-md-next>
+                <?php echo esc_html__('Continue', 'maradigma'); ?>
+            </button>
+        </div>
+        <?php
     }
 
     /**

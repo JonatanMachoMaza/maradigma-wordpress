@@ -271,6 +271,12 @@ final class BoatCardEngine
                 return __('cabins', 'maradigma');
             case 'from':
                 return __('from', 'maradigma');
+            case 'From':
+                return __('From', 'maradigma');
+            case 'day':
+                return __('day', 'maradigma');
+            case 'Charter':
+                return __('Charter', 'maradigma');
             case 'Book now':
                 return __('Book now', 'maradigma');
             default:

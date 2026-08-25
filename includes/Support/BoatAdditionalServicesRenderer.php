@@ -277,6 +277,28 @@ final class BoatAdditionalServicesRenderer
             $options['free_text'] = $defaults['free_text'];
         }
 
+        $options['title'] = MultilangAdapter::translateEditableDefault(
+            (string) $options['title'],
+            'Additional services',
+            (string) $defaults['title'],
+            'Maradigma Elementor Widgets',
+            'boat_additional_services_title'
+        );
+        $options['fallback'] = MultilangAdapter::translateEditableDefault(
+            (string) $options['fallback'],
+            'No additional services available.',
+            (string) $defaults['fallback'],
+            'Maradigma Elementor Widgets',
+            'boat_additional_services_fallback'
+        );
+        $options['free_text'] = MultilangAdapter::translateEditableDefault(
+            (string) $options['free_text'],
+            'This additional service is free.',
+            (string) $defaults['free_text'],
+            'Maradigma Elementor Widgets',
+            'boat_additional_services_free_text'
+        );
+
         foreach ([
             'show_title',
             'show_headers',
@@ -336,6 +358,21 @@ final class BoatAdditionalServicesRenderer
         if ($options['vat_text_excluded'] === '') {
             $options['vat_text_excluded'] = $defaults['vat_text_excluded'];
         }
+
+        $options['vat_text_included'] = MultilangAdapter::translateEditableDefault(
+            (string) $options['vat_text_included'],
+            'VAT included',
+            (string) $defaults['vat_text_included'],
+            'Maradigma Elementor Widgets',
+            'boat_additional_services_vat_included'
+        );
+        $options['vat_text_excluded'] = MultilangAdapter::translateEditableDefault(
+            (string) $options['vat_text_excluded'],
+            '+ VAT',
+            (string) $defaults['vat_text_excluded'],
+            'Maradigma Elementor Widgets',
+            'boat_additional_services_vat_excluded'
+        );
 
         if (!(bool) $options['show_badges']) {
             $options['show_badge_optional_type'] = false;

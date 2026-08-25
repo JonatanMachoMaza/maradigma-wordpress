@@ -2366,7 +2366,8 @@
                 show_schedule_text: { type: 'string', default: '1' },
                 show_promo_code: { type: 'string', default: '1' },
                 show_children_included: { type: 'string', default: '1' },
-                free_additional_label: { type: 'string', default: 'free', role: 'content' }
+                free_additional_label: { type: 'string', default: 'free', role: 'content' },
+                buttons_position: { type: 'string', default: 'inline' }
             },
             controlGroups: [
                 { title: __('Boat', 'maradigma'), controls: commonIdentifier },
@@ -2379,7 +2380,8 @@
                     { key: 'show_schedule_text', label: __('Show schedule text', 'maradigma'), type: 'select', options: boolOptions },
                     { key: 'show_promo_code', label: __('Show promo code', 'maradigma'), type: 'select', options: boolOptions },
                     { key: 'show_children_included', label: __('Show children included', 'maradigma'), type: 'select', options: boolOptions },
-                    { key: 'free_additional_label', label: __('Free additional label', 'maradigma'), type: 'select', options: [{label:'free',value:'free'},{label:'included',value:'included'}] }
+                    { key: 'free_additional_label', label: __('Free additional label', 'maradigma'), type: 'select', options: [{label:'free',value:'free'},{label:'included',value:'included'}] },
+                    { key: 'buttons_position', label: __('Navigation buttons position', 'maradigma'), type: 'select', options: [{label:__('Modal footer', 'maradigma'),value:'footer'},{label:__('Inline with modal content', 'maradigma'),value:'inline'}] }
                 ] }
             ]
         }

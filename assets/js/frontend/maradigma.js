@@ -3,41 +3,7 @@
         return;
     }
 
-    function randomBookingToken() {
-        if (window.crypto && typeof window.crypto.randomUUID === 'function') {
-            return window.crypto.randomUUID().replace(/-/g, '');
-        }
-
-        if (window.crypto && typeof window.crypto.getRandomValues === 'function') {
-            var bytes = new Uint8Array(24);
-            window.crypto.getRandomValues(bytes);
-            return Array.prototype.map.call(bytes, function (byte) {
-                return byte.toString(16).padStart(2, '0');
-            }).join('');
-        }
-
-        return Date.now().toString(36) + Math.random().toString(36).slice(2) + Math.random().toString(36).slice(2);
-    }
-
-    function getBookingSession() {
-        var storageKey = 'maradigma_booking_session_v1';
-
-        try {
-            var stored = String(window.localStorage.getItem(storageKey) || '').trim();
-            if (/^[A-Za-z0-9_-]{20,128}$/.test(stored)) {
-                return stored;
-            }
-
-            var created = randomBookingToken();
-            window.localStorage.setItem(storageKey, created);
-            return created;
-        } catch (error) {
-            return randomBookingToken();
-        }
-    }
-
-    var bookingSession = getBookingSession();
-    var bookingIdempotencyKeys = {};
+    var apiClient = new window.MaradigmaApiClient();
 
     function getFormData(form) {
         var data = {};
@@ -51,32 +17,7 @@
     }
 
     function postJson(url, payload) {
-        var headers = {
-            'Content-Type': 'application/json'
-        };
-
-        if (
-            String(url || '') === String(MaradigmaConfig.restUrlBooking || '')
-            && MaradigmaConfig.bookingNonce
-        ) {
-            headers['X-Maradigma-Booking-Nonce'] = String(MaradigmaConfig.bookingNonce);
-            headers['X-Maradigma-Booking-Session'] = bookingSession;
-
-            var idempotencyScope = String(url || '') + '|' + JSON.stringify(payload || {});
-            if (!bookingIdempotencyKeys[idempotencyScope]) {
-                bookingIdempotencyKeys[idempotencyScope] = randomBookingToken();
-            }
-            headers['Idempotency-Key'] = bookingIdempotencyKeys[idempotencyScope];
-        }
-
-        return fetch(url, {
-            method: 'POST',
-            headers: headers,
-            credentials: 'same-origin',
-            body: JSON.stringify(payload)
-        }).then(function (res) {
-            return res.json();
-        });
+        return apiClient.postJson(url, payload);
     }
 
     document.addEventListener('click', function (ev) {

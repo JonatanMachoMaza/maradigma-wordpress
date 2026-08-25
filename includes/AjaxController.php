@@ -275,6 +275,16 @@ final class AjaxController
 
         register_rest_route(
             'maradigma/v1',
+            '/booking/security-token',
+            [
+                'methods'             => 'GET',
+                'callback'            => [PublicBookingGuard::class, 'refreshNonce'],
+                'permission_callback' => '__return_true',
+            ]
+        );
+
+        register_rest_route(
+            'maradigma/v1',
             '/booking',
             [
                 'methods'             => 'POST',

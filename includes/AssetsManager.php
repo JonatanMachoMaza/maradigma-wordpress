@@ -101,6 +101,7 @@ final class AssetsManager
                 'ajaxUrl'         => esc_url_raw(admin_url('admin-ajax.php')),
                 'restUrlQuote'    => esc_url_raw(rest_url('maradigma/v1/quote')),
                 'restUrlBooking'  => esc_url_raw(rest_url('maradigma/v1/booking')),
+                'restUrlBookingNonce' => esc_url_raw(rest_url('maradigma/v1/booking/security-token')),
                 'booking'         => self::getBookingFrontendConfig(),
             ]
         );
@@ -693,6 +694,7 @@ final class AssetsManager
             ],
             'ui' => [
                 'calculating'         => __('Calculating…', 'maradigma'),
+                'loadingTerms'        => __('Loading terms…', 'maradigma'),
                 'quoteFailed'         => __('Quote failed.', 'maradigma'),
                 'notCalculated'       => __('Not calculated', 'maradigma'),
                 'boatNotSelected'     => __('Boat not selected.', 'maradigma'),
@@ -716,6 +718,7 @@ final class AssetsManager
                 'apply'               => __('Apply', 'maradigma'),
                 'selectCountry'       => __('Select country', 'maradigma'),
                 'selectOneTimeslot'   => __('Select a schedule…', 'maradigma'),
+                'occupied'            => __('Occupied', 'maradigma'),
                 'paymentOk'           => __('Payment completed successfully.', 'maradigma'),
                 'paymentCancelled'    => __('Payment was cancelled or failed. You can try again.', 'maradigma'),
                 'paymentPending'      => __('Payment not completed yet. If you already paid, refresh in a moment.', 'maradigma'),
@@ -731,6 +734,7 @@ final class AssetsManager
                 'totalToPayNow'        => __('Total to pay now', 'maradigma'),
                 'totalPending'         => __('Total pending', 'maradigma'),
                 'confirmAndPay' => __('Confirm and pay', 'maradigma'),
+                'reloadPage'           => __('Reload page', 'maradigma'),
             ],
             'errors'   => [
                 'emailRequired'          => __('Email is required.', 'maradigma'),
@@ -744,8 +748,10 @@ final class AssetsManager
                 'temporaryUnavailable'   => __('We cannot process your request right now. Please try again later.', 'maradigma'),
                 'invalidPhone'           => __('Invalid phone number', 'maradigma'),
                 'selectTimeslot'         => __('Please select a schedule.', 'maradigma'),
+                'selectedTimeslotUnavailable' => __('The selected schedule is no longer available. We refreshed the available schedules.', 'maradigma'),
                 'fullDayNotAllowed'      => __('Full day is not available for this date.', 'maradigma'),
                 'shopCartNotFound'       => __('Shop cart not found.', 'maradigma'),
+                'bookingSessionExpired'  => __('The session has expired.', 'maradigma'),
             ],
         ];
 
@@ -1394,6 +1400,7 @@ final class AssetsManager
                 'svgs'            => $svgs,
                 'intlTelUtilsUrl' => self::getIntlTelInputUtilsUrl(),
                 'wpJsonBase'      => esc_url_raw(rest_url()),
+                'restUrlBookingNonce' => esc_url_raw(rest_url('maradigma/v1/booking/security-token')),
                 'booking'         => self::getBookingFrontendConfig(),
             ]
         );

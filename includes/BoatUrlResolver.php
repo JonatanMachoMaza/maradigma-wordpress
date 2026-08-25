@@ -162,6 +162,11 @@ final class BoatUrlResolver
     public static function normalizeBaseTemplate(string $template, string $fallback = 'boats'): string
     {
         $template = self::canonicalizePlaceholders(trim($template));
+
+        if (self::isMalformedLegacyBaseSlug($template)) {
+            $template = $fallback;
+        }
+
         $template = preg_replace('~https?://[^/]+~i', '', $template) ?: $template;
         $template = trim($template, '/');
 
@@ -185,6 +190,28 @@ final class BoatUrlResolver
         }
 
         return self::normalizeResolvedPath($fallback) ?: 'boats';
+    }
+
+    /**
+     * Detects a multilingual slug map flattened by legacy sanitization.
+     *
+     * Older versions could pass a complete map such as
+     * `es:producto,en:product,de:produkt,ca:producte` to `sanitize_title()`.
+     * That produced a single invalid namespace such as
+     * `esproductoenproductdeproduktcaproducte`, which must never be exposed in
+     * public boat URLs.
+     */
+    public static function isMalformedLegacyBaseSlug(string $slug): bool
+    {
+        $slug = self::slugify($slug);
+        if ($slug === '') {
+            return false;
+        }
+
+        return (bool) preg_match(
+            '/^(?:[a-z]{2,3}(?:product[a-z]*|produkt[a-z]*|producto[s]?|produit[s]?|prodotto|prodotti|produto[s]?)){2,}$/',
+            $slug
+        );
     }
 
     /**

@@ -705,6 +705,9 @@ msgstr "Ce supplément peut être ajouté si vous le souhaitez."
 msgid "Free"
 msgstr "Gratuit"
 
+msgid "Occupied"
+msgstr "Occupé"
+
 msgid "This extra has no additional cost."
 msgstr "Ce supplément n’a aucun coût additionnel."
 
@@ -1782,6 +1785,9 @@ msgstr "Détails du bateau"
 msgid "pers."
 msgstr "pers."
 
+msgid "Minimum passengers"
+msgstr "Nombre minimum de passagers"
+
 msgid "Maradigma logo"
 msgstr "Maradigma logo"
 
@@ -2810,3 +2816,52 @@ msgstr "Cet identifiant de demande de réservation a déjà été utilisé avec 
 
 msgid "This booking request is already being processed. Please wait before trying again."
 msgstr "Cette demande de réservation est déjà en cours de traitement. Veuillez patienter avant de réessayer."
+msgid "Navigation buttons position"
+msgstr "Position des boutons de navigation"
+
+msgid "Modal footer"
+msgstr "Pied de la fenêtre modale"
+
+msgid "Inline with modal content"
+msgstr "Intégrés au contenu de la fenêtre modale"
+
+msgid "Previous"
+msgstr "Précédent"
+
+msgid "Next"
+msgstr "Suivant"
+
+msgid "Loading…"
+msgstr "Chargement…"
+
+msgid "Loading terms…"
+msgstr "Chargement des conditions…"
+
+msgid "Reload page"
+msgstr "Recharger la page"
+
+msgid "The session has expired."
+msgstr "La session a expiré."
+
+msgid "Calendar not available."
+msgstr "Calendrier indisponible."
+
+msgid "Legend"
+msgstr "Légende"
+
+msgid "From {start} to {end}"
+msgstr "Du {start} au {end}"
+
+msgid "This price already includes a management fee of %price%"
+msgstr "Ce prix comprend déjà des frais de gestion de %price%"
+
+msgid "Reservation confirmed!"
+msgstr "Réservation confirmée !"
+
+msgid "Quote received."
+msgstr "Devis reçu."
+
+msgid "We cannot process your request right now. Please try again later."
+msgstr "Nous ne pouvons pas traiter votre demande pour le moment. Veuillez réessayer plus tard."
+msgid "The selected schedule is no longer available. We refreshed the available schedules."
+msgstr "Le créneau sélectionné n’est plus disponible. Les créneaux disponibles ont été actualisés."

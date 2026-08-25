@@ -60,4 +60,32 @@ final class MultilangAdapterTest extends TestCase
 
         yield 'invalid response' => [null, []];
     }
+
+    public function testItUsesGettextTranslationForAnUnchangedEditableDefault(): void
+    {
+        self::assertSame(
+            'Equipamiento',
+            MultilangAdapter::translateEditableDefault(
+                'Equipments',
+                'Equipments',
+                'Equipamiento',
+                'Maradigma Elementor Widgets',
+                'boat_equipments_shortcode_title'
+            )
+        );
+    }
+
+    public function testItPreservesAnEmptyEditableValue(): void
+    {
+        self::assertSame(
+            '',
+            MultilangAdapter::translateEditableDefault(
+                '',
+                'Equipments',
+                'Equipamiento',
+                'Maradigma Elementor Widgets',
+                'boat_equipments_shortcode_title'
+            )
+        );
+    }
 }

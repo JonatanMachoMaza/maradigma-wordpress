@@ -61,4 +61,33 @@ final class BoatUrlResolverTest extends TestCase
         self::assertSame('Formentera', BoatUrlResolver::getDestinationName($boat));
         self::assertSame('formentera-island', BoatUrlResolver::getDestinationSlug($boat));
     }
+
+    public function testDetectsLegacyFlattenedMultilingualProductSlug(): void
+    {
+        self::assertTrue(
+            BoatUrlResolver::isMalformedLegacyBaseSlug('esproductoenproductdeproduktcaproductee')
+        );
+        self::assertTrue(
+            BoatUrlResolver::isMalformedLegacyBaseSlug('esproductoenproductdeproduktcaproducte')
+        );
+    }
+
+    public function testDoesNotRejectValidBoatBaseConfigurations(): void
+    {
+        self::assertFalse(BoatUrlResolver::isMalformedLegacyBaseSlug('boats'));
+        self::assertFalse(BoatUrlResolver::isMalformedLegacyBaseSlug('alquiler-barcos-mallorca'));
+        self::assertFalse(
+            BoatUrlResolver::isMalformedLegacyBaseSlug(
+                'es:alquiler-barcos-{{destination}},en:boat-rental-{{destination}}'
+            )
+        );
+    }
+
+    public function testMalformedLegacyBaseFallsBackDuringNormalization(): void
+    {
+        self::assertSame(
+            'boats',
+            BoatUrlResolver::normalizeBaseTemplate('esproductoenproductdeproduktcaproductee')
+        );
+    }
 }

@@ -480,6 +480,10 @@ final class WPBakeryIntegration
                         \__('Free', 'maradigma') => 'free',
                         \__('Included', 'maradigma') => 'included',
                     ], 'free'),
+                    self::dropdown('buttons_position', \__('Navigation buttons position', 'maradigma'), [
+                        \__('Modal footer', 'maradigma') => 'footer',
+                        \__('Inline with modal content', 'maradigma') => 'inline',
+                    ], 'inline'),
                 ],
             ],
             'maradigma_boat_field' => [

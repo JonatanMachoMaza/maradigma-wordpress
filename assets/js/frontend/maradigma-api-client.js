@@ -8,6 +8,8 @@ class MaradigmaApiClient {
 
     this.nonce = String(config.nonce ?? g.nonce ?? "").trim();
     this.bookingNonce = String(config.bookingNonce ?? g.bookingNonce ?? "").trim();
+    this.bookingNonceUrl = String(config.bookingNonceUrl ?? g.restUrlBookingNonce ?? "").trim();
+    this.bookingNonceRefreshPromise = null;
     this.bookingSession = this._getOrCreateBookingSession();
     this.bookingIdempotencyKeys = new Map();
     this.timeoutMs = this._toInt(config.timeoutMs ?? g.timeoutMs ?? 15000, 15000);
@@ -56,16 +58,17 @@ class MaradigmaApiClient {
   }
 
   async getJson(url, options = {}) {
-    const { nonce, headers, signal, timeoutMs } = options;
+    const { nonce, headers, signal, timeoutMs, cache } = options;
     const finalNonce = this._resolveNonceForUrl(url, nonce, options);
 
-    const { ctrl, finalSignal, cancel } = this._buildTimeoutSignal(signal, timeoutMs);
+    const { ctrl, finalSignal, cancel, didTimeout } = this._buildTimeoutSignal(signal, timeoutMs);
     try {
       const res = await fetch(url, {
         method: "GET",
         headers: this._buildHeaders(finalNonce, headers),
         credentials: "same-origin",
-        signal: finalSignal
+        signal: finalSignal,
+        cache: cache || "default"
       });
 
       const text = await res.text();
@@ -80,6 +83,8 @@ class MaradigmaApiClient {
       }
 
       return data;
+    } catch (error) {
+      throw this._normalizeRequestError(error, didTimeout());
     } finally {
       cancel();
       void ctrl;
@@ -104,7 +109,7 @@ class MaradigmaApiClient {
       finalHeaders["Idempotency-Key"] = this._getIdempotencyKey(idempotencyScope);
     }
 
-    const { ctrl, finalSignal, cancel } = this._buildTimeoutSignal(signal, timeoutMs);
+    const { ctrl, finalSignal, cancel, didTimeout } = this._buildTimeoutSignal(signal, timeoutMs);
     try {
       const res = await fetch(url, {
         method: "POST",
@@ -118,6 +123,17 @@ class MaradigmaApiClient {
       const data = this._parseJsonSafe(text);
 
       if (!res.ok) {
+        if (
+          this._isBookingWriteUrl(url)
+          && this._isBookingNonceError(data)
+          && options.retryBookingNonce !== false
+        ) {
+          const refreshed = await this._refreshBookingNonce();
+          if (refreshed) {
+            return this.postJson(url, payload, { ...options, retryBookingNonce: false });
+          }
+        }
+
         if (finalNonce && this._canRetryWithoutNonce(options) && this._isCookieNonceError(data)) {
           return this.postJson(url, payload, { ...options, nonce: "", retryWithoutNonce: false });
         }
@@ -126,6 +142,8 @@ class MaradigmaApiClient {
       }
 
       return data;
+    } catch (error) {
+      throw this._normalizeRequestError(error, didTimeout());
     } finally {
       cancel();
       void ctrl;
@@ -191,7 +209,7 @@ class MaradigmaApiClient {
   }
 
   _isPublicMaradigmaRestPath(pathname) {
-    return /(?:^|\/)(?:wp-json\/)?maradigma\/v1\/(?:countries|quote|boats-archive|boats\/\d+|boat|boat\/price-on-booking|calendar|booking|booking\/online|shop-cart\/[0-9a-zA-Z_-]+|booking\/rental-terms(?:\/[^/]+)?)$/.test(String(pathname || ""));
+    return /(?:^|\/)(?:wp-json\/)?maradigma\/v1\/(?:countries|quote|boats-archive|boats\/\d+|boat|boat\/price-on-booking|calendar|booking|booking\/online|booking\/security-token|shop-cart\/[0-9a-zA-Z_-]+|booking\/rental-terms(?:\/[^/]+)?)$/.test(String(pathname || ""));
   }
 
   _isBookingWriteUrl(url) {
@@ -210,6 +228,60 @@ class MaradigmaApiClient {
       return pattern.test(pathname) || pattern.test(restRoute);
     } catch {
       return false;
+    }
+  }
+
+  _isBookingNonceError(data) {
+    const code = String(data?.code || data?.error?.code || "").trim();
+    return code === "maradigma_booking_invalid_nonce";
+  }
+
+  async _refreshBookingNonce() {
+    if (this.bookingNonceRefreshPromise) {
+      return this.bookingNonceRefreshPromise;
+    }
+
+    this.bookingNonceRefreshPromise = (async () => {
+      const endpoint = this.bookingNonceUrl
+        || this.joinUrl(this.wpJsonBase, "maradigma/v1/booking/security-token");
+      const separator = endpoint.includes("?") ? "&" : "?";
+      const refreshUrl = endpoint + separator + "_=" + Date.now();
+      const { ctrl, finalSignal, cancel } = this._buildTimeoutSignal(undefined, this.timeoutMs);
+
+      try {
+        const res = await fetch(refreshUrl, {
+          method: "GET",
+          headers: { "Accept": "application/json" },
+          credentials: "same-origin",
+          cache: "no-store",
+          signal: finalSignal
+        });
+        const text = await res.text();
+        const data = this._parseJsonSafe(text);
+        const nonce = String(data?.data?.nonce || data?.nonce || "").trim();
+
+        if (!res.ok || !nonce) {
+          return false;
+        }
+
+        this.bookingNonce = nonce;
+        if (window.MaradigmaConfig && typeof window.MaradigmaConfig === "object") {
+          window.MaradigmaConfig.bookingNonce = nonce;
+        }
+
+        return true;
+      } catch {
+        return false;
+      } finally {
+        cancel();
+        void ctrl;
+      }
+    })();
+
+    try {
+      return await this.bookingNonceRefreshPromise;
+    } finally {
+      this.bookingNonceRefreshPromise = null;
     }
   }
 
@@ -306,11 +378,18 @@ class MaradigmaApiClient {
     const ms = this._toInt(timeoutMs ?? this.timeoutMs, this.timeoutMs);
 
     if (typeof AbortController === "undefined") {
-      return { ctrl: null, finalSignal: externalSignal, cancel: () => {} };
+      return {
+        ctrl: null,
+        finalSignal: externalSignal,
+        cancel: () => {},
+        didTimeout: () => false
+      };
     }
 
     const ctrl = new AbortController();
+    let timedOut = false;
     const timer = setTimeout(() => {
+      timedOut = true;
       try { ctrl.abort(); } catch {}
     }, ms);
 
@@ -323,8 +402,21 @@ class MaradigmaApiClient {
     return {
       ctrl,
       finalSignal: ctrl.signal,
-      cancel: () => { try { clearTimeout(timer); } catch {} }
+      cancel: () => { try { clearTimeout(timer); } catch {} },
+      didTimeout: () => timedOut
     };
+  }
+
+  _normalizeRequestError(error, didTimeout) {
+    if (!didTimeout) {
+      return error;
+    }
+
+    const timeoutError = new Error("Request timed out.");
+    timeoutError.name = "TimeoutError";
+    timeoutError.code = "maradigma_request_timeout";
+    timeoutError.cause = error;
+    return timeoutError;
   }
 
   _toInt(v, def) {
