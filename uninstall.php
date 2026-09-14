@@ -42,6 +42,7 @@ if (!defined('WP_UNINSTALL_PLUGIN')) {
         'maradigma_boats_last_sync_count',
         'maradigma_cache_policy',
         'maradigma_version',
+        'maradigma_boat_rewrite_schema',
     ];
 
     foreach ($otherOptions as $opt) {

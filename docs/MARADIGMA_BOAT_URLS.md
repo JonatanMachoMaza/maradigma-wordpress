@@ -33,17 +33,20 @@ an island such as Mallorca or Ibiza over its cities, marinas and ports. If the
 plural catalogue is unavailable, the singular field remains the compatibility
 fallback.
 
-## Missing values
+## Missing values and static ancestor pages
+
+Dynamic rewrite rules require every configured segment plus the final boat
+slug. They therefore do not intercept static destination or boat-type landing
+pages such as `/alquiler-de-barcos/ibiza/` or
+`/alquiler-de-barcos/ibiza/lancha/`.
 
 Destination and boat type are optional API data. When either value is missing,
-the plugin removes only that placeholder and keeps a valid reduced route. For
-example, a yacht without a mapped destination uses:
+the boat uses the separate, unambiguous fallback route:
 
 ```text
-/alquiler-yate/nombre-del-barco/
+/boats/nombre-del-barco/
 ```
 
-All complete and reduced variants have matching WordPress rewrite rules. To
-obtain destination-prefixed URLs, configure the boat's real base port and the
-base port-to-destination mapping in Maradigma so that `destinations` contains a
-usable geographical destination.
+To obtain destination-prefixed URLs, configure the boat's real base port and
+the base port-to-destination mapping in Maradigma so that `destinations`
+contains a usable geographical destination.

@@ -45,18 +45,33 @@ final class BoatUrlResolver
     /**
      * Resolves a configured base-path template for a boat payload.
      *
-     * @param array<string,mixed> $boat Boat API payload.
+     * @param string              $template             Configured base-path template.
+     * @param array<string,mixed> $boat                 Boat API payload.
+     * @param string              $fallback             Static fallback base path.
+     * @param string              $language             Language used to localize dynamic values.
+     * @param bool                $requireDynamicValues Whether every configured placeholder must resolve.
      */
     public static function resolveBasePath(
         string $template,
         array $boat = [],
         string $fallback = 'boats',
-        string $language = ''
+        string $language = '',
+        bool $requireDynamicValues = false
     ): string
     {
         $template = self::normalizeBaseTemplate($template, $fallback);
         $destinationSlug = self::getDestinationSlug($boat);
         $boatTypeSlug = self::getBoatTypeSlug($boat, $language);
+
+        if (
+            $requireDynamicValues
+            && (
+                (self::hasDestinationPlaceholder($template) && $destinationSlug === '')
+                || (self::hasBoatTypePlaceholder($template) && $boatTypeSlug === '')
+            )
+        ) {
+            return self::normalizeResolvedPath($fallback) ?: 'boats';
+        }
 
         $resolved = str_replace(
             [self::DESTINATION_PLACEHOLDER, self::BOAT_TYPE_PLACEHOLDER],
@@ -79,7 +94,13 @@ final class BoatUrlResolver
     {
         $template = RuntimeContext::getBoatsBaseSlugForLang($language);
 
-        return self::resolveBasePath($template, self::getBoatPayloadForPost($postId), $fallback, $language);
+        return self::resolveBasePath(
+            $template,
+            self::getBoatPayloadForPost($postId),
+            $fallback,
+            $language,
+            true
+        );
     }
 
     /**
@@ -98,7 +119,8 @@ final class BoatUrlResolver
             RuntimeContext::getBoatsBaseSlugForLang($language),
             $boat,
             'boats',
-            $language
+            $language,
+            true
         );
         $baseUrl = rtrim(RuntimeContext::getHomeUrlForLanguage($language), '/') . '/' . trim($basePath, '/') . '/';
 
@@ -141,48 +163,30 @@ final class BoatUrlResolver
     }
 
     /**
-     * Returns rewrite variants for every available dynamic route value.
+     * Returns strict rewrite patterns for dynamic boat routes.
      *
-     * A service may legitimately have no mapped destination or type. Its
-     * canonical permalink then omits that value, so WordPress must register a
-     * matching rule for the reduced path as well as for the complete path.
+     * Dynamic templates only match when every configured segment is present.
+     * This prevents reduced variants from shadowing static ancestor pages such
+     * as destination and boat-type landing pages. A separate static fallback
+     * keeps boats with incomplete routing data reachable without ambiguity.
+     *
+     * @param string $template Configured base-path template.
+     * @param string $fallback Static fallback base path.
      *
      * @return array<int,array{regex:string,boat_match_index:int}>
      */
     public static function buildRewritePatterns(string $template, string $fallback = 'boats'): array
     {
         $template = self::normalizeBaseTemplate($template, $fallback);
-        $placeholders = array_values(array_filter(
-            [self::DESTINATION_PLACEHOLDER, self::BOAT_TYPE_PLACEHOLDER],
-            static fn(string $placeholder): bool => str_contains($template, $placeholder)
-        ));
+        $patterns = [self::buildRewritePattern($template, $fallback)];
 
-        if ($placeholders === []) {
-            return [self::buildRewritePattern($template, $fallback)];
+        if (!self::hasDynamicPlaceholder($template)) {
+            return $patterns;
         }
 
-        $patterns = [];
-        $seen = [];
-        $lastMask = (1 << count($placeholders)) - 1;
-
-        for ($mask = $lastMask; $mask >= 0; --$mask) {
-            $variant = $template;
-
-            foreach ($placeholders as $index => $placeholder) {
-                if (($mask & (1 << $index)) === 0) {
-                    $variant = str_replace($placeholder, '', $variant);
-                }
-            }
-
-            $variant = self::normalizeBaseTemplate($variant, $fallback);
-
-            $pattern = self::buildRewritePattern($variant, $fallback);
-            if (isset($seen[$pattern['regex']])) {
-                continue;
-            }
-
-            $seen[$pattern['regex']] = true;
-            $patterns[] = $pattern;
+        $fallbackPattern = self::buildRewritePattern($fallback, $fallback);
+        if ($fallbackPattern['regex'] !== $patterns[0]['regex']) {
+            $patterns[] = $fallbackPattern;
         }
 
         return $patterns;

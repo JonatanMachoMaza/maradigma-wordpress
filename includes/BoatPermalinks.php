@@ -29,6 +29,19 @@ use Maradigma\Support\RuntimeContext;
  */
 final class BoatPermalinks
 {
+    /** Whether the current request invalidated the registered rewrite rules. */
+    private static bool $rewriteRulesFlushScheduled = false;
+
+    /** Option used to track the installed boat rewrite-rule schema. */
+    private const REWRITE_SCHEMA_OPTION = 'maradigma_boat_rewrite_schema';
+
+    /**
+     * Rewrite-rule schema version.
+     *
+     * Increment this value whenever an update changes the generated regexes.
+     */
+    private const REWRITE_SCHEMA_VERSION = '2';
+
     /**
      * Registers the component's WordPress hooks.
      */
@@ -40,7 +53,42 @@ final class BoatPermalinks
          */
         add_filter('post_type_link', [__CLASS__, 'filterBoatPermalink'], 20, 2);
         add_action('init', [__CLASS__, 'addRewriteRules'], 20);
+        add_action('init', [__CLASS__, 'maybeFlushRewriteRules'], 99);
         add_action('template_redirect', [__CLASS__, 'redirectNonCanonicalBoatRequest'], 1);
+    }
+
+    /**
+     * Flushes persisted rewrite rules once after their schema changes.
+     *
+     * WordPress stores rewrite rules in the database, so changing the regex
+     * generator alone would leave previously generated rules active until an
+     * administrator manually saved the permalink settings.
+     */
+    public static function maybeFlushRewriteRules(): void
+    {
+        if (self::$rewriteRulesFlushScheduled) {
+            return;
+        }
+
+        if ((string) get_option(self::REWRITE_SCHEMA_OPTION, '') === self::REWRITE_SCHEMA_VERSION) {
+            return;
+        }
+
+        flush_rewrite_rules(false);
+        update_option(self::REWRITE_SCHEMA_OPTION, self::REWRITE_SCHEMA_VERSION, false);
+    }
+
+    /**
+     * Schedules a rewrite flush for the next WordPress initialization.
+     *
+     * Settings are saved after the current request's `init` action. Deferring
+     * the flush ensures the next request registers routes from the new values
+     * before WordPress persists them.
+     */
+    public static function scheduleRewriteRulesFlush(): void
+    {
+        self::$rewriteRulesFlushScheduled = true;
+        update_option(self::REWRITE_SCHEMA_OPTION, '', false);
     }
 
     /**

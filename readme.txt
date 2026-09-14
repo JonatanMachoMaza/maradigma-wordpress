@@ -4,7 +4,7 @@ Tags: boat rental, yacht charter, booking, availability, fleet management
 Requires at least: 6.0
 Tested up to: 7.0
 Requires PHP: 8.1
-Stable tag: 0.1.183
+Stable tag: 0.1.184
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -157,6 +157,11 @@ The repository includes `package.json`, `package-lock.json`, and the Vite config
 
 == Changelog ==
 
+= 0.1.184 =
+* Prevented dynamic boat rewrite rules from intercepting static destination and boat-type pages.
+* Required complete dynamic boat paths and retained the unambiguous `/boats/` fallback when routing data is incomplete.
+* Regenerated persisted WordPress rewrite rules automatically after plugin updates and route-setting changes.
+
 = 0.1.183 =
 * Added destination- and boat-type-aware URL templates with `{{destination}}` and `{{boat_type}}` placeholders.
 * Preferred commercial island destinations such as Ibiza and Mallorca over localities and ports in boat URLs.
@@ -283,6 +288,9 @@ The repository includes `package.json`, `package-lock.json`, and the Vite config
 * Improved readme documentation for the current feature set.
 
 == Upgrade Notice ==
+
+= 0.1.184 =
+Prevents dynamic boat routes from shadowing static destination and boat-type landing pages.
 
 = 0.1.183 =
 Adds localized destination and boat-type routes and redirects stale boat URLs to their current canonical permalink.

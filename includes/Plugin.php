@@ -68,7 +68,7 @@ final class Plugin
     }
 
     /**
-     * Re-register CPT and flush rewrites whenever either:
+     * Re-registers the CPT and schedules a rewrite refresh whenever either:
      * - boats_base_slug changes
      * - enable_boat_pages_sync changes
      *
@@ -105,22 +105,10 @@ final class Plugin
                 BoatPostType::register();
             }
 
-            if (\doing_action('init')) {
-                if (!\has_action('init', [__CLASS__, 'flushRewriteRules'])) {
-                    \add_action('init', [__CLASS__, 'flushRewriteRules'], PHP_INT_MAX);
-                }
-            } else {
-                self::flushRewriteRules();
+            if (\class_exists(BoatPermalinks::class)) {
+                BoatPermalinks::scheduleRewriteRulesFlush();
             }
         }
-    }
-
-    /**
-     * Flushes rewrite rules after every Maradigma route has been registered.
-     */
-    public static function flushRewriteRules(): void
-    {
-        \flush_rewrite_rules(false);
     }
 
     /**
