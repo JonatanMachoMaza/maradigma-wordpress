@@ -51,6 +51,81 @@ final class BoatUrlResolverTest extends TestCase
         self::assertSame(2, $pattern['boat_match_index']);
     }
 
+    public function testResolvesDestinationAndBoatTypeInNestedBasePath(): void
+    {
+        $boat = [
+            'destination' => ['text' => 'Mallorca'],
+            'boat_type' => ['name' => 'Yates', 'slug' => 'yate'],
+        ];
+
+        self::assertSame(
+            'mallorca/alquiler-yate',
+            BoatUrlResolver::resolveBasePath('{{destination}}/alquiler-{{boat_type}}', $boat, 'boats', 'es')
+        );
+    }
+
+    public function testBuildsRewritePatternWithBoatCaptureAfterBothDynamicSegments(): void
+    {
+        $pattern = BoatUrlResolver::buildRewritePattern('{{destination}}/alquiler-{{boat_type}}');
+
+        self::assertSame('([^/]+)/alquiler\-([^/]+)', $pattern['regex']);
+        self::assertSame(3, $pattern['boat_match_index']);
+    }
+
+    public function testBuildsRewriteVariantsWhenDynamicValuesAreMissing(): void
+    {
+        self::assertSame(
+            [
+                ['regex' => '([^/]+)/alquiler\-([^/]+)', 'boat_match_index' => 3],
+                ['regex' => 'alquiler\-([^/]+)', 'boat_match_index' => 2],
+                ['regex' => '([^/]+)/alquiler', 'boat_match_index' => 2],
+                ['regex' => 'alquiler', 'boat_match_index' => 1],
+            ],
+            BoatUrlResolver::buildRewritePatterns('{{destination}}/alquiler-{{boat_type}}')
+        );
+    }
+
+    public function testBoatTypeAliasIsSupported(): void
+    {
+        $boat = ['boat_type_slug' => 'lancha'];
+
+        self::assertSame(
+            'ibiza/alquiler-lancha',
+            BoatUrlResolver::resolveBasePath('ibiza/alquiler-{{boat_type_slug}}', $boat, 'boats', 'es')
+        );
+    }
+
+    public function testCatalogEnrichesStandardSpanishBoatTypeWithSingularRouteSlug(): void
+    {
+        BoatUrlResolver::storeBoatTypeCatalog('es', [
+            ['id' => 2, 'name' => 'Yates', 'slug' => 'yachts'],
+            ['id' => 3, 'name' => 'Lanchas', 'slug' => 'motorboats'],
+        ]);
+
+        $yacht = BoatUrlResolver::enrichBoatType(['id_group_content_type' => 2], 'es');
+        $motorboat = BoatUrlResolver::enrichBoatType(['id_group_content_type' => 3], 'es');
+
+        self::assertSame('yate', $yacht['boat_type_slug']);
+        self::assertSame('lancha', $motorboat['boat_type_slug']);
+    }
+
+    public function testCatalogEnrichmentUsesListPayloadWhenDetailOmitsBoatType(): void
+    {
+        BoatUrlResolver::storeBoatTypeCatalog('es', [
+            ['id' => 2, 'name' => 'Yates', 'slug' => 'yachts'],
+        ]);
+
+        $boat = BoatUrlResolver::enrichBoatType(
+            ['id' => 2410, 'service_name' => 'Pardo Yachts 38 TEST'],
+            'es',
+            ['id' => 2410, 'id_group_content_type' => 2]
+        );
+
+        self::assertSame(2, $boat['id_group_content_type']);
+        self::assertSame('Yates', $boat['boat_type_name']);
+        self::assertSame('yate', $boat['boat_type_slug']);
+    }
+
     public function testReadsDestinationFallbackFields(): void
     {
         $boat = [
@@ -60,6 +135,60 @@ final class BoatUrlResolverTest extends TestCase
 
         self::assertSame('Formentera', BoatUrlResolver::getDestinationName($boat));
         self::assertSame('formentera-island', BoatUrlResolver::getDestinationSlug($boat));
+    }
+
+    public function testPrefersIslandFromDestinationCatalogForSeoRoutes(): void
+    {
+        $boat = [
+            'destination' => [
+                'text' => 'Palma',
+                'place_type' => 'locality',
+            ],
+            'destinations' => [
+                [
+                    'text' => 'Palma',
+                    'place_type' => 'locality',
+                    'priority' => 10,
+                ],
+                [
+                    'text' => 'Mallorca',
+                    'place_type' => 'island',
+                    'priority' => 20,
+                ],
+                [
+                    'text' => 'Balearic Islands',
+                    'place_type' => 'archipelago',
+                    'priority' => 30,
+                ],
+            ],
+        ];
+
+        self::assertSame('Mallorca', BoatUrlResolver::getDestinationName($boat));
+        self::assertSame('mallorca', BoatUrlResolver::getDestinationSlug($boat));
+        self::assertSame(
+            'mallorca/alquiler-yate',
+            BoatUrlResolver::resolveBasePath(
+                '{{destination}}/alquiler-{{boat_type}}',
+                $boat + ['boat_type_slug' => 'yate'],
+                'boats',
+                'es'
+            )
+        );
+    }
+
+    public function testUsesLocalityWhenDestinationCatalogHasNoIsland(): void
+    {
+        $boat = [
+            'destination' => ['text' => 'Port Olimpic'],
+            'destinations' => [
+                ['text' => 'Catalonia', 'place_type' => 'administrative_area'],
+                ['text' => 'Barcelona', 'place_type' => 'locality'],
+                ['text' => 'Port Olimpic', 'place_type' => 'port'],
+            ],
+        ];
+
+        self::assertSame('Barcelona', BoatUrlResolver::getDestinationName($boat));
+        self::assertSame('barcelona', BoatUrlResolver::getDestinationSlug($boat));
     }
 
     public function testDetectsLegacyFlattenedMultilingualProductSlug(): void

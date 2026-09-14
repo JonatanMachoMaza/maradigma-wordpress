@@ -2473,10 +2473,10 @@ final class SettingsPage
                                                 value="<?php echo esc_attr($boatsBaseSlug); ?>"
                                                 class="regular-text"
                                                 style="width:100%;max-width:520px;"
-                                                placeholder="boats / alquiler-barcos-{{destination}} / es:alquiler-barcos-{{destination}},en:boat-rental-{{destination}}" />
+                                                placeholder="boats / {{destination}}/alquiler-{{boat_type}} / es:{{destination}}/alquiler-{{boat_type}},en:{{destination}}/boat-rental-{{boat_type}}" />
 
                                             <p class="description">
-                                                <?php esc_html_e('Examples: "boats" or "alquiler-barcos". Use {{destination}} for destination-aware URLs, for example "es:alquiler-barcos-{{destination}},en:boat-rental-{{destination}}".', 'maradigma'); ?>
+                                                <?php esc_html_e('Use {{destination}} and {{boat_type}} for dynamic URLs. Example: "es:{{destination}}/alquiler-{{boat_type}},en:{{destination}}/boat-rental-{{boat_type}}".', 'maradigma'); ?>
                                             </p>
                                         </td>
                                     </tr>
@@ -3434,7 +3434,7 @@ final class SettingsPage
             value="<?php echo esc_attr($value); ?>"
             class="regular-text" />
         <p class="description">
-            <?php esc_html_e('Examples: "boats" or "alquiler-barcos". Use {{destination}} for destination-aware URLs, for example "es:alquiler-barcos-{{destination}},en:boat-rental-{{destination}}".', 'maradigma'); ?>
+            <?php esc_html_e('Use {{destination}} and {{boat_type}} for dynamic URLs. Example: "es:{{destination}}/alquiler-{{boat_type}},en:{{destination}}/boat-rental-{{boat_type}}".', 'maradigma'); ?>
         </p>
 <?php
     }

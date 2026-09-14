@@ -166,7 +166,7 @@ final class Renderer
 
         try {
             $result = $this->cache->getBoatDetails($identifier, $lang, [
-                'expand' => ['service_destination'],
+                'expand' => ['service_destination', 'service_destinations'],
             ]);
 
             $boat = [];

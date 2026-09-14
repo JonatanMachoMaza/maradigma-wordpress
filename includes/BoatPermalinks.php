@@ -40,6 +40,7 @@ final class BoatPermalinks
          */
         add_filter('post_type_link', [__CLASS__, 'filterBoatPermalink'], 20, 2);
         add_action('init', [__CLASS__, 'addRewriteRules'], 20);
+        add_action('template_redirect', [__CLASS__, 'redirectNonCanonicalBoatRequest'], 1);
     }
 
     /**
@@ -111,36 +112,77 @@ final class BoatPermalinks
             }
 
             $baseTemplate = self::getBoatsBaseSlugForLang($lang);
-            $pattern = BoatUrlResolver::buildRewritePattern($baseTemplate);
-
             $rootPath = self::getLanguageRootPath($lang);
             $prefix   = trim($rootPath, '/');
 
-            $rule = '^'
-                . ($prefix !== '' ? preg_quote($prefix, '#') . '/' : '')
-                . $pattern['regex']
-                . '/([^/]+)/?$';
-
-            add_rewrite_rule(
-                $rule,
-                'index.php?post_type=' . BoatPostType::POST_TYPE . '&name=$matches[' . $pattern['boat_match_index'] . ']',
-                'top'
-            );
-
-            if (BoatUrlResolver::hasDestinationPlaceholder($baseTemplate)) {
-                $fallbackBase = BoatUrlResolver::resolveBasePath($baseTemplate);
-                $fallbackRule = '^'
+            foreach (BoatUrlResolver::buildRewritePatterns($baseTemplate) as $pattern) {
+                $rule = '^'
                     . ($prefix !== '' ? preg_quote($prefix, '#') . '/' : '')
-                    . preg_quote($fallbackBase, '#')
+                    . $pattern['regex']
                     . '/([^/]+)/?$';
 
                 add_rewrite_rule(
-                    $fallbackRule,
-                    'index.php?post_type=' . BoatPostType::POST_TYPE . '&name=$matches[1]',
+                    $rule,
+                    'index.php?post_type=' . BoatPostType::POST_TYPE . '&name=$matches[' . $pattern['boat_match_index'] . ']',
                     'top'
                 );
             }
         }
+    }
+
+    /**
+     * Redirects a resolved boat request to the current localized permalink.
+     *
+     * Dynamic rewrite rules intentionally accept any destination and boat-type
+     * segment so WordPress can resolve the post by its final slug. Without this
+     * redirect, stale routes remain indexable after an API destination or type
+     * changes. Running before multilingual redirectors also prevents them from
+     * interpreting an outdated route as a request for the wrong language.
+     */
+    public static function redirectNonCanonicalBoatRequest(): void
+    {
+        if (
+            !self::isBoatPagesSyncEnabled()
+            || is_admin()
+            || wp_doing_ajax()
+            || !is_singular(BoatPostType::POST_TYPE)
+        ) {
+            return;
+        }
+
+        $post = get_queried_object();
+        if (!$post instanceof \WP_Post || $post->post_type !== BoatPostType::POST_TYPE) {
+            return;
+        }
+
+        $canonicalUrl = get_permalink($post);
+        if (!is_string($canonicalUrl) || $canonicalUrl === '') {
+            return;
+        }
+
+        $requestUri = isset($_SERVER['REQUEST_URI'])
+            ? (string) wp_unslash($_SERVER['REQUEST_URI'])
+            : '';
+        $requestedPath = self::normalizeComparablePath((string) wp_parse_url($requestUri, PHP_URL_PATH));
+        $canonicalPath = self::normalizeComparablePath((string) wp_parse_url($canonicalUrl, PHP_URL_PATH));
+
+        if ($requestedPath === '' || $requestedPath === $canonicalPath) {
+            return;
+        }
+
+        wp_safe_redirect($canonicalUrl, 301, 'Maradigma');
+        exit;
+    }
+
+    /**
+     * Normalizes URL paths before canonical route comparison.
+     */
+    private static function normalizeComparablePath(string $path): string
+    {
+        $path = rawurldecode($path);
+        $path = '/' . trim($path, '/');
+
+        return $path === '/' ? '/' : untrailingslashit($path);
     }
 
     /**

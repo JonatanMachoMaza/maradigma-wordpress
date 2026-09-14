@@ -56,10 +56,30 @@ final class SeoIntegration
         // Frontend filters (fallback only)
         \add_filter('wpseo_title', [__CLASS__, 'filterYoastTitle'], 20, 1);
         \add_filter('wpseo_metadesc', [__CLASS__, 'filterYoastMetadesc'], 20, 1);
+        \add_filter('wpseo_canonical', [__CLASS__, 'filterYoastCanonical'], 20, 1);
 
         // OG tags
         \add_filter('wpseo_opengraph_title', [__CLASS__, 'filterYoastOgTitle'], 20, 1);
         \add_filter('wpseo_opengraph_desc', [__CLASS__, 'filterYoastOgDesc'], 20, 1);
+    }
+
+    /**
+     * Keeps the Yoast canonical aligned with the current dynamic boat route.
+     *
+     * Destination and boat-type segments may change after synchronization, so
+     * the canonical must be derived from WordPress instead of Yoast's cached
+     * indexable URL.
+     */
+    public static function filterYoastCanonical(string $current): string
+    {
+        $postId = self::getCurrentPostId();
+        if ($postId <= 0 || !self::isBoatPost($postId)) {
+            return $current;
+        }
+
+        $permalink = \get_permalink($postId);
+
+        return \is_string($permalink) && $permalink !== '' ? $permalink : $current;
     }
 
     /**

@@ -16,6 +16,7 @@ class ExternalApiClient {
         'service_payment_methods',
         'service_descriptions',
         'service_destination',
+        'service_destinations',
         'service_equipments',
         'service_group_category',
         'service_images',

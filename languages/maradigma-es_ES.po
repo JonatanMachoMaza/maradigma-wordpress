@@ -3729,3 +3729,6 @@ msgid "We cannot process your request right now. Please try again later."
 msgstr "No podemos procesar tu solicitud en este momento. Inténtalo de nuevo más tarde."
 msgid "The selected schedule is no longer available. We refreshed the available schedules."
 msgstr "El horario seleccionado ya no está disponible. Hemos actualizado los horarios disponibles."
+
+msgid "Use {{destination}} and {{boat_type}} for dynamic URLs. Example: \"es:{{destination}}/alquiler-{{boat_type}},en:{{destination}}/boat-rental-{{boat_type}}\"."
+msgstr "Usa {{destination}} y {{boat_type}} para URLs dinámicas. Ejemplo: \"es:{{destination}}/alquiler-{{boat_type}},en:{{destination}}/boat-rental-{{boat_type}}\"."

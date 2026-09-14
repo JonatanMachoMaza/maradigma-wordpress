@@ -1456,7 +1456,7 @@ final class BoatCardEngine
         }
 
         $configuredBase = (string) ($context['boats_base_slug'] ?? 'boats');
-        if (BoatUrlResolver::hasDestinationPlaceholder($configuredBase)) {
+        if (BoatUrlResolver::hasDynamicPlaceholder($configuredBase)) {
             $language = (string) ($context['current_lang'] ?? '');
             if ($language === '') {
                 $language = Support\RuntimeContext::detectCurrentLanguage();

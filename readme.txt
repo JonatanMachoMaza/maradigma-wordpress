@@ -4,7 +4,7 @@ Tags: boat rental, yacht charter, booking, availability, fleet management
 Requires at least: 6.0
 Tested up to: 7.0
 Requires PHP: 8.1
-Stable tag: 0.1.182
+Stable tag: 0.1.183
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -117,9 +117,9 @@ Yes. The plugin includes compatibility layers for WPML and Polylang and can sync
 
 When Yoast SEO is installed and active, the plugin can synchronize or generate boat metadata according to the configured SEO options.
 
-= Can synchronized boat URLs include their destination? =
+= Can synchronized boat URLs include their destination and boat type? =
 
-Yes. The boat base slug setting accepts the `{{destination}}` placeholder. For example, `es:alquiler-barcos-{{destination}},en:boat-rental-{{destination}}` generates localized paths such as `/alquiler-barcos-mallorca/boat-slug/`. The destination is synchronized from the connected Maradigma account. Re-synchronize existing boats after enabling this route format.
+Yes. The boat base slug setting accepts the `{{destination}}` and `{{boat_type}}` placeholders. For example, `es:{{destination}}/alquiler-{{boat_type}},en:{{destination}}/boat-rental-{{boat_type}}` generates localized paths such as `/mallorca/alquiler-yate/boat-slug/` and `/ibiza/alquiler-lancha/boat-slug/`. The values are synchronized from the connected Maradigma account. Re-synchronize existing boats after enabling this route format.
 
 = Does the plugin load frontend libraries from public CDNs? =
 
@@ -156,6 +156,12 @@ The repository includes `package.json`, `package-lock.json`, and the Vite config
 6. Boat synchronization workflow and status.
 
 == Changelog ==
+
+= 0.1.183 =
+* Added destination- and boat-type-aware URL templates with `{{destination}}` and `{{boat_type}}` placeholders.
+* Preferred commercial island destinations such as Ibiza and Mallorca over localities and ports in boat URLs.
+* Redirected stale dynamic boat routes to the current localized permalink and aligned Yoast canonical URLs.
+* Preserved synchronized JSON payloads correctly when storing them as WordPress post metadata.
 
 = 0.1.182 =
 * Replaced the half-day dropdown with visible, accessible schedule cards.
@@ -277,6 +283,9 @@ The repository includes `package.json`, `package-lock.json`, and the Vite config
 * Improved readme documentation for the current feature set.
 
 == Upgrade Notice ==
+
+= 0.1.183 =
+Adds localized destination and boat-type routes and redirects stale boat URLs to their current canonical permalink.
 
 = 0.1.182 =
 Makes half-day availability clearer by showing every schedule and identifying occupied options.

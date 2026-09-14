@@ -266,6 +266,7 @@ final class BoatSyncService
             ]);
 
             $cache = new Cache();
+            $boatTypeCatalogLoaded = [];
 
             self::beginPhase($lockToken, $runId, 'boats_list_request', $batchStartedAt, [
                 'offset' => $offset,
@@ -447,6 +448,10 @@ final class BoatSyncService
 
                     $apiLang = strtoupper($lang);
 
+                    if (!array_key_exists($lang, $boatTypeCatalogLoaded)) {
+                        $boatTypeCatalogLoaded[$lang] = self::refreshBoatTypeCatalog($lang);
+                    }
+
                     $boatFull = $boat;
                     self::beginPhase($lockToken, $runId, 'boat_detail', $batchStartedAt, [
                         'boat_id' => $boatId,
@@ -457,7 +462,11 @@ final class BoatSyncService
                             $boatId,
                             $apiLang,
                             [
-                                'expand'                 => ['service_images', 'service_destination'],
+                                'expand'                 => [
+                                    'service_images',
+                                    'service_destination',
+                                    'service_destinations',
+                                ],
                                 'images'                 => 1,
                                 'url_images_main_domain' => 1,
                                 'only_load_cover_image'  => 0,
@@ -482,6 +491,8 @@ final class BoatSyncService
                         'boat_id' => $boatId,
                         'language' => $apiLang,
                     ]);
+
+                    $boatFull = BoatUrlResolver::enrichBoatType($boatFull, $lang, $boat);
 
                     if (self::hasBatchTimeBudgetExpired($batchStartedAt)) {
                         $yieldedForTimeBudget = true;
@@ -548,7 +559,7 @@ final class BoatSyncService
                         }
 
                         if (!empty($options['update_payload']) && is_string($payloadJson)) {
-                            update_post_meta($postId, self::META_PAYLOAD, $payloadJson);
+                            update_post_meta($postId, self::META_PAYLOAD, wp_slash($payloadJson));
                             update_post_meta($postId, self::META_PAYLOAD_UPDATED_AT, time());
                         }
 
@@ -577,7 +588,7 @@ final class BoatSyncService
                             update_post_meta($postId, self::META_DISABLE_SYNC, false);
 
                             if (!empty($options['update_payload']) && is_string($payloadJson)) {
-                                update_post_meta($postId, self::META_PAYLOAD, $payloadJson);
+                                update_post_meta($postId, self::META_PAYLOAD, wp_slash($payloadJson));
                                 update_post_meta($postId, self::META_PAYLOAD_UPDATED_AT, time());
                             }
 
@@ -1208,6 +1219,42 @@ final class BoatSyncService
     }
 
     /**
+     * Refreshes the localized boat type catalogue used by dynamic boat URLs.
+     */
+    private static function refreshBoatTypeCatalog(string $language): bool
+    {
+        try {
+            $client = ExternalApiClient::fromSettings(SettingsPage::getSettings());
+            $client->setLanguage($language);
+            $result = $client->getServiceTypes('boats');
+            $types = is_array($result['data'] ?? null) ? (array) $result['data'] : [];
+
+            if (($result['status'] ?? '') !== 'success' || $types === []) {
+                self::debug('boat_type_catalog_unavailable', [
+                    'language' => $language,
+                    'status' => (string) ($result['status'] ?? ''),
+                    'message' => (string) ($result['message'] ?? ''),
+                ]);
+
+                return false;
+            }
+
+            BoatUrlResolver::storeBoatTypeCatalog($language, $types);
+
+            return true;
+        } catch (\Throwable $error) {
+            self::debug('boat_type_catalog_failed', [
+                'language' => $language,
+                'exception' => $error,
+            ]);
+
+            return false;
+        }
+    }
+
+    /**
+     * Returns the synchronization state formatted for the admin UI.
+     *
      * @return array<string,mixed>
      */
     public static function getUiStatusPayload(): array
