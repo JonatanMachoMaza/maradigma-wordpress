@@ -294,6 +294,9 @@ The repository includes `package.json`, `package-lock.json`, and the Vite config
 
 == Upgrade Notice ==
 
+= 0.1.185 =
+Restores full boat photo galleries and fixes the lightbox on grid layouts.
+
 = 0.1.184 =
 Prevents dynamic boat routes from shadowing static destination and boat-type landing pages.
 
