@@ -4,7 +4,7 @@ Tags: boat rental, yacht charter, booking, availability, fleet management
 Requires at least: 6.0
 Tested up to: 7.0
 Requires PHP: 8.1
-Stable tag: 0.1.184
+Stable tag: 0.1.185
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -156,6 +156,11 @@ The repository includes `package.json`, `package-lock.json`, and the Vite config
 6. Boat synchronization workflow and status.
 
 == Changelog ==
+
+= 0.1.185 =
+* Restored full boat photo galleries on the boat detail view by falling back to the synchronized image service when the cached boat record only included a single photo.
+* Loaded the gallery lightbox assets whenever the lightbox option is enabled, not only for the slider layout, fixing photos that opened as plain links instead of the lightbox.
+* Added the bathrooms field to the boat specifications catalog, including its label and icon.
 
 = 0.1.184 =
 * Prevented dynamic boat rewrite rules from intercepting static destination and boat-type pages.

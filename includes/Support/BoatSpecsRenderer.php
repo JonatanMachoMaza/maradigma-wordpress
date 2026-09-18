@@ -24,6 +24,7 @@ final class BoatSpecsRenderer
         'boat_capacity_crew'           => 'svg-users',
         'boat_capacity_pernocta'       => 'svg-cabin',
         'boat_cabins'                  => 'svg-cabin',
+        'boat_bathrooms'               => 'svg-cabin',
         'boat_length'                  => 'svg-ruler',
         'boat_beam'                    => 'svg-ruler',
         'boat_consumption'             => 'svg-engine-power',
@@ -83,6 +84,10 @@ final class BoatSpecsRenderer
             ],
             'boat_cabins' => [
                 'label'  => __('Cabins', 'maradigma'),
+                'format' => 'int',
+            ],
+            'boat_bathrooms' => [
+                'label'  => __('Bathrooms', 'maradigma'),
                 'format' => 'int',
             ],
             'boat_length' => [

@@ -5122,6 +5122,18 @@ final class ShortcodeRegistry
             }
         }
 
+        if ($images === null && $boatId !== '') {
+            try {
+                $remoteResult = (new Cache())->getServiceImages('boats', $boatId, self::getLanguage());
+                $remoteImages = $remoteResult['data'] ?? null;
+                if (is_array($remoteImages) && $remoteImages !== []) {
+                    $images = $remoteImages;
+                }
+            } catch (\Throwable $e) {
+                // Fall through to the basic boat payload below.
+            }
+        }
+
         if ($images === null) {
             $images = $boat['images'] ?? $boat['service_images'] ?? $boat['gallery'] ?? null;
         }
@@ -5241,7 +5253,7 @@ final class ShortcodeRegistry
             return trim((string) ($img['url'] ?? ''));
         };
 
-        if ($layout === 'slider') {
+        if ($layout === 'slider' || $enableLightbox) {
             AssetsManager::enqueueSwiperAssets();
         }
 
