@@ -2,9 +2,9 @@
 Contributors: maradigma
 Tags: boat rental, yacht charter, booking, availability, fleet management
 Requires at least: 6.0
-Tested up to: 7.0
+Tested up to: 7.1
 Requires PHP: 8.1
-Stable tag: 0.1.185
+Stable tag: 0.1.186
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -157,6 +157,9 @@ The repository includes `package.json`, `package-lock.json`, and the Vite config
 
 == Changelog ==
 
+= 0.1.186 =
+* Confirmed compatibility with WordPress 7.1.
+
 = 0.1.185 =
 * Restored full boat photo galleries on the boat detail view by falling back to the synchronized image service when the cached boat record only included a single photo.
 * Loaded the gallery lightbox assets whenever the lightbox option is enabled, not only for the slider layout, fixing photos that opened as plain links instead of the lightbox.
@@ -293,6 +296,9 @@ The repository includes `package.json`, `package-lock.json`, and the Vite config
 * Improved readme documentation for the current feature set.
 
 == Upgrade Notice ==
+
+= 0.1.186 =
+Confirms compatibility with WordPress 7.1.
 
 = 0.1.185 =
 Restores full boat photo galleries and fixes the lightbox on grid layouts.
