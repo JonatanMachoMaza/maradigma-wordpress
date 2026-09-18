@@ -2839,3 +2839,35 @@ msgstr ""
 
 msgid "Use {{destination}} and {{boat_type}} for dynamic URLs. Example: \"es:{{destination}}/alquiler-{{boat_type}},en:{{destination}}/boat-rental-{{boat_type}}\"."
 msgstr ""
+
+msgid "Bathrooms"
+msgstr ""
+
+msgid "Brand"
+msgstr ""
+
+msgid "Select brand"
+msgstr ""
+
+msgid "Price per day"
+msgstr ""
+
+msgid "With skipper"
+msgstr ""
+
+msgid "Without skipper"
+msgstr ""
+
+msgid "You will be accompanied by a skipper."
+msgstr ""
+
+msgid "You will be the boat's skipper."
+msgstr ""
+
+#, php-format
+msgid "Decrease %s"
+msgstr ""
+
+#, php-format
+msgid "Increase %s"
+msgstr ""

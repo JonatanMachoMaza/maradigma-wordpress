@@ -650,6 +650,7 @@ final class AjaxController
      *
      * Query params accepted:
      * - archive_base_url
+     * - archive_scope (signed attributes fixed by the shortcode author; ignored unless the signature matches)
      * - limit_services
      * - offset_services
      * - card
@@ -680,6 +681,11 @@ final class AjaxController
      * - md_date_start | date_start
      * - md_date_end | date_end
      * - md_tags | tags
+     * - md_boat_cabins | boat_cabins
+     * - md_boat_bathrooms | boat_bathrooms
+     * - md_min_boat_length | min_boat_length
+     * - md_max_boat_length | max_boat_length
+     * - md_boat_skipper_option | boat_skipper_option
      *
      * Response shape:
      * {
@@ -833,6 +839,11 @@ final class AjaxController
                 'date_start'    => $readParam('md_date_start', 'date_start', ''),
                 'date_end'      => $readParam('md_date_end', 'date_end', ''),
                 'tags'          => $readParam('md_tags', 'tags', ''),
+                'boat_cabins'         => $readParam('md_boat_cabins', 'boat_cabins', ''),
+                'boat_bathrooms'      => $readParam('md_boat_bathrooms', 'boat_bathrooms', ''),
+                'min_boat_length'     => $readParam('md_min_boat_length', 'min_boat_length', ''),
+                'max_boat_length'     => $readParam('md_max_boat_length', 'max_boat_length', ''),
+                'boat_skipper_option' => $readParam('md_boat_skipper_option', 'boat_skipper_option', ''),
             ];
 
             /*
@@ -858,10 +869,19 @@ final class AjaxController
                 'md_date_start'    => $readParam('md_date_start', 'date_start', ''),
                 'md_date_end'      => $readParam('md_date_end', 'date_end', ''),
                 'md_tags'          => $readParam('md_tags', 'tags', ''),
+                'md_boat_cabins'         => $readParam('md_boat_cabins', 'boat_cabins', ''),
+                'md_boat_bathrooms'      => $readParam('md_boat_bathrooms', 'boat_bathrooms', ''),
+                'md_min_boat_length'     => $readParam('md_min_boat_length', 'min_boat_length', ''),
+                'md_max_boat_length'     => $readParam('md_max_boat_length', 'max_boat_length', ''),
+                'md_boat_skipper_option' => $readParam('md_boat_skipper_option', 'boat_skipper_option', ''),
                 'md_lang'          => $requestLanguage,
             ];
 
-            $archiveContext = \Maradigma\ShortcodeRegistry::buildBoatsArchiveContext($atts, $uiQuery);
+            $archiveContext = \Maradigma\ShortcodeRegistry::buildBoatsArchiveContext(
+                $atts,
+                $uiQuery,
+                $readSimpleParam('archive_scope', '')
+            );
 
             if (empty($archiveContext)) {
                 return new \WP_REST_Response(

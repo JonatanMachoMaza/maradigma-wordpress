@@ -3732,3 +3732,35 @@ msgstr "El horario seleccionado ya no está disponible. Hemos actualizado los ho
 
 msgid "Use {{destination}} and {{boat_type}} for dynamic URLs. Example: \"es:{{destination}}/alquiler-{{boat_type}},en:{{destination}}/boat-rental-{{boat_type}}\"."
 msgstr "Usa {{destination}} y {{boat_type}} para URLs dinámicas. Ejemplo: \"es:{{destination}}/alquiler-{{boat_type}},en:{{destination}}/boat-rental-{{boat_type}}\"."
+
+msgid "Bathrooms"
+msgstr "Baños"
+
+msgid "Brand"
+msgstr "Marca"
+
+msgid "Select brand"
+msgstr "Seleccionar marca"
+
+msgid "Price per day"
+msgstr "Precio por día"
+
+msgid "With skipper"
+msgstr "Con patrón"
+
+msgid "Without skipper"
+msgstr "Sin patrón"
+
+msgid "You will be accompanied by a skipper."
+msgstr "Irás acompañado por un patrón."
+
+msgid "You will be the boat's skipper."
+msgstr "Serás el patrón del barco."
+
+#, php-format
+msgid "Decrease %s"
+msgstr "Disminuir %s"
+
+#, php-format
+msgid "Increase %s"
+msgstr "Aumentar %s"

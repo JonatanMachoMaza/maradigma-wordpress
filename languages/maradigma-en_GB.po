@@ -2911,3 +2911,35 @@ msgstr "The selected schedule is no longer available. We refreshed the available
 
 msgid "Use {{destination}} and {{boat_type}} for dynamic URLs. Example: \"es:{{destination}}/alquiler-{{boat_type}},en:{{destination}}/boat-rental-{{boat_type}}\"."
 msgstr "Use {{destination}} and {{boat_type}} for dynamic URLs. Example: \"es:{{destination}}/alquiler-{{boat_type}},en:{{destination}}/boat-rental-{{boat_type}}\"."
+
+msgid "Bathrooms"
+msgstr "Bathrooms"
+
+msgid "Brand"
+msgstr "Brand"
+
+msgid "Select brand"
+msgstr "Select brand"
+
+msgid "Price per day"
+msgstr "Price per day"
+
+msgid "With skipper"
+msgstr "With skipper"
+
+msgid "Without skipper"
+msgstr "Without skipper"
+
+msgid "You will be accompanied by a skipper."
+msgstr "You will be accompanied by a skipper."
+
+msgid "You will be the boat's skipper."
+msgstr "You will be the boat's skipper."
+
+#, php-format
+msgid "Decrease %s"
+msgstr "Decrease %s"
+
+#, php-format
+msgid "Increase %s"
+msgstr "Increase %s"

@@ -4,7 +4,7 @@ Tags: boat rental, yacht charter, booking, availability, fleet management
 Requires at least: 6.0
 Tested up to: 7.1
 Requires PHP: 8.1
-Stable tag: 0.1.186
+Stable tag: 0.1.187
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -157,6 +157,13 @@ The repository includes `package.json`, `package-lock.json`, and the Vite config
 
 == Changelog ==
 
+= 0.1.187 =
+* Added cabins, bathrooms, boat length, and skipper options to the boat listing filters, and turned the minimum-passengers field of the "More filters" drawer into a - / + selector.
+* Kept the attributes fixed in a boat listing shortcode, such as the boat type, applied after filter and pagination refreshes by carrying them in a signed listing scope.
+* Kept internal listing settings out of the browser address bar, pagination links, and the reset link.
+* Translated the "Price per day" label and the VAT texts of the boat prices shortcode, and renamed the builder filter to "Brand".
+* Fixed the Clear button of the price dropdown so it resets the slider.
+
 = 0.1.186 =
 * Confirmed compatibility with WordPress 7.1.
 
@@ -296,6 +303,9 @@ The repository includes `package.json`, `package-lock.json`, and the Vite config
 * Improved readme documentation for the current feature set.
 
 == Upgrade Notice ==
+
+= 0.1.187 =
+Adds cabins, bathrooms, length, and skipper filters, and keeps the boat type and other shortcode attributes applied when filtering a listing.
 
 = 0.1.186 =
 Confirms compatibility with WordPress 7.1.

@@ -2868,3 +2868,35 @@ msgstr "Le créneau sélectionné n’est plus disponible. Les créneaux disponi
 
 msgid "Use {{destination}} and {{boat_type}} for dynamic URLs. Example: \"es:{{destination}}/alquiler-{{boat_type}},en:{{destination}}/boat-rental-{{boat_type}}\"."
 msgstr "Utilisez {{destination}} et {{boat_type}} pour les URL dynamiques. Exemple : \"es:{{destination}}/alquiler-{{boat_type}},en:{{destination}}/boat-rental-{{boat_type}}\"."
+
+msgid "Bathrooms"
+msgstr "Salles de bain"
+
+msgid "Brand"
+msgstr "Marque"
+
+msgid "Select brand"
+msgstr "Sélectionner une marque"
+
+msgid "Price per day"
+msgstr "Prix par jour"
+
+msgid "With skipper"
+msgstr "Avec skipper"
+
+msgid "Without skipper"
+msgstr "Sans skipper"
+
+msgid "You will be accompanied by a skipper."
+msgstr "Vous serez accompagné d'un skipper."
+
+msgid "You will be the boat's skipper."
+msgstr "Vous serez le skipper du bateau."
+
+#, php-format
+msgid "Decrease %s"
+msgstr "Diminuer %s"
+
+#, php-format
+msgid "Increase %s"
+msgstr "Augmenter %s"

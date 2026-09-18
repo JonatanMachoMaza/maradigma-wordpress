@@ -108,6 +108,12 @@ These attributes control **frontend UI** (filters form) and do not necessarily c
 - `ids_gi`
 - `date_start`
 - `date_end`
+- `boat_cabins` *(minimum cabins, `- / +` selector; `0` means no filter → `md_boat_cabins`)*
+- `boat_bathrooms` *(minimum bathrooms, `- / +` selector; `0` means no filter → `md_boat_bathrooms`)*
+- `boat_length` *(double-handle length slider in meters; the range comes from the shortest and longest boat of the listing → `md_min_boat_length` and `md_max_boat_length`, sent only when the slider is not on its full range)*
+- `boat_skipper_option` *(“With skipper” / “Without skipper” checkboxes → `md_boat_skipper_option`. “With skipper” sends `0,2`, “Without skipper” sends `1,2`; boats with an optional skipper match both choices. Ticking both or none sends no filter.)*
+
+`boat_capacity` is also rendered as a `- / +` selector inside the offcanvas (`0` means no filter).
 
 > Any field not in the allowlist is ignored.
 

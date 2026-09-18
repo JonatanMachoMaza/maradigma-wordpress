@@ -1135,7 +1135,7 @@ final class AssetsManager
                     'inputTooShort'     => __('Type at least 2 characters', 'maradigma'),
                     'boatTypes'         => __('Select boat type', 'maradigma'),
                     'tags'              => __('Select tags', 'maradigma'),
-                    'builders'          => __('Select builders', 'maradigma'),
+                    'builders'          => $isEditorContext ? __('Select builders', 'maradigma') : __('Select brand', 'maradigma'),
                     'boats'             => __('Search a boat', 'maradigma'),
                     'basePorts'         => __('Select base port', 'maradigma'),
                 ],

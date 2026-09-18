@@ -233,6 +233,10 @@ final class BoatsArchiveWidget extends Widget_Base
             'ids_gi'        => \esc_html__('Specific boats', 'maradigma'),
             'date_start'    => \esc_html__('Availability dates', 'maradigma'),
             'date_end'      => \esc_html__('Date end (separate mode only)', 'maradigma'),
+            'boat_cabins'         => \esc_html__('Cabins', 'maradigma'),
+            'boat_bathrooms'      => \esc_html__('Bathrooms', 'maradigma'),
+            'boat_length'         => \esc_html__('Length', 'maradigma'),
+            'boat_skipper_option' => \esc_html__('Skipper', 'maradigma'),
         ];
 
         $repeater = new Repeater();
@@ -269,6 +273,10 @@ final class BoatsArchiveWidget extends Widget_Base
     '  ids_gi: \'Specific boats\',',
     '  date_start: \'Availability dates\',',
     '  date_end: \'Date end (separate mode only)\',',
+    '  boat_cabins: \'Cabins\',',
+    '  boat_bathrooms: \'Bathrooms\',',
+    '  boat_length: \'Length\',',
+    '  boat_skipper_option: \'Skipper\',',
     '};',
     'var key = field || \'\';',
     'var label = labels[key] ? labels[key] : key;',

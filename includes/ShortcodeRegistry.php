@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace Maradigma;
 
+use Maradigma\Support\ArchiveFilterControls;
+use Maradigma\Support\ArchiveScope;
 use Maradigma\Support\BoatBookingAvailability;
 use Maradigma\Support\Sanitizer;
 use Maradigma\Support\Utils;
@@ -13,6 +15,33 @@ use Maradigma\Support\Utils;
  */
 final class ShortcodeRegistry
 {
+    /**
+     * Archive configuration that travels with the AJAX requests but must never appear in public URLs.
+     *
+     * @var list<string>
+     */
+    private const ARCHIVE_INTERNAL_URL_ARGS = [
+        'archive_base_url',
+        'archive_scope',
+        'md_lang',
+        'id_group',
+        'limit_services',
+        'offset_services',
+        'card',
+        'image_token',
+        'date_picker_mode',
+        'builders_options',
+        'filters_ui_fields',
+        'filters_ui_fields_left',
+        'filters_ui_fields_right',
+        'filters_ui_fields_offcanvas',
+        'filters_ui_layout',
+        'filters_ui_submit_mode',
+        'filters_ui_show_reset',
+        'show_more_filters_button',
+        'more_filters_button_text',
+        'more_filters_offcanvas_title',
+    ];
 
     /**
      * Canonical documentation for search params accepted by Maradigma Boats search.
@@ -990,6 +1019,11 @@ final class ShortcodeRegistry
             $priceBounds['max'] = ($dMax > $dMin) ? $dMax : ($dMin + 1000);
         }
 
+        $lengthBounds = ArchiveFilterControls::normalizeLengthBounds(
+            $defaults['_length_bounds_min'] ?? null,
+            $defaults['_length_bounds_max'] ?? null
+        );
+
         \ob_start();
 
         $renderField = function (string $fieldKey, string $context = 'bar') use (
@@ -997,6 +1031,7 @@ final class ShortcodeRegistry
             $dateMode,
             $csvToArray,
             $priceBounds,
+            $lengthBounds,
             $defaults,
             $uiQuery
         ) {
@@ -1022,16 +1057,15 @@ final class ShortcodeRegistry
 
                     if ($context === 'drawer') :
                     ?>
-                        <div class="md-field maradigma-filter">
-                            <label class="md-label"><?php \esc_html_e('Min pax', 'maradigma'); ?></label>
-                            <input
-                                class="md-input"
-                                type="number"
-                                min="1"
-                                step="1"
-                                name="md_boat_capacity"
-                                value="<?php echo \esc_attr($currentBoatCapacity); ?>"
-                                placeholder="<?php echo \esc_attr__('e.g. 8', 'maradigma'); ?>" />
+                        <div class="md-field maradigma-filter md-field--stepper">
+                            <?php
+                            ArchiveFilterControls::renderStepper(
+                                'md_boat_capacity',
+                                \__('Min pax', 'maradigma'),
+                                $currentBoatCapacity,
+                                ArchiveFilterControls::stepperMax('boat_capacity')
+                            );
+                            ?>
                         </div>
                     <?php
                     else :
@@ -1063,6 +1097,73 @@ final class ShortcodeRegistry
                             </div>
                         </div>
                     <?php
+                    endif;
+                    break;
+
+                case 'boat_cabins':
+                case 'boat_bathrooms':
+                    $stepperLabel = ($fieldKey === 'boat_cabins')
+                        ? \__('Cabins', 'maradigma')
+                        : \__('Bathrooms', 'maradigma');
+                    $stepperMax = ArchiveFilterControls::stepperMax($fieldKey);
+                    $stepperValue = $value($fieldKey);
+
+                    if ($context === 'drawer') :
+                    ?>
+                        <div class="md-field maradigma-filter md-field--stepper">
+                            <?php ArchiveFilterControls::renderStepper('md_' . $fieldKey, $stepperLabel, $stepperValue, $stepperMax); ?>
+                        </div>
+                    <?php
+                    else :
+                        ArchiveFilterControls::renderDropdown(
+                            $stepperLabel,
+                            $stepperLabel,
+                            static function () use ($fieldKey, $stepperLabel, $stepperValue, $stepperMax): void {
+                                ArchiveFilterControls::renderStepper('md_' . $fieldKey, $stepperLabel, $stepperValue, $stepperMax, false);
+                            }
+                        );
+                    endif;
+                    break;
+
+                case 'boat_length':
+                    $lengthMinRaw = $value('min_boat_length');
+                    $lengthMaxRaw = $value('max_boat_length');
+
+                    if ($context === 'drawer') :
+                    ?>
+                        <div class="md-field maradigma-filter md-field--length-range">
+                            <label class="md-label"><?php \esc_html_e('Length', 'maradigma'); ?></label>
+                            <?php ArchiveFilterControls::renderLengthRange($lengthBounds['min'], $lengthBounds['max'], $lengthMinRaw, $lengthMaxRaw); ?>
+                        </div>
+                    <?php
+                    else :
+                        ArchiveFilterControls::renderDropdown(
+                            \__('Length', 'maradigma'),
+                            \__('Length', 'maradigma'),
+                            static function () use ($lengthBounds, $lengthMinRaw, $lengthMaxRaw): void {
+                                ArchiveFilterControls::renderLengthRange($lengthBounds['min'], $lengthBounds['max'], $lengthMinRaw, $lengthMaxRaw);
+                            }
+                        );
+                    endif;
+                    break;
+
+                case 'boat_skipper_option':
+                    $skipperCurrent = $value('boat_skipper_option');
+
+                    if ($context === 'drawer') :
+                    ?>
+                        <div class="md-field maradigma-filter md-field--skipper">
+                            <?php ArchiveFilterControls::renderSkipperChoices($skipperCurrent); ?>
+                        </div>
+                    <?php
+                    else :
+                        ArchiveFilterControls::renderDropdown(
+                            \__('Skipper', 'maradigma'),
+                            \__('Skipper', 'maradigma'),
+                            static function () use ($skipperCurrent): void {
+                                ArchiveFilterControls::renderSkipperChoices($skipperCurrent, false);
+                            }
+                        );
                     endif;
                     break;
 
@@ -1252,14 +1353,14 @@ final class ShortcodeRegistry
                     $selectedBuilderFound = false;
                     ?>
                     <div class="md-field maradigma-filter">
-                        <label class="md-label"><?php \esc_html_e('Builder', 'maradigma'); ?></label>
+                        <label class="md-label"><?php \esc_html_e('Brand', 'maradigma'); ?></label>
 
                         <select
                             class="md-select"
                             name="md_builders"
                             data-md-select2="1"
                             <?php if ($useSearchResultBuilders): ?>data-md-select-ui="tom"<?php endif; ?>
-                            data-placeholder="Builder"
+                            data-placeholder="<?php echo \esc_attr__('Brand', 'maradigma'); ?>"
                             <?php if (!$useSearchResultBuilders): ?>data-maradigma-source="builders"<?php endif; ?>
                             data-multiple="0">
                             <option value=""><?php if (!$useSearchResultBuilders) { \esc_html_e('Any', 'maradigma'); } ?></option>
@@ -1286,7 +1387,7 @@ final class ShortcodeRegistry
                             <?php endif; ?>
                             <?php if ($selectedBuilder !== '' && (!$useSearchResultBuilders || !$selectedBuilderFound)): ?>
                                 <option value="<?php echo \esc_attr($selectedBuilder); ?>" selected>
-                                    <?php echo \esc_html($selectedBuilderLabel !== '' ? $selectedBuilderLabel : ('Builder #' . $selectedBuilder)); ?>
+                                    <?php echo \esc_html($selectedBuilderLabel !== '' ? $selectedBuilderLabel : (\__('Brand', 'maradigma') . ' #' . $selectedBuilder)); ?>
                                 </option>
                             <?php endif; ?>
                         </select>
@@ -1454,7 +1555,7 @@ final class ShortcodeRegistry
                     continue;
                 }
 
-                if (\str_starts_with($k, 'md_')) {
+                if (\str_starts_with($k, 'md_') || \in_array($k, self::ARCHIVE_INTERNAL_URL_ARGS, true)) {
                     continue;
                 }
 
@@ -1482,31 +1583,14 @@ final class ShortcodeRegistry
 
                     <?php if ($showReset): ?>
                         <?php
-                        $resetKeys = ['md_page', 'md_date_range'];
+                        $resetKeys = \array_merge(['md_page', 'md_date_range'], self::ARCHIVE_INTERNAL_URL_ARGS);
 
-                        foreach ($fields as $f) {
-                            $f = (string) $f;
-
-                            if ($f === 'price_range') {
-                                $resetKeys[] = 'md_min_price';
-                                $resetKeys[] = 'md_max_price';
-                                continue;
+                        foreach (\array_merge($fields, $drawerFields, $rightFields) as $f) {
+                            foreach (ArchiveFilterControls::queryParamsForField((string) $f) as $resetKey) {
+                                $resetKeys[] = $resetKey;
                             }
-
-                            $resetKeys[] = 'md_' . $f;
                         }
 
-                        foreach (\array_merge($drawerFields, $rightFields) as $f) {
-                            $f = (string) $f;
-
-                            if ($f === 'price_range') {
-                                $resetKeys[] = 'md_min_price';
-                                $resetKeys[] = 'md_max_price';
-                                continue;
-                            }
-
-                            $resetKeys[] = 'md_' . $f;
-                        }
                         $resetUrl = \remove_query_arg($resetKeys);
                         ?>
                         <a class="md-btn md-btn--ghost" href="<?php echo \esc_url($resetUrl); ?>">
@@ -1768,10 +1852,12 @@ final class ShortcodeRegistry
      *
      * @param array<string,mixed>        $atts
      * @param array<string,string>|null  $uiQuery
+     * @param string                     $scopeToken Signed scope of the shortcode (see {@see ArchiveScope}); AJAX refreshes
+     *                                               send it back so the attributes fixed by the author keep applying.
      *
      * @return array<string,mixed>
      */
-    public static function buildBoatsArchiveContext(array $atts = [], ?array $uiQuery = null): array
+    public static function buildBoatsArchiveContext(array $atts = [], ?array $uiQuery = null, string $scopeToken = ''): array
     {
         if (!\function_exists('shortcode_atts')) {
             return [];
@@ -1832,6 +1918,20 @@ final class ShortcodeRegistry
             'maradigma_boats'
         );
 
+        // Shortcode attributes before any visitor override (URL or AJAX); they define the catalog scope.
+        $baseAtts = $atts;
+
+        // Attributes fixed by the shortcode author. Visitor values win over them; an empty one keeps them.
+        $scopeKeys     = self::archiveScopeKeys();
+        $scopeSecret   = \wp_salt('auth');
+        $providedScope = ArchiveScope::decode($scopeToken, $scopeSecret, $scopeKeys);
+
+        foreach ($providedScope as $scopeKey => $scopeValue) {
+            if (\trim((string) ($atts[$scopeKey] ?? '')) === '') {
+                $atts[$scopeKey] = $scopeValue;
+            }
+        }
+
         $dateMode = ((string) ($atts['date_picker_mode'] ?? 'range') === 'separate') ? 'separate' : 'range';
         $buildersOptions = self::normalizeBuildersOptionsMode((string) ($atts['builders_options'] ?? 'api'));
         $atts['builders_options'] = $buildersOptions;
@@ -1889,7 +1989,17 @@ final class ShortcodeRegistry
             'date_start',
             'date_end',
             'tags',
+            'boat_cabins',
+            'boat_bathrooms',
+            'boat_length',
+            'boat_skipper_option',
         ];
+
+        // Visitor query params (md_*). boat_length is one slider backed by two params.
+        $queryKeys = \array_merge(
+            \array_values(\array_diff($allowedKeys, ['boat_length'])),
+            ['min_boat_length', 'max_boat_length']
+        );
 
         $uiFields = \array_values(\array_intersect($uiFields, $allowedKeys));
         if (empty($uiFields)) {
@@ -1973,7 +2083,7 @@ final class ShortcodeRegistry
             $get = \map_deep(\wp_unslash($_GET), 'sanitize_text_field');
             // phpcs:enable WordPress.Security.NonceVerification.Recommended
 
-            foreach ($allowedKeys as $key) {
+            foreach ($queryKeys as $key) {
                 $param = 'md_' . $key;
 
                 if (!isset($get[$param])) {
@@ -1993,7 +2103,7 @@ final class ShortcodeRegistry
         }
 
         if (\is_array($uiQuery)) {
-            foreach ($allowedKeys as $key) {
+            foreach ($queryKeys as $key) {
                 $param = 'md_' . $key;
 
                 if (!\array_key_exists($param, $uiQuery)) {
@@ -2001,6 +2111,11 @@ final class ShortcodeRegistry
                 }
 
                 $value = \trim((string) $uiQuery[$param]);
+
+                if ($value === '' && isset($providedScope[$key])) {
+                    continue;
+                }
+
                 $atts[$key] = ($value !== '') ? $value : '';
             }
         }
@@ -2117,6 +2232,14 @@ final class ShortcodeRegistry
 
         $cache  = new Cache($apiClient);
         $result = $cache->getBoatsList($filters);
+
+        $lengthBounds = null;
+        if (
+            $showFilters
+            && \in_array('boat_length', \array_merge($uiFields, $uiLeftFields, $uiRightFields, $uiOffFields), true)
+        ) {
+            $lengthBounds = self::resolveBoatLengthBounds($cache, $baseAtts);
+        }
 
         $boats = [];
         if (\is_array($result['data']['search_result'] ?? null)) {
@@ -2325,6 +2448,13 @@ final class ShortcodeRegistry
             'ui_off_fields'           => $uiOffFields,
             'bounds_min'              => $boundsMin,
             'bounds_max'              => $boundsMax,
+            'length_bounds'           => $lengthBounds,
+            'scope_token'             => ArchiveScope::encode(
+                $providedScope !== []
+                    ? $providedScope
+                    : ArchiveScope::extract($baseAtts, $scopeKeys, self::getBoatsSearchAttributeDefaults()),
+                $scopeSecret
+            ),
             'filters'                 => $filters,
             'builders_options'        => $buildersOptions,
             'available_builder_options' => $availableBuilderOptions,
@@ -2346,6 +2476,73 @@ final class ShortcodeRegistry
             'permalink_by_boat_id'    => $permalinkByBoatId,
             'boat_pages_sync_enabled' => $boatPagesSyncEnabled,
         ];
+    }
+
+    /**
+     * Shortcode attributes that define which boats a listing shows and that the visitor
+     * cannot change; they travel in the signed archive scope. Paging, ordering and card
+     * settings already travel as archive root attributes.
+     *
+     * @return list<string>
+     */
+    private static function archiveScopeKeys(): array
+    {
+        $keys = ['q', 'port', 'people', 'boat_type_id', 'builders', 'image_token'];
+
+        foreach (self::$DOC_SEARCH_BOATS_ATTRS as $definition) {
+            $attribute = \trim((string) ($definition['attr'] ?? ''));
+
+            if ($attribute !== '') {
+                $keys[] = $attribute;
+            }
+        }
+
+        return \array_values(\array_diff(
+            \array_unique($keys),
+            ['limit_services', 'offset_services', 'order_by', 'id_group']
+        ));
+    }
+
+    /**
+     * Whole-meter length range of the catalog scope defined by the shortcode attributes.
+     *
+     * Two single-row searches (shortest and longest boat) keep this cheap on large fleets.
+     * Boats without a length (0) are skipped so they do not pull the lower bound to zero.
+     *
+     * @param array<string,mixed> $baseAtts Shortcode attributes before any visitor override.
+     *
+     * @return array{min:int,max:int}|null
+     */
+    private static function resolveBoatLengthBounds(Cache $cache, array $baseAtts): ?array
+    {
+        $scope = Sanitizer::normalizeBoatsSearchAtts($baseAtts, self::$DOC_SEARCH_BOATS_ATTRS);
+        $scope['limit_services']  = 1;
+        $scope['offset_services'] = 0;
+
+        $lengthOfFirstBoat = static function (array $filters) use ($cache): ?float {
+            $result = $cache->getBoatsList($filters);
+            $row    = $result['data']['search_result'][0] ?? null;
+
+            if (!\is_array($row)) {
+                return null;
+            }
+
+            $length = $row['boat_length'] ?? $row['length'] ?? null;
+
+            return \is_numeric($length) ? (float) $length : null;
+        };
+
+        $shortest = $lengthOfFirstBoat(\array_merge($scope, [
+            'order_by'        => 6,
+            'min_boat_length' => \max(1, (int) ($scope['min_boat_length'] ?? 0)),
+        ]));
+        $longest = $lengthOfFirstBoat(\array_merge($scope, ['order_by' => 5]));
+
+        if ($shortest === null || $longest === null || $longest <= 0) {
+            return null;
+        }
+
+        return ArchiveFilterControls::normalizeLengthBounds($shortest, $longest);
     }
 
     /**
@@ -2588,6 +2785,11 @@ final class ShortcodeRegistry
                 $archiveBaseUrl
             );
 
+            // paginate_links() copies the current request's query args into every link; during an
+            // AJAX refresh those are the archive configuration, which must not leak into public URLs.
+            $stripInternalArgs = static fn (string $link): string => \remove_query_arg(self::ARCHIVE_INTERNAL_URL_ARGS, $link);
+            \add_filter('paginate_links', $stripInternalArgs);
+
             $links = \paginate_links([
                 'base'      => $base,
                 'format'    => '',
@@ -2597,6 +2799,8 @@ final class ShortcodeRegistry
                 'prev_text' => '«',
                 'next_text' => '»',
             ]);
+
+            \remove_filter('paginate_links', $stripInternalArgs);
 
             if (\is_string($links) && $links !== '') {
                 echo '<nav class="maradigma-pagination" aria-label="Boats pagination">' . \wp_kses_post($links) . '</nav>';
@@ -2652,6 +2856,7 @@ final class ShortcodeRegistry
         $boundsMin         = (string) ($archiveContext['bounds_min'] ?? '');
         $boundsMax         = (string) ($archiveContext['bounds_max'] ?? '');
         $uiQuery           = (array) ($archiveContext['ui_query'] ?? null);
+        $scopeToken        = (string) ($archiveContext['scope_token'] ?? '');
 
         $submitMode = $autoSubmitFilters
             ? 'auto'
@@ -2686,6 +2891,9 @@ final class ShortcodeRegistry
             data-md-archive-show-more-filters-button="<?php echo \esc_attr($showMoreBtn ? '1' : '0'); ?>"
             data-md-archive-more-filters-button-text="<?php echo \esc_attr($moreBtnText); ?>"
             data-md-archive-more-filters-offcanvas-title="<?php echo \esc_attr($offcanvasTitle); ?>"
+            <?php if ($scopeToken !== '') : ?>
+            data-md-archive-scope="<?php echo \esc_attr($scopeToken); ?>"
+            <?php endif; ?>
             data-md-ajax-enabled="1">
 
             <?php if ($showFilters) : ?>
@@ -2706,6 +2914,12 @@ final class ShortcodeRegistry
 
                 $uiDefaults['_price_bounds_min'] = $boundsMin;
                 $uiDefaults['_price_bounds_max'] = $boundsMax;
+
+                $lengthBounds = $archiveContext['length_bounds'] ?? null;
+                if (\is_array($lengthBounds)) {
+                    $uiDefaults['_length_bounds_min'] = $lengthBounds['min'];
+                    $uiDefaults['_length_bounds_max'] = $lengthBounds['max'];
+                }
 
                 $filtersHtml = self::renderBoatsFiltersUi(
                     $uiFields,
@@ -4406,6 +4620,28 @@ final class ShortcodeRegistry
             );
         }
 
+        $vatTextIncluded = trim((string) $atts['vat_text_included']);
+        if ($vatTextIncluded !== '') {
+            $vatTextIncluded = \Maradigma\Support\MultilangAdapter::translateEditableDefault(
+                $vatTextIncluded,
+                'VAT included',
+                (string) __('VAT included', 'maradigma'),
+                'Maradigma Elementor Widgets',
+                'boat_prices_shortcode_vat_text_included'
+            );
+        }
+
+        $vatTextExcluded = trim((string) $atts['vat_text_excluded']);
+        if ($vatTextExcluded !== '') {
+            $vatTextExcluded = \Maradigma\Support\MultilangAdapter::translateEditableDefault(
+                $vatTextExcluded,
+                '+ VAT',
+                (string) __('+ VAT', 'maradigma'),
+                'Maradigma Elementor Widgets',
+                'boat_prices_shortcode_vat_text_excluded'
+            );
+        }
+
         return \Maradigma\Support\BoatPricesRenderer::render(
             $boat,
             [
@@ -4420,8 +4656,8 @@ final class ShortcodeRegistry
                 'vat_mode'          => $atts['vat_mode'],
                 'vat_use_backend'   => $atts['vat_use_backend'],
                 'vat_position'      => $atts['vat_position'],
-                'vat_text_included' => $atts['vat_text_included'],
-                'vat_text_excluded' => $atts['vat_text_excluded'],
+                'vat_text_included' => $vatTextIncluded,
+                'vat_text_excluded' => $vatTextExcluded,
                 'currency_display'  => $atts['currency_display'],
                 'decimals_mode'     => $atts['decimals_mode'],
                 'thousands_sep'     => $atts['thousands_sep'],

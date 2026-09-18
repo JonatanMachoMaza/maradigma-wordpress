@@ -506,7 +506,11 @@
         { key: 'builders', label: __('Builders', 'maradigma') },
         { key: 'ids_gi', label: __('Specific boats', 'maradigma') },
         { key: 'date_start', label: __('Availability dates', 'maradigma') },
-        { key: 'date_end', label: __('Date end (separate mode only)', 'maradigma') }
+        { key: 'date_end', label: __('Date end (separate mode only)', 'maradigma') },
+        { key: 'boat_cabins', label: __('Cabins', 'maradigma') },
+        { key: 'boat_bathrooms', label: __('Bathrooms', 'maradigma') },
+        { key: 'boat_length', label: __('Length', 'maradigma') },
+        { key: 'boat_skipper_option', label: __('Skipper', 'maradigma') }
     ];
 
     function renderArchiveFieldsOrderControl(control, props) {

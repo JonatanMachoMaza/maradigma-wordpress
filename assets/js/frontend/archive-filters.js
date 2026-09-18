@@ -1,5 +1,11 @@
 /* global jQuery */
 import TomSelect from 'tom-select/dist/js/tom-select.complete.js';
+import {
+  buildBrowserUrl,
+  buildSkipperOptionValue,
+  isArchiveUiConfigParam,
+  stepStepperValue
+} from './archive-filters-helpers.mjs';
 
 (function ($) {
   'use strict';
@@ -197,32 +203,93 @@ import TomSelect from 'tom-select/dist/js/tom-select.complete.js';
     return isEffectivelyEmptyValue($fieldElement.val());
   }
 
-  function sanitizePriceRangeFieldsForSubmit($formElement) {
+  // Double-handle sliders. The hidden inputs are dropped from the request while the
+  // slider sits on its full range, because a full range means "no filter".
+  var RANGE_SLIDER_TYPES = [
+    {
+      selector: '[data-md-price-range]',
+      readyKey: 'mdSlider',
+      minName: 'md_min_price',
+      maxName: 'md_max_price',
+      fallbackMax: 5000,
+      fallbackStep: 10,
+      formatValue: function (value) {
+        return value + ' €';
+      }
+    },
+    {
+      selector: '[data-md-length-range]',
+      readyKey: 'mdLengthSlider',
+      minName: 'md_min_boat_length',
+      maxName: 'md_max_boat_length',
+      fallbackMax: 50,
+      fallbackStep: 1,
+      formatValue: function (value) {
+        return value + ' m';
+      }
+    }
+  ];
+
+  function findRangeInput($rangeWrapper, inputName) {
+    return $rangeWrapper.find('input[name="' + inputName + '"], input[data-md-original-name="' + inputName + '"]').first();
+  }
+
+  function sanitizeRangeFieldsForSubmit($formElement) {
     if (!$formElement || !$formElement.length) {
       return;
     }
 
-    $formElement.find('[data-md-price-range]').each(function () {
-      var $rangeWrapper = $(this);
-      var rangeMin = toInt($rangeWrapper.attr('data-range-min'), 0);
-      var rangeMax = toInt($rangeWrapper.attr('data-range-max'), 5000);
+    RANGE_SLIDER_TYPES.forEach(function (sliderType) {
+      $formElement.find(sliderType.selector).each(function () {
+        var $rangeWrapper = $(this);
+        var rangeMin = toInt($rangeWrapper.attr('data-range-min'), 0);
+        var rangeMax = toInt($rangeWrapper.attr('data-range-max'), sliderType.fallbackMax);
 
-      var $minInput = $rangeWrapper.find('input[name="md_min_price"], input[data-md-original-name="md_min_price"]').first();
-      var $maxInput = $rangeWrapper.find('input[name="md_max_price"], input[data-md-original-name="md_max_price"]').first();
+        var $minInput = findRangeInput($rangeWrapper, sliderType.minName);
+        var $maxInput = findRangeInput($rangeWrapper, sliderType.maxName);
 
-      if (!$minInput.length || !$maxInput.length) {
-        return;
-      }
+        if (!$minInput.length || !$maxInput.length) {
+          return;
+        }
 
-      var currentMin = toInt($minInput.val(), rangeMin);
-      var currentMax = toInt($maxInput.val(), rangeMax);
+        var currentMin = toInt($minInput.val(), rangeMin);
+        var currentMax = toInt($maxInput.val(), rangeMax);
 
-      var isDefaultFullRange = (currentMin === rangeMin && currentMax === rangeMax);
+        var isDefaultFullRange = (currentMin === rangeMin && currentMax === rangeMax);
 
-      if (isDefaultFullRange) {
-        markFieldNameForTemporaryRemoval($minInput);
-        markFieldNameForTemporaryRemoval($maxInput);
-      }
+        if (isDefaultFullRange) {
+          markFieldNameForTemporaryRemoval($minInput);
+          markFieldNameForTemporaryRemoval($maxInput);
+        }
+      });
+    });
+  }
+
+  // ------------------------------------------------------------
+  // SKIPPER CHOICES ("with / without skipper" -> boat_skipper_option)
+  // ------------------------------------------------------------
+
+  function syncSkipperInput($skipperElement) {
+    var withChecked = $skipperElement.find('[data-md-skipper-choice="with"]').prop('checked') === true;
+    var withoutChecked = $skipperElement.find('[data-md-skipper-choice="without"]').prop('checked') === true;
+
+    $skipperElement.find('[data-md-skipper-input="1"]').val(
+      buildSkipperOptionValue(
+        withChecked,
+        withoutChecked,
+        $skipperElement.attr('data-codes-with'),
+        $skipperElement.attr('data-codes-without')
+      )
+    );
+  }
+
+  function syncSkipperInputs($scope) {
+    if (!$scope || !$scope.length) {
+      return;
+    }
+
+    $scope.find('[data-md-skipper="1"]').each(function () {
+      syncSkipperInput($(this));
     });
   }
 
@@ -246,7 +313,8 @@ import TomSelect from 'tom-select/dist/js/tom-select.complete.js';
     }
 
     restoreTemporarilyRemovedNames($formElement);
-    sanitizePriceRangeFieldsForSubmit($formElement);
+    syncSkipperInputs($formElement);
+    sanitizeRangeFieldsForSubmit($formElement);
     sanitizeEmptyFieldsForSubmit($formElement);
   }
 
@@ -656,6 +724,7 @@ function ensureSkeletonStylesInjected() {
     }
 
     return (
+      isArchiveUiConfigParam(paramName) ||
       paramName === 'id_group' ||
       paramName === 'limit_services' ||
       paramName === 'offset_services' ||
@@ -663,63 +732,22 @@ function ensureSkeletonStylesInjected() {
       paramName === 'image_token' ||
       paramName === 'date_picker_mode' ||
       paramName === 'builders_options' ||
-      paramName === 'filters_ui_fields' ||
-      paramName === 'filters_ui_fields_left' ||
-      paramName === 'filters_ui_fields_right' ||
-      paramName === 'filters_ui_fields_offcanvas' ||
-      paramName === 'filters_ui_layout' ||
-      paramName === 'filters_ui_submit_mode' ||
-      paramName === 'filters_ui_show_reset' ||
-      paramName === 'show_more_filters_button' ||
-      paramName === 'more_filters_button_text' ||
-      paramName === 'more_filters_offcanvas_title' ||
-      paramName === 'archive_base_url'
+      paramName === 'archive_base_url' ||
+      paramName === 'archive_scope'
     );
   }
 
+  // The signed scope of the shortcode (attributes fixed by the author) always comes from the archive root.
+  function readArchiveScope($archiveRoot) {
+    if (!$archiveRoot || !$archiveRoot.length) {
+      return '';
+    }
+
+    return String($archiveRoot.attr('data-md-archive-scope') || '').trim();
+  }
+
   function updateBrowserUrlFromFormData(serializedData) {
-    var urlObject = new URL(window.location.href);
-
-    Array.from(urlObject.searchParams.keys()).forEach(function (key) {
-      if (String(key || '').indexOf('md_') === 0) {
-        urlObject.searchParams.delete(key);
-      }
-    });
-
-    Object.keys(serializedData || {}).forEach(function (key) {
-      var value = serializedData[key];
-
-      if (key === 'archive_base_url' || key === 'md_lang') {
-        return;
-      }
-
-      if (
-        key === 'id_group' ||
-        key === 'limit_services' ||
-        key === 'offset_services' ||
-        key === 'card' ||
-        key === 'image_token' ||
-        key === 'date_picker_mode' ||
-        key === 'builders_options'
-      ) {
-        return;
-      }
-
-      if (Array.isArray(value)) {
-        value.forEach(function (itemValue) {
-          if (String(itemValue || '').trim() !== '') {
-            urlObject.searchParams.append(key, String(itemValue));
-          }
-        });
-        return;
-      }
-
-      if (String(value || '').trim() !== '') {
-        urlObject.searchParams.set(key, String(value));
-      }
-    });
-
-    window.history.replaceState({}, '', urlObject.toString());
+    window.history.replaceState({}, '', buildBrowserUrl(window.location.href, serializedData));
   }
 
   function normalizeArchiveResponse(rawResponse) {
@@ -867,6 +895,11 @@ function ensureSkeletonStylesInjected() {
 
       if (moreFiltersOffcanvasTitleValue !== '') {
         serializedData.more_filters_offcanvas_title = moreFiltersOffcanvasTitleValue;
+      }
+
+      var scopeValue = readArchiveScope($archiveRoot);
+      if (scopeValue !== '') {
+        serializedData.archive_scope = scopeValue;
       }
     }
 
@@ -1089,8 +1122,9 @@ function ensureSkeletonStylesInjected() {
       return serializedData;
     }
 
+    // The archive UI configuration and scope always come from the archive root, never from the URL.
     function assignParamValue(key, value) {
-      if (!isArchiveAjaxParamAllowed(key)) {
+      if (!isArchiveAjaxParamAllowed(key) || isArchiveUiConfigParam(key) || key === 'archive_scope') {
         return;
       }
 
@@ -1111,7 +1145,7 @@ function ensureSkeletonStylesInjected() {
     });
 
     targetUrl.searchParams.forEach(function (value, key) {
-      if (!isArchiveAjaxParamAllowed(key)) {
+      if (!isArchiveAjaxParamAllowed(key) || isArchiveUiConfigParam(key) || key === 'archive_scope') {
         return;
       }
 
@@ -1217,6 +1251,11 @@ function ensureSkeletonStylesInjected() {
 
       if (moreFiltersOffcanvasTitleValue !== '' && !Object.prototype.hasOwnProperty.call(serializedData, 'more_filters_offcanvas_title')) {
         serializedData.more_filters_offcanvas_title = moreFiltersOffcanvasTitleValue;
+      }
+
+      var scopeValue = readArchiveScope($archiveRoot);
+      if (scopeValue !== '') {
+        serializedData.archive_scope = scopeValue;
       }
     }
 
@@ -2118,96 +2157,154 @@ function ensureSkeletonStylesInjected() {
   }
 
   // ------------------------------------------------------------
-  // PRICE SLIDER
+  // RANGE SLIDERS (price, length)
   // ------------------------------------------------------------
 
-  function initPriceRangeSliders(contextRoot) {
+  function initRangeSliders(contextRoot) {
     if (!window.noUiSlider || typeof window.noUiSlider.create !== 'function') return;
 
-    $(contextRoot).find('[data-md-price-range]').each(function () {
-      var $rangeWrapper = $(this);
+    RANGE_SLIDER_TYPES.forEach(function (sliderType) {
+      $(contextRoot).find(sliderType.selector).each(function () {
+        var $rangeWrapper = $(this);
 
-      if ($rangeWrapper.data('mdSlider')) {
-        return;
-      }
-
-      $rangeWrapper.data('mdSlider', 1);
-
-      var $sliderElement = $rangeWrapper.find('.maradigma-price-range__slider');
-      var $minOutput = $rangeWrapper.find('.maradigma-price-range__min');
-      var $maxOutput = $rangeWrapper.find('.maradigma-price-range__max');
-      var $minInput = $rangeWrapper.find('input[name="md_min_price"], input[data-md-original-name="md_min_price"]').first();
-      var $maxInput = $rangeWrapper.find('input[name="md_max_price"], input[data-md-original-name="md_max_price"]').first();
-
-      var minimumValue = toInt($rangeWrapper.data('rangeMin'), 0);
-      var maximumValue = toInt($rangeWrapper.data('rangeMax'), 5000);
-      var stepValue = toInt($rangeWrapper.data('step'), 10);
-      var currentMinValue = toInt($rangeWrapper.data('valueMin'), minimumValue);
-      var currentMaxValue = toInt($rangeWrapper.data('valueMax'), maximumValue);
-
-      if (currentMinValue < minimumValue) currentMinValue = minimumValue;
-      if (currentMaxValue > maximumValue) currentMaxValue = maximumValue;
-      if (currentMinValue > currentMaxValue) currentMinValue = currentMaxValue;
-
-      function renderValues(minRenderedValue, maxRenderedValue) {
-        $minOutput.text(minRenderedValue + ' €');
-        $maxOutput.text(maxRenderedValue + ' €');
-        $minInput.val(minRenderedValue);
-        $maxInput.val(maxRenderedValue);
-      }
-
-      renderValues(currentMinValue, currentMaxValue);
-
-      try {
-        if ($sliderElement[0] && $sliderElement[0].noUiSlider) {
-          $sliderElement[0].noUiSlider.destroy();
+        if ($rangeWrapper.data(sliderType.readyKey)) {
+          return;
         }
-      } catch (destroySliderError) {}
 
-      try {
-        window.noUiSlider.create($sliderElement[0], {
-          start: [currentMinValue, currentMaxValue],
-          connect: true,
-          range: {
-            min: minimumValue,
-            max: maximumValue
-          },
-          step: stepValue,
-          format: {
-            to: function (valueToFormat) {
-              return Math.round(valueToFormat);
+        $rangeWrapper.data(sliderType.readyKey, 1);
+
+        var $sliderElement = $rangeWrapper.find('.maradigma-price-range__slider');
+        var $minOutput = $rangeWrapper.find('.maradigma-price-range__min');
+        var $maxOutput = $rangeWrapper.find('.maradigma-price-range__max');
+        var $minInput = findRangeInput($rangeWrapper, sliderType.minName);
+        var $maxInput = findRangeInput($rangeWrapper, sliderType.maxName);
+
+        var minimumValue = toInt($rangeWrapper.data('rangeMin'), 0);
+        var maximumValue = toInt($rangeWrapper.data('rangeMax'), sliderType.fallbackMax);
+        var stepValue = toInt($rangeWrapper.data('step'), sliderType.fallbackStep);
+        var currentMinValue = toInt($rangeWrapper.data('valueMin'), minimumValue);
+        var currentMaxValue = toInt($rangeWrapper.data('valueMax'), maximumValue);
+
+        if (currentMinValue < minimumValue) currentMinValue = minimumValue;
+        if (currentMaxValue > maximumValue) currentMaxValue = maximumValue;
+        if (currentMinValue > currentMaxValue) currentMinValue = currentMaxValue;
+
+        function renderValues(minRenderedValue, maxRenderedValue) {
+          $minOutput.text(sliderType.formatValue(minRenderedValue));
+          $maxOutput.text(sliderType.formatValue(maxRenderedValue));
+          $minInput.val(minRenderedValue);
+          $maxInput.val(maxRenderedValue);
+        }
+
+        renderValues(currentMinValue, currentMaxValue);
+
+        try {
+          if ($sliderElement[0] && $sliderElement[0].noUiSlider) {
+            $sliderElement[0].noUiSlider.destroy();
+          }
+        } catch (destroySliderError) {}
+
+        try {
+          window.noUiSlider.create($sliderElement[0], {
+            start: [currentMinValue, currentMaxValue],
+            connect: true,
+            range: {
+              min: minimumValue,
+              max: maximumValue
             },
-            from: function (valueToParse) {
-              return parseInt(valueToParse, 10);
+            step: stepValue,
+            format: {
+              to: function (valueToFormat) {
+                return Math.round(valueToFormat);
+              },
+              from: function (valueToParse) {
+                return parseInt(valueToParse, 10);
+              }
             }
-          }
-        });
+          });
 
-        $sliderElement[0].noUiSlider.on('update', function (valuesArray) {
-          var minUpdatedValue = parseInt(valuesArray[0], 10);
-          var maxUpdatedValue = parseInt(valuesArray[1], 10);
+          $sliderElement[0].noUiSlider.on('update', function (valuesArray) {
+            var minUpdatedValue = parseInt(valuesArray[0], 10);
+            var maxUpdatedValue = parseInt(valuesArray[1], 10);
 
-          if (!isFinite(minUpdatedValue)) minUpdatedValue = currentMinValue;
-          if (!isFinite(maxUpdatedValue)) maxUpdatedValue = currentMaxValue;
+            if (!isFinite(minUpdatedValue)) minUpdatedValue = currentMinValue;
+            if (!isFinite(maxUpdatedValue)) maxUpdatedValue = currentMaxValue;
 
-          renderValues(minUpdatedValue, maxUpdatedValue);
-        });
+            renderValues(minUpdatedValue, maxUpdatedValue);
+          });
 
-        $sliderElement[0].noUiSlider.on('set', function () {
-          var $formElement = $rangeWrapper.closest('form');
-          if ($formElement.length && $formElement.is('[data-autosubmit="1"]')) {
-            var maybePromise = submitFiltersForm($formElement, {
-              resetPage: true,
-              scrollToResults: false
-            });
+          $sliderElement[0].noUiSlider.on('set', function () {
+            var $formElement = $rangeWrapper.closest('form');
+            if ($formElement.length && $formElement.is('[data-autosubmit="1"]')) {
+              var maybePromise = submitFiltersForm($formElement, {
+                resetPage: true,
+                scrollToResults: false
+              });
 
-            if (isPromiseLike(maybePromise)) {
-              maybePromise.catch(function () {});
+              if (isPromiseLike(maybePromise)) {
+                maybePromise.catch(function () {});
+              }
             }
-          }
-        });
-      } catch (sliderInitializationError) {}
+          });
+        } catch (sliderInitializationError) {}
+      });
     });
+  }
+
+  function resetRangeSliders($scope) {
+    RANGE_SLIDER_TYPES.forEach(function (sliderType) {
+      $scope.find(sliderType.selector).each(function () {
+        var $rangeWrapper = $(this);
+        var sliderElement = $rangeWrapper.find('.maradigma-price-range__slider')[0];
+
+        if (sliderElement && sliderElement.noUiSlider) {
+          sliderElement.noUiSlider.set([
+            toInt($rangeWrapper.attr('data-range-min'), 0),
+            toInt($rangeWrapper.attr('data-range-max'), sliderType.fallbackMax)
+          ]);
+        }
+      });
+    });
+  }
+
+  // ------------------------------------------------------------
+  // STEPPER FIELDS ("- value +")
+  // ------------------------------------------------------------
+
+  function syncStepperState($stepperElement, stepperValue) {
+    var minValue = toInt($stepperElement.attr('data-min'), 0);
+    var maxValue = toInt($stepperElement.attr('data-max'), stepperValue);
+
+    $stepperElement.find('[data-md-stepper-value="1"]').text(String(stepperValue));
+    $stepperElement.find('[data-md-stepper-input="1"]').val(stepperValue > minValue ? String(stepperValue) : '');
+    $stepperElement.find('[data-md-stepper-dec="1"]').prop('disabled', stepperValue <= minValue);
+    $stepperElement.find('[data-md-stepper-inc="1"]').prop('disabled', stepperValue >= maxValue);
+  }
+
+  function scheduleStepperAutosubmit($fieldElement) {
+    var $formElement = $fieldElement.closest('form.maradigma-boats-filters');
+
+    if (!$formElement.length || !$formElement.is('[data-autosubmit="1"]')) {
+      return;
+    }
+
+    var pendingTimer = $formElement.data('mdStepperSubmitTimer');
+    if (pendingTimer) {
+      clearTimeout(pendingTimer);
+    }
+
+    $formElement.data('mdStepperSubmitTimer', setTimeout(function () {
+      $formElement.removeData('mdStepperSubmitTimer');
+
+      var maybePromise = submitFiltersForm($formElement, {
+        resetPage: true,
+        scrollToResults: false
+      });
+
+      if (isPromiseLike(maybePromise)) {
+        maybePromise.catch(function () {});
+      }
+    }, 350));
   }
 
   // ------------------------------------------------------------
@@ -2332,7 +2429,7 @@ function ensureSkeletonStylesInjected() {
     initSelect2Fields(contextRoot);
     initDatePickers(contextRoot);
     initRangeDatePickers(contextRoot);
-    initPriceRangeSliders(contextRoot);
+    initRangeSliders(contextRoot);
     initArchivePagination(contextRoot);
   }
 
@@ -2419,6 +2516,46 @@ function ensureSkeletonStylesInjected() {
           maybePromise.catch(function () {});
         }
       }
+    });
+
+    $(document).on('click', '[data-md-stepper-dec="1"], [data-md-stepper-inc="1"]', function () {
+      var $button = $(this);
+      var $stepperElement = $button.closest('[data-md-stepper="1"]');
+
+      if (!$stepperElement.length || $button.prop('disabled')) {
+        return;
+      }
+
+      var currentValue = toInt($stepperElement.find('[data-md-stepper-input="1"]').val(), 0);
+      var nextValue = stepStepperValue(
+        currentValue,
+        $button.is('[data-md-stepper-inc="1"]') ? 1 : -1,
+        $stepperElement.attr('data-min'),
+        $stepperElement.attr('data-max')
+      );
+
+      if (nextValue === currentValue) {
+        return;
+      }
+
+      syncStepperState($stepperElement, nextValue);
+      scheduleStepperAutosubmit($stepperElement);
+    });
+
+    $(document).on('change', '[data-md-skipper="1"] [data-md-skipper-choice]', function () {
+      syncSkipperInput($(this).closest('[data-md-skipper="1"]'));
+    });
+
+    // The generic dropdown "Clear" skips hidden inputs and custom widgets, so reset those here.
+    $(document).on('md:dropdown:clear', '[data-md-dd-panel="1"]', function () {
+      var $panelElement = $(this);
+
+      $panelElement.find('[data-md-stepper="1"]').each(function () {
+        syncStepperState($(this), 0);
+      });
+
+      syncSkipperInputs($panelElement);
+      resetRangeSliders($panelElement);
     });
 
     $(document).on('click', '[data-md-drawer-open="1"]', function (eventObject) {
