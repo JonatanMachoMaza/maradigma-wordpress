@@ -4,7 +4,7 @@ Tags: boat rental, yacht charter, booking, availability, fleet management
 Requires at least: 6.0
 Tested up to: 7.1
 Requires PHP: 8.1
-Stable tag: 0.1.187
+Stable tag: 0.1.188
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -157,6 +157,11 @@ The repository includes `package.json`, `package-lock.json`, and the Vite config
 
 == Changelog ==
 
+= 0.1.188 =
+* Rendered the "No boats found" message, the boat cards, and the pagination returned by listing refreshes in the language of the page instead of the site language.
+* Used the translations bundled with the plugin when WordPress does not have the language pack of the page installed.
+* Rendered boat cards in Dutch on Dutch pages.
+
 = 0.1.187 =
 * Added cabins, bathrooms, boat length, and skipper options to the boat listing filters, and turned the minimum-passengers field of the "More filters" drawer into a - / + selector.
 * Kept the attributes fixed in a boat listing shortcode, such as the boat type, applied after filter and pagination refreshes by carrying them in a signed listing scope.
@@ -303,6 +308,9 @@ The repository includes `package.json`, `package-lock.json`, and the Vite config
 * Improved readme documentation for the current feature set.
 
 == Upgrade Notice ==
+
+= 0.1.188 =
+Shows the "No boats found" message and the boat cards in the page language after filtering a listing, even without the WordPress language pack.
 
 = 0.1.187 =
 Adds cabins, bathrooms, length, and skipper filters, and keeps the boat type and other shortcode attributes applied when filtering a listing.

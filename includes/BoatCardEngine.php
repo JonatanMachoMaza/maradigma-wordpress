@@ -289,38 +289,11 @@ final class BoatCardEngine
     }
 
     /**
-     * Normalizes language code.
-     */
-    private static function normalizeLanguageCode(string $language): string
-    {
-        $language = strtolower(trim($language));
-        if ($language === '') {
-            return '';
-        }
-
-        $parts = preg_split('/[_-]/', $language);
-        $language = strtolower(trim((string) ($parts[0] ?? $language)));
-
-        return preg_replace('/[^a-z0-9]/', '', $language) ?: '';
-    }
-
-    /**
      * Resolves the WordPress locale for a language code.
      */
     private static function localeForLanguage(string $language, string $fallbackLocale): string
     {
-        $language = self::normalizeLanguageCode($language);
-
-        $locales = [
-            'en' => 'en_GB',
-            'es' => 'es_ES',
-            'ca' => 'ca',
-            'de' => 'de_DE',
-            'fr' => 'fr_FR',
-            'it' => 'it_IT',
-        ];
-
-        return $locales[$language] ?? $fallbackLocale;
+        return \Maradigma\Support\LocaleSwitcher::localeForLanguage($language, $fallbackLocale);
     }
 
     /**

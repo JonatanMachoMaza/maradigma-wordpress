@@ -904,8 +904,17 @@ final class AjaxController
                 $archiveContext['archive_base_url'] = $archiveBaseUrl;
             }
 
-            $resultsHtml    = \Maradigma\ShortcodeRegistry::renderBoatsArchiveResults($archiveContext);
-            $paginationHtml = \Maradigma\ShortcodeRegistry::renderBoatsArchivePagination($archiveContext);
+            // This request is answered in the site locale; render the texts in the language of the page.
+            $renderLanguage = (string) ($archiveContext['current_lang'] ?? $requestLanguage);
+
+            $resultsHtml    = \Maradigma\Support\LocaleSwitcher::run(
+                $renderLanguage,
+                static fn (): string => \Maradigma\ShortcodeRegistry::renderBoatsArchiveResults($archiveContext)
+            );
+            $paginationHtml = \Maradigma\Support\LocaleSwitcher::run(
+                $renderLanguage,
+                static fn (): string => \Maradigma\ShortcodeRegistry::renderBoatsArchivePagination($archiveContext)
+            );
 
             return new \WP_REST_Response(
                 [
