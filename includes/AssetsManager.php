@@ -1265,9 +1265,10 @@ final class AssetsManager
                 'nonce'             => wp_create_nonce('maradigma_elementor'),
                 'pageSize'          => 20,
                 'search'            => [
-                    'boatsAction'     => 'maradigma_elementor_search_boats',
-                    'boatTypesAction' => 'maradigma_elementor_search_boat_types',
-                    'buildersAction'  => 'maradigma_elementor_search_builders',
+                    'boatsAction'        => 'maradigma_elementor_search_boats',
+                    'boatTypesAction'    => 'maradigma_elementor_search_boat_types',
+                    'buildersAction'     => 'maradigma_elementor_search_builders',
+                    'destinationsAction' => 'maradigma_elementor_search_destinations',
                 ],
                 'imagesCountAction' => 'maradigma_get_boat_images_count',
                 'i18n'              => [
@@ -1279,6 +1280,7 @@ final class AssetsManager
                     'boatsPlaceholder'       => __('Search boats...', 'maradigma'),
                     'typesPlaceholder'       => __('Select boat type', 'maradigma'),
                     'buildersPlaceholder'    => __('Search builders...', 'maradigma'),
+                    'destinationsPlaceholder' => __('Search destinations...', 'maradigma'),
                     'imagesAvailablePrefix'  => __('Images available: ', 'maradigma'),
                     'imagesAvailableLoading' => __('Images available: …', 'maradigma'),
                     'imagesAvailableUnknown' => __('Images available: —', 'maradigma'),

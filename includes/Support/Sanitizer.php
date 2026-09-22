@@ -353,6 +353,18 @@ final class Sanitizer
             }
         }
 
+        // Public plugin/UI name. The Maradigma API expects a departure_location token.
+        if (
+            isset($atts['destination'])
+            && \trim((string)$atts['destination']) !== ''
+            && empty($atts['departure_location'])
+        ) {
+            $token = self::normalizeLocationToken((string)$atts['destination']);
+            if ($token !== null) {
+                $atts['departure_location'] = $token;
+            }
+        }
+
         // Public plugin/UI name. The Maradigma API expects boat_id_builder.
         if (
             isset($atts['builders'])
@@ -383,6 +395,30 @@ final class Sanitizer
     }
 
     /**
+     * Normalizes a Maradigma departure-location token.
+     *
+     * The search API filters boats by `departure_location`, either a geographic
+     * destination (`destination:{id}`, which covers every base port inside it) or
+     * one base port (`port:{id}`). A bare positive number is a destination ID.
+     *
+     * @return string|null The canonical token, or null when the value is not one.
+     */
+    public static function normalizeLocationToken(string $value): ?string
+    {
+        $value = \strtolower(\trim($value));
+
+        if (\preg_match('/^[1-9]\d*$/', $value) === 1) {
+            return 'destination:' . $value;
+        }
+
+        if (\preg_match('/^(destination|port)\s*:\s*([1-9]\d*)$/', $value, $matches) === 1) {
+            return $matches[1] . ':' . $matches[2];
+        }
+
+        return null;
+    }
+
+    /**
      * Cast a boats search value to the canonical type.
      *
      * NOTE:
@@ -401,6 +437,11 @@ final class Sanitizer
 
         if ($value === '' && !\is_array($rawValue)) {
             return null;
+        }
+
+        // Departure location token: destination:{id} or port:{id}
+        if ($type === 'location') {
+            return self::normalizeLocationToken($value);
         }
 
         // Date validation

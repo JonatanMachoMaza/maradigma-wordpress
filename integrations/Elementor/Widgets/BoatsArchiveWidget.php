@@ -406,6 +406,25 @@ final class BoatsArchiveWidget extends Widget_Base
         </div>',
         ]);
 
+        $this->add_control('destination', [
+            'label'   => \esc_html__('Destination (destination)', 'maradigma'),
+            'type'    => Controls_Manager::HIDDEN,
+            'default' => '',
+        ]);
+
+        $this->add_control('destination_ui', [
+            'type' => Controls_Manager::RAW_HTML,
+            'raw'  => '<div class="maradigma-destination-ui">
+            <label style="display:block;margin:0 0 6px;font-weight:600;">' . \esc_html__('Destination', 'maradigma') . '</label>
+            <select class="maradigma-el-remote-select"
+                    data-maradigma-source="destinations"
+                    data-setting-key="destination"
+                    data-multiple="0"
+                    style="width:100%;"></select>
+            <p style="margin:6px 0 0;font-size:11px;font-style:italic;opacity:.8;">' . \esc_html__('Only boats whose base port is in this destination. Combine it with the boat type for a page per type and destination.', 'maradigma') . '</p>
+        </div>',
+        ]);
+
         $this->add_control('builders', [
             'label'   => \esc_html__('Builders (builders)', 'maradigma'),
             'type'    => Controls_Manager::HIDDEN,
@@ -2094,6 +2113,7 @@ final class BoatsArchiveWidget extends Widget_Base
             'date_end'         => '',
 
             'boat_type_id'     => (string) ($settings['boat_type_id'] ?? ''),
+            'destination'      => (string) ($settings['destination'] ?? ''),
             'builders'         => (string) ($settings['builders'] ?? ''),
             'ids_gi'           => (string) ($settings['ids_gi'] ?? ''),
             'date_picker_mode' => $datePickerMode,

@@ -4,7 +4,7 @@ Tags: boat rental, yacht charter, booking, availability, fleet management
 Requires at least: 6.0
 Tested up to: 7.1
 Requires PHP: 8.1
-Stable tag: 0.1.190
+Stable tag: 0.1.191
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -156,6 +156,12 @@ The repository includes `package.json`, `package-lock.json`, and the Vite config
 6. Boat synchronization workflow and status.
 
 == Changelog ==
+
+= 0.1.191 =
+* Added a Destination filter to boat listings: the Elementor Boats Archive widget and the Gutenberg block list the destinations of your boats (islands, localities, regions…) with how many boats each has, and the `destination` shortcode attribute limits a listing to them. Combined with the boat type, it gives one page per boat type in each destination, and it stays applied when visitors filter or paginate.
+* Fixed the Boat type, Builders and Specific boats selectors of the Elementor Boats Archive widget, which stayed empty when the "Listing defaults" section was opened, and showed saved values by name instead of their ID. Opening the section no longer marks the page as modified.
+* Redirected an old boat address to the boat's page in the language of the address. When the old slug had become the current slug of another language's page, visitors were sent to that other language.
+* Counted each boat once in the sync progress. The obsolete-page cleanup now skips runs that saw fewer boats than the API reported, and only removes the pages of boats that Maradigma confirms no longer exist or are unpublished.
 
 = 0.1.190 =
 * Preselected "Move duplicates to trash" in the boat sync form, so the next sync retires the duplicate boat pages left by earlier versions. Retired copies can be restored from the trash, and their addresses redirect to the kept page. "Only report them" is still available.
@@ -324,6 +330,9 @@ The repository includes `package.json`, `package-lock.json`, and the Vite config
 * Improved readme documentation for the current feature set.
 
 == Upgrade Notice ==
+
+= 0.1.191 =
+Adds a Destination filter to boat listings (widget, block and shortcode), fixes the empty selectors of the Elementor Boats Archive widget, and keeps old boat addresses in their language.
 
 = 0.1.190 =
 The boat sync form now moves duplicate boat pages to the trash by default, with redirects to the kept page; pages edited or customized by hand are never retired.

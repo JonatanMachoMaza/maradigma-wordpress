@@ -2636,6 +2636,10 @@ msgid "Cleanup skipped because the boat sync did not finish successfully."
 msgstr "Cleanup skipped because the boat sync did not finish successfully."
 
 #: includes/SettingsPage.php
+msgid "Cleanup skipped because the sync saw fewer boats than the API reported."
+msgstr "Cleanup skipped because the sync saw fewer boats than the API reported."
+
+#: includes/SettingsPage.php
 msgid "Obsolete-page cleanup finished: %1$s, candidates %2$d, changed %3$d, failed %4$d."
 msgstr "Obsolete-page cleanup finished: %1$s, candidates %2$d, changed %3$d, failed %4$d."
 
@@ -2650,6 +2654,62 @@ msgstr "Also delete locally cached images for obsolete boats."
 #: includes/SettingsPage.php
 msgid "Only applies when permanent deletion is selected. It deletes Media Library attachments tagged with the obsolete Maradigma boat ID."
 msgstr "Only applies when permanent deletion is selected. It deletes Media Library attachments tagged with the obsolete Maradigma boat ID."
+
+#: integrations/Elementor/Widgets/BoatsArchiveWidget.php
+msgid "Destination (destination)"
+msgstr "Destination (destination)"
+
+#: integrations/Elementor/Widgets/BoatsArchiveWidget.php
+msgid "Only boats whose base port is in this destination. Combine it with the boat type for a page per type and destination."
+msgstr "Only boats whose base port is in this destination. Combine it with the boat type for a page per type and destination."
+
+#: includes/AssetsManager.php
+msgid "Search destinations..."
+msgstr "Search destinations..."
+
+#: includes/AjaxController.php
+msgid "%1$s (%2$s) — boats: %3$d"
+msgstr "%1$s (%2$s) — boats: %3$d"
+
+#: includes/AjaxController.php
+msgid "island"
+msgstr "island"
+
+#: includes/AjaxController.php
+msgid "archipelago"
+msgstr "archipelago"
+
+#: includes/AjaxController.php
+msgid "locality"
+msgstr "locality"
+
+#: includes/AjaxController.php
+msgid "area"
+msgstr "area"
+
+#: includes/AjaxController.php
+msgid "region"
+msgstr "region"
+
+#: includes/AjaxController.php
+msgid "administrative area"
+msgstr "administrative area"
+
+#: includes/AjaxController.php
+msgid "country"
+msgstr "country"
+
+#: includes/AjaxController.php
+msgid "marina"
+msgstr "marina"
+
+#: includes/AjaxController.php
+msgid "port"
+msgstr "port"
+
+#: includes/AjaxController.php
+msgid "place"
+msgstr "place"
 
 #: includes/SettingsPage.php
 msgid "Duplicate boat pages"

@@ -3844,6 +3844,8 @@ final class SettingsPage
                 return __('Cleanup skipped because the API list was empty or not fully trusted.', 'maradigma');
             case 'Cleanup skipped because the boat sync did not finish successfully.':
                 return __('Cleanup skipped because the boat sync did not finish successfully.', 'maradigma');
+            case 'Cleanup skipped because the sync saw fewer boats than the API reported.':
+                return __('Cleanup skipped because the sync saw fewer boats than the API reported.', 'maradigma');
         }
 
         if (str_starts_with($message, 'Obsolete-page cleanup finished:')) {

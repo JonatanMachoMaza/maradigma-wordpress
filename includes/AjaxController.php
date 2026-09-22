@@ -31,6 +31,7 @@ final class AjaxController
 
         // AJAX para el admin (metabox de páginas con Select2)
         add_action('wp_ajax_maradigma_admin_search_boat_types', [__CLASS__, 'adminSearchBoatTypes']);
+        add_action('wp_ajax_maradigma_admin_search_destinations', [__CLASS__, 'adminSearchDestinations']);
         add_action('wp_ajax_maradigma_admin_search_tags', [__CLASS__, 'adminSearchTags']);
         add_action('wp_ajax_maradigma_admin_search_builders', [__CLASS__, 'adminSearchBuilders']);
         add_action('wp_ajax_maradigma_admin_get_builder_by_id', [__CLASS__, 'adminGetBuilderById']);
@@ -42,6 +43,7 @@ final class AjaxController
         add_action('wp_ajax_maradigma_elementor_search_boats', [__CLASS__, 'elementorSearchBoats']);
         add_action('wp_ajax_maradigma_elementor_search_boat_types', [__CLASS__, 'elementorSearchBoatTypes']);
         add_action('wp_ajax_maradigma_elementor_search_builders', [__CLASS__, 'elementorSearchBuilders']);
+        add_action('wp_ajax_maradigma_elementor_search_destinations', [__CLASS__, 'elementorSearchDestinations']);
         add_action('wp_ajax_maradigma_get_boat_images_count', [__CLASS__, 'elementorGetBoatImagesCount']);
 
         add_action('wp_ajax_maradigma_front_search_boat_types', [__CLASS__, 'frontSearchBoatTypes']);
@@ -1804,6 +1806,45 @@ final class AjaxController
         }
     }
 
+    /**
+     * action: maradigma_admin_search_destinations
+     *
+     * Destinations a boat listing can be limited to (block editor), in Select2 format:
+     * { success: true, results: [ {id:'destination:{id}', text}, ... ], pagination: { more: false } }
+     */
+    public static function adminSearchDestinations(): void
+    {
+        self::checkAdminAjaxSecurity();
+
+        $q = self::getSearchTerm();
+
+        try {
+            $items = [];
+
+            foreach (\Maradigma\Support\BoatDestinationCatalog::search(self::getBoatDestinationCatalog(), $q) as $destination) {
+                $items[] = [
+                    'id'   => $destination['value'],
+                    'text' => self::formatDestinationLabel($destination),
+                ];
+            }
+
+            wp_send_json([
+                'success'    => true,
+                'results'    => $items,
+                'pagination' => ['more' => false],
+            ]);
+        } catch (\Throwable $e) {
+            wp_send_json([
+                'success' => false,
+                'results' => [],
+                'error'   => [
+                    'code'    => 'api_error',
+                    'message' => $e->getMessage(),
+                ],
+            ]);
+        }
+    }
+
     // ─────────────────────────────────────────────
     // AJAX ADMIN: TAGS (BOATS)
     // ─────────────────────────────────────────────
@@ -2177,6 +2218,34 @@ final class AjaxController
             'order_by'        => '0',
         ];
 
+        // Saved values: look each boat up by ID so the editor can show its name
+        // (/search-services does not filter by ids_gi).
+        $requestedIds = array_slice(array_values(array_filter(array_map('intval', self::readElementorRequestedIds()), static fn(int $id): bool => $id > 0)), 0, 20);
+        if ($requestedIds !== []) {
+            $out = [];
+            $cache = new \Maradigma\Cache();
+
+            foreach ($requestedIds as $requestedId) {
+                try {
+                    // Cached boat details, so reopening the section does not query the API again.
+                    $details = $cache->getBoatDetails((string) $requestedId, (string) get_locale(), ['images' => 0]);
+                    $boat = is_array($details['data'] ?? null) ? (array) $details['data'] : [];
+                    $name = trim((string) ($boat['service_name'] ?? $boat['name'] ?? $boat['title'] ?? ''));
+
+                    if ($name !== '') {
+                        $out[] = ['id' => (string) $requestedId, 'text' => $name];
+                    }
+                } catch (\Throwable $e) {
+                    unset($e); // Keep the other labels.
+                }
+            }
+
+            wp_send_json([
+                'results'    => $out,
+                'pagination' => ['more' => false],
+            ]);
+        }
+
         try {
             $cache  = new \Maradigma\Cache();
             $result = $cache->getBoatsList($filters);
@@ -2239,6 +2308,8 @@ final class AjaxController
             ? trim(sanitize_text_field((string) wp_unslash($_REQUEST['q'])))
             : '';
 
+        $requestedIds = self::readElementorRequestedIds();
+
         try {
             $client   = self::createApiClient();
             $response = $client->getServiceTypes('boats');
@@ -2251,7 +2322,8 @@ final class AjaxController
                 $name = (string)($type['name'] ?? '');
 
                 if ($id === '' || $name === '') continue;
-                if ($q !== '' && stripos($name, $q) === false) continue;
+                if ($requestedIds !== [] && !in_array($id, $requestedIds, true)) continue;
+                if ($requestedIds === [] && $q !== '' && stripos($name, $q) === false) continue;
 
                 $out[] = ['id' => $id, 'text' => $name];
             }
@@ -2292,6 +2364,8 @@ final class AjaxController
         if ($size < 5)  $size = 5;
         if ($size > 50) $size = 50;
 
+        $requestedIds = self::readElementorRequestedIds();
+
         try {
             $client = self::createApiClient();
 
@@ -2310,7 +2384,11 @@ final class AjaxController
 
                 if ($id === '' || $name === '') continue;
 
-                if ($q !== '' && stripos($name, $q) === false) {
+                if ($requestedIds !== []) {
+                    if (!in_array($id, $requestedIds, true)) {
+                        continue;
+                    }
+                } elseif ($q !== '' && stripos($name, $q) === false) {
                     continue;
                 }
 
@@ -2324,6 +2402,175 @@ final class AjaxController
             ]);
         } catch (\Throwable $e) {
             wp_send_json_error(['message' => $e->getMessage()], 500);
+        }
+    }
+
+    /**
+     * action: maradigma_elementor_search_destinations
+     *
+     * Select2 AJAX for Elementor (destinations a boat listing can be limited to).
+     * Built from the destinations of the boats in the catalogue; each value is a
+     * `destination:{id}` token for the search API's departure_location filter.
+     * Returns: { results:[{id,text}], pagination:{more:false} }
+     */
+    public static function elementorSearchDestinations(): void
+    {
+        if (!current_user_can('edit_posts')) {
+            wp_send_json_error(['message' => 'forbidden'], 403);
+        }
+
+        if (!check_ajax_referer('maradigma_elementor', 'nonce', false)) {
+            wp_send_json_error(['message' => 'bad_nonce'], 400);
+        }
+
+        $q = isset($_REQUEST['q'])
+            ? trim(sanitize_text_field((string) wp_unslash($_REQUEST['q'])))
+            : '';
+
+        $requestedIds = self::readElementorRequestedIds();
+
+        try {
+            $catalog = self::getBoatDestinationCatalog();
+            $rows = $requestedIds !== []
+                ? \Maradigma\Support\BoatDestinationCatalog::pick($catalog, $requestedIds)
+                : \Maradigma\Support\BoatDestinationCatalog::search($catalog, $q);
+
+            $out = [];
+            foreach ($rows as $destination) {
+                $out[] = [
+                    'id'   => $destination['value'],
+                    'text' => self::formatDestinationLabel($destination),
+                ];
+            }
+
+            wp_send_json([
+                'results'    => $out,
+                'pagination' => ['more' => false],
+            ]);
+        } catch (\Throwable $e) {
+            wp_send_json_error(['message' => $e->getMessage()], 500);
+        }
+    }
+
+    /**
+     * Returns the IDs an Elementor select asks labels for (its saved values), or [].
+     *
+     * @return list<string>
+     */
+    private static function readElementorRequestedIds(): array
+    {
+        // Callers validate the Elementor AJAX nonce before entering this helper.
+        // phpcs:disable WordPress.Security.NonceVerification.Recommended
+        $raw = isset($_REQUEST['ids']) && is_string($_REQUEST['ids'])
+            ? sanitize_text_field(wp_unslash($_REQUEST['ids']))
+            : '';
+        // phpcs:enable WordPress.Security.NonceVerification.Recommended
+
+        $ids = array_values(array_unique(array_filter(array_map('trim', explode(',', $raw)), static fn(string $id): bool => $id !== '')));
+
+        return array_slice($ids, 0, 50);
+    }
+
+    /**
+     * Destinations of the boats in the catalogue, cached for ten minutes.
+     *
+     * @return list<array{id:int,value:string,text:string,place_type:string,subtitle:string,boats:int}>
+     */
+    private static function getBoatDestinationCatalog(): array
+    {
+        $transientKey = 'maradigma_boat_destinations_' . md5((string) wp_json_encode([
+            (string) get_locale(),
+            (string) (\Maradigma\SettingsPage::getSettings()['default_language'] ?? ''),
+        ]));
+
+        $cached = get_transient($transientKey);
+        if (is_array($cached)) {
+            return $cached;
+        }
+
+        $cache = new \Maradigma\Cache();
+        $pageSize = 100;
+        $boats = [];
+        $failed = false;
+
+        // Up to 2,000 boats; the list is built from the rows every page already carries.
+        for ($page = 0; $page < 20; $page++) {
+            $result = $cache->getBoatsList([
+                'id_group'             => 'boats',
+                'limit_services'       => $pageSize,
+                'offset_services'      => $page * $pageSize,
+                'only_calendarization' => false,
+            ]);
+
+            if (empty($result['success']) || !is_array($result['data']['search_result'] ?? null)) {
+                if ($page === 0) {
+                    throw new \RuntimeException('Boat list request failed.');
+                }
+                $failed = true;
+                break;
+            }
+
+            $rows = (array) $result['data']['search_result'];
+            array_push($boats, ...array_values($rows));
+
+            $total = (int) ($result['data']['total_results'] ?? 0);
+            if ($rows === [] || count($boats) >= $total) {
+                break;
+            }
+        }
+
+        $catalog = \Maradigma\Support\BoatDestinationCatalog::fromBoats($boats);
+
+        // A catalogue cut short by a failed page is shown but retried soon.
+        set_transient($transientKey, $catalog, $failed ? MINUTE_IN_SECONDS : 10 * MINUTE_IN_SECONDS);
+
+        return $catalog;
+    }
+
+    /**
+     * Returns the label of a destination option: name, kind of place and boats in it.
+     *
+     * @param array{text:string,place_type:string,boats:int} $destination
+     */
+    private static function formatDestinationLabel(array $destination): string
+    {
+        return sprintf(
+            /* translators: 1: destination name, 2: kind of place (island, locality...), 3: number of boats. */
+            __('%1$s (%2$s) — boats: %3$d', 'maradigma'),
+            $destination['text'],
+            self::translatePlaceType($destination['place_type']),
+            $destination['boats']
+        );
+    }
+
+    /**
+     * Translates the kind of place of a destination returned by the API.
+     */
+    private static function translatePlaceType(string $placeType): string
+    {
+        switch ($placeType) {
+            case 'island':
+                return __('island', 'maradigma');
+            case 'archipelago':
+                return __('archipelago', 'maradigma');
+            case 'locality':
+                return __('locality', 'maradigma');
+            case 'sublocality':
+            case 'neighborhood':
+                return __('area', 'maradigma');
+            case 'region':
+                return __('region', 'maradigma');
+            case 'administrative_area':
+                return __('administrative area', 'maradigma');
+            case 'country':
+                return __('country', 'maradigma');
+            case 'marina':
+                return __('marina', 'maradigma');
+            case 'port':
+                return __('port', 'maradigma');
+            default:
+                // 'point' and any kind the API adds later.
+                return __('place', 'maradigma');
         }
     }
 

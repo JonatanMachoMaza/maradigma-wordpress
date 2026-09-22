@@ -137,6 +137,8 @@
                 return search.buildersAction || '';
             case 'boats':
                 return search.boatsAction || '';
+            case 'destinations':
+                return search.destinationsAction || '';
             default:
                 return '';
         }
@@ -1597,6 +1599,8 @@
                 boat_capacity: { type: 'string', default: '' },
                 boat_type_id: { type: 'string', default: '' },
                 boat_type_id_label: { type: 'string', default: '' },
+                destination: { type: 'string', default: '' },
+                destination_label: { type: 'string', default: '' },
                 builders: { type: 'string', default: '' },
                 builders_labels_json: { type: 'string', default: '' },
                 ids_gi_labels_json: { type: 'string', default: '' },
@@ -1735,6 +1739,7 @@
                         { key: 'max_price', label: __('Max price', 'maradigma'), inputType: 'number' },
                         { key: 'boat_capacity', label: __('Min pax', 'maradigma'), inputType: 'number' },
                         { key: 'boat_type_id', label: __('Boat type', 'maradigma'), type: 'remote-combobox', source: 'boat_types', labelKey: 'boat_type_id_label' },
+                        { key: 'destination', label: __('Destination', 'maradigma'), type: 'remote-combobox', source: 'destinations', labelKey: 'destination_label' },
                         { key: 'builders', label: __('Builders', 'maradigma'), type: 'remote-token-field', source: 'builders', labelsKey: 'builders_labels_json', placeholder: __('Search builders…', 'maradigma') },
                         { key: 'date_start', label: __('Start date', 'maradigma'), inputType: 'date' },
                         { key: 'date_end', label: __('End date', 'maradigma'), inputType: 'date' }

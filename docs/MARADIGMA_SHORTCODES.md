@@ -150,6 +150,8 @@ Below is a practical subset most commonly used by webmasters:
 | `ids_gi` | CSV int | `304,305` | Force a specific manual selection |
 | `boat_capacity` | int | `8` | Minimum pax |
 | `boat_type_id` | int | `2` | Boat type |
+| `destination` | int | `1704` | Destination ID: boats whose base port is in that destination (island, locality, region…). Same as `departure_location="destination:1704"` |
+| `departure_location` | token | `destination:1704` / `port:12` | Destination or single base port, as the Maradigma API expects it |
 | `builders` | CSV int | `10,12` | Builder ids (multi) |
 | `builders_options` | `api/search_result` | `search_result` | Builder filter source. Use `api` for the global builders list. Use `search_result` to show only builders returned by the current API search response (`available_boat_id_builders`) |
 
@@ -174,6 +176,15 @@ Examples:
 ```text
 [maradigma_boats boat_type_id="3"]
 [maradigma_boats show_filters="1" boat_type_id="41" filters_ui_fields="boat_type_id,boat_capacity,min_price,max_price"]
+```
+
+### 2.2.2. Boat type and destination
+
+`destination` limits the listing to the boats whose base port belongs to a destination, and combines with `boat_type_id`, for example one page per boat type in each destination. Destination IDs come from the boats' `destinations` in the Maradigma API; the Elementor **Boats Archive** widget and the Gutenberg block list them in a searchable **Destination** field (**Listing defaults**), with the number of boats in each. Like the boat type, the destination stays applied when visitors filter or paginate the listing.
+
+```text
+[maradigma_boats boat_type_id="3" destination="1704"]
+[maradigma_boats departure_location="port:12"]
 ```
 
 ### 2.3. Pagination

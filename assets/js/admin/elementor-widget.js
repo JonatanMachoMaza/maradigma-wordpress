@@ -236,15 +236,17 @@
     }
 
     var actionMap = {
-      boat_types: search.boatTypesAction || 'maradigma_elementor_search_boat_types',
-      boats:      search.boatsAction     || 'maradigma_elementor_search_boats',
-      builders:   search.buildersAction  || 'maradigma_elementor_search_builders'
+      boat_types:   search.boatTypesAction    || 'maradigma_elementor_search_boat_types',
+      boats:        search.boatsAction        || 'maradigma_elementor_search_boats',
+      builders:     search.buildersAction     || 'maradigma_elementor_search_builders',
+      destinations: search.destinationsAction || 'maradigma_elementor_search_destinations'
     };
 
     var placeholderMap = {
-      boat_types: i18n.typesPlaceholder    || i18n.placeholderSingle || 'Select boat type',
-      boats:      i18n.boatsPlaceholder    || i18n.placeholderMulti  || 'Search boats...',
-      builders:   i18n.buildersPlaceholder || i18n.placeholderMulti  || 'Search builders...'
+      boat_types:   i18n.typesPlaceholder        || i18n.placeholderSingle || 'Select boat type',
+      boats:        i18n.boatsPlaceholder        || i18n.placeholderMulti  || 'Search boats...',
+      builders:     i18n.buildersPlaceholder     || i18n.placeholderMulti  || 'Search builders...',
+      destinations: i18n.destinationsPlaceholder || i18n.placeholderSingle || 'Search destinations...'
     };
 
     var action = actionMap[source];
@@ -315,8 +317,12 @@
         $el.append(opt);
       });
 
-      $el.trigger('change');
-      $hidden.trigger('input');
+      // Display only: the hidden setting already holds these values. Writing it
+      // again would mark the document modified and re-render the widget every
+      // time the section is opened.
+      $el.trigger('change.select2');
+
+      hydrateSelectedLabels($el, action, existingIds);
     }
 
     $el.on('change', function () {
@@ -387,6 +393,49 @@
         fetchCountForBoatId(id);
       });
     }
+  }
+
+  /**
+   * Replaces the "#id" placeholders of saved values with their names.
+   * Select2 caches an option's data once rendered, so each option is replaced
+   * rather than renamed. Only the select2 display is refreshed
+   * (change.select2), so the widget setting is not touched.
+   */
+  function hydrateSelectedLabels($el, action, ids) {
+    $.ajax({
+      url: ajaxUrl,
+      method: 'GET',
+      dataType: 'json',
+      data: {
+        action: action,
+        nonce: nonce,
+        q: '',
+        ids: ids.join(','),
+        page: 1,
+        page_size: Math.max(ids.length, 5)
+      }
+    }).done(function (data) {
+      var results = (data && Array.isArray(data.results)) ? data.results : [];
+      var changed = false;
+
+      results.forEach(function (row) {
+        if (!row || typeof row.id === 'undefined' || !row.text) {
+          return;
+        }
+
+        $el.find('option').each(function () {
+          // Only still-selected options: a value cleared meanwhile must stay cleared.
+          if (this.selected && String(this.value) === String(row.id) && this.text !== row.text) {
+            $(this).replaceWith(new Option(String(row.text), this.value, true, true));
+            changed = true;
+          }
+        });
+      });
+
+      if (changed) {
+        $el.trigger('change.select2');
+      }
+    });
   }
 
   function initRemoteSelectsInControls() {
@@ -495,8 +544,48 @@
     return true;
   }
 
+  /**
+   * Elementor renders a section's controls only when the section is opened (and
+   * again on every tab switch or re-render), after panel/open_editor/* fired.
+   * Watch the panel so every remote select gets Select2 whenever it appears.
+   */
+  var panelObserverBound = false;
+  var panelInitTimer = null;
+
+  function observePanel() {
+    if (panelObserverBound) {
+      return true;
+    }
+
+    var panel = document.getElementById('elementor-panel');
+    if (!panel || typeof window.MutationObserver !== 'function') {
+      return false;
+    }
+
+    panelObserverBound = true;
+
+    new window.MutationObserver(function () {
+      if (panelInitTimer) {
+        return;
+      }
+
+      panelInitTimer = window.setTimeout(function () {
+        panelInitTimer = null;
+
+        if ($('#elementor-controls .maradigma-el-remote-select').not('.select2-hidden-accessible').length) {
+          initPanelUi();
+        }
+      }, 30);
+    }).observe(panel, { childList: true, subtree: true });
+
+    return true;
+  }
+
   var t = setInterval(function () {
-    if (attachElementorHook()) {
+    var hooked = attachElementorHook();
+    var observed = observePanel();
+
+    if (hooked && observed) {
       clearInterval(t);
     }
   }, 200);

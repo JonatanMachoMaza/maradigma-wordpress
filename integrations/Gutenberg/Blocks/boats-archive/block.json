@@ -118,6 +118,14 @@
       "type": "string",
       "default": ""
     },
+    "destination": {
+      "type": "string",
+      "default": ""
+    },
+    "destination_label": {
+      "type": "string",
+      "default": ""
+    },
     "builders": {
       "type": "string",
       "default": ""

@@ -50,6 +50,7 @@ final class BoatsArchiveBlock
             'max_price',
             'boat_capacity',
             'boat_type_id',
+            'destination',
             'builders',
             'gc_type',
             'date_start',

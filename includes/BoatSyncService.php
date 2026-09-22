@@ -691,7 +691,8 @@ final class BoatSyncService
                     'boat_id'             => '',
                     'completed_languages' => [],
                 ];
-                $state['boats_done'] = (int)($state['boats_done'] ?? 0) + 1;
+                // Distinct boats seen by the run, so a boat processed twice is not counted twice.
+                $state['boats_done'] = count(array_unique(array_map('strval', (array)($state['api_boat_ids'] ?? []))));
                 ++$processedInBatch;
                 $state['last_run_at'] = time();
                 $state['current_phase'] = 'boat_completed';
@@ -1499,6 +1500,14 @@ final class BoatSyncService
             return $state;
         }
 
+        // Pages that repeated boats may have skipped others: never treat unseen boats as obsolete.
+        $reportedTotal = (int)($state['boats_total'] ?? 0);
+        if ($reportedTotal > 0 && count($validBoatIds) < $reportedTotal) {
+            $state['cleanup']['status'] = 'skipped';
+            $state['cleanup']['message'] = 'Cleanup skipped because the sync saw fewer boats than the API reported.';
+            return $state;
+        }
+
         $deleteImages = $action === 'delete' && !empty($options['cleanup_delete_images']);
         $state['cleanup'] = array_merge($state['cleanup'], self::cleanupObsoleteManagedBoatPosts($validBoatIds, $action, $deleteImages));
         return $state;
@@ -1519,6 +1528,7 @@ final class BoatSyncService
             'changed'           => 0,
             'failed'            => 0,
             'skipped_protected' => 0,
+            'skipped_unconfirmed' => 0,
             'images_deleted'    => 0,
             'images_failed'     => 0,
             'message'           => '',
@@ -1548,6 +1558,7 @@ final class BoatSyncService
         ]);
 
         $postIds = is_array($query->posts) ? $query->posts : [];
+        $confirmedGone = [];
         foreach ($postIds as $postId) {
             $postId = (int)$postId;
             if ($postId <= 0) {
@@ -1561,6 +1572,17 @@ final class BoatSyncService
 
             if ((bool)get_post_meta($postId, self::META_DISABLE_SYNC, true)) {
                 $stats['skipped_protected'] = (int)$stats['skipped_protected'] + 1;
+                continue;
+            }
+
+            // The run's list can miss a boat (repeated pages, a boat added mid-run):
+            // only retire pages of boats Maradigma confirms are gone.
+            if (!isset($confirmedGone[$boatId])) {
+                $confirmedGone[$boatId] = self::isBoatConfirmedGone($boatId);
+            }
+
+            if (!$confirmedGone[$boatId]) {
+                $stats['skipped_unconfirmed'] = (int)$stats['skipped_unconfirmed'] + 1;
                 continue;
             }
 
@@ -1601,6 +1623,32 @@ final class BoatSyncService
         );
 
         return $stats;
+    }
+
+    /**
+     * Determines whether Maradigma confirms a boat no longer exists or is unpublished.
+     *
+     * Any other answer (the boat is returned, an unexpected error, a network
+     * failure) counts as not confirmed, so its pages are kept.
+     */
+    private static function isBoatConfirmedGone(string $boatId): bool
+    {
+        try {
+            $response = ExternalApiClient::fromSettings(SettingsPage::getSettings())->getServiceByIdOrSlug('boats', $boatId);
+        } catch (\Throwable $e) {
+            self::debug('cleanup_boat_check_failed', ['boat_id' => $boatId, 'exception' => $e]);
+            return false;
+        }
+
+        if (($response['status'] ?? '') !== 'error') {
+            return false;
+        }
+
+        return in_array(
+            (string)($response['message'] ?? ''),
+            ['Service not found', 'Service deleted', 'Service is not published'],
+            true
+        );
     }
 
     /**

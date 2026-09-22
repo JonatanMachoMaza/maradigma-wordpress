@@ -48,6 +48,51 @@ final class SanitizerTest extends TestCase
         self::assertSame('boat-card alertscript', Sanitizer::cssClass(" boat-card   alert<script> "));
     }
 
+    /**
+     * @return iterable<string, array{string, string|null}>
+     */
+    public static function locationTokenProvider(): iterable
+    {
+        yield 'bare destination id' => ['1704', 'destination:1704'];
+        yield 'destination token' => ['destination:1704', 'destination:1704'];
+        yield 'port token with spaces and case' => [' Port : 12 ', 'port:12'];
+        yield 'zero id' => ['destination:0', null];
+        yield 'leading zero' => ['0704', null];
+        yield 'unknown kind' => ['city:5', null];
+        yield 'text' => ['ibiza', null];
+        yield 'empty' => ['', null];
+    }
+
+    #[DataProvider('locationTokenProvider')]
+    public function testLocationTokensAreNormalized(string $input, ?string $expected): void
+    {
+        self::assertSame($expected, Sanitizer::normalizeLocationToken($input));
+    }
+
+    public function testDestinationAliasBecomesDepartureLocationAndCombinesWithBoatType(): void
+    {
+        $documentation = [
+            ['attr' => 'id_group', 'type' => 'string', 'default' => 'boats', 'description' => 'Group'],
+            ['attr' => 'id_group_content_type', 'type' => 'int', 'default' => '', 'description' => 'Type'],
+            ['attr' => 'departure_location', 'type' => 'location', 'default' => '', 'description' => 'Location'],
+        ];
+
+        self::assertSame(
+            ['departure_location' => 'destination:1704', 'id_group' => 'boats', 'id_group_content_type' => 3],
+            Sanitizer::normalizeBoatsSearchAtts(['destination' => '1704', 'boat_type_id' => '3'], $documentation)
+        );
+
+        // An explicit departure_location wins over the alias; an invalid token is dropped.
+        self::assertSame(
+            ['departure_location' => 'port:2', 'id_group' => 'boats'],
+            Sanitizer::normalizeBoatsSearchAtts(['destination' => '1704', 'departure_location' => 'port:2'], $documentation)
+        );
+        self::assertSame(
+            ['id_group' => 'boats'],
+            Sanitizer::normalizeBoatsSearchAtts(['departure_location' => 'ibiza'], $documentation)
+        );
+    }
+
     public function testSearchAttributesApplyAliasesTypesDefaultsAndStableOrdering(): void
     {
         $documentation = [

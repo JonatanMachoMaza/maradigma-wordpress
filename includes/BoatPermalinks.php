@@ -8,6 +8,7 @@ if (!defined('ABSPATH')) {
     exit;
 }
 
+use Maradigma\Support\BoatPostSelectionPolicy;
 use Maradigma\Support\MultilangAdapter;
 use Maradigma\Support\RuntimeContext;
 
@@ -82,9 +83,9 @@ final class BoatPermalinks
 
         $current = is_numeric($postId) ? (int) $postId : 0;
         $currentIsPublic = $current > 0 && get_post_status($current) === 'publish';
-        $language = \Maradigma\Support\BoatPostSelectionPolicy::normalizeLanguage(MultilangAdapter::getCurrentLanguage());
+        $language = self::detectPathLanguage(self::getRequestedPath());
 
-        if ($currentIsPublic && ($language === '' || \Maradigma\Support\BoatPostSelectionPolicy::normalizeLanguage(MultilangAdapter::getPostLanguage($current)) === $language)) {
+        if ($currentIsPublic && ($language === '' || BoatPostSelectionPolicy::normalizeLanguage(MultilangAdapter::getPostLanguage($current)) === $language)) {
             return $postId;
         }
 
@@ -92,30 +93,9 @@ final class BoatPermalinks
             return $currentIsPublic ? $postId : 0;
         }
 
-        $query = new \WP_Query([
-            'post_type'        => BoatPostType::POST_TYPE,
-            'post_status'      => 'publish',
-            'fields'           => 'ids',
-            'posts_per_page'   => -1,
-            'no_found_rows'    => true,
-            'orderby'          => 'ID',
-            'order'            => 'DESC',
-            'lang'             => '',
-            // phpcs:ignore WordPressVIPMinimum.Performance.WPQueryParams.SuppressFilters_suppress_filters
-            'suppress_filters' => true,
-            'meta_query'       => [
-                [
-                    'key'   => '_wp_old_slug',
-                    'value' => $name,
-                ],
-            ],
-        ]);
-
-        foreach ((array) $query->posts as $candidateId) {
-            $candidateId = is_numeric($candidateId) ? (int) $candidateId : 0;
-            if ($candidateId > 0 && \Maradigma\Support\BoatPostSelectionPolicy::normalizeLanguage(MultilangAdapter::getPostLanguage($candidateId)) === $language) {
-                return $candidateId;
-            }
+        $sameLanguageId = self::findPublishedBoatByOldSlug($name, $language);
+        if ($sameLanguageId > 0) {
+            return $sameLanguageId;
         }
 
         // No published post in the requested language: keep a published core choice, never an unpublished one.
@@ -273,18 +253,158 @@ final class BoatPermalinks
             return;
         }
 
-        $requestUri = isset($_SERVER['REQUEST_URI'])
-            ? (string) wp_unslash($_SERVER['REQUEST_URI'])
-            : '';
-        $requestedPath = self::normalizeComparablePath((string) wp_parse_url($requestUri, PHP_URL_PATH));
+        $requestedPath = self::getRequestedPath();
         $canonicalPath = self::normalizeComparablePath((string) wp_parse_url($canonicalUrl, PHP_URL_PATH));
 
+        // A post's own canonical URL never redirects.
         if ($requestedPath === '' || $requestedPath === $canonicalPath) {
+            return;
+        }
+
+        $target = self::resolveRequestLanguageBoatPost($post, (string) get_query_var('name'), $requestedPath);
+        if ($target->ID !== $post->ID) {
+            $targetUrl = get_permalink($target);
+            if (is_string($targetUrl) && $targetUrl !== '') {
+                $canonicalUrl = $targetUrl;
+                $canonicalPath = self::normalizeComparablePath((string) wp_parse_url($targetUrl, PHP_URL_PATH));
+            }
+        }
+
+        if ($requestedPath === $canonicalPath) {
             return;
         }
 
         wp_safe_redirect($canonicalUrl, 301, 'Maradigma');
         exit;
+    }
+
+    /**
+     * Returns the boat post a request should land on in the language of its URL.
+     *
+     * WordPress resolves a singular boat URL by slug alone, whatever its language
+     * prefix. Earlier plugin versions renamed slugs on every sync, so an old slug
+     * of one language is often the live slug of another language's translation:
+     * /de/.../boat-3/ then resolves the French post that now owns "boat-3". Prefer
+     * the published post of the URL language that used that slug before, then the
+     * URL-language translation of the resolved boat; otherwise keep the post.
+     */
+    private static function resolveRequestLanguageBoatPost(\WP_Post $post, string $requestedSlug, string $requestedPath): \WP_Post
+    {
+        $requestLanguage = self::detectPathLanguage($requestedPath);
+        $postLanguage = BoatPostSelectionPolicy::normalizeLanguage(MultilangAdapter::getPostLanguage($post->ID));
+
+        if ($requestLanguage === '' || $postLanguage === '' || $requestLanguage === $postLanguage) {
+            return $post;
+        }
+
+        $previousOwnerId = $requestedSlug !== '' ? self::findPublishedBoatByOldSlug($requestedSlug, $requestLanguage) : 0;
+        if ($previousOwnerId > 0) {
+            $previousOwner = get_post($previousOwnerId);
+            if ($previousOwner instanceof \WP_Post) {
+                return $previousOwner;
+            }
+        }
+
+        $translationId = MultilangAdapter::getTranslationPostId($post->ID, $requestLanguage);
+        if ($translationId > 0 && $translationId !== $post->ID && get_post_status($translationId) === 'publish') {
+            $translation = get_post($translationId);
+            if ($translation instanceof \WP_Post && $translation->post_type === BoatPostType::POST_TYPE) {
+                return $translation;
+            }
+        }
+
+        return $post;
+    }
+
+    /**
+     * Returns the normalized path of the current request, or ''.
+     */
+    private static function getRequestedPath(): string
+    {
+        $requestUri = isset($_SERVER['REQUEST_URI'])
+            ? (string) wp_unslash($_SERVER['REQUEST_URI'])
+            : '';
+
+        return self::normalizeComparablePath((string) wp_parse_url($requestUri, PHP_URL_PATH));
+    }
+
+    /**
+     * Returns the language whose boat URL root the path starts with, or ''.
+     *
+     * Uses the same language roots that build boat permalinks (/de/ or /), not the
+     * multilingual plugin's current language, which can come from a cookie or the
+     * browser when the URL has no language prefix. A path without a language
+     * prefix only maps to the language served from the site root (hidden default
+     * language); otherwise it has no language.
+     */
+    private static function detectPathLanguage(string $path): string
+    {
+        if ($path === '') {
+            return '';
+        }
+
+        $homePath = self::normalizeComparablePath((string) wp_parse_url(home_url('/'), PHP_URL_PATH));
+        $prefixed = [];
+        $rootLanguage = '';
+
+        foreach (MultilangAdapter::getActiveLanguages() as $language) {
+            $root = self::normalizeComparablePath((string) wp_parse_url(home_url(self::getLanguageRootPath($language)), PHP_URL_PATH));
+
+            if ($root === $homePath) {
+                if ($rootLanguage === '') {
+                    $rootLanguage = $language;
+                }
+                continue;
+            }
+
+            if (!isset($prefixed[$root])) {
+                $prefixed[$root] = $language;
+            }
+        }
+
+        \uksort($prefixed, static fn(string $a, string $b): int => \strlen($b) <=> \strlen($a));
+
+        foreach ($prefixed as $root => $language) {
+            if ($path === $root || \str_starts_with($path, $root . '/')) {
+                return BoatPostSelectionPolicy::normalizeLanguage($language);
+            }
+        }
+
+        return BoatPostSelectionPolicy::normalizeLanguage($rootLanguage);
+    }
+
+    /**
+     * Returns the newest published boat post of a language that used a slug before, or 0.
+     */
+    private static function findPublishedBoatByOldSlug(string $slug, string $language): int
+    {
+        $query = new \WP_Query([
+            'post_type'        => BoatPostType::POST_TYPE,
+            'post_status'      => 'publish',
+            'fields'           => 'ids',
+            'posts_per_page'   => -1,
+            'no_found_rows'    => true,
+            'orderby'          => 'ID',
+            'order'            => 'DESC',
+            'lang'             => '',
+            // phpcs:ignore WordPressVIPMinimum.Performance.WPQueryParams.SuppressFilters_suppress_filters
+            'suppress_filters' => true,
+            'meta_query'       => [
+                [
+                    'key'   => '_wp_old_slug',
+                    'value' => $slug,
+                ],
+            ],
+        ]);
+
+        foreach ((array) $query->posts as $candidateId) {
+            $candidateId = is_numeric($candidateId) ? (int) $candidateId : 0;
+            if ($candidateId > 0 && BoatPostSelectionPolicy::normalizeLanguage(MultilangAdapter::getPostLanguage($candidateId)) === $language) {
+                return $candidateId;
+            }
+        }
+
+        return 0;
     }
 
     /**

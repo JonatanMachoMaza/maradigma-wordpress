@@ -336,6 +336,13 @@ final class ShortcodeRegistry
             'notes' => 'Ejemplo: boat_base_port="12".',
         ],
         [
+            'attr' => 'departure_location',
+            'type' => 'location',
+            'default' => '',
+            'description' => 'Filtra por destino (todos los puertos de salida que contiene) o por un puerto concreto.',
+            'notes' => 'Ejemplos: departure_location="destination:1704" o departure_location="port:12". Atajo: destination="1704" equivale a departure_location="destination:1704". Se combina con el tipo de barco (boat_type_id).',
+        ],
+        [
             'attr' => 'boat_capacity',
             'type' => 'int',
             'default' => '',
@@ -1889,6 +1896,7 @@ final class ShortcodeRegistry
 
                 // public filters
                 'boat_type_id'         => '',
+                'destination'          => '',
                 'builders'             => '',
                 'builders_labels_json' => '',
                 'builders_options'     => 'api',
@@ -2423,7 +2431,7 @@ final class ShortcodeRegistry
      */
     private static function archiveScopeKeys(): array
     {
-        $keys = ['q', 'port', 'people', 'boat_type_id', 'builders', 'image_token'];
+        $keys = ['q', 'port', 'people', 'boat_type_id', 'destination', 'builders', 'image_token'];
 
         foreach (self::$DOC_SEARCH_BOATS_ATTRS as $definition) {
             $attribute = \trim((string) ($definition['attr'] ?? ''));

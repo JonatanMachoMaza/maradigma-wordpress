@@ -478,6 +478,8 @@ ul.tight li{
 <tr><td><code>more_filters_button_text</code></td><td><code>More filters</code></td><td>string</td><td>Drawer button label.</td></tr>
 <tr><td><code>more_filters_offcanvas_title</code></td><td><code>More filters</code></td><td>string</td><td>Drawer title.</td></tr>
 <tr><td><code>date_picker_mode</code></td><td><code>range</code></td><td>range|separate</td><td>Range picker or separate start/end controls.</td></tr>
+<tr><td><code>destination</code></td><td><code></code></td><td>destination ID</td><td>Boats whose base port is in that destination (island, locality, region…). Same as <code>departure_location="destination:{id}"</code>. Combines with <code>boat_type_id</code> and stays applied when visitors filter or paginate.</td></tr>
+<tr><td><code>departure_location</code></td><td><code></code></td><td>destination:{id} | port:{id}</td><td>Destination or single base port, as the Maradigma API expects it.</td></tr>
 <tr><td><code>q</code></td><td><code></code></td><td>legacy alias</td><td>Legacy alias present in defaults.</td></tr>
 <tr><td><code>port</code></td><td><code></code></td><td>legacy alias</td><td>Legacy alias present in defaults.</td></tr>
 <tr><td><code>people</code></td><td><code></code></td><td>legacy alias</td><td>Legacy alias present in defaults.</td></tr>
@@ -502,6 +504,7 @@ ul.tight li{
 </div>
 <div class="grid-2" style="margin-top:14px">
 <div><div class="small muted" style="margin-bottom:6px">Example</div><div class="code">[maradigma_boats id_group="boats"]</div></div>
+<div><div class="small muted" style="margin-bottom:6px">Example: motorboats in one destination</div><div class="code">[maradigma_boats boat_type_id="3" destination="1704"]</div></div>
 <div><div class="small muted" style="margin-bottom:6px">Example</div><div class="code">[maradigma_boats limit_services="12" show_filters="1"]</div></div>
 <div><div class="small muted" style="margin-bottom:6px">Example</div><div class="code">[maradigma_boats show_filters="1" autosubmit_filters="1" filters_ui_fields="term,boat_capacity,min_price,max_price,featured,ins_book,date_start,date_end,order_by"]</div></div>
 <div><div class="small muted" style="margin-bottom:6px">Example: move order by before Apply</div><div class="code">[maradigma_boats show_filters="1" filters_ui_submit_mode="button" filters_ui_fields="term,builders,min_price,order_by,max_price" filters_ui_fields_left="order_by"]</div></div>

@@ -2564,6 +2564,10 @@ msgid "Cleanup skipped because the boat sync did not finish successfully."
 msgstr ""
 
 #: includes/SettingsPage.php
+msgid "Cleanup skipped because the sync saw fewer boats than the API reported."
+msgstr ""
+
+#: includes/SettingsPage.php
 msgid "Obsolete-page cleanup finished: %1$s, candidates %2$d, changed %3$d, failed %4$d."
 msgstr ""
 
@@ -2577,6 +2581,62 @@ msgstr ""
 
 #: includes/SettingsPage.php
 msgid "Only applies when permanent deletion is selected. It deletes Media Library attachments tagged with the obsolete Maradigma boat ID."
+msgstr ""
+
+#: integrations/Elementor/Widgets/BoatsArchiveWidget.php
+msgid "Destination (destination)"
+msgstr ""
+
+#: integrations/Elementor/Widgets/BoatsArchiveWidget.php
+msgid "Only boats whose base port is in this destination. Combine it with the boat type for a page per type and destination."
+msgstr ""
+
+#: includes/AssetsManager.php
+msgid "Search destinations..."
+msgstr ""
+
+#: includes/AjaxController.php
+msgid "%1$s (%2$s) — boats: %3$d"
+msgstr ""
+
+#: includes/AjaxController.php
+msgid "island"
+msgstr ""
+
+#: includes/AjaxController.php
+msgid "archipelago"
+msgstr ""
+
+#: includes/AjaxController.php
+msgid "locality"
+msgstr ""
+
+#: includes/AjaxController.php
+msgid "area"
+msgstr ""
+
+#: includes/AjaxController.php
+msgid "region"
+msgstr ""
+
+#: includes/AjaxController.php
+msgid "administrative area"
+msgstr ""
+
+#: includes/AjaxController.php
+msgid "country"
+msgstr ""
+
+#: includes/AjaxController.php
+msgid "marina"
+msgstr ""
+
+#: includes/AjaxController.php
+msgid "port"
+msgstr ""
+
+#: includes/AjaxController.php
+msgid "place"
 msgstr ""
 
 #: includes/SettingsPage.php
