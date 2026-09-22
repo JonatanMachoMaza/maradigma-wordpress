@@ -298,6 +298,62 @@ final class MultilangAdapter
     }
 
     /**
+     * Returns every post in the translation group of a post, keyed by language.
+     *
+     * @return array<string,int> lang => postId (includes the post itself when it has a language)
+     */
+    public static function getPostTranslations(int $postId): array
+    {
+        if ($postId <= 0) {
+            return [];
+        }
+
+        $provider = self::detectProvider();
+        $out = [];
+
+        if ($provider === 'polylang' && \function_exists('pll_get_post_translations')) {
+            $translations = \pll_get_post_translations($postId);
+            if (\is_array($translations)) {
+                foreach ($translations as $lang => $translatedId) {
+                    $lang = \strtolower(\trim((string) $lang));
+                    $translatedId = (int) $translatedId;
+                    if ($lang !== '' && $translatedId > 0) {
+                        $out[$lang] = $translatedId;
+                    }
+                }
+            }
+
+            return $out;
+        }
+
+        if ($provider === 'wpml') {
+            $postType = (string) \get_post_type($postId);
+            if ($postType === '') {
+                return [];
+            }
+
+            $elementType = 'post_' . $postType;
+            $trid = \apply_filters('wpml_element_trid', null, $postId, $elementType);
+            if (!\is_numeric($trid) || (int) $trid <= 0) {
+                return [];
+            }
+
+            $translations = \apply_filters('wpml_get_element_translations', null, (int) $trid, $elementType);
+            if (\is_array($translations)) {
+                foreach ($translations as $lang => $row) {
+                    $translatedId = \is_object($row) ? (int) ($row->element_id ?? 0) : (\is_array($row) ? (int) ($row['element_id'] ?? 0) : 0);
+                    $lang = \strtolower(\trim((string) $lang));
+                    if ($lang !== '' && $translatedId > 0) {
+                        $out[$lang] = $translatedId;
+                    }
+                }
+            }
+        }
+
+        return $out;
+    }
+
+    /**
      * Link translations given a map lang => postId.
      *
      * @param array<string,int> $langToPostId

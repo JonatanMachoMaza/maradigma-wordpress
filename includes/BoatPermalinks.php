@@ -55,6 +55,71 @@ final class BoatPermalinks
         add_action('init', [__CLASS__, 'addRewriteRules'], 20);
         add_action('init', [__CLASS__, 'maybeFlushRewriteRules'], 99);
         add_action('template_redirect', [__CLASS__, 'redirectNonCanonicalBoatRequest'], 1);
+        add_filter('old_slug_redirect_post_id', [__CLASS__, 'filterOldSlugRedirectPostId']);
+    }
+
+    /**
+     * Keeps old-slug redirects of boat URLs in the requested language.
+     *
+     * Boat posts of different languages can share an old slug (earlier syncs
+     * renamed slugs, and retired duplicates hand theirs to the kept post). Core
+     * redirects to the first post found, whatever its status or language; this
+     * prefers the published boat post in the language of the requested URL and
+     * never redirects to an unpublished boat post.
+     *
+     * @param mixed $postId Post ID chosen by WordPress core.
+     * @return mixed
+     */
+    public static function filterOldSlugRedirectPostId($postId)
+    {
+        $name = (string) get_query_var('name');
+        $queriedType = get_query_var('post_type');
+        $queriedType = is_array($queriedType) ? (string) reset($queriedType) : (string) $queriedType;
+
+        if ($name === '' || $queriedType !== BoatPostType::POST_TYPE) {
+            return $postId;
+        }
+
+        $current = is_numeric($postId) ? (int) $postId : 0;
+        $currentIsPublic = $current > 0 && get_post_status($current) === 'publish';
+        $language = \Maradigma\Support\BoatPostSelectionPolicy::normalizeLanguage(MultilangAdapter::getCurrentLanguage());
+
+        if ($currentIsPublic && ($language === '' || \Maradigma\Support\BoatPostSelectionPolicy::normalizeLanguage(MultilangAdapter::getPostLanguage($current)) === $language)) {
+            return $postId;
+        }
+
+        if ($language === '') {
+            return $currentIsPublic ? $postId : 0;
+        }
+
+        $query = new \WP_Query([
+            'post_type'        => BoatPostType::POST_TYPE,
+            'post_status'      => 'publish',
+            'fields'           => 'ids',
+            'posts_per_page'   => -1,
+            'no_found_rows'    => true,
+            'orderby'          => 'ID',
+            'order'            => 'DESC',
+            'lang'             => '',
+            // phpcs:ignore WordPressVIPMinimum.Performance.WPQueryParams.SuppressFilters_suppress_filters
+            'suppress_filters' => true,
+            'meta_query'       => [
+                [
+                    'key'   => '_wp_old_slug',
+                    'value' => $name,
+                ],
+            ],
+        ]);
+
+        foreach ((array) $query->posts as $candidateId) {
+            $candidateId = is_numeric($candidateId) ? (int) $candidateId : 0;
+            if ($candidateId > 0 && \Maradigma\Support\BoatPostSelectionPolicy::normalizeLanguage(MultilangAdapter::getPostLanguage($candidateId)) === $language) {
+                return $candidateId;
+            }
+        }
+
+        // No published post in the requested language: keep a published core choice, never an unpublished one.
+        return $currentIsPublic ? $postId : 0;
     }
 
     /**

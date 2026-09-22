@@ -59,4 +59,38 @@ final class PoToMoCompilerTest extends TestCase
             $header['hash_offset']
         );
     }
+
+    public function testEntryFollowedDirectlyByTheNextMsgidIsKept(): void
+    {
+        $poPath = $this->temporaryDirectory . '/catalog.po';
+        $moPath = $this->temporaryDirectory . '/catalog.mo';
+
+        // No blank line between the first entry's msgstr and the next msgid.
+        self::assertNotFalse(file_put_contents(
+            $poPath,
+            "msgid \"\"\nmsgstr \"Content-Type: text/plain; charset=UTF-8\\n\"\n\n"
+            . "msgid \"Please wait\"\nmsgstr \"Espera\"\n"
+            . "msgid \"Try again\"\nmsgstr \"Reintenta\"\n"
+        ));
+
+        PoToMoCompiler::compile($poPath, $moPath);
+
+        $binary = file_get_contents($moPath);
+        self::assertIsString($binary);
+
+        $header = unpack('Vmagic/Vrevision/Vtotal/Voriginals_offset/Vtranslations_offset', substr($binary, 0, 20));
+        self::assertIsArray($header);
+
+        $pairs = [];
+        for ($i = 0; $i < $header['total']; $i++) {
+            $original = unpack('Vlength/Voffset', substr($binary, $header['originals_offset'] + ($i * 8), 8));
+            $translation = unpack('Vlength/Voffset', substr($binary, $header['translations_offset'] + ($i * 8), 8));
+            self::assertIsArray($original);
+            self::assertIsArray($translation);
+            $pairs[substr($binary, $original['offset'], $original['length'])] = substr($binary, $translation['offset'], $translation['length']);
+        }
+
+        self::assertSame('Espera', $pairs['Please wait'] ?? null);
+        self::assertSame('Reintenta', $pairs['Try again'] ?? null);
+    }
 }

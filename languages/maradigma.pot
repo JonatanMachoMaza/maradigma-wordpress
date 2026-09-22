@@ -2580,6 +2580,78 @@ msgid "Only applies when permanent deletion is selected. It deletes Media Librar
 msgstr ""
 
 #: includes/SettingsPage.php
+msgid "Duplicate boat pages"
+msgstr ""
+
+#: includes/SettingsPage.php
+msgid "A duplicate is a second page for the same boat in the same language. The sync always keeps one page per boat and language (the one linked in the translation group, otherwise the newest page with content) and reports the others."
+msgstr ""
+
+#: includes/SettingsPage.php
+msgid "When a boat has duplicate pages in a language"
+msgstr ""
+
+#: includes/SettingsPage.php
+msgid "Only report them"
+msgstr ""
+
+#: includes/SettingsPage.php
+msgid "Move duplicates to trash"
+msgstr ""
+
+#: includes/SettingsPage.php
+msgid "Unpublish duplicates"
+msgstr ""
+
+#: includes/SettingsPage.php
+msgid "Only pages created by the sync are changed; pages marked as custom/no-sync are only reported. The addresses of retired duplicates redirect to the kept page."
+msgstr ""
+
+#: includes/SettingsPage.php
+msgid "Duplicate boat pages:"
+msgstr ""
+
+#: includes/SettingsPage.php
+msgid "found %1$d | retired %2$d | failed %3$d | protected %4$d"
+msgstr ""
+
+#: includes/SettingsPage.php
+msgid "The sync and the boat listings use the kept page; the duplicates were left untouched. To retire them, run the sync again choosing an action under \"Duplicate boat pages\"."
+msgstr ""
+
+#: includes/SettingsPage.php
+msgid "Show listed duplicates (%d)"
+msgstr ""
+
+#: includes/SettingsPage.php
+msgid "Boat %1$s (%2$s): kept #%3$d, duplicate #%4$d — %5$s"
+msgstr ""
+
+#: includes/SettingsPage.php
+msgid "Edit duplicate"
+msgstr ""
+
+#: includes/SettingsPage.php
+msgid "moved to trash"
+msgstr ""
+
+#: includes/SettingsPage.php
+msgid "unpublished"
+msgstr ""
+
+#: includes/SettingsPage.php
+msgid "not managed by the sync or protected, left untouched"
+msgstr ""
+
+#: includes/SettingsPage.php
+msgid "could not be changed"
+msgstr ""
+
+#: includes/SettingsPage.php
+msgid "reported only"
+msgstr ""
+
+#: includes/SettingsPage.php
 msgid "Boat sync started. It will continue in batches via WP-Cron while this screen keeps it moving with AJAX."
 msgstr ""
 

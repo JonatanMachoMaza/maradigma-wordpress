@@ -2609,6 +2609,78 @@ msgid "Only applies when permanent deletion is selected. It deletes Media Librar
 msgstr "S’applique uniquement lorsque la suppression définitive est sélectionnée. Supprime les fichiers joints de la médiathèque associés à l’ID de bateau Maradigma obsolète."
 
 #: includes/SettingsPage.php
+msgid "Duplicate boat pages"
+msgstr "Pages de bateaux en double"
+
+#: includes/SettingsPage.php
+msgid "A duplicate is a second page for the same boat in the same language. The sync always keeps one page per boat and language (the one linked in the translation group, otherwise the newest page with content) and reports the others."
+msgstr "Un doublon est une deuxième page pour le même bateau dans la même langue. La synchronisation conserve toujours une page par bateau et par langue (celle liée dans le groupe de traductions, sinon la plus récente avec du contenu) et signale les autres."
+
+#: includes/SettingsPage.php
+msgid "When a boat has duplicate pages in a language"
+msgstr "Lorsqu’un bateau a des pages en double dans une langue"
+
+#: includes/SettingsPage.php
+msgid "Only report them"
+msgstr "Les signaler uniquement"
+
+#: includes/SettingsPage.php
+msgid "Move duplicates to trash"
+msgstr "Déplacer les doublons vers la corbeille"
+
+#: includes/SettingsPage.php
+msgid "Unpublish duplicates"
+msgstr "Dépublier les doublons"
+
+#: includes/SettingsPage.php
+msgid "Only pages created by the sync are changed; pages marked as custom/no-sync are only reported. The addresses of retired duplicates redirect to the kept page."
+msgstr "Seules les pages créées par la synchronisation sont modifiées ; les pages marquées comme personnalisées/non synchronisées sont seulement signalées. Les adresses des doublons retirés redirigent vers la page conservée."
+
+#: includes/SettingsPage.php
+msgid "Duplicate boat pages:"
+msgstr "Pages de bateaux en double :"
+
+#: includes/SettingsPage.php
+msgid "found %1$d | retired %2$d | failed %3$d | protected %4$d"
+msgstr "trouvées %1$d | retirées %2$d | en échec %3$d | protégées %4$d"
+
+#: includes/SettingsPage.php
+msgid "The sync and the boat listings use the kept page; the duplicates were left untouched. To retire them, run the sync again choosing an action under \"Duplicate boat pages\"."
+msgstr "La synchronisation et les listes de bateaux utilisent la page conservée ; les doublons n’ont pas été modifiés. Pour les retirer, relancez la synchronisation en choisissant une action dans « Pages de bateaux en double »."
+
+#: includes/SettingsPage.php
+msgid "Show listed duplicates (%d)"
+msgstr "Afficher les doublons listés (%d)"
+
+#: includes/SettingsPage.php
+msgid "Boat %1$s (%2$s): kept #%3$d, duplicate #%4$d — %5$s"
+msgstr "Bateau %1$s (%2$s) : conservée #%3$d, doublon #%4$d — %5$s"
+
+#: includes/SettingsPage.php
+msgid "Edit duplicate"
+msgstr "Modifier le doublon"
+
+#: includes/SettingsPage.php
+msgid "moved to trash"
+msgstr "déplacée vers la corbeille"
+
+#: includes/SettingsPage.php
+msgid "unpublished"
+msgstr "dépubliée"
+
+#: includes/SettingsPage.php
+msgid "not managed by the sync or protected, left untouched"
+msgstr "non gérée par la synchronisation ou protégée, laissée telle quelle"
+
+#: includes/SettingsPage.php
+msgid "could not be changed"
+msgstr "n’a pas pu être modifiée"
+
+#: includes/SettingsPage.php
+msgid "reported only"
+msgstr "seulement signalée"
+
+#: includes/SettingsPage.php
 msgid "Boat sync started. It will continue in batches via WP-Cron while this screen keeps it moving with AJAX."
 msgstr "Synchronisation des bateaux lancée. Elle se poursuivra par lots via WP-Cron pendant que cet écran la fait avancer avec AJAX."
 

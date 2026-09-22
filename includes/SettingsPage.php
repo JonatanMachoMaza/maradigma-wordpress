@@ -720,6 +720,7 @@ final class SettingsPage
         $postsTotal   = $created + $updated;
         $perLang      = is_array($state['per_lang'] ?? null) ? (array)$state['per_lang'] : [];
         $cleanup      = is_array($state['cleanup'] ?? null) ? (array)$state['cleanup'] : [];
+        $duplicates   = is_array($state['duplicates'] ?? null) ? (array)$state['duplicates'] : [];
         $status       = (string)($state['status'] ?? '');
         $message      = (string)($state['message'] ?? '');
         $offset       = (int)($state['offset'] ?? 0);
@@ -743,6 +744,7 @@ final class SettingsPage
 
             'per_lang'           => $perLang,
             'cleanup'            => $cleanup,
+            'duplicates'         => $duplicates,
 
             // Progress details (optional)
             'offset'             => $offset,
@@ -1034,6 +1036,7 @@ final class SettingsPage
         $lastPostsCreated = (int) ($lastSyncStats['posts_created_total'] ?? 0);
         $lastPostsUpdated = (int) ($lastSyncStats['posts_updated_total'] ?? 0);
         $lastCleanup      = is_array($lastSyncStats['cleanup'] ?? null) ? (array) $lastSyncStats['cleanup'] : [];
+        $lastDuplicates   = is_array($lastSyncStats['duplicates'] ?? null) ? (array) $lastSyncStats['duplicates'] : [];
 
         $perLang = is_array($lastSyncStats['per_lang'] ?? null) ? $lastSyncStats['per_lang'] : [];
 
@@ -1661,6 +1664,10 @@ final class SettingsPage
                             </div>
                         <?php endif; ?>
 
+                        <?php if ((int) ($lastDuplicates['found'] ?? 0) > 0) : ?>
+                            <?php self::renderBoatDuplicatesReport($lastDuplicates); ?>
+                        <?php endif; ?>
+
                         <form method="post" action="<?php echo esc_url($adminPostUrl); ?>">
                             <?php wp_nonce_field('maradigma_sync_boats_action', 'maradigma_sync_nonce'); ?>
                             <input type="hidden" name="action" value="maradigma_sync_boats">
@@ -1766,6 +1773,29 @@ final class SettingsPage
                                         </span>
                                     </span>
                                 </label>
+                            </fieldset>
+
+                            <fieldset class="maradigma-settings-subsection">
+                                <legend style="padding:0 6px;font-weight:600;">
+                                    <?php esc_html_e('Duplicate boat pages', 'maradigma'); ?>
+                                </legend>
+
+                                <p class="description" style="margin:6px 0 10px 0;">
+                                    <?php esc_html_e('A duplicate is a second page for the same boat in the same language. The sync always keeps one page per boat and language (the one linked in the translation group, otherwise the newest page with content) and reports the others.', 'maradigma'); ?>
+                                </p>
+
+                                <label style="display:block;margin:10px 0 6px 0;font-weight:600;" for="maradigma_cleanup_duplicates">
+                                    <?php esc_html_e('When a boat has duplicate pages in a language', 'maradigma'); ?>
+                                </label>
+                                <select id="maradigma_cleanup_duplicates" name="sync[cleanup_duplicates]">
+                                    <option value="none" selected><?php esc_html_e('Only report them', 'maradigma'); ?></option>
+                                    <option value="trash"><?php esc_html_e('Move duplicates to trash', 'maradigma'); ?></option>
+                                    <option value="draft"><?php esc_html_e('Unpublish duplicates', 'maradigma'); ?></option>
+                                </select>
+
+                                <p class="description" style="margin:6px 0 0 0;">
+                                    <?php esc_html_e('Only pages created by the sync are changed; pages marked as custom/no-sync are only reported. The addresses of retired duplicates redirect to the kept page.', 'maradigma'); ?>
+                                </p>
                             </fieldset>
 
                             <p style="margin:14px 0 0 0;">
@@ -3704,6 +3734,98 @@ final class SettingsPage
         }
 
         return implode(' | ', $items);
+    }
+
+    /**
+     * Renders the duplicate boat pages found by the last boat sync.
+     *
+     * @param array<string,mixed> $duplicates
+     */
+    private static function renderBoatDuplicatesReport(array $duplicates): void
+    {
+        $action = (string) ($duplicates['action'] ?? 'none');
+        $items = is_array($duplicates['items'] ?? null) ? array_values((array) $duplicates['items']) : [];
+        $found = (int) ($duplicates['found'] ?? 0);
+        ?>
+        <div class="notice notice-warning inline" style="margin-top:10px;">
+            <p>
+                <strong><?php esc_html_e('Duplicate boat pages:', 'maradigma'); ?></strong>
+                <?php
+                echo esc_html(sprintf(
+                    /* translators: 1: duplicate pages found, 2: pages changed, 3: failed changes, 4: pages skipped because they are not managed by the sync or are protected. */
+                    __('found %1$d | retired %2$d | failed %3$d | protected %4$d', 'maradigma'),
+                    $found,
+                    (int) ($duplicates['changed'] ?? 0),
+                    (int) ($duplicates['failed'] ?? 0),
+                    (int) ($duplicates['skipped_protected'] ?? 0)
+                ));
+                ?>
+            </p>
+            <?php if ($action === 'none' && $found > (int) ($duplicates['skipped_protected'] ?? 0)) : ?>
+                <p><?php esc_html_e('The sync and the boat listings use the kept page; the duplicates were left untouched. To retire them, run the sync again choosing an action under "Duplicate boat pages".', 'maradigma'); ?></p>
+            <?php endif; ?>
+            <?php if ($items !== []) : ?>
+                <details style="margin:0 0 10px 0;">
+                    <summary>
+                        <?php
+                        echo esc_html(sprintf(
+                            /* translators: %d: number of listed duplicate pages. */
+                            __('Show listed duplicates (%d)', 'maradigma'),
+                            count($items)
+                        ));
+                        ?>
+                    </summary>
+                    <ul style="margin:6px 0 0 18px;list-style:disc;">
+                        <?php foreach ($items as $item) :
+                            if (!is_array($item)) {
+                                continue;
+                            }
+                            $keptId = (int) ($item['kept'] ?? 0);
+                            $duplicateId = (int) ($item['duplicate'] ?? 0);
+                        ?>
+                            <li>
+                                <?php
+                                echo esc_html(sprintf(
+                                    /* translators: 1: Maradigma boat ID, 2: language code, 3: kept post ID, 4: duplicate post ID, 5: outcome label. */
+                                    __('Boat %1$s (%2$s): kept #%3$d, duplicate #%4$d — %5$s', 'maradigma'),
+                                    (string) ($item['boat_id'] ?? ''),
+                                    strtoupper((string) ($item['lang'] ?? '')),
+                                    $keptId,
+                                    $duplicateId,
+                                    self::translateDuplicateOutcome((string) ($item['outcome'] ?? ''))
+                                ));
+                                // A trashed post cannot be edited until it is restored.
+                                $editLink = $duplicateId > 0 && get_post_status($duplicateId) !== 'trash' ? get_edit_post_link($duplicateId) : null;
+                                if (is_string($editLink) && $editLink !== '') {
+                                    echo ' <a href="' . esc_url($editLink) . '">' . esc_html__('Edit duplicate', 'maradigma') . '</a>';
+                                }
+                                ?>
+                            </li>
+                        <?php endforeach; ?>
+                    </ul>
+                </details>
+            <?php endif; ?>
+        </div>
+        <?php
+    }
+
+    /**
+     * Translates the outcome recorded for a duplicate boat page.
+     */
+    private static function translateDuplicateOutcome(string $outcome): string
+    {
+        switch ($outcome) {
+            case 'trash':
+                return __('moved to trash', 'maradigma');
+            case 'draft':
+                return __('unpublished', 'maradigma');
+            case 'protected':
+                return __('not managed by the sync or protected, left untouched', 'maradigma');
+            case 'failed':
+                return __('could not be changed', 'maradigma');
+            default:
+                return __('reported only', 'maradigma');
+        }
     }
 
     /**

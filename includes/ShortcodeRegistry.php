@@ -2341,87 +2341,23 @@ final class ShortcodeRegistry
             }
 
             if ($boatPagesSyncEnabled) {
-                $q = new \WP_Query([
-                    'post_type'      => \Maradigma\BoatPostType::POST_TYPE,
-                    'post_status'    => 'any',
-                    'fields'         => 'ids',
-                    'posts_per_page' => -1,
-                    'no_found_rows'  => true,
-                    'lang'           => '',
-                    'meta_query'     => [
-                        [
-                            'key'     => '_maradigma_boat_id',
-                            'value'   => $boatIds,
-                            'compare' => 'IN',
-                        ],
-                    ],
-                ]);
-
-                if (!empty($q->posts) && \is_array($q->posts)) {
-                    $bucket = [];
-
-                    foreach ($q->posts as $pid) {
-                        $pid = (int) $pid;
-                        if ($pid <= 0) {
-                            continue;
-                        }
-
-                        $bid = \trim((string) \get_post_meta($pid, '_maradigma_boat_id', true));
-                        if ($bid === '') {
-                            continue;
-                        }
-
-                        $pl = '';
-                        if (\function_exists('pll_get_post_language')) {
-                            $pl = \strtolower(\trim((string) \pll_get_post_language($pid, 'slug')));
-                            $pl = (string) (\preg_split('/[_-]/', $pl)[0] ?? $pl);
-                            $pl = \strtolower(\trim($pl));
-                        }
-
-                        if (!isset($bucket[$bid])) {
-                            $bucket[$bid] = [];
-                        }
-
-                        $bucket[$bid][$pl !== '' ? $pl : '_'] = $pid;
+                // Synced boat posts only; published only, chosen like the boat sync does.
+                foreach (\Maradigma\BoatPostLookup::resolvePublicPostIds($boatIds, $currentLang, false) as $bid => $pickId) {
+                    $url = \get_permalink($pickId);
+                    if (\is_string($url) && $url !== '' && empty($permalinkByBoatId[$bid])) {
+                        $permalinkByBoatId[$bid] = $url;
                     }
 
-                    foreach ($bucket as $bid => $langsMap) {
-                        $pickId = 0;
-
-                        if (isset($langsMap[$currentLang])) {
-                            $pickId = (int) $langsMap[$currentLang];
-                        } else {
-                            if (\function_exists('pll_get_post')) {
-                                $any = (int) \reset($langsMap);
-                                $translated = (int) \pll_get_post($any, $currentLang);
-                                if ($translated > 0) {
-                                    $pickId = $translated;
-                                }
-                            }
-
-                            if ($pickId <= 0) {
-                                $pickId = isset($langsMap['_']) ? (int) $langsMap['_'] : (int) \reset($langsMap);
-                            }
-                        }
-
-                        if ($pickId > 0) {
-                            $url = \get_permalink($pickId);
-                            if (\is_string($url) && $url !== '' && empty($permalinkByBoatId[$bid])) {
-                                $permalinkByBoatId[$bid] = $url;
-                            }
-
-                            if (empty($linkedWpBoatMap[$bid]['thumbnail_url']) && \has_post_thumbnail($pickId)) {
-                                $thumbId = (int) \get_post_thumbnail_id($pickId);
-                                if ($thumbId > 0) {
-                                    $src = \wp_get_attachment_image_src($thumbId, 'full');
-                                    if (\is_array($src) && !empty($src[0]) && \is_string($src[0])) {
-                                        $linkedWpBoatMap[$bid] = [
-                                            'post_id'       => $pickId,
-                                            'url'           => \is_string($url) ? $url : '',
-                                            'thumbnail_url' => (string) $src[0],
-                                        ];
-                                    }
-                                }
+                    if (empty($linkedWpBoatMap[$bid]['thumbnail_url']) && \has_post_thumbnail($pickId)) {
+                        $thumbId = (int) \get_post_thumbnail_id($pickId);
+                        if ($thumbId > 0) {
+                            $src = \wp_get_attachment_image_src($thumbId, 'full');
+                            if (\is_array($src) && !empty($src[0]) && \is_string($src[0])) {
+                                $linkedWpBoatMap[$bid] = [
+                                    'post_id'       => $pickId,
+                                    'url'           => \is_string($url) ? $url : '',
+                                    'thumbnail_url' => (string) $src[0],
+                                ];
                             }
                         }
                     }
@@ -3425,6 +3361,19 @@ final class ShortcodeRegistry
     }
 
     /**
+     * Decodes the boat payload stored on a synced boat post.
+     *
+     * @return array<string,mixed>|null
+     */
+    private static function decodeBoatPostPayload(int $postId): ?array
+    {
+        $payloadJson = (string) \get_post_meta($postId, '_maradigma_boat_payload', true);
+        $payload = $payloadJson !== '' ? \json_decode($payloadJson, true) : null;
+
+        return \is_array($payload) ? $payload : null;
+    }
+
+    /**
      * @return list<array<string,mixed>>
      */
     private static function loadRelatedBoatCandidatesFromWp(string $currentBoatId, string $currentLang): array
@@ -3458,7 +3407,7 @@ final class ShortcodeRegistry
             return [];
         }
 
-        $bucket = [];
+        $payloadByPostId = [];
 
         foreach ($query->posts as $postId) {
             $postId = (int) $postId;
@@ -3466,10 +3415,8 @@ final class ShortcodeRegistry
                 continue;
             }
 
-            $payloadJson = (string) \get_post_meta($postId, '_maradigma_boat_payload', true);
-            $payload = $payloadJson !== '' ? \json_decode($payloadJson, true) : null;
-
-            if (!\is_array($payload)) {
+            $payload = self::decodeBoatPostPayload($postId);
+            if ($payload === null) {
                 continue;
             }
 
@@ -3481,51 +3428,25 @@ final class ShortcodeRegistry
                 continue;
             }
 
-            $lang = '';
-            if (\function_exists('pll_get_post_language')) {
-                $lang = \strtolower(\trim((string) \pll_get_post_language($postId, 'slug')));
-                $lang = (string) (\preg_split('/[_-]/', $lang)[0] ?? $lang);
-            } elseif (\has_filter('wpml_element_language_code')) {
-                $maybeLang = \apply_filters('wpml_element_language_code', null, [
-                    'element_id'   => $postId,
-                    'element_type' => 'post_' . \Maradigma\BoatPostType::POST_TYPE,
-                ]);
-
-                if (\is_string($maybeLang)) {
-                    $lang = \strtolower(\trim($maybeLang));
-                    $lang = (string) (\preg_split('/[_-]/', $lang)[0] ?? $lang);
-                }
-            }
-
-            if (!isset($bucket[$boatId])) {
-                $bucket[$boatId] = [];
-            }
-
-            $bucket[$boatId][$lang !== '' ? $lang : '_'] = [
-                'post_id' => $postId,
-                'payload' => $payload,
-            ];
+            $payloadByPostId[$postId] = $payload;
         }
 
         $out = [];
 
-        foreach ($bucket as $boatId => $langsMap) {
-            $picked = null;
+        // Same choice as the boat sync and the listings when several posts share a boat and language.
+        foreach (\Maradigma\BoatPostLookup::describePosts(\array_keys($payloadByPostId), false) as $candidates) {
+            $published = \Maradigma\Support\BoatPostSelectionPolicy::filterPublished($candidates);
+            $postId = \Maradigma\BoatPostLookup::pickPublicPostId($published, $currentLang);
 
-            if ($currentLang !== '' && isset($langsMap[$currentLang])) {
-                $picked = $langsMap[$currentLang];
-            } elseif (isset($langsMap['_'])) {
-                $picked = $langsMap['_'];
-            } else {
-                $picked = \reset($langsMap);
+            if (!isset($payloadByPostId[$postId])) {
+                // The current-language translation has no readable payload: use the best listed post.
+                $postId = \Maradigma\Support\BoatPostSelectionPolicy::pick($published);
             }
 
-            if (!\is_array($picked) || !isset($picked['post_id'], $picked['payload']) || !\is_array($picked['payload'])) {
+            $payload = $payloadByPostId[$postId] ?? null;
+            if ($payload === null) {
                 continue;
             }
-
-            $postId = (int) $picked['post_id'];
-            $payload = $picked['payload'];
 
             $url = \get_permalink($postId);
             if (\is_string($url) && $url !== '') {
@@ -3973,8 +3894,9 @@ final class ShortcodeRegistry
     /**
      * Resolve manually linked WP posts for Maradigma boats.
      *
-     * Priority:
-     * - Current language post if available
+     * Only published posts are linked. Priority (see BoatPostLookup::resolvePublicPostIds()):
+     * - Current language post if available (a page bound by hand first, then a
+     *   translation-group member, then the newest post with layout content)
      * - Translation in current language
      * - Any matching post as fallback
      *
@@ -4002,106 +3924,10 @@ final class ShortcodeRegistry
             return [];
         }
 
-        $currentLang = strtolower(trim($currentLang));
-        $currentLang = (string) (preg_split('/[_-]/', $currentLang)[0] ?? $currentLang);
-
-        $query = new \WP_Query([
-            'post_type'              => 'any',
-            'post_status'            => 'publish',
-            'fields'                 => 'ids',
-            'posts_per_page'         => -1,
-            'no_found_rows'          => true,
-            'update_post_meta_cache' => false,
-            'update_post_term_cache' => false,
-            'lang'                   => '',
-            'meta_query'             => [
-                'relation' => 'OR',
-                [
-                    'key'     => \Maradigma\MetaManager::META_PAGE_BOAT_ID,
-                    'value'   => $boatIds,
-                    'compare' => 'IN',
-                ],
-                [
-                    'key'     => \Maradigma\MetaManager::META_CPT_BOAT_ID,
-                    'value'   => $boatIds,
-                    'compare' => 'IN',
-                ],
-            ],
-        ]);
-
-        if (empty($query->posts) || !is_array($query->posts)) {
-            return [];
-        }
-
-        $bucket = [];
-
-        foreach ($query->posts as $postId) {
-            $postId = (int) $postId;
-            if ($postId <= 0) {
-                continue;
-            }
-
-            $postType = (string) get_post_type($postId);
-            if ($postType === '') {
-                continue;
-            }
-
-            $boatId = trim((string) get_post_meta($postId, \Maradigma\MetaManager::META_PAGE_BOAT_ID, true));
-            if ($boatId === '') {
-                $boatId = trim((string) get_post_meta($postId, \Maradigma\MetaManager::META_CPT_BOAT_ID, true));
-            }
-
-            if ($boatId === '') {
-                continue;
-            }
-
-            $lang = '';
-
-            if (function_exists('pll_get_post_language')) {
-                $lang = strtolower(trim((string) pll_get_post_language($postId, 'slug')));
-                $lang = (string) (preg_split('/[_-]/', $lang)[0] ?? $lang);
-            } elseif (has_filter('wpml_element_language_code')) {
-                $maybeLang = apply_filters('wpml_element_language_code', null, [
-                    'element_id'   => $postId,
-                    'element_type' => 'post_' . $postType,
-                ]);
-
-                if (is_string($maybeLang)) {
-                    $lang = strtolower(trim($maybeLang));
-                    $lang = (string) (preg_split('/[_-]/', $lang)[0] ?? $lang);
-                }
-            }
-
-            if (!isset($bucket[$boatId])) {
-                $bucket[$boatId] = [];
-            }
-
-            $bucket[$boatId][$lang !== '' ? $lang : '_'] = $postId;
-        }
-
         $out = [];
 
-        foreach ($bucket as $boatId => $langsMap) {
-            $pickedPostId = 0;
-
-            if ($currentLang !== '' && isset($langsMap[$currentLang])) {
-                $pickedPostId = (int) $langsMap[$currentLang];
-            } elseif (function_exists('pll_get_post')) {
-                $anyPostId = (int) reset($langsMap);
-                $translatedId = (int) pll_get_post($anyPostId, $currentLang);
-                if ($translatedId > 0) {
-                    $pickedPostId = $translatedId;
-                }
-            }
-
-            if ($pickedPostId <= 0) {
-                $pickedPostId = isset($langsMap['_']) ? (int) $langsMap['_'] : (int) reset($langsMap);
-            }
-
-            if ($pickedPostId <= 0) {
-                continue;
-            }
-
+        // Same choice as the boat sync when several posts share a boat and language.
+        foreach (\Maradigma\BoatPostLookup::resolvePublicPostIds($boatIds, $currentLang, true) as $boatId => $pickedPostId) {
             $url = get_permalink($pickedPostId);
             if (!is_string($url) || $url === '') {
                 continue;
@@ -5142,6 +4968,7 @@ final class ShortcodeRegistry
             return 0;
         }
 
+        // Cached images belong to the boat, not to a language (Polylang media translation).
         // 1) Cover first
         $q1 = new \WP_Query([
             'post_type'      => 'attachment',
@@ -5149,6 +4976,7 @@ final class ShortcodeRegistry
             'fields'         => 'ids',
             'posts_per_page' => 1,
             'no_found_rows'  => true,
+            'lang'           => '',
             'meta_query'     => [
                 ['key' => '_maradigma_boat_id',  'value' => $boatId],
                 ['key' => '_maradigma_is_cover', 'value' => '1'],
@@ -5166,6 +4994,7 @@ final class ShortcodeRegistry
             'fields'         => 'ids',
             'posts_per_page' => 1,
             'no_found_rows'  => true,
+            'lang'           => '',
             'meta_key'       => '_maradigma_image_order',
             'orderby'        => 'meta_value_num',
             'order'          => 'ASC',
@@ -5186,6 +5015,7 @@ final class ShortcodeRegistry
             'fields'         => 'ids',
             'posts_per_page' => 1,
             'no_found_rows'  => true,
+            'lang'           => '',
             'meta_query'     => [
                 ['key' => '_maradigma_boat_id', 'value' => $boatId],
             ],

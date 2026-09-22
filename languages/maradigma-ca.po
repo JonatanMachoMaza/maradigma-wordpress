@@ -2685,6 +2685,78 @@ msgid "Only applies when permanent deletion is selected. It deletes Media Librar
 msgstr "Només s’aplica quan se selecciona l’esborrament definitiu. Elimina adjunts de la Mediateca marcats amb l’ID de vaixell obsolet de Maradigma."
 
 #: includes/SettingsPage.php
+msgid "Duplicate boat pages"
+msgstr "Pàgines de vaixell duplicades"
+
+#: includes/SettingsPage.php
+msgid "A duplicate is a second page for the same boat in the same language. The sync always keeps one page per boat and language (the one linked in the translation group, otherwise the newest page with content) and reports the others."
+msgstr "Un duplicat és una segona pàgina del mateix vaixell en el mateix idioma. La sincronització conserva sempre una pàgina per vaixell i idioma (l’enllaçada al grup de traduccions o, si no n’hi ha, la més recent amb contingut) i informa de les altres."
+
+#: includes/SettingsPage.php
+msgid "When a boat has duplicate pages in a language"
+msgstr "Quan un vaixell tingui pàgines duplicades en un idioma"
+
+#: includes/SettingsPage.php
+msgid "Only report them"
+msgstr "Només informar-ne"
+
+#: includes/SettingsPage.php
+msgid "Move duplicates to trash"
+msgstr "Moure els duplicats a la paperera"
+
+#: includes/SettingsPage.php
+msgid "Unpublish duplicates"
+msgstr "Despublicar els duplicats"
+
+#: includes/SettingsPage.php
+msgid "Only pages created by the sync are changed; pages marked as custom/no-sync are only reported. The addresses of retired duplicates redirect to the kept page."
+msgstr "Només es modifiquen les pàgines creades per la sincronització; les marcades com a personalitzades/no sincronitzables només es notifiquen. Les adreces dels duplicats retirats redirigeixen a la pàgina conservada."
+
+#: includes/SettingsPage.php
+msgid "Duplicate boat pages:"
+msgstr "Pàgines de vaixell duplicades:"
+
+#: includes/SettingsPage.php
+msgid "found %1$d | retired %2$d | failed %3$d | protected %4$d"
+msgstr "trobades %1$d | retirades %2$d | amb error %3$d | protegides %4$d"
+
+#: includes/SettingsPage.php
+msgid "The sync and the boat listings use the kept page; the duplicates were left untouched. To retire them, run the sync again choosing an action under \"Duplicate boat pages\"."
+msgstr "La sincronització i els llistats de vaixells fan servir la pàgina conservada; els duplicats no s’han tocat. Per retirar-los, torna a llançar la sincronització triant una acció a «Pàgines de vaixell duplicades»."
+
+#: includes/SettingsPage.php
+msgid "Show listed duplicates (%d)"
+msgstr "Mostra els duplicats llistats (%d)"
+
+#: includes/SettingsPage.php
+msgid "Boat %1$s (%2$s): kept #%3$d, duplicate #%4$d — %5$s"
+msgstr "Vaixell %1$s (%2$s): conservada #%3$d, duplicada #%4$d — %5$s"
+
+#: includes/SettingsPage.php
+msgid "Edit duplicate"
+msgstr "Edita el duplicat"
+
+#: includes/SettingsPage.php
+msgid "moved to trash"
+msgstr "moguda a la paperera"
+
+#: includes/SettingsPage.php
+msgid "unpublished"
+msgstr "despublicada"
+
+#: includes/SettingsPage.php
+msgid "not managed by the sync or protected, left untouched"
+msgstr "no gestionada per la sincronització o protegida, sense canvis"
+
+#: includes/SettingsPage.php
+msgid "could not be changed"
+msgstr "no s’ha pogut canviar"
+
+#: includes/SettingsPage.php
+msgid "reported only"
+msgstr "només notificada"
+
+#: includes/SettingsPage.php
 msgid "Boat sync started. It will continue in batches via WP-Cron while this screen keeps it moving with AJAX."
 msgstr "Sincronització de vaixells iniciada. Continuarà per lots mitjançant WP-Cron mentre aquesta pantalla la manté avançant amb AJAX."
 

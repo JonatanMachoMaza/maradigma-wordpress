@@ -99,17 +99,27 @@ final class SettingsSyncActions
         try {
             $query = new \WP_Query([
                 'post_type'      => \Maradigma\BoatPostType::POST_TYPE,
-                'post_status'    => 'any',
+                // A permanent reset also empties boats already in the trash.
+                'post_status'    => $force ? ['any', 'trash'] : 'any',
                 'fields'         => 'ids',
                 'posts_per_page' => -1,
                 'no_found_rows'  => true,
+                // Every language, whatever the admin language filter (translations included).
+                'lang'           => '',
+                // phpcs:ignore WordPressVIPMinimum.Performance.WPQueryParams.SuppressFilters_suppress_filters
+                'suppress_filters' => true,
             ]);
 
             $ids = is_array($query->posts) ? $query->posts : [];
             foreach ($ids as $id) {
                 $id = (int) $id;
                 if ($id > 0) {
-                    wp_delete_post($id, $force);
+                    // wp_delete_post() only trashes posts and pages; boats need wp_trash_post().
+                    if ($force) {
+                        wp_delete_post($id, true);
+                    } else {
+                        wp_trash_post($id);
+                    }
                 }
             }
 
@@ -150,6 +160,7 @@ final class SettingsSyncActions
                 'cleanup_obsolete'       => 'none',
                 'cleanup_delete_confirm' => false,
                 'cleanup_delete_images'  => false,
+                'cleanup_duplicates'     => 'none',
             ];
         }
 
@@ -166,6 +177,7 @@ final class SettingsSyncActions
             'cleanup_obsolete'       => isset($sync['cleanup_obsolete']) ? sanitize_key((string) $sync['cleanup_obsolete']) : 'none',
             'cleanup_delete_confirm' => !empty($sync['cleanup_delete_confirm']),
             'cleanup_delete_images'  => !empty($sync['cleanup_delete_images']),
+            'cleanup_duplicates'     => isset($sync['cleanup_duplicates']) ? sanitize_key((string) $sync['cleanup_duplicates']) : 'none',
         ];
 
         if (!in_array($options['yoast_mode'], ['fix_multilang', 'skip'], true)) {
@@ -199,6 +211,10 @@ final class SettingsSyncActions
 
         if ($options['cleanup_obsolete'] !== 'delete') {
             $options['cleanup_delete_images'] = false;
+        }
+
+        if (!in_array($options['cleanup_duplicates'], ['none', 'trash', 'draft'], true)) {
+            $options['cleanup_duplicates'] = 'none';
         }
 
         return $options;

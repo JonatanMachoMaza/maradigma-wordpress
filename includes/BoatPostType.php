@@ -234,6 +234,8 @@ final class BoatPostType
             'no_found_rows' => false,
             'update_post_meta_cache' => false,
             'update_post_term_cache' => false,
+            // Cached images belong to the boat, not to a language.
+            'lang' => '',
             'meta_query' => [
                 [
                     'key' => self::META_ATTACHMENT_BOAT_ID,

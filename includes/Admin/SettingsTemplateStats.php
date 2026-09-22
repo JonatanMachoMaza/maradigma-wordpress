@@ -24,6 +24,8 @@ final class SettingsTemplateStats
             'fields'         => 'ids',
             'posts_per_page' => -1,
             'no_found_rows'  => true,
+            // Every language, whatever the admin language filter.
+            'lang'           => '',
             'meta_query'     => [
                 [
                     'key'     => '_elementor_data',
@@ -212,6 +214,8 @@ final class SettingsTemplateStats
             'fields'         => 'ids',
             'posts_per_page' => -1,
             'no_found_rows'  => true,
+            // Every language, whatever the admin language filter.
+            'lang'           => '',
         ]);
 
         $posts = is_array($query->posts) ? $query->posts : [];

@@ -2610,6 +2610,78 @@ msgid "Only applies when permanent deletion is selected. It deletes Media Librar
 msgstr "Alleen van toepassing wanneer permanent verwijderen is geselecteerd. Verwijdert mediabibliotheekbijlagen die zijn gemarkeerd met de verouderde Maradigma boot-ID."
 
 #: includes/SettingsPage.php
+msgid "Duplicate boat pages"
+msgstr "Dubbele bootpagina’s"
+
+#: includes/SettingsPage.php
+msgid "A duplicate is a second page for the same boat in the same language. The sync always keeps one page per boat and language (the one linked in the translation group, otherwise the newest page with content) and reports the others."
+msgstr "Een duplicaat is een tweede pagina voor dezelfde boot in dezelfde taal. De synchronisatie behoudt altijd één pagina per boot en taal (de pagina die in de vertaalgroep is gekoppeld, anders de nieuwste pagina met inhoud) en meldt de andere."
+
+#: includes/SettingsPage.php
+msgid "When a boat has duplicate pages in a language"
+msgstr "Wanneer een boot dubbele pagina’s in een taal heeft"
+
+#: includes/SettingsPage.php
+msgid "Only report them"
+msgstr "Alleen melden"
+
+#: includes/SettingsPage.php
+msgid "Move duplicates to trash"
+msgstr "Duplicaten naar de prullenbak verplaatsen"
+
+#: includes/SettingsPage.php
+msgid "Unpublish duplicates"
+msgstr "Duplicaten depubliceren"
+
+#: includes/SettingsPage.php
+msgid "Only pages created by the sync are changed; pages marked as custom/no-sync are only reported. The addresses of retired duplicates redirect to the kept page."
+msgstr "Alleen pagina’s die door de synchronisatie zijn aangemaakt, worden gewijzigd; pagina’s die als aangepast/niet synchroniseren zijn gemarkeerd, worden alleen gemeld. De adressen van verwijderde duplicaten verwijzen door naar de behouden pagina."
+
+#: includes/SettingsPage.php
+msgid "Duplicate boat pages:"
+msgstr "Dubbele bootpagina’s:"
+
+#: includes/SettingsPage.php
+msgid "found %1$d | retired %2$d | failed %3$d | protected %4$d"
+msgstr "gevonden %1$d | verwijderd %2$d | mislukt %3$d | beschermd %4$d"
+
+#: includes/SettingsPage.php
+msgid "The sync and the boat listings use the kept page; the duplicates were left untouched. To retire them, run the sync again choosing an action under \"Duplicate boat pages\"."
+msgstr "De synchronisatie en de bootoverzichten gebruiken de behouden pagina; de duplicaten zijn niet aangepast. Start de synchronisatie opnieuw en kies een actie onder ‘Dubbele bootpagina’s’ om ze te verwijderen."
+
+#: includes/SettingsPage.php
+msgid "Show listed duplicates (%d)"
+msgstr "Vermelde duplicaten tonen (%d)"
+
+#: includes/SettingsPage.php
+msgid "Boat %1$s (%2$s): kept #%3$d, duplicate #%4$d — %5$s"
+msgstr "Boot %1$s (%2$s): behouden #%3$d, duplicaat #%4$d — %5$s"
+
+#: includes/SettingsPage.php
+msgid "Edit duplicate"
+msgstr "Duplicaat bewerken"
+
+#: includes/SettingsPage.php
+msgid "moved to trash"
+msgstr "naar de prullenbak verplaatst"
+
+#: includes/SettingsPage.php
+msgid "unpublished"
+msgstr "gedepubliceerd"
+
+#: includes/SettingsPage.php
+msgid "not managed by the sync or protected, left untouched"
+msgstr "niet beheerd door de synchronisatie of beschermd, ongewijzigd"
+
+#: includes/SettingsPage.php
+msgid "could not be changed"
+msgstr "kon niet worden gewijzigd"
+
+#: includes/SettingsPage.php
+msgid "reported only"
+msgstr "alleen gemeld"
+
+#: includes/SettingsPage.php
 msgid "Boat sync started. It will continue in batches via WP-Cron while this screen keeps it moving with AJAX."
 msgstr "Bootsynchronisatie gestart. Deze gaat in batches verder via WP-Cron terwijl dit scherm het proces met AJAX blijft voortzetten."
 

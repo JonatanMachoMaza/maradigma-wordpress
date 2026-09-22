@@ -4,7 +4,7 @@ Tags: boat rental, yacht charter, booking, availability, fleet management
 Requires at least: 6.0
 Tested up to: 7.1
 Requires PHP: 8.1
-Stable tag: 0.1.188
+Stable tag: 0.1.189
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -157,6 +157,18 @@ The repository includes `package.json`, `package-lock.json`, and the Vite config
 
 == Changelog ==
 
+= 0.1.189 =
+* Stopped the boat sync from creating a second page for the same boat and language when it runs from the admin screen on Polylang sites. Polylang filtered the sync's page lookup by the admin's language, so pages in the other languages were not found and were created again.
+* Detected duplicate boat pages (same boat and language) during the sync and listed them in the sync panel. A new sync option moves them to the trash or unpublishes them, and their addresses redirect to the page that is kept. Pages with a custom layout or marked as no-sync are kept and never retired.
+* Linked boat listings, boat cards, and related boats to the same page the sync keeps (a customized page first, then the one in the translation group), and never to drafts or private pages.
+* Kept boat page slugs stable between syncs. A slug now changes only when the boat's name changes in Maradigma.
+* Redirected old boat addresses to the published page in the same language when several pages once used that address.
+* Kept regional languages such as pt-BR and pt-PT apart when matching boat pages.
+* Added the WPBakery layout to new boat pages in "overwrite" mode, and treated an empty Elementor layout as missing so the sync adds it.
+* Counted and cleaned up boat pages in every language, whatever language filter is selected in the admin.
+* Moved boats to the trash with "Delete all boats" unless "Delete permanently" is checked; they were always deleted permanently.
+* Translated two booking error messages that the translation compiler had been dropping.
+
 = 0.1.188 =
 * Rendered the "No boats found" message, the boat cards, and the pagination returned by listing refreshes in the language of the page instead of the site language.
 * Used the translations bundled with the plugin when WordPress does not have the language pack of the page installed.
@@ -308,6 +320,9 @@ The repository includes `package.json`, `package-lock.json`, and the Vite config
 * Improved readme documentation for the current feature set.
 
 == Upgrade Notice ==
+
+= 0.1.189 =
+Stops the boat sync from duplicating translated boat pages on multilingual sites, links listings to the right page, keeps boat addresses stable, and can move existing duplicates to the trash.
 
 = 0.1.188 =
 Shows the "No boats found" message and the boat cards in the page language after filtering a listing, even without the WordPress language pack.

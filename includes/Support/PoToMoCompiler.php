@@ -121,14 +121,12 @@ final class PoToMoCompiler
 
             if (str_starts_with($line, 'msgid')) {
                 $state = 'msgid';
-                $current['msgid'] = self::extractQuotedString($line);
-                // If msgstr already present, it's a new entry
+                // A msgid right after a msgstr (no blank line) starts a new entry:
+                // flush the previous one before its msgid is overwritten.
                 if ($current['msgstr'] !== null) {
-                    // This is unusual but we handle it by flushing previous first
                     $flush();
-                    $current['msgid'] = self::extractQuotedString($line);
-                    $current['msgstr'] = null;
                 }
+                $current['msgid'] = self::extractQuotedString($line);
                 continue;
             }
 

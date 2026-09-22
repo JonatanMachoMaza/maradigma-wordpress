@@ -879,7 +879,8 @@ final class WPBakeryIntegration
             return false;
         }
 
-        if ($mode === 'overwrite' && !self::isManagedWPBakeryLayout($postId)) {
+        // Empty content has nothing to protect: a new synced post must be seeded in overwrite mode too.
+        if ($mode === 'overwrite' && \trim($current) !== '' && !self::isManagedWPBakeryLayout($postId)) {
             return false;
         }
 
@@ -941,7 +942,7 @@ final class WPBakeryIntegration
             return 'content_not_empty';
         }
 
-        if (\sanitize_key($mode) === 'overwrite' && !self::isManagedWPBakeryLayout($postId)) {
+        if (\sanitize_key($mode) === 'overwrite' && \trim($content) !== '' && !self::isManagedWPBakeryLayout($postId)) {
             return 'not_managed_wpbakery_layout';
         }
 

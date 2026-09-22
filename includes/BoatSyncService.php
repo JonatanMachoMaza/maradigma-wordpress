@@ -8,6 +8,8 @@ if (!defined('ABSPATH')) {
     exit;
 }
 
+use Maradigma\Support\BoatPostSelectionPolicy;
+use Maradigma\Support\BoatSlugPolicy;
 use Maradigma\Support\MultilangAdapter;
 use Maradigma\Integrations\Gutenberg\GutenbergIntegration;
 use Maradigma\Integrations\WPBakery\WPBakeryIntegration;
@@ -53,6 +55,8 @@ final class BoatSyncService
 
     private const META_MANAGED = '_maradigma_managed';
     private const META_DISABLE_SYNC = '_maradigma_disable_sync';
+    private const META_SYNC_BASE_SLUG = '_maradigma_sync_base_slug';
+    private const META_DUPLICATE_OF = BoatPostLookup::META_DUPLICATE_OF;
 
     // Elementor seeding tracking
     private const META_ELEMENTOR_SEEDED        = '_maradigma_elementor_seeded';
@@ -73,6 +77,10 @@ final class BoatSyncService
     // Batch tuning
     private const DEFAULT_BATCH_BOATS = 10; // boats per tick (tune to your server)
     private const MAX_BATCH_BOATS     = 50;
+
+    // Duplicate boat posts (same boat + language)
+    private const DUPLICATE_ACTIONS      = ['none', 'trash', 'draft'];
+    private const DUPLICATE_REPORT_LIMIT = 50;
 
     /**
      * Registers the component's WordPress hooks.
@@ -124,6 +132,7 @@ final class BoatSyncService
             'api_boat_ids'          => [],
             'api_list_valid'        => false,
             'cleanup'               => self::makeInitialCleanupState($options),
+            'duplicates'            => self::makeInitialDuplicatesState($options),
 
             // config
             'options'     => $options,
@@ -355,8 +364,9 @@ final class BoatSyncService
                 if ($mode === 'skip') return;
 
                 if ($mode === 'seed_missing') {
-                    $current = (string)get_post_meta($pid, '_elementor_data', true);
-                    if ($current === '') {
+                    // '[]' is an empty Elementor canvas: nothing to preserve.
+                    $current = trim((string)get_post_meta($pid, '_elementor_data', true));
+                    if ($current === '' || $current === '[]') {
                         self::seedElementorToBoatPost($pid, $elementorTemplateId);
                     }
                     return;
@@ -431,8 +441,10 @@ final class BoatSyncService
                     $lang = strtolower(trim((string)$lang));
                     if ($lang === '') continue;
 
+                    $anchorPostId = $lang === $sourceLang ? 0 : (int)($langToPostId[$sourceLang] ?? 0);
+
                     if (in_array($lang, $completedLanguages, true)) {
-                        $completedPostId = self::findPostIdByBoatIdAndLang($boatId, $lang);
+                        $completedPostId = self::findPostIdByBoatIdAndLang($boatId, $lang, $anchorPostId);
                         if ($completedPostId > 0) {
                             $langToPostId[$lang] = $completedPostId;
                             continue;
@@ -519,27 +531,38 @@ final class BoatSyncService
                     $suggestedSlug = trim($suggestedSlug);
                     if ($suggestedSlug === '') $suggestedSlug = $name;
 
+                    // Base slug only: making it unique against post 0 here would count the boat's
+                    // own post as a collision and rename it on every sync.
                     $postSlug = sanitize_title($suggestedSlug);
-                    $postSlug = wp_unique_post_slug($postSlug, 0, 'publish', BoatPostType::POST_TYPE, 0);
 
                     $payloadJson = wp_json_encode($boatFull, JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE);
 
-                    $postId = self::findPostIdByBoatIdAndLang($boatId, $lang);
+                    $postId = self::findPostIdByBoatIdAndLang($boatId, $lang, $anchorPostId);
 
                     if ($postId > 0) {
                         $disable = (bool)get_post_meta($postId, self::META_DISABLE_SYNC, true);
+
+                        if ((int)get_post_meta($postId, self::META_DUPLICATE_OF, true) > 0) {
+                            // A retired duplicate is only picked when no other post is left in this
+                            // language: it becomes the boat's page again.
+                            delete_post_meta($postId, self::META_DUPLICATE_OF);
+                            if (get_post_status($postId) === 'draft') {
+                                wp_update_post(['ID' => $postId, 'post_status' => 'publish']);
+                            }
+                        }
 
                         if (!$disable) {
                             $managed = (bool)get_post_meta($postId, self::META_MANAGED, true);
 
                             if ($managed && !empty($options['update_post_title_slug'])) {
-                                $safeSlug = wp_unique_post_slug($postSlug, $postId, 'publish', BoatPostType::POST_TYPE, 0);
+                                $safeSlug = self::resolveStableBoatSlug($postSlug, $postId);
 
                                 wp_update_post([
                                     'ID'         => $postId,
                                     'post_title' => $name,
                                     'post_name'  => $safeSlug,
                                 ]);
+                                update_post_meta($postId, self::META_SYNC_BASE_SLUG, $postSlug);
 
                                 $state['posts_updated_total'] = (int)($state['posts_updated_total'] ?? 0) + 1;
                                 $state['per_lang'][$lang]['updated'] = (int)$state['per_lang'][$lang]['updated'] + 1;
@@ -578,14 +601,21 @@ final class BoatSyncService
                             'post_title'   => $name,
                             'post_name'    => $safeSlug,
                             'post_content' => '',
+                            // Stored inside wp_insert_post() so the post is never left without its boat ID.
+                            'meta_input'   => [
+                                self::META_BOAT_ID        => $boatId,
+                                self::META_MANAGED        => true,
+                                self::META_DISABLE_SYNC   => false,
+                                self::META_SYNC_BASE_SLUG => $postSlug,
+                            ],
                         ], true);
 
                         if (!is_wp_error($inserted) && (int)$inserted > 0) {
                             $postId = (int)$inserted;
 
-                            update_post_meta($postId, self::META_BOAT_ID, $boatId);
-                            update_post_meta($postId, self::META_MANAGED, true);
-                            update_post_meta($postId, self::META_DISABLE_SYNC, false);
+                            // Assign the language first: an interrupted batch must not leave a post
+                            // that the next lookup cannot match to its language.
+                            MultilangAdapter::setPostLanguage($postId, $lang);
 
                             if (!empty($options['update_payload']) && is_string($payloadJson)) {
                                 update_post_meta($postId, self::META_PAYLOAD, wp_slash($payloadJson));
@@ -608,7 +638,6 @@ final class BoatSyncService
                                 self::syncBoatImages($postId, $boatId); // ✅ attach only (WP cache)
                             }
 
-                            MultilangAdapter::setPostLanguage($postId, $lang);
                             $applyYoast($postId, $boatFull, $lang);
 
                             $state['posts_created_total'] = (int)($state['posts_created_total'] ?? 0) + 1;
@@ -655,6 +684,8 @@ final class BoatSyncService
                 if (count($langToPostId) >= 2) {
                     MultilangAdapter::linkTranslations($langToPostId);
                 }
+
+                $state = self::reconcileBoatDuplicates($state, $boatId, $langToPostId);
 
                 $state['language_checkpoint'] = [
                     'boat_id'             => '',
@@ -1499,6 +1530,10 @@ final class BoatSyncService
             'fields'         => 'ids',
             'posts_per_page' => -1,
             'no_found_rows'  => true,
+            // Every language: Polylang filters admin-pump requests by the current language otherwise.
+            'lang'           => '',
+            // phpcs:ignore WordPressVIPMinimum.Performance.WPQueryParams.SuppressFilters_suppress_filters
+            'suppress_filters' => true,
             'meta_query'     => [
                 'relation' => 'AND',
                 [
@@ -1632,6 +1667,7 @@ final class BoatSyncService
             'cleanup_obsolete'       => 'none',
             'cleanup_delete_confirm' => false,
             'cleanup_delete_images'  => false,
+            'cleanup_duplicates'     => 'none',
         ];
 
         $options = array_merge($defaults, is_array($options) ? $options : []);
@@ -1669,6 +1705,9 @@ final class BoatSyncService
             $options['cleanup_delete_images'] = false;
         }
 
+        $duplicates = sanitize_key((string)($options['cleanup_duplicates'] ?? 'none'));
+        $options['cleanup_duplicates'] = in_array($duplicates, self::DUPLICATE_ACTIONS, true) ? $duplicates : 'none';
+
         return $options;
     }
 
@@ -1677,46 +1716,189 @@ final class BoatSyncService
     // ─────────────────────────────────────────────
 
     /**
-     * Finds a synchronized boat post for an external boat ID and language.
+     * Finds the synchronized boat post for an external boat ID and language.
+     *
+     * The lookup sees every language (see BoatPostLookup) and, when duplicates
+     * exist, returns the translation linked to $anchorPostId (the boat's
+     * source-language post) or the best candidate by BoatPostSelectionPolicy.
      */
-    private static function findPostIdByBoatIdAndLang(string $boatId, string $lang): int
+    private static function findPostIdByBoatIdAndLang(string $boatId, string $lang, int $anchorPostId = 0): int
     {
-        $q = new \WP_Query([
-            'post_type'      => BoatPostType::POST_TYPE,
-            'post_status'    => 'any',
-            'fields'         => 'ids',
-            'posts_per_page' => 50,
-            // The lookup must cross language filters; each candidate is validated below.
-            // phpcs:ignore WordPressVIPMinimum.Performance.WPQueryParams.SuppressFilters_suppress_filters
-            'suppress_filters' => true,
-            'meta_query'     => [
-                [
-                    'key'   => self::META_BOAT_ID,
-                    'value' => $boatId,
-                ],
-            ],
-        ]);
+        return BoatPostLookup::findSyncPostId($boatId, $lang, $anchorPostId);
+    }
 
-        if (empty($q->posts)) return 0;
+    /**
+     * Returns the slug a synchronized boat post should keep.
+     *
+     * The current slug is kept while the boat's base slug is unchanged and the
+     * slug is still that base or a numbered variant of it (base-2, base-3...)
+     * and unique; the slug only changes when the boat's name/slug in Maradigma
+     * changes. Posts synced before the base slug was stored are judged by the
+     * variant rule alone.
+     */
+    private static function resolveStableBoatSlug(string $baseSlug, int $postId): string
+    {
+        $currentSlug = (string)get_post_field('post_name', $postId);
+        $storedBase = (string)get_post_meta($postId, self::META_SYNC_BASE_SLUG, true);
 
-        $lang = strtolower(trim($lang));
-        $provider = MultilangAdapter::detectProvider();
+        if (($storedBase === '' || $storedBase === $baseSlug)
+            && BoatSlugPolicy::isVariantOf($currentSlug, $baseSlug)
+            && wp_unique_post_slug($currentSlug, $postId, 'publish', BoatPostType::POST_TYPE, 0) === $currentSlug
+        ) {
+            return $currentSlug;
+        }
 
-        foreach ($q->posts as $pid) {
-            $pid = (int)$pid;
-            if ($pid <= 0) continue;
+        return wp_unique_post_slug($baseSlug, $postId, 'publish', BoatPostType::POST_TYPE, 0);
+    }
 
-            $postLanguage = MultilangAdapter::getPostLanguage($pid);
-            if ($postLanguage === $lang) {
-                return $pid;
-            }
+    /**
+     * @param array<string,mixed> $options
+     * @return array<string,mixed>
+     */
+    private static function makeInitialDuplicatesState(array $options): array
+    {
+        $action = (string)($options['cleanup_duplicates'] ?? 'none');
 
-            if ($provider === '' && $postLanguage === '') {
-                return $pid;
+        return [
+            'action'            => in_array($action, self::DUPLICATE_ACTIONS, true) ? $action : 'none',
+            'found'             => 0,
+            'changed'           => 0,
+            'failed'            => 0,
+            'skipped_protected' => 0,
+            'items'             => [],
+        ];
+    }
+
+    /**
+     * Detects posts that duplicate the boat's synchronized post in a language,
+     * and retires them when the run was started with a duplicate cleanup action.
+     *
+     * Only posts created by the sync (_maradigma_managed) that an editor did not
+     * customize (custom layout or no-sync flags) are retired, and never in favour
+     * of an unpublished kept post; the rest are only reported. Duplicates that an
+     * earlier run already unpublished are skipped unless this run trashes. Without a multilingual plugin
+     * translations left by a deactivated one look alike, so nothing is retired.
+     *
+     * @param array<string,mixed> $state
+     * @param array<string,int>   $langToPostId Posts kept for this boat in this run.
+     * @return array<string,mixed>
+     */
+    private static function reconcileBoatDuplicates(array $state, string $boatId, array $langToPostId): array
+    {
+        $options = is_array($state['options'] ?? null) ? (array)$state['options'] : self::normalizeOptions([]);
+        $report = is_array($state['duplicates'] ?? null) ? (array)$state['duplicates'] : self::makeInitialDuplicatesState($options);
+        $action = in_array((string)($report['action'] ?? 'none'), self::DUPLICATE_ACTIONS, true) ? (string)$report['action'] : 'none';
+
+        $kept = $langToPostId;
+        if (MultilangAdapter::detectProvider() === '') {
+            // Without a multilingual plugin every candidate has an empty language.
+            $keptId = (int)reset($langToPostId);
+            $kept = $keptId > 0 ? ['' => $keptId] : [];
+            $action = 'none';
+        }
+
+        $duplicates = BoatPostSelectionPolicy::duplicatesByLanguage(BoatPostLookup::getSyncCandidates($boatId), $kept);
+        if ($duplicates === []) {
+            return $state;
+        }
+
+        $items = is_array($report['items'] ?? null) ? array_values((array)$report['items']) : [];
+
+        foreach ($duplicates as $lang => $row) {
+            $keptIsPublic = get_post_status($row['keep']) === 'publish';
+
+            foreach ($row['duplicates'] as $duplicateId) {
+                $duplicateIsPublic = get_post_status($duplicateId) === 'publish';
+
+                if (!$duplicateIsPublic && $action !== 'trash' && (int)get_post_meta($duplicateId, self::META_DUPLICATE_OF, true) > 0) {
+                    continue; // Already unpublished by an earlier run.
+                }
+
+                $report['found'] = (int)($report['found'] ?? 0) + 1;
+                $outcome = 'reported';
+
+                $managed = (bool)get_post_meta($duplicateId, self::META_MANAGED, true);
+
+                if (!$managed || BoatPostLookup::isCurated($duplicateId)) {
+                    $report['skipped_protected'] = (int)($report['skipped_protected'] ?? 0) + 1;
+                    $outcome = 'protected';
+                } elseif ($action !== 'none' && ($keptIsPublic || !$duplicateIsPublic)) {
+                    if (self::retireDuplicateBoatPost($duplicateId, $row['keep'], $action)) {
+                        $report['changed'] = (int)($report['changed'] ?? 0) + 1;
+                        $outcome = $action;
+                    } else {
+                        $report['failed'] = (int)($report['failed'] ?? 0) + 1;
+                        $outcome = 'failed';
+                    }
+                }
+
+                if (count($items) < self::DUPLICATE_REPORT_LIMIT) {
+                    $items[] = [
+                        'boat_id'   => $boatId,
+                        'lang'      => (string)$lang,
+                        'kept'      => (int)$row['keep'],
+                        'duplicate' => (int)$duplicateId,
+                        'outcome'   => $outcome,
+                    ];
+                }
             }
         }
 
-        return 0;
+        $report['items'] = $items;
+        $state['duplicates'] = $report;
+
+        self::debug('boat_duplicates_found', [
+            'boat_id'    => $boatId,
+            'action'     => $action,
+            'duplicates' => $duplicates,
+        ]);
+
+        return $state;
+    }
+
+    /**
+     * Moves a duplicate boat post to trash or draft, keeping its public URLs
+     * redirecting to the kept post through WordPress' old-slug redirect.
+     */
+    private static function retireDuplicateBoatPost(int $duplicateId, int $keptId, string $action): bool
+    {
+        $duplicate = get_post($duplicateId);
+        $kept = get_post($keptId);
+        if (!$duplicate instanceof \WP_Post || !$kept instanceof \WP_Post || $duplicateId === $keptId) {
+            return false;
+        }
+
+        $slugs = array_merge([(string)$duplicate->post_name], array_map('strval', (array)get_post_meta($duplicateId, '_wp_old_slug')));
+        $existing = array_map('strval', (array)get_post_meta($keptId, '_wp_old_slug'));
+
+        foreach (array_unique($slugs) as $slug) {
+            $slug = (string)preg_replace('/__trashed$/', '', trim($slug));
+            if ($slug === '' || $slug === (string)$kept->post_name || in_array($slug, $existing, true)) {
+                continue;
+            }
+
+            add_post_meta($keptId, '_wp_old_slug', $slug);
+            $existing[] = $slug;
+        }
+
+        // The kept post now owns these old slugs; left on the duplicate they could win the redirect.
+        delete_post_meta($duplicateId, '_wp_old_slug');
+        update_post_meta($duplicateId, self::META_DUPLICATE_OF, $keptId);
+
+        if ($action === 'trash') {
+            return (bool)wp_trash_post($duplicateId);
+        }
+
+        if ($action === 'draft') {
+            $result = wp_update_post([
+                'ID'          => $duplicateId,
+                'post_status' => 'draft',
+            ], true);
+
+            return !is_wp_error($result) && (int)$result > 0;
+        }
+
+        return false;
     }
 
     // ─────────────────────────────────────────────

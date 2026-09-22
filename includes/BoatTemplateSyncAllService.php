@@ -283,6 +283,9 @@ final class BoatTemplateSyncAllService
             'fields'         => 'ids',
             'posts_per_page' => $limit,
             'offset'         => $offset,
+            // Stable paging: synced posts often share the same post_date.
+            'orderby'        => 'ID',
+            'order'          => 'ASC',
             'no_found_rows'  => true,
             'lang'           => '',
         ]);
