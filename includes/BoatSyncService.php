@@ -1774,7 +1774,8 @@ final class BoatSyncService
      * and retires them when the run was started with a duplicate cleanup action.
      *
      * Only posts created by the sync (_maradigma_managed) that an editor did not
-     * customize (custom layout or no-sync flags) are retired, and never in favour
+     * customize (custom layout or no-sync flags) or edit (layout no longer the one
+     * the sync seeded) are retired, and never in favour
      * of an unpublished kept post; the rest are only reported. Duplicates that an
      * earlier run already unpublished are skipped unless this run trashes. Without a multilingual plugin
      * translations left by a deactivated one look alike, so nothing is retired.
@@ -1819,7 +1820,7 @@ final class BoatSyncService
 
                 $managed = (bool)get_post_meta($duplicateId, self::META_MANAGED, true);
 
-                if (!$managed || BoatPostLookup::isCurated($duplicateId)) {
+                if (!$managed || BoatPostLookup::isCurated($duplicateId) || BoatPostLookup::hasHandEditedLayout($duplicateId)) {
                     $report['skipped_protected'] = (int)($report['skipped_protected'] ?? 0) + 1;
                     $outcome = 'protected';
                 } elseif ($action !== 'none' && ($keptIsPublic || !$duplicateIsPublic)) {

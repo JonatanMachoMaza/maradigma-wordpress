@@ -221,6 +221,45 @@ final class BoatPostLookup
     }
 
     /**
+     * Determines whether a boat post's layout was changed after the sync wrote it.
+     *
+     * The sync stores a hash of the layout it seeds (Gutenberg and WPBakery
+     * post_content, Elementor data). Layout that matches none of those hashes
+     * was written or edited by someone else. Unknown provenance counts as edited,
+     * so a doubtful post is protected rather than retired.
+     */
+    public static function hasHandEditedLayout(int $postId): bool
+    {
+        $post = \get_post($postId);
+        if (!$post instanceof \WP_Post) {
+            return false;
+        }
+
+        $content = \str_replace(["\r\n", "\r"], "\n", (string) $post->post_content);
+        if (\trim($content) !== '') {
+            // Same normalizations as GutenbergIntegration::hashGutenbergTemplateContent()
+            // and WPBakeryIntegration::hashWPBakeryTemplateContent().
+            $gutenbergHash = (string) \get_post_meta($postId, '_maradigma_gutenberg_content_hash', true);
+            $wpbakeryHash = (string) \get_post_meta($postId, '_maradigma_wpbakery_content_hash', true);
+            $matchesSeed = ($gutenbergHash !== '' && \hash_equals($gutenbergHash, \md5(\rtrim($content))))
+                || ($wpbakeryHash !== '' && \hash_equals($wpbakeryHash, \md5(\trim($content))));
+
+            if (!$matchesSeed) {
+                return true;
+            }
+        }
+
+        $elementorData = (string) \get_post_meta($postId, '_elementor_data', true);
+        if (!\in_array(\trim($elementorData), ['', '[]'], true)) {
+            $elementorHash = (string) \get_post_meta($postId, '_maradigma_elementor_data_hash', true);
+
+            return $elementorHash === '' || !\hash_equals($elementorHash, \md5($elementorData));
+        }
+
+        return false;
+    }
+
+    /**
      * Determines whether a post has layout content from any supported builder.
      */
     public static function hasLayoutContent(\WP_Post $post): bool

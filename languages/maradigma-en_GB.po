@@ -2656,8 +2656,8 @@ msgid "Duplicate boat pages"
 msgstr "Duplicate boat pages"
 
 #: includes/SettingsPage.php
-msgid "A duplicate is a second page for the same boat in the same language. The sync always keeps one page per boat and language (the one linked in the translation group, otherwise the newest page with content) and reports the others."
-msgstr "A duplicate is a second page for the same boat in the same language. The sync always keeps one page per boat and language (the one linked in the translation group, otherwise the newest page with content) and reports the others."
+msgid "A duplicate is a second page for the same boat in the same language. The sync always keeps one page per boat and language (a customized page first, then the one in the translation group, otherwise the newest page with content) and lists the others in the sync panel."
+msgstr "A duplicate is a second page for the same boat in the same language. The sync always keeps one page per boat and language (a customized page first, then the one in the translation group, otherwise the newest page with content) and lists the others in the sync panel."
 
 #: includes/SettingsPage.php
 msgid "When a boat has duplicate pages in a language"
@@ -2676,8 +2676,8 @@ msgid "Unpublish duplicates"
 msgstr "Unpublish duplicates"
 
 #: includes/SettingsPage.php
-msgid "Only pages created by the sync are changed; pages marked as custom/no-sync are only reported. The addresses of retired duplicates redirect to the kept page."
-msgstr "Only pages created by the sync are changed; pages marked as custom/no-sync are only reported. The addresses of retired duplicates redirect to the kept page."
+msgid "Only copies created by the sync that nobody has customized or edited are changed; the others are only reported. Retired copies can be restored, and their addresses redirect to the kept page."
+msgstr "Only copies created by the sync that nobody has customized or edited are changed; the others are only reported. Retired copies can be restored, and their addresses redirect to the kept page."
 
 #: includes/SettingsPage.php
 msgid "Duplicate boat pages:"
@@ -2712,8 +2712,8 @@ msgid "unpublished"
 msgstr "unpublished"
 
 #: includes/SettingsPage.php
-msgid "not managed by the sync or protected, left untouched"
-msgstr "not managed by the sync or protected, left untouched"
+msgid "made by hand, customized or edited, left untouched"
+msgstr "made by hand, customized or edited, left untouched"
 
 #: includes/SettingsPage.php
 msgid "could not be changed"

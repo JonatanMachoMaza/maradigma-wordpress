@@ -3477,8 +3477,8 @@ msgid "Duplicate boat pages"
 msgstr "Páginas de barco duplicadas"
 
 #: includes/SettingsPage.php
-msgid "A duplicate is a second page for the same boat in the same language. The sync always keeps one page per boat and language (the one linked in the translation group, otherwise the newest page with content) and reports the others."
-msgstr "Un duplicado es una segunda página del mismo barco en el mismo idioma. La sincronización conserva siempre una página por barco e idioma (la enlazada en el grupo de traducciones o, si no la hay, la más reciente con contenido) e informa de las demás."
+msgid "A duplicate is a second page for the same boat in the same language. The sync always keeps one page per boat and language (a customized page first, then the one in the translation group, otherwise the newest page with content) and lists the others in the sync panel."
+msgstr "Un duplicado es una segunda página del mismo barco en el mismo idioma. La sincronización conserva siempre una página por barco e idioma (primero una personalizada, después la del grupo de traducciones y, si no hay, la más reciente con contenido) y muestra las demás en el panel de sincronización."
 
 #: includes/SettingsPage.php
 msgid "When a boat has duplicate pages in a language"
@@ -3497,8 +3497,8 @@ msgid "Unpublish duplicates"
 msgstr "Despublicar los duplicados"
 
 #: includes/SettingsPage.php
-msgid "Only pages created by the sync are changed; pages marked as custom/no-sync are only reported. The addresses of retired duplicates redirect to the kept page."
-msgstr "Solo se modifican las páginas creadas por la sincronización; las marcadas como personalizadas/no sincronizables solo se notifican. Las direcciones de los duplicados retirados redirigen a la página conservada."
+msgid "Only copies created by the sync that nobody has customized or edited are changed; the others are only reported. Retired copies can be restored, and their addresses redirect to the kept page."
+msgstr "Solo se modifican las copias creadas por la sincronización que nadie ha personalizado ni editado; las demás solo se notifican. Las copias retiradas se pueden restaurar y sus direcciones redirigen a la página conservada."
 
 #: includes/SettingsPage.php
 msgid "Duplicate boat pages:"
@@ -3533,8 +3533,8 @@ msgid "unpublished"
 msgstr "despublicada"
 
 #: includes/SettingsPage.php
-msgid "not managed by the sync or protected, left untouched"
-msgstr "no gestionada por la sincronización o protegida, sin cambios"
+msgid "made by hand, customized or edited, left untouched"
+msgstr "hecha a mano, personalizada o editada, sin cambios"
 
 #: includes/SettingsPage.php
 msgid "could not be changed"

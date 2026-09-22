@@ -1781,20 +1781,20 @@ final class SettingsPage
                                 </legend>
 
                                 <p class="description" style="margin:6px 0 10px 0;">
-                                    <?php esc_html_e('A duplicate is a second page for the same boat in the same language. The sync always keeps one page per boat and language (the one linked in the translation group, otherwise the newest page with content) and reports the others.', 'maradigma'); ?>
+                                    <?php esc_html_e('A duplicate is a second page for the same boat in the same language. The sync always keeps one page per boat and language (a customized page first, then the one in the translation group, otherwise the newest page with content) and lists the others in the sync panel.', 'maradigma'); ?>
                                 </p>
 
                                 <label style="display:block;margin:10px 0 6px 0;font-weight:600;" for="maradigma_cleanup_duplicates">
                                     <?php esc_html_e('When a boat has duplicate pages in a language', 'maradigma'); ?>
                                 </label>
                                 <select id="maradigma_cleanup_duplicates" name="sync[cleanup_duplicates]">
-                                    <option value="none" selected><?php esc_html_e('Only report them', 'maradigma'); ?></option>
-                                    <option value="trash"><?php esc_html_e('Move duplicates to trash', 'maradigma'); ?></option>
+                                    <option value="none"><?php esc_html_e('Only report them', 'maradigma'); ?></option>
+                                    <option value="trash" selected><?php esc_html_e('Move duplicates to trash', 'maradigma'); ?></option>
                                     <option value="draft"><?php esc_html_e('Unpublish duplicates', 'maradigma'); ?></option>
                                 </select>
 
                                 <p class="description" style="margin:6px 0 0 0;">
-                                    <?php esc_html_e('Only pages created by the sync are changed; pages marked as custom/no-sync are only reported. The addresses of retired duplicates redirect to the kept page.', 'maradigma'); ?>
+                                    <?php esc_html_e('Only copies created by the sync that nobody has customized or edited are changed; the others are only reported. Retired copies can be restored, and their addresses redirect to the kept page.', 'maradigma'); ?>
                                 </p>
                             </fieldset>
 
@@ -3820,7 +3820,7 @@ final class SettingsPage
             case 'draft':
                 return __('unpublished', 'maradigma');
             case 'protected':
-                return __('not managed by the sync or protected, left untouched', 'maradigma');
+                return __('made by hand, customized or edited, left untouched', 'maradigma');
             case 'failed':
                 return __('could not be changed', 'maradigma');
             default:

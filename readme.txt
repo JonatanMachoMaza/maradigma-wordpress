@@ -4,7 +4,7 @@ Tags: boat rental, yacht charter, booking, availability, fleet management
 Requires at least: 6.0
 Tested up to: 7.1
 Requires PHP: 8.1
-Stable tag: 0.1.189
+Stable tag: 0.1.190
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -156,6 +156,10 @@ The repository includes `package.json`, `package-lock.json`, and the Vite config
 6. Boat synchronization workflow and status.
 
 == Changelog ==
+
+= 0.1.190 =
+* Preselected "Move duplicates to trash" in the boat sync form, so the next sync retires the duplicate boat pages left by earlier versions. Retired copies can be restored from the trash, and their addresses redirect to the kept page. "Only report them" is still available.
+* Kept duplicate boat pages whose layout was edited by hand, even without the custom-layout option: the sync only retires copies whose layout is still the one it created.
 
 = 0.1.189 =
 * Stopped the boat sync from creating a second page for the same boat and language when it runs from the admin screen on Polylang sites. Polylang filtered the sync's page lookup by the admin's language, so pages in the other languages were not found and were created again.
@@ -320,6 +324,9 @@ The repository includes `package.json`, `package-lock.json`, and the Vite config
 * Improved readme documentation for the current feature set.
 
 == Upgrade Notice ==
+
+= 0.1.190 =
+The boat sync form now moves duplicate boat pages to the trash by default, with redirects to the kept page; pages edited or customized by hand are never retired.
 
 = 0.1.189 =
 Stops the boat sync from duplicating translated boat pages on multilingual sites, links listings to the right page, keeps boat addresses stable, and can move existing duplicates to the trash.
