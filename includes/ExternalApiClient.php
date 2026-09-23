@@ -63,6 +63,7 @@ class ExternalApiClient {
     private string $clientDomain;
     private string $language;
     private int $defaultTimeout;
+    private int $lastStatusCode = 0;
 
     /**
      * Initializes the external API client.
@@ -82,6 +83,43 @@ class ExternalApiClient {
         $this->clientDomain  = $clientDomain;
         $this->language      = $language ?: get_locale(); // ej: es_ES → mandamos es-ES
         $this->defaultTimeout = $defaultTimeout;
+    }
+
+    /**
+     * Locale sent as Accept-Language for a boat details language ("EN", "ca",
+     * "es_ES"): the API takes the language from it and dates from its region.
+     */
+    public static function localeForDetailsLanguage(string $language): string
+    {
+        $language = trim($language);
+        if (preg_match('/^[a-z]{2,3}[_-][a-z]{2}/i', $language) === 1) {
+            return $language;
+        }
+
+        $locale = \Maradigma\Support\LocaleSwitcher::localeForLanguage($language, '');
+        if ($locale === 'ca') {
+            // WordPress's Catalan locale has no region.
+            $locale = 'ca_ES';
+        }
+
+        return $locale !== '' ? $locale : strtolower($language);
+    }
+
+    /**
+     * Returns the HTTP status of the last completed request on this client, or 0
+     * when none completed.
+     */
+    public function getLastStatusCode(): int
+    {
+        return $this->lastStatusCode;
+    }
+
+    /**
+     * Identifies the API connection (base URL and key) without exposing the key.
+     */
+    public function getSourceFingerprint(): string
+    {
+        return hash('sha256', strtolower($this->baseUrl) . '|' . trim($this->publicKey));
     }
 
     /**
@@ -370,9 +408,8 @@ class ExternalApiClient {
     {
         $prevLanguage = $this->language;
 
-        if (isset($options['language']) && is_string($options['language']) && $options['language'] !== '') {
-            $l = strtoupper(trim($options['language']));
-            $this->language = strtolower($l) . '_' . $l;
+        if (isset($options['language']) && is_string($options['language']) && trim($options['language']) !== '') {
+            $this->language = self::localeForDetailsLanguage($options['language']);
         }
 
         // 1) Build query dynamically from options
@@ -409,9 +446,7 @@ class ExternalApiClient {
         return $this->requestJson(
             'GET',
             '/booking/rental-terms/' . rawurlencode($group),
-            [
-                'query' => $query,
-            ]
+            $query
         );
     }
 
@@ -580,6 +615,7 @@ class ExternalApiClient {
         string $contentType,
         ?int $timeout = null
     ): array {
+        $this->lastStatusCode = 0;
         $url     = $this->buildUrl($path, $query);
         $headers = $this->buildHeaders($rawBody, $contentType);
 
@@ -600,6 +636,7 @@ class ExternalApiClient {
         }
 
         $statusCode = (int) wp_remote_retrieve_response_code($response);
+        $this->lastStatusCode = $statusCode;
         $body       = (string) wp_remote_retrieve_body($response);
         $decoded = json_decode($body, true);
         if (!is_array($decoded)) {
@@ -1158,16 +1195,6 @@ class ExternalApiClient {
         );
     }
 
-    /**
-     * GET /boat-tags
-     *
-     * Devuelve el catálogo de tags de barcos (Modern, Open, etc.).
-     */
-    public function getBoatTags(): array
-    {
-        return $this->requestJson('GET', '/boat-tags');
-    }
-
     // ─────────────────────────────────────────────
     // BOOKING & SHOP CART
     // ─────────────────────────────────────────────
@@ -1194,28 +1221,6 @@ class ExternalApiClient {
         return $this->requestForm(
             'POST',
             '/booking/request',
-            [],
-            $formData
-        );
-    }
-
-    /**
-     * POST /booking/create-without-payment
-     */
-    public function createBookingWithoutPayment(
-        array $booking,
-        array $customer,
-        array $additionalServices = []
-    ): array {
-        $formData = [
-            'booking'             => $booking,
-            'customer'            => $customer,
-            'additional_services' => $additionalServices,
-        ];
-
-        return $this->requestForm(
-            'POST',
-            '/booking/create-without-payment',
             [],
             $formData
         );

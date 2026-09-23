@@ -249,12 +249,11 @@ final class WPBakeryIntegration
             self::textfield('image_token', \__('Card image token', 'maradigma'), 'image_main'),
             self::number('limit_services', \__('Items per page', 'maradigma'), '10'),
             self::dropdown('order_by', \__('Default order', 'maradigma'), [
-                \__('Relevance', 'maradigma') => '0',
+                \__('Fleet order', 'maradigma') => '0',
                 \__('Price: low to high', 'maradigma') => '1',
                 \__('Price: high to low', 'maradigma') => '2',
                 \__('Length: low to high', 'maradigma') => '6',
                 \__('Length: high to low', 'maradigma') => '5',
-                \__('Featured first', 'maradigma') => '3',
                 \__('Newest first', 'maradigma') => '4',
             ], '0'),
             self::checkbox('show_filters', \__('Show filters form', 'maradigma')),

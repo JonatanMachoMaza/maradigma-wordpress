@@ -43,6 +43,17 @@ if (!defined('WP_UNINSTALL_PLUGIN')) {
         'maradigma_cache_policy',
         'maradigma_version',
         'maradigma_boat_rewrite_schema',
+        'maradigma_boat_sync_state',
+        'maradigma_boat_sync_source_fingerprint',
+        'maradigma_boat_sync_known_boats',
+        'maradigma_boat_sync_lock_v2',
+        'maradigma_boats_last_sync_stats',
+        'maradigma_boat_images_sync_state',
+        'maradigma_template_sync_all_state',
+        'maradigma_boat_cards',
+        'maradigma_elementor_master_template_id',
+        'maradigma_gutenberg_master_template_id',
+        'maradigma_wpbakery_master_template_id',
     ];
 
     foreach ($otherOptions as $opt) {

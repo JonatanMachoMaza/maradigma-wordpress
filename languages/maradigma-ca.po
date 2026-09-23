@@ -3107,3 +3107,22 @@ msgstr "Disminuir %s"
 #, php-format
 msgid "Increase %s"
 msgstr "Augmentar %s"
+
+msgid "Cleanup skipped because the API connection changed during the sync."
+msgstr "Neteja omesa perquè la connexió amb l'API va canviar durant la sincronització."
+
+msgid "Cleanup skipped because the API connection changed since the last complete sync. Run the sync again to clean up."
+msgstr "Neteja omesa perquè la connexió amb l'API ha canviat des de l'última sincronització completa. Torna a sincronitzar per netejar."
+
+msgid "Cleanup skipped because most synced boats are missing from the API list. Check the API key, or remove the pages by hand if this is intended."
+msgstr "Neteja omesa perquè la majoria de les embarcacions sincronitzades no són a la llista de l'API. Revisa la clau d'API, o esborra les pàgines a mà si és el que vols."
+
+msgid "Boats that are only unpublished in Maradigma are never trashed or deleted here: their pages are unpublished, and the next sync publishes them again when the boat returns."
+msgstr "Les embarcacions que només estan despublicades a Maradigma mai no van a la paperera ni s'esborren aquí: les seves pàgines es despubliquen, i la sincronització següent les torna a publicar quan l'embarcació torna."
+
+#, php-format
+msgid "kept as draft %d"
+msgstr "en esborrany %d"
+
+msgid "Fleet order"
+msgstr "Ordre de la flota"

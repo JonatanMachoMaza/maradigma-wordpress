@@ -118,12 +118,11 @@ final class BoatsArchiveWidget extends Widget_Base
             'type'    => Controls_Manager::SELECT,
             'default' => '0',
             'options' => [
-                '0' => \esc_html__('Relevance', 'maradigma'),
+                '0' => \esc_html__('Fleet order', 'maradigma'),
                 '1' => \esc_html__('Price: low to high', 'maradigma'),
                 '2' => \esc_html__('Price: high to low', 'maradigma'),
                 '6' => \esc_html__('Length: low to high', 'maradigma'),
                 '5' => \esc_html__('Length: high to low', 'maradigma'),
-                '3' => \esc_html__('Featured first', 'maradigma'),
                 '4' => \esc_html__('Newest first', 'maradigma'),
             ],
         ]);

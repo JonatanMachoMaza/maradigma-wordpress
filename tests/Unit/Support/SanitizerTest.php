@@ -93,6 +93,63 @@ final class SanitizerTest extends TestCase
         );
     }
 
+    public function testTheLegacyPortAttributeNeverBecomesASearchTerm(): void
+    {
+        $documentation = [
+            ['attr' => 'id_group', 'type' => 'string', 'default' => 'boats', 'description' => 'Group'],
+            ['attr' => 'term', 'type' => 'string', 'default' => '', 'description' => 'Text'],
+            ['attr' => 'boat_base_port', 'type' => 'int', 'default' => '', 'description' => 'Port'],
+            ['attr' => 'departure_location', 'type' => 'location', 'default' => '', 'description' => 'Location'],
+        ];
+
+        // The API's text search only matches model, alias, builder and reference.
+        self::assertSame(
+            ['id_group' => 'boats', 'term' => 'sunseeker'],
+            Sanitizer::normalizeBoatsSearchAtts(['port' => 'Ibiza', 'term' => 'sunseeker'], $documentation)
+        );
+        self::assertSame(
+            ['boat_base_port' => 12, 'id_group' => 'boats'],
+            Sanitizer::normalizeBoatsSearchAtts(['port' => '12'], $documentation)
+        );
+        self::assertSame(
+            ['departure_location' => 'destination:1704', 'id_group' => 'boats'],
+            Sanitizer::normalizeBoatsSearchAtts(['port' => 'destination:1704'], $documentation)
+        );
+    }
+
+    public function testOnlyCanonicalKeysReachTheApi(): void
+    {
+        $documentation = [
+            ['attr' => 'id_group', 'type' => 'string', 'default' => 'boats', 'description' => 'Group'],
+            ['attr' => 'term', 'type' => 'string', 'default' => '', 'description' => 'Text'],
+            ['attr' => 'service_name', 'type' => 'string', 'default' => '', 'description' => 'Name'],
+            ['attr' => 'min_price', 'type' => 'float', 'default' => '', 'description' => 'Minimum price'],
+            ['attr' => 'price-min', 'type' => 'float', 'default' => '', 'description' => 'Minimum price (alias)'],
+        ];
+
+        // The API prefers service_name over term, so a visitor's text would be ignored.
+        self::assertSame(
+            ['id_group' => 'boats', 'term' => 'visitor text'],
+            Sanitizer::normalizeBoatsSearchAtts(
+                ['service_name' => 'author name', 'term' => 'visitor text'],
+                $documentation
+            )
+        );
+        self::assertSame(
+            ['id_group' => 'boats', 'term' => 'author name'],
+            Sanitizer::normalizeBoatsSearchAtts(['service_name' => 'author name'], $documentation)
+        );
+        // The same for price-min, which the API prefers over min_price.
+        self::assertSame(
+            ['id_group' => 'boats', 'min_price' => 800.0],
+            Sanitizer::normalizeBoatsSearchAtts(['price-min' => '500', 'min_price' => '800'], $documentation)
+        );
+        self::assertSame(
+            ['id_group' => 'boats', 'min_price' => 500.0],
+            Sanitizer::normalizeBoatsSearchAtts(['price-min' => '500', 'min_price' => ''], $documentation)
+        );
+    }
+
     public function testSearchAttributesApplyAliasesTypesDefaultsAndStableOrdering(): void
     {
         $documentation = [

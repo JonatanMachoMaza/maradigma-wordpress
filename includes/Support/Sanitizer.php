@@ -228,13 +228,18 @@ final class Sanitizer
             $str['boat_capacity'] = $people;
         }
 
+        // Legacy port: a port id, or a port:/destination: token. The API's text search
+        // does not look at places, so a place name is ignored.
         $port = \trim((string)($str['port'] ?? ''));
         if ($port !== '' && empty($str['boat_base_port'])) {
             if (\ctype_digit($port)) {
                 $str['boat_base_port'] = $port;
-            } else {
-                $existingTerm = \trim((string)($str['term'] ?? ''));
-                $str['term'] = \trim($existingTerm . ' ' . $port);
+            } elseif (
+                \str_contains($port, ':')
+                && self::normalizeLocationToken($port) !== null
+                && \trim((string)($str['departure_location'] ?? '')) === ''
+            ) {
+                $str['departure_location'] = (string)self::normalizeLocationToken($port);
             }
         }
 
@@ -298,6 +303,10 @@ final class Sanitizer
             $filters['term'] = (string)$filters['service_name'];
         }
 
+        // Only canonical keys reach the API: it prefers service_name over term and
+        // price-min/price-max over min_price/max_price, which would hide a visitor's value.
+        unset($filters['service_name'], $filters['price-min'], $filters['price-max'], $filters['boat_lenght']);
+
         // Stable ordering for cache keys
         \ksort($filters);
 
@@ -313,15 +322,15 @@ final class Sanitizer
     public static function mapBoatsAliases(array $atts): array
     {
         // price aliases
-        if (isset($atts['price-min']) && !isset($atts['min_price'])) {
+        if (isset($atts['price-min']) && \trim((string)($atts['min_price'] ?? '')) === '') {
             $atts['min_price'] = (string)$atts['price-min'];
         }
-        if (isset($atts['price-max']) && !isset($atts['max_price'])) {
+        if (isset($atts['price-max']) && \trim((string)($atts['max_price'] ?? '')) === '') {
             $atts['max_price'] = (string)$atts['price-max'];
         }
 
         // legacy typo
-        if (isset($atts['boat_lenght']) && !isset($atts['boat_length'])) {
+        if (isset($atts['boat_lenght']) && \trim((string)($atts['boat_length'] ?? '')) === '') {
             $atts['boat_length'] = (string)$atts['boat_lenght'];
         }
 

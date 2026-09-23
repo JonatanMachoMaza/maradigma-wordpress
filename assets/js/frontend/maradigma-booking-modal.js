@@ -18,7 +18,6 @@
  *
  * Config via data-attrs on wrapper:
  * - data-price-on-booking-endpoint (POST /maradigma/v1/boat/price-on-booking)
- * - data-booking-endpoint
  * - data-booking-online-endpoint (POST /maradigma/v1/booking/online)
  * - data-countries-endpoint (GET /maradigma/v1/countries)
  * - data-boat-id (optional, can be set on the fly)
@@ -107,7 +106,7 @@ class MaradigmaBookingModal {
 				country: "",
 				phone: "",
 				phone_raw: "",
-				payment_method: "card",
+				payment_method: "",
 				accept_terms: false,
 				additionals_selected: {},
 			},
@@ -748,7 +747,7 @@ class MaradigmaBookingModal {
 			step: step,
 			language: String(this.cfg.lang || this.globalCfg.lang || this.globalCfg.default_language || "").trim(),
 			return_url_after_payment: String(returnUrl || ""),
-			payment_method: String(this.state.form.payment_method || "card"),
+			payment_method: String(this.state.form.payment_method || ""),
 			uuid_shop_cart: String(this.state.uuid_shop_cart || ""),
 			id_group: String(groupId || ""),
 			id_group_item: String(boatId || ""),
@@ -2076,7 +2075,7 @@ class MaradigmaBookingModal {
 		this.state.form.payment_method = String(
 			shopCart?.payment_method ??
 			bookingRestore?.payment_method ??
-			"card"
+			""
 		).trim();
 
 		this.state.form.accept_terms = false;
@@ -2892,7 +2891,8 @@ class MaradigmaBookingModal {
 	_renderStep3() {
 		const apiDefault = this.state?.api?.payment?.default_method || null;
 
-		const defaultKey = String(apiDefault?.key || "card").trim() || "card";
+		// An empty key lets the API apply the tenant's default online method.
+		const defaultKey = String(apiDefault?.key || "").trim();
 
 		if (!this.state.form.payment_method) {
 			this.state.form.payment_method = defaultKey;
@@ -4378,11 +4378,6 @@ class MaradigmaBookingModal {
 				this.wrapper.getAttribute("data-price-on-booking-endpoint") ||
 				this.globalCfg.restUrlBoatPriceOnBooking ||
 				this.api.joinUrl(this._wpJsonBase(), "maradigma/v1/boat/price-on-booking"),
-
-			bookingEndpoint:
-				this.wrapper.getAttribute("data-booking-endpoint") ||
-				this.globalCfg.restUrlBooking ||
-				"",
 
 			bookingOnlineEndpoint:
 				this.wrapper.getAttribute("data-booking-online-endpoint") ||

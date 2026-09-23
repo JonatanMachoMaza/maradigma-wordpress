@@ -104,7 +104,6 @@ These attributes control **frontend UI** (filters form) and do not necessarily c
   *(If both are present, the UI renders a single `price_range` control internally.)*
 - `boat_type_id`
 - `builders` *(multi-select, stored as CSV)*
-- `tags` *(multi-select, stored as CSV)*
 - `ids_gi`
 - `date_start`
 - `date_end`
@@ -139,15 +138,15 @@ Below is a practical subset most commonly used by webmasters:
 | `id_group` | string | `boats` | Always use `boats` for the boats catalog |
 | `limit_services` | int | `12` | Results per page |
 | `offset_services` | int | `0` | Base offset (advanced) |
-| `term` | string | `ibiza` | Text search |
-| `order_by` | int | `1` | `0=relevance, 1=price asc, 2=price desc, 6=length asc, 5=length desc, 3=featured first, 4=newest first` |
+| `term` | string | `sunseeker` | Text search on model, trade name, builder and reference (not places: use `destination`) |
+| `order_by` | int | `1` | `0=fleet order (the order you set in Maradigma, default), 1=price asc, 2=price desc, 6=length asc, 5=length desc, 4=newest first`. Value `3` is the API's "featured" sort and puts featured boats **last**, so the selectors no longer offer it: for a featured section use `featured="1"`, and to show them first move them to the top of your fleet order in Maradigma |
 | `date_start` / `date_end` | `Y-m-d` | `2026-06-01` | Availability range |
-| `ignore_date_range` | bool | `true` | Ignore date filters even if provided |
+| `ignore_date_range` | bool | `true` | No effect through the external API; leave the dates out instead |
 | `min_price` / `max_price` | float | `500` / `1500` | Price range |
 | `featured` | bool/int | `1` | Featured boats only |
 | `ins_book` | bool/int | `1` | Online-bookable boats only |
-| `tags` | CSV int | `3,7` | Tag filter |
-| `ids_gi` | CSV int | `304,305` | Force a specific manual selection |
+| `tags` | CSV int | `3,7` | Tag filter by id (the API publishes no tag catalogue, so there is no tag control in the filters) |
+| `ids_gi` | CSV int | `304,305` | Show only these boats (up to 20). The other filters still apply, and with `order_by="0"` they keep the order of the list. The plugin looks for them in the first 2,000 results of the search, so on very large catalogues narrow the listing with other filters |
 | `boat_capacity` | int | `8` | Minimum pax |
 | `boat_type_id` | int | `2` | Boat type |
 | `destination` | int | `1704` | Destination ID: boats whose base port is in that destination (island, locality, region…). Same as `departure_location="destination:1704"` |
@@ -228,12 +227,12 @@ The UI form also uses `md_*` names so the listing and filters stay in sync.
 
 **3) Fixed “Featured boats” section:**
 ```text
-[maradigma_boats featured="1" limit_services="6" order_by="3"]
+[maradigma_boats featured="1" limit_services="6"]
 ```
 
-**4) “Last minute” landing page (date ignored, but you can still show filters):**
+**4) “Today and tomorrow” landing page:**
 ```text
-[maradigma_boats last_minute_mode="1" ignore_date_range="1" show_filters="1"]
+[maradigma_boats date_start="2026-07-01" date_end="2026-07-02" show_filters="1"]
 ```
 
 **5) Manual curated selection by IDs:**
@@ -374,6 +373,8 @@ Multiple expands are accepted as CSV:
 ```text
 [maradigma_boat id="304" expand="service_images,service_prices,service_descriptions" only_load_cover_image="0"]
 ```
+
+Only `images`, `only_load_cover_image` and `gc_type_cache` change the API response; the other scalar flags (`prices`, `owner`, `descriptions`…) are accepted for backwards compatibility but have no effect — use the matching `service_*` expand instead.
 
 Supported `expand` values:
 
@@ -622,8 +623,9 @@ scrollable modal body. To keep them persistently visible in the modal footer:
     - REST endpoints for quote and booking
 
 - The frontend script calls plugin REST endpoints (under `/wp-json/maradigma/v1`):
-  - `POST /quote` — calculate a quote
-  - `POST /booking` — create booking and obtain a payment URL (implementation dependent)
+  - `POST /boat/price-on-booking` — calculate a quote
+  - `POST /booking/online` — run the booking steps and obtain a payment URL
+  - `GET /booking/security-token`, `GET /booking/rental-terms/{group}`, `GET /shop-cart/{uuid}` — nonce, rental terms and payment return
 
 > The exact REST payload contract is defined by the plugin’s REST controllers.  
 > If you customize endpoints, keep the HTML `data-*` attributes in sync.

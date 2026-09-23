@@ -4,7 +4,7 @@ Tags: boat rental, yacht charter, booking, availability, fleet management
 Requires at least: 6.0
 Tested up to: 7.1
 Requires PHP: 8.1
-Stable tag: 0.1.191
+Stable tag: 0.1.192
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -156,6 +156,22 @@ The repository includes `package.json`, `package-lock.json`, and the Vite config
 6. Boat synchronization workflow and status.
 
 == Changelog ==
+
+= 0.1.192 =
+* Stopped the public boat address (`/wp-json/maradigma/v1/boats/{id}`) from answering visitors with internal data. On request it returned the boat owner's record (e-mail, tax id), the accounting data and, on every call, the commission and the private calendar (iCal) address of the boat. It now returns only the customer-facing fields the booking modal needs. The shop cart address also returns only the fields the booking flow reads, and is no longer cached by intermediaries.
+* Made "Specific boats" work in boat listings (shortcode, Elementor widget, Gutenberg block and WPBakery). The Maradigma search cannot filter by a list of boat IDs, so the plugin now applies the selection itself: the other filters (boat type, destination, dates…) still apply, and with the default order the boats keep the order of your list.
+* Removed the unused `/wp-json/maradigma/v1/booking` address, which forwarded the "booking without payment" call of the API.
+* Stopped sending a payment method the API does not know ("card") when online booking starts before the payment step is shown, which made the API reject the request. The plugin now lets the API apply the online payment method configured in Maradigma, and no longer forwards a customer ID coming from the browser.
+* Requested the rental conditions in the language of the page: the language never reached the API, so they always came back in the site's default language.
+* Made the obsolete-page cleanup safer: a boat that is only unpublished in Maradigma now has its page unpublished (never trashed or deleted) and published again when the boat returns; the cleanup is skipped when the API connection changed since the last sync, or when most of the site's boats are missing from the API list (usually another API key).
+* Kept the filters set by the page author (such as the full-catalogue option) when visitors paginate or change a filter; the AJAX refresh dropped them.
+* Listed the same catalogue in the visitor's "Specific boat" selector as in the listing, which showed only boats bookable online.
+* Removed the tags selector from the filters bar: the API publishes no tag catalogue, so it was always empty. The `tags="3,7"` attribute still filters by tag ID.
+* Refreshed the availability of the booking calendar every 2 minutes instead of every hour, and stopped the Elementor boat widgets from calling the API again on every render.
+* Fixed the base ports search in the admin, which pointed at a missing function.
+* Ignored the legacy `port="<place name>"` attribute of `[maradigma_boats]` instead of searching the name as text, which returned nothing: use `destination="1704"` (or `port="port:12"`) to limit a listing to a place.
+* Removed the "Featured first" option from the listing order selectors: the Maradigma search sorts that option with the featured boats at the end. The first option is now "Fleet order", the order you set in Maradigma, and a page that still carries the old value falls back to it. For a featured section use `featured="1"`, and to show featured boats first move them to the top of your fleet order in Maradigma.
+* Corrected the shortcode documentation: the licence filter is inverted (`boat_licence_required="0"` are the boats that require a licence), the text search only looks at model, trade name, builder and reference (not places), and the attributes the API ignores are now marked as such.
 
 = 0.1.191 =
 * Added a Destination filter to boat listings: the Elementor Boats Archive widget and the Gutenberg block list the destinations of your boats (islands, localities, regions…) with how many boats each has, and the `destination` shortcode attribute limits a listing to them. Combined with the boat type, it gives one page per boat type in each destination, and it stays applied when visitors filter or paginate.
@@ -330,6 +346,9 @@ The repository includes `package.json`, `package-lock.json`, and the Vite config
 * Improved readme documentation for the current feature set.
 
 == Upgrade Notice ==
+
+= 0.1.192 =
+The public boat address no longer exposes owner, accounting or private calendar data. "Specific boats" now really filters listings, online booking no longer sends an invalid payment method, and the obsolete-page cleanup no longer removes the pages of boats that are only unpublished.
 
 = 0.1.191 =
 Adds a Destination filter to boat listings (widget, block and shortcode), fixes the empty selectors of the Elementor Boats Archive widget, and keeps old boat addresses in their language.

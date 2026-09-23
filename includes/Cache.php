@@ -110,6 +110,8 @@ final class Cache
         $keyData = [
             'filters'  => $filters,
             'language' => \method_exists($this->client, 'getLanguage') ? $this->client->getLanguage() : '',
+            // Another API key answers for another catalogue.
+            'source'   => $this->client->getSourceFingerprint(),
         ];
 
         $json         = \wp_json_encode($keyData, JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES);
@@ -177,6 +179,7 @@ final class Cache
             'boat'     => $boatIdOrSlug,
             'language' => $language,
             'options'  => $normalizedOptions,
+            'source'   => $this->client->getSourceFingerprint(),
         ];
 
         $transientKey = 'maradigma_boat_' . md5(wp_json_encode($keyData) ?: serialize($keyData));
@@ -219,7 +222,13 @@ final class Cache
         );
 
         if (($result['status'] ?? '') === 'success' && is_array($result['data'] ?? null)) {
-            set_transient($transientKey, $result, 60 * MINUTE_IN_SECONDS);
+            $ttl = 60 * MINUTE_IN_SECONDS;
+            $expand = ExternalApiClient::normalizeBoatDetailsExpandOptions($options['expand'] ?? []);
+            if (array_intersect($expand, ['service_unavailability_dates', 'service_real_unavailable_dates']) !== []) {
+                // Availability changes with every booking, as in getServiceCalendar().
+                $ttl = 2 * MINUTE_IN_SECONDS;
+            }
+            set_transient($transientKey, $result, $ttl);
         }
 
         return $this->normalizeResult($result, 'status');
@@ -416,40 +425,6 @@ final class Cache
         return $this->normalizeResult($result, 'success');
     }
 
-
-    /**
-     * Cached boat tags list.
-     *
-     * @return array<string,mixed>
-     */
-    public function getBoatTags(bool $forceRefresh = false): array
-    {
-        // No-cache mode => direct call
-        if (!$this->isCacheEnabled()) {
-            return $this->normalizeResult($this->client->getBoatTags(), 'success');
-        }
-
-        $settings = SettingsPage::getSettings();
-
-        $keyData = [];
-
-        $transientKey = $this->buildTransientKey('maradigma_boat_tags_', $keyData);
-
-        if (!$forceRefresh) {
-            $cached = \get_transient($transientKey);
-            if (\is_array($cached)) {
-                return $cached;
-            }
-        }
-
-        $result = $this->client->getBoatTags();
-
-        if ($this->isOkResultWithData($result)) {
-            \set_transient($transientKey, $result, 12 * HOUR_IN_SECONDS);
-        }
-
-        return $this->normalizeResult($result, 'success');
-    }
 
     /**
      * Cached boat base ports list.

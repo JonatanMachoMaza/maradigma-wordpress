@@ -3032,3 +3032,22 @@ msgstr "%s verringern"
 #, php-format
 msgid "Increase %s"
 msgstr "%s erhöhen"
+
+msgid "Cleanup skipped because the API connection changed during the sync."
+msgstr "Bereinigung übersprungen, weil sich die API-Verbindung während der Synchronisierung geändert hat."
+
+msgid "Cleanup skipped because the API connection changed since the last complete sync. Run the sync again to clean up."
+msgstr "Bereinigung übersprungen, weil sich die API-Verbindung seit der letzten vollständigen Synchronisierung geändert hat. Synchronisieren Sie erneut, um zu bereinigen."
+
+msgid "Cleanup skipped because most synced boats are missing from the API list. Check the API key, or remove the pages by hand if this is intended."
+msgstr "Bereinigung übersprungen, weil die meisten synchronisierten Boote in der API-Liste fehlen. Prüfen Sie den API-Schlüssel oder entfernen Sie die Seiten von Hand, wenn das beabsichtigt ist."
+
+msgid "Boats that are only unpublished in Maradigma are never trashed or deleted here: their pages are unpublished, and the next sync publishes them again when the boat returns."
+msgstr "Boote, die in Maradigma nur unveröffentlicht sind, landen hier nie im Papierkorb und werden nie gelöscht: Ihre Seiten werden unveröffentlicht, und die nächste Synchronisierung veröffentlicht sie wieder, sobald das Boot zurückkehrt."
+
+#, php-format
+msgid "kept as draft %d"
+msgstr "als Entwurf behalten %d"
+
+msgid "Fleet order"
+msgstr "Flottenreihenfolge"

@@ -287,16 +287,6 @@ final class AjaxController
 
         register_rest_route(
             'maradigma/v1',
-            '/booking',
-            [
-                'methods'             => 'POST',
-                'callback'            => [__CLASS__, 'handleBooking'],
-                'permission_callback' => [PublicBookingGuard::class, 'authorize'],
-            ]
-        );
-
-        register_rest_route(
-            'maradigma/v1',
             '/booking/online',
             [
                 'methods'             => 'POST',
@@ -955,36 +945,37 @@ final class AjaxController
             return new WP_REST_Response(['success' => false, 'message' => 'Missing boat id'], 400);
         }
 
-        $expandRaw = (string) $request->get_param('expand');
-        $expandArr = [];
-
-        if ($expandRaw !== '') {
-            $expandArr = array_values(array_filter(array_map(
-                static fn($v) => trim((string) $v),
-                explode(',', $expandRaw)
-            )));
-        }
-
-        $lang = (string) $request->get_param('lang');
-        $lang = $lang !== '' ? strtoupper($lang) : 'EN';
-
-        // ✅ Usa Cache (firma correcta)
-        $cache = new \Maradigma\Cache();
+        // Public route: only customer-facing expands and fields reach the browser
+        // (the API also returns owner, accounting and the private iCal feed).
+        $expandArr = \Maradigma\Support\PublicBoatPayload::expandOptions($request->get_param('expand'));
+        $lang = \Maradigma\Support\PublicBoatPayload::language($request->get_param('lang'));
 
         $options = [];
         if ($expandArr !== []) {
             $options['expand'] = $expandArr;
         }
 
-        $result = $cache->getBoatDetails(
-            $boatId,
-            $lang,
-            $options,
-            [],     // requiredKeys
-            false   // forceRefresh
-        );
+        try {
+            $result = (new \Maradigma\Cache())->getBoatDetails(
+                $boatId,
+                $lang,
+                $options,
+                [],     // requiredKeys
+                false   // forceRefresh
+            );
+        } catch (\Throwable $e) {
+            return new WP_REST_Response(['status' => 'error', 'message' => 'Unable to load boat details.'], 200);
+        }
 
-        return new WP_REST_Response($result, 200);
+        $response = ['status' => (string) ($result['status'] ?? 'error')];
+        if (is_array($result['data'] ?? null)) {
+            $response['data'] = \Maradigma\Support\PublicBoatPayload::project($result['data']);
+        }
+        if ($response['status'] !== 'success' && isset($result['message']) && is_string($result['message'])) {
+            $response['message'] = $result['message'];
+        }
+
+        return new WP_REST_Response($response, 200);
     }
 
     /**
@@ -1219,98 +1210,6 @@ final class AjaxController
     }
 
     /**
-     * POST /wp-json/maradigma/v1/booking
-     *
-     * Crea una reserva SIN pago (ejemplo) usando createBookingWithoutPayment().
-     * Si en el futuro quieres usar bookingOnline, sólo hay que mapear el payload.
-     */
-    public static function handleBooking(WP_REST_Request $request): WP_REST_Response
-    {
-        $params = $request->get_json_params() ?? [];
-        $claim = PublicBookingGuard::beginIdempotentWrite($request);
-        if ($claim instanceof \WP_Error) {
-            $errorData = $claim->get_error_data();
-
-            return new WP_REST_Response(
-                [
-                    'success' => false,
-                    'error' => [
-                        'code' => $claim->get_error_code(),
-                        'message' => $claim->get_error_message(),
-                    ],
-                ],
-                (int) ($errorData['status'] ?? 409)
-            );
-        }
-        if (($claim['state'] ?? '') === 'replay') {
-            $response = new WP_REST_Response($claim['response'] ?? null, (int) ($claim['status'] ?? 200));
-            $response->header('X-Maradigma-Idempotent-Replay', 'true');
-
-            return $response;
-        }
-
-        $boatId   = isset($params['boat_id']) ? (string) $params['boat_id'] : '';
-        $fromDate = isset($params['from_date']) ? (string) $params['from_date'] : '';
-        $toDate   = isset($params['to_date']) ? (string) $params['to_date'] : '';
-        $people   = isset($params['people']) ? (int) $params['people'] : 0;
-
-        $customer = [
-            'first_name' => isset($params['first_name']) ? (string) $params['first_name'] : '',
-            'last_name'  => isset($params['last_name']) ? (string) $params['last_name'] : '',
-            'email'      => isset($params['email']) ? (string) $params['email'] : '',
-            'phone'      => isset($params['phone']) ? (string) $params['phone'] : '',
-        ];
-
-        $acceptTerms = !empty($params['accept_terms']);
-
-        try {
-            if ($boatId === '' || $fromDate === '' || $toDate === '') {
-                throw new \RuntimeException(__('Missing required parameters: boat_id, from_date, to_date.', 'maradigma'));
-            }
-
-            if (!$acceptTerms) {
-                throw new \RuntimeException(__('You must accept terms and conditions to complete the booking.', 'maradigma'));
-            }
-
-            $client = self::createApiClient();
-
-            // Mapeo mínimo para el backend:
-            $booking = [
-                'id_group'      => 'boats',
-                'id_group_item' => $boatId,
-                'date_start'    => $fromDate,
-                'date_end'      => $toDate,
-                'people'        => $people,
-            ];
-
-            // Sin servicios adicionales de momento:
-            $additionalServices = [];
-
-            $result = $client->createBookingWithoutPayment($booking, $customer, $additionalServices);
-            if (PublicBookingGuard::isSuccessfulResult($result)) {
-                PublicBookingGuard::completeIdempotentWrite($claim, $request, $result);
-            } else {
-                PublicBookingGuard::abortIdempotentWrite($claim);
-            }
-
-            return new WP_REST_Response($result, 200);
-        } catch (\Throwable $e) {
-            PublicBookingGuard::abortIdempotentWrite($claim);
-
-            return new WP_REST_Response(
-                [
-                    'success' => false,
-                    'error'   => [
-                        'code'    => 'booking_error',
-                        'message' => $e->getMessage(),
-                    ],
-                ],
-                500
-            );
-        }
-    }
-
-    /**
      * Handles booking online.
      */
     public static function handleBookingOnline(WP_REST_Request $request): WP_REST_Response
@@ -1354,7 +1253,6 @@ final class AjaxController
             $post = [
                 'step' => $step,
                 'return_url_after_payment' => $returnUrl,
-                'payment_method' => (string)($params['payment_method'] ?? ''),
                 'uuid_shop_cart' => (string)($params['uuid_shop_cart'] ?? ''),
                 'id_time_slot' => (string)($params['id_time_slot'] ?? ''),
 
@@ -1373,8 +1271,9 @@ final class AjaxController
                     'message' => (string)($params['message'] ?? ''),
                 ],
 
+                // The API resolves the customer from the contact data; a visitor-supplied
+                // id_customer is never forwarded.
                 'customer' => [
-                    'id_customer' => (string)($params['id_customer'] ?? ''),
                     'country_code' => (string)($params['country_code'] ?? ''),
                     'state' => (string)($params['state'] ?? ''),
                     'postcode' => (string)($params['postcode'] ?? ''),
@@ -1385,6 +1284,14 @@ final class AjaxController
                     'phone' => (string)($params['phone'] ?? ''),
                 ],
             ];
+
+            // Without a method the API applies the tenant's default online method; an
+            // empty value would bypass that default, and 'card' (older modal builds)
+            // is not an API payment method key.
+            $paymentMethod = sanitize_key((string) ($params['payment_method'] ?? ''));
+            if ($paymentMethod !== '' && $paymentMethod !== 'card') {
+                $post['payment_method'] = $paymentMethod;
+            }
 
             if (array_key_exists('accept_terms', $params)) {
                 $post['accept_terms'] = !empty($params['accept_terms']) ? '1' : '0';
@@ -1515,9 +1422,12 @@ final class AjaxController
             }
 
             $client = self::createApiClient();
-            $result = $client->validateShopCart($uuid);
+            $result = self::projectPublicShopCart($client->validateShopCart($uuid));
 
-            return new WP_REST_Response($result, 200);
+            $response = new WP_REST_Response($result, 200);
+            $response->header('Cache-Control', 'no-store, no-cache, must-revalidate, max-age=0');
+
+            return $response;
         } catch (\Throwable $e) {
             return new WP_REST_Response([
                 'success' => false,
@@ -1527,6 +1437,55 @@ final class AjaxController
                 ],
             ], 500);
         }
+    }
+
+    /**
+     * Keeps the shop cart fields the booking modal reads. The API returns the raw
+     * cart row (identity document, tax data, internal ids) next to the projected
+     * booking, payment and customer blocks, and commissions inside cart_summary.
+     *
+     * @param array<string,mixed> $result
+     * @return array<string,mixed>
+     */
+    private static function projectPublicShopCart(array $result): array
+    {
+        if (!is_array($result['data'] ?? null)) {
+            return $result;
+        }
+
+        $data = $result['data'];
+        if (is_array($data['shop_cart'] ?? null)) {
+            $data['shop_cart'] = array_intersect_key($data['shop_cart'], array_flip([
+                'uuid',
+                'id_group',
+                'id_group_item',
+                'date_start',
+                'date_end',
+                'id_time_slot',
+                'time_start',
+                'time_end',
+                'payment_method',
+                'message',
+                'first_name',
+                'last_name',
+                'email',
+                'phone',
+                'country_code',
+                'cart_booking',
+                'cart_summary',
+                'cart_additional_services',
+            ]));
+            if (is_array($data['shop_cart']['cart_summary'] ?? null)) {
+                unset($data['shop_cart']['cart_summary']['applied_commissions']);
+            }
+        }
+        if (is_array($data['cart_summary'] ?? null)) {
+            unset($data['cart_summary']['applied_commissions']);
+        }
+
+        $result['data'] = $data;
+
+        return $result;
     }
 
     /**
@@ -1577,6 +1536,18 @@ final class AjaxController
                     (($result['status'] ?? '') === 'success') ||
                     (($result['success'] ?? false) === true)
                 );
+
+            // The API falls back to English only; when a page language has no
+            // terms, show the site's default language instead.
+            $siteLanguage = function_exists('pll_default_language') ? (string) pll_default_language('slug') : '';
+            if ($siteLanguage === '') {
+                $siteLanguage = (string) get_locale();
+            }
+            $siteLanguage = strtoupper(substr($siteLanguage, 0, 2));
+            if (!$isSuccess && $siteLanguage !== '' && $siteLanguage !== $language) {
+                $result = $client->getRentalTerms($group, $siteLanguage, $decodedHtml);
+                $isSuccess = (($result['status'] ?? '') === 'success') || (($result['success'] ?? false) === true);
+            }
 
             if (!$isSuccess) {
                 $message =
@@ -1852,68 +1823,19 @@ final class AjaxController
     /**
      * action: maradigma_admin_search_tags
      *
-     * Devuelve tags de barcos (Modern, Open, etc.) en formato Select2.
+     * Kept for older editor scripts; always answers an empty list.
      */
     public static function adminSearchTags(): void
     {
         self::checkAdminAjaxSecurity();
 
-        $q    = self::getSearchTerm();
-        $page = self::getPageNumber();
-
-        try {
-            $client   = self::createApiClient();
-
-            // Asegúrate de tener en ExternalApiClient:
-            // public function getBoatTags(): array { return $this->requestJson('GET', '/boat-tags'); }
-            $response = $client->getBoatTags();
-
-            // TODO: ajustar a tu estructura real:
-            // [
-            //   'success' => true,
-            //   'tags'    => [
-            //      ['id' => 1, 'name' => 'Modern'],
-            //      ...
-            //   ]
-            // ]
-            $items = [];
-            $tags  = $response['tags'] ?? [];
-
-            foreach ($tags as $tag) {
-                $id   = isset($tag['id']) ? (int) $tag['id'] : 0;
-                $name = isset($tag['name']) ? (string) $tag['name'] : '';
-
-                if ($id <= 0 || $name === '') {
-                    continue;
-                }
-
-                if ($q !== '' && stripos($name, $q) === false) {
-                    continue;
-                }
-
-                $items[] = [
-                    'id'   => $id,
-                    'text' => $name,
-                ];
-            }
-
-            wp_send_json([
-                'success'    => true,
-                'results'    => $items,
-                'pagination' => [
-                    'more' => false,
-                ],
-            ]);
-        } catch (\Throwable $e) {
-            wp_send_json([
-                'success' => false,
-                'results' => [],
-                'error'   => [
-                    'code'    => 'api_error',
-                    'message' => $e->getMessage(),
-                ],
-            ]);
-        }
+        // The external API has no tag catalogue endpoint: tags are filtered by
+        // their ids (tags="3,7"), which are looked up in Maradigma.
+        wp_send_json([
+            'success'    => true,
+            'results'    => [],
+            'pagination' => ['more' => false],
+        ]);
     }
 
     // ─────────────────────────────────────────────
@@ -1970,6 +1892,65 @@ final class AjaxController
                 'pagination' => [
                     'more' => false,
                 ],
+            ]);
+        } catch (\Throwable $e) {
+            wp_send_json([
+                'success' => false,
+                'results' => [],
+                'error'   => [
+                    'code'    => 'api_error',
+                    'message' => $e->getMessage(),
+                ],
+            ]);
+        }
+    }
+
+    // ─────────────────────────────────────────────
+    // AJAX ADMIN: BASE PORTS
+    // ─────────────────────────────────────────────
+
+    /**
+     * action: maradigma_admin_search_base_ports
+     *
+     * Base ports in Select2 format (GET /boat-base-ports lists every port, not
+     * only the ports of this catalogue's boats).
+     */
+    public static function adminSearchBasePorts(): void
+    {
+        self::checkAdminAjaxSecurity();
+
+        $q = self::getSearchTerm();
+
+        try {
+            $response = (new \Maradigma\Cache(self::createApiClient()))->getBoatBasePorts();
+
+            $items = [];
+            foreach ((array) ($response['data'] ?? []) as $port) {
+                if (!is_array($port)) {
+                    continue;
+                }
+
+                $id   = isset($port['id']) ? (int) $port['id'] : 0;
+                $name = isset($port['name']) ? trim((string) $port['name']) : '';
+
+                if ($id <= 0 || $name === '') {
+                    continue;
+                }
+
+                if ($q !== '' && stripos($name, $q) === false) {
+                    continue;
+                }
+
+                $items[] = [
+                    'id'   => $id,
+                    'text' => $name,
+                ];
+            }
+
+            wp_send_json([
+                'success'    => true,
+                'results'    => $items,
+                'pagination' => ['more' => false],
             ]);
         } catch (\Throwable $e) {
             wp_send_json([
@@ -2500,6 +2481,8 @@ final class AjaxController
                 'limit_services'       => $pageSize,
                 'offset_services'      => $page * $pageSize,
                 'only_calendarization' => false,
+                // Only the destinations of each boat are read here.
+                'get_prices'           => 0,
             ]);
 
             if (empty($result['success']) || !is_array($result['data']['search_result'] ?? null)) {
@@ -2897,6 +2880,9 @@ final class AjaxController
                 'id_group'        => 'boats',
                 'limit_services'  => $perPage,
                 'offset_services' => $offset,
+                // Same catalogue as the listing: the API defaults to calendarized boats only.
+                'only_calendarization' => false,
+                'search_own_managment' => false,
             ];
 
             if ($q !== '') {
@@ -3057,47 +3043,12 @@ final class AjaxController
     {
         self::checkPublicAjaxSecurity();
 
-        try {
-            $client   = self::createApiClient();
-            $response = $client->getBoatTags();
-            $q        = self::getSearchTerm();
-
-            $items = [];
-            $tags  = $response['tags'] ?? [];
-
-            foreach ($tags as $tag) {
-                $id   = isset($tag['id']) ? (int) $tag['id'] : 0;
-                $name = isset($tag['name']) ? (string) $tag['name'] : '';
-
-                if ($id <= 0 || $name === '') {
-                    continue;
-                }
-
-                if ($q !== '' && stripos($name, $q) === false) {
-                    continue;
-                }
-
-                $items[] = [
-                    'id'   => $id,
-                    'text' => $name,
-                ];
-            }
-
-            wp_send_json([
-                'success'    => true,
-                'results'    => $items,
-                'pagination' => ['more' => false],
-            ]);
-        } catch (\Throwable $e) {
-            wp_send_json([
-                'success' => false,
-                'results' => [],
-                'error'   => [
-                    'code'    => 'api_error',
-                    'message' => $e->getMessage(),
-                ],
-            ], 500);
-        }
+        // No tag catalogue endpoint exists in the external API (see adminSearchTags()).
+        wp_send_json([
+            'success'    => true,
+            'results'    => [],
+            'pagination' => ['more' => false],
+        ]);
     }
 
     /**

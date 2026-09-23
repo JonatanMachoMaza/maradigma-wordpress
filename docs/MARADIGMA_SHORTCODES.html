@@ -508,7 +508,7 @@ ul.tight li{
 <div><div class="small muted" style="margin-bottom:6px">Example</div><div class="code">[maradigma_boats limit_services="12" show_filters="1"]</div></div>
 <div><div class="small muted" style="margin-bottom:6px">Example</div><div class="code">[maradigma_boats show_filters="1" autosubmit_filters="1" filters_ui_fields="term,boat_capacity,min_price,max_price,featured,ins_book,date_start,date_end,order_by"]</div></div>
 <div><div class="small muted" style="margin-bottom:6px">Example: move order by before Apply</div><div class="code">[maradigma_boats show_filters="1" filters_ui_submit_mode="button" filters_ui_fields="term,builders,min_price,order_by,max_price" filters_ui_fields_left="order_by"]</div></div>
-<div><div class="small muted" style="margin-bottom:6px">Example</div><div class="code">[maradigma_boats card="clean-grid" image_token="image_main" show_more_filters_button="1" filters_ui_fields_offcanvas="boat_type_id,builders,ids_gi,tags"]</div></div>
+<div><div class="small muted" style="margin-bottom:6px">Example</div><div class="code">[maradigma_boats card="clean-grid" image_token="image_main" show_more_filters_button="1" filters_ui_fields_offcanvas="boat_type_id,builders,ids_gi"]</div></div>
 <div><div class="small muted" style="margin-bottom:6px">Example</div><div class="code">[maradigma_boats show_filters="1" filters_ui_fields="term,date_start,date_end,builders,min_price,max_price" builders_options="search_result"]</div></div>
 </div>
 <div class="back-top"><a href="#top">Back to top</a></div>
@@ -1117,7 +1117,7 @@ ul.tight li{
 <tr><td><code>is_bareboat</code></td><td>Bareboat flag.</td></tr>
 <tr><td><code>text_skipper</code></td><td>Skipper label text.</td></tr>
 <tr><td><code>boat_license</code></td><td>Licence/license text.</td></tr>
-<tr><td><code>boat_licence_required</code></td><td>Whether a licence is required.</td></tr>
+<tr><td><code>boat_licence_required</code></td><td>Raw licence code: <code>0</code> = licence required (when rented without skipper), <code>1</code> = no licence required.</td></tr>
 <tr><td><code>id_default_skipper</code></td><td>Default skipper ID.</td></tr>
 <tr><td><code>id_default_agent</code></td><td>Default agent ID.</td></tr>
 <tr><td><code>id_default_boat_harbour_manager</code></td><td>Default harbour manager ID.</td></tr>

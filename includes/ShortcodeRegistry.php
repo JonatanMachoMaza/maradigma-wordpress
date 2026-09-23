@@ -8,6 +8,7 @@ use Maradigma\Support\ArchiveFilterControls;
 use Maradigma\Support\ArchiveScope;
 use Maradigma\Support\BoatBookingAvailability;
 use Maradigma\Support\Sanitizer;
+use Maradigma\Support\SelectedBoats;
 use Maradigma\Support\Utils;
 
 /**
@@ -115,14 +116,14 @@ final class ShortcodeRegistry
             'type' => 'int',
             'default' => '0',
             'description' => 'Orden del listado (por número).',
-            'notes' => 'Valores: 0=relevancia, 1=precio (menor a mayor), 2=precio (mayor a menor), 3=destacados primero, 4=novedades (más recientes primero), 5=eslora (mayor a menor), 6=eslora (menor a mayor).',
+            'notes' => 'Valores: 0=orden de la flota que configuras en Maradigma (por defecto), 1=precio (menor a mayor), 2=precio (mayor a menor), 4=novedades (más recientes primero), 5=eslora (mayor a menor), 6=eslora (menor a mayor). El valor 3 ("destacados" de la API) deja los destacados AL FINAL: para una sección de destacados usa featured="1", y para que salgan primero ponlos arriba en el orden de tu flota en Maradigma.',
         ],
         [
             'attr' => 'custom_orderby_field',
             'type' => 'string',
             'default' => '',
             'description' => 'Ordena por un campo personalizado (solo si tu plantilla/instalación lo tiene configurado).',
-            'notes' => 'Ejemplo: custom_orderby_field="boat_length". Si no estás seguro, no lo uses.',
+            'notes' => 'Sin efecto con la API externa de Maradigma: se acepta por compatibilidad, pero no cambia los resultados. Usa order_by.',
         ],
 
         // ─────────────────────────────────────────────
@@ -133,7 +134,7 @@ final class ShortcodeRegistry
             'type' => 'bool',
             'default' => 'false',
             'description' => 'Muestra solo barcos gestionados por tu empresa (tu propio catálogo).',
-            'notes' => 'Valores típicos: search_own_managment="1" o search_own_managment="true". Déjalo en false si quieres mostrar catálogo combinado (si tu web lo usa).',
+            'notes' => 'Valores típicos: search_own_managment="1" o search_own_managment="true". Solo tiene efecto junto con only_calendarization="1".',
         ],
         [
             'attr' => 'only_calendarization',
@@ -147,14 +148,14 @@ final class ShortcodeRegistry
             'type' => 'bool',
             'default' => 'false',
             'description' => 'Activa el modo “last minute” para priorizar resultados de última hora.',
-            'notes' => 'Valores típicos: last_minute_mode="1" o last_minute_mode="true". Útil para una página tipo “Ofertas de hoy/mañana”.',
+            'notes' => 'Sin efecto con la API externa de Maradigma: se acepta por compatibilidad, pero no cambia los resultados. Para una página tipo “Ofertas de hoy/mañana”, indica date_start y date_end.',
         ],
         [
             'attr' => 'ignore_date_range',
             'type' => 'bool',
             'default' => 'false',
             'description' => 'Ignora el filtro por fechas aunque se envíen date_start/date_end.',
-            'notes' => 'Valores típicos: ignore_date_range="1" o ignore_date_range="true". Úsalo si quieres mostrar catálogo completo sin comprobar disponibilidad por fechas.',
+            'notes' => 'Sin efecto con la API externa de Maradigma: se acepta por compatibilidad, pero no cambia los resultados. Para el catálogo completo, no indiques fechas.',
         ],
 
         // ─────────────────────────────────────────────
@@ -165,14 +166,14 @@ final class ShortcodeRegistry
             'type' => 'int[]',
             'default' => '',
             'description' => 'Filtra por estados del barco dentro del catálogo (solo para configuraciones avanzadas).',
-            'notes' => 'Ejemplo: status_group_item="1,2". Si no sabes qué estados usa tu instalación, no lo uses.',
+            'notes' => 'Sin efecto con la API externa de Maradigma: se acepta por compatibilidad, pero no cambia los resultados. La API devuelve siempre los barcos publicados.',
         ],
         [
             'attr' => 'ids_gi',
             'type' => 'int[]',
             'default' => '',
             'description' => 'Muestra solo barcos concretos por ID (lista).',
-            'notes' => 'Ejemplo: ids_gi="12,45,78". Útil para crear páginas “selección manual” de barcos.',
+            'notes' => 'Ejemplo: ids_gi="12,45,78". Útil para crear páginas “selección manual” de barcos. Los demás filtros (tipo, destino, fechas…) se siguen aplicando, así que un barco que no los cumpla no aparece. Con el orden por relevancia se respeta el orden de la lista.',
         ],
 
         // ─────────────────────────────────────────────
@@ -182,15 +183,15 @@ final class ShortcodeRegistry
             'attr' => 'term',
             'type' => 'string',
             'default' => '',
-            'description' => 'Búsqueda por texto (nombre, modelo, zona, etc. según tu catálogo).',
-            'notes' => 'Ejemplo: term="ibiza" o term="sunseeker".',
+            'description' => 'Búsqueda por texto en modelo, nombre comercial, astillero o referencia.',
+            'notes' => 'Ejemplo: term="sunseeker". No busca por zona ni puerto: para lugares usa destination o boat_base_port.',
         ],
         [
             'attr' => 'service_name',
             'type' => 'string',
             'default' => '',
             'description' => 'Alias de term (otra forma de indicar el texto de búsqueda).',
-            'notes' => 'Ejemplo: service_name="ibiza". Recomendado usar term para mantener consistencia.',
+            'notes' => 'Ejemplo: service_name="sunseeker". Recomendado usar term: el plugin envía siempre term, y el valor del visitante tiene prioridad.',
         ],
 
         // ─────────────────────────────────────────────
@@ -201,14 +202,14 @@ final class ShortcodeRegistry
             'type' => 'bool|int',
             'default' => 'false',
             'description' => 'Muestra solo barcos del catálogo “Maradigma Members”.',
-            'notes' => 'Valores aceptados (equivalentes): 1 / "1" / true / "true" / "on". Para desactivarlo: 0 / "0" / false / "false".',
+            'notes' => 'Sin efecto con la API externa de Maradigma: se acepta por compatibilidad, pero no cambia los resultados. Usa id_tenant_member.',
         ],
         [
             'attr' => 'is_owner',
             'type' => 'int',
             'default' => '',
             'description' => 'Filtra por propiedad del barco (si es tuyo o no).',
-            'notes' => 'Valores: is_owner="1" (solo barcos propios) o is_owner="0" (solo barcos que no son propios). Si no lo indicas, se muestran ambos.',
+            'notes' => 'Sin efecto con la API externa de Maradigma: se acepta por compatibilidad, pero no cambia los resultados.',
         ],
         [
             'attr' => 'ins_book',
@@ -233,7 +234,7 @@ final class ShortcodeRegistry
             'type' => 'int[]',
             'default' => '',
             'description' => 'Filtra por etiquetas (tags) del catálogo.',
-            'notes' => 'Ejemplo: tags="3,7" (muestra barcos que tengan alguna de esas etiquetas).',
+            'notes' => 'Ejemplo: tags="3,7" (muestra barcos que tengan alguna de esas etiquetas). Los IDs se consultan en Maradigma: la API no publica el catálogo de etiquetas, por lo que no hay selector de etiquetas en los filtros.',
         ],
         [
             'attr' => 'id_group_content_type',
@@ -258,7 +259,7 @@ final class ShortcodeRegistry
             'type' => 'bool|int|string',
             'default' => 'false',
             'description' => 'Muestra solo barcos disponibles para alquiler.',
-            'notes' => 'Valores aceptados (equivalentes): 1 / "1" / true / "true" / "on". Úsalo para ocultar barcos que no estén en modo alquiler/publicación.',
+            'notes' => 'Sin efecto con la API externa de Maradigma: se acepta por compatibilidad, pero no cambia los resultados. Para barcos reservables online usa ins_book o only_calendarization.',
         ],
 
         // ─────────────────────────────────────────────
@@ -382,7 +383,7 @@ final class ShortcodeRegistry
             'type' => 'int',
             'default' => '',
             'description' => 'Filtra por requisito de licencia.',
-            'notes' => 'Ejemplo: boat_licence_required="1" (solo barcos que requieren licencia) o boat_licence_required="0" (barcos que no requieren licencia), según cómo esté configurado tu catálogo.',
+            'notes' => 'Ojo, el valor va al revés de lo que parece: boat_licence_required="0" son los barcos que requieren licencia (si se alquilan sin patrón) y boat_licence_required="1" los que no la requieren.',
         ],
         [
             'attr' => 'boat_length',
@@ -1514,19 +1515,20 @@ final class ShortcodeRegistry
 
                 case 'order_by':
                     $selectedOrder = $value('order_by');
-                    if (!\in_array($selectedOrder, ['0', '1', '2', '3', '4', '5', '6'], true)) {
+                    // '3' is left out on purpose: the API sorts it with the featured
+                    // boats last, so a page still carrying it falls back to the fleet order.
+                    if (!\in_array($selectedOrder, ['0', '1', '2', '4', '5', '6'], true)) {
                         $selectedOrder = '0';
                     }
                     ?>
                     <div class="md-sortby">
                         <span class="md-sortby__label"><?php \esc_html_e('Sort by', 'maradigma'); ?></span>
                         <select class="md-select" name="md_order_by" style="min-width:220px;">
-                            <option value="0" <?php \selected($selectedOrder, '0'); ?>><?php \esc_html_e('Relevance', 'maradigma'); ?></option>
+                            <option value="0" <?php \selected($selectedOrder, '0'); ?>><?php \esc_html_e('Fleet order', 'maradigma'); ?></option>
                             <option value="1" <?php \selected($selectedOrder, '1'); ?>><?php \esc_html_e('Price: low to high', 'maradigma'); ?></option>
                             <option value="2" <?php \selected($selectedOrder, '2'); ?>><?php \esc_html_e('Price: high to low', 'maradigma'); ?></option>
                             <option value="6" <?php \selected($selectedOrder, '6'); ?>><?php \esc_html_e('Length: low to high', 'maradigma'); ?></option>
                             <option value="5" <?php \selected($selectedOrder, '5'); ?>><?php \esc_html_e('Length: high to low', 'maradigma'); ?></option>
-                            <option value="3" <?php \selected($selectedOrder, '3'); ?>><?php \esc_html_e('Featured first', 'maradigma'); ?></option>
                             <option value="4" <?php \selected($selectedOrder, '4'); ?>><?php \esc_html_e('Newest first', 'maradigma'); ?></option>
                         </select>
                     </div>
@@ -1934,8 +1936,15 @@ final class ShortcodeRegistry
         $scopeSecret   = \wp_salt('auth');
         $providedScope = ArchiveScope::decode($scopeToken, $scopeSecret, $scopeKeys);
 
+        // A value still at its default was not set by anyone (AJAX refreshes refill
+        // flags such as only_calendarization with 'false'): the author's value applies.
+        $searchDefaults = self::getBoatsSearchAttributeDefaults();
         foreach ($providedScope as $scopeKey => $scopeValue) {
-            if (\trim((string) ($atts[$scopeKey] ?? '')) === '') {
+            $currentValue = \trim((string) ($atts[$scopeKey] ?? ''));
+            if (
+                $currentValue === ''
+                || (isset($searchDefaults[$scopeKey]) && $currentValue === \trim((string) $searchDefaults[$scopeKey]))
+            ) {
                 $atts[$scopeKey] = $scopeValue;
             }
         }
@@ -2009,7 +2018,10 @@ final class ShortcodeRegistry
             ['min_boat_length', 'max_boat_length']
         );
 
-        $uiFields = \array_values(\array_intersect($uiFields, $allowedKeys));
+        // Tags filter by id only (the API has no tag catalogue), so there is no tags control.
+        $uiAllowedKeys = \array_values(\array_diff($allowedKeys, ['tags']));
+
+        $uiFields = \array_values(\array_intersect($uiFields, $uiAllowedKeys));
         if (empty($uiFields)) {
             $uiFields = ['term', 'boat_capacity'];
         }
@@ -2019,7 +2031,7 @@ final class ShortcodeRegistry
         }
 
         $uiLeftCsv = \trim((string) ($atts['filters_ui_fields_left'] ?? ''));
-        $uiLeftFields = \array_values(\array_intersect($parseUiFieldsCsv($uiLeftCsv), $allowedKeys));
+        $uiLeftFields = \array_values(\array_intersect($parseUiFieldsCsv($uiLeftCsv), $uiAllowedKeys));
 
         if ($dateMode === 'range') {
             $uiLeftFields = self::normalizeDateRangeUiFields($uiLeftFields);
@@ -2045,7 +2057,7 @@ final class ShortcodeRegistry
                 ));
             }
         } else {
-            $uiRightFields = \array_values(\array_intersect($parseUiFieldsCsv($uiRightCsv), $allowedKeys));
+            $uiRightFields = \array_values(\array_intersect($parseUiFieldsCsv($uiRightCsv), $uiAllowedKeys));
 
             if ($dateMode === 'range') {
                 $uiRightFields = self::normalizeDateRangeUiFields($uiRightFields);
@@ -2076,7 +2088,7 @@ final class ShortcodeRegistry
         $uiOffCsv = \trim((string) ($atts['filters_ui_fields_offcanvas'] ?? ''));
         $uiOffFields = $parseUiFieldsCsv($uiOffCsv);
 
-        $uiOffFields = \array_values(\array_intersect($uiOffFields, $allowedKeys));
+        $uiOffFields = \array_values(\array_intersect($uiOffFields, $uiAllowedKeys));
         if (empty($uiOffFields)) {
             $uiOffFields = ['boat_type_id', 'builders', 'ids_gi'];
         }
@@ -2110,7 +2122,10 @@ final class ShortcodeRegistry
             }
         }
 
-        if (\is_array($uiQuery)) {
+        // A request carrying visitor parameters: the page attributes are not the author's here.
+        $hasUiQuery = \is_array($uiQuery);
+
+        if ($hasUiQuery) {
             foreach ($queryKeys as $key) {
                 $param = 'md_' . $key;
 
@@ -2220,7 +2235,7 @@ final class ShortcodeRegistry
         if ($showFilters) {
             AssetsManager::enqueueArchiveFiltersAssets();
 
-            $remoteSelectFields = ['boat_type_id', 'builders', 'ids_gi', 'tags'];
+            $remoteSelectFields = ['boat_type_id', 'builders', 'ids_gi'];
             $needsRemoteSelect = false;
 
             foreach (\array_merge($uiFields, $uiOffFields) as $fieldKey) {
@@ -2238,8 +2253,52 @@ final class ShortcodeRegistry
         $apiClient = \Maradigma\ExternalApiClient::fromSettings($settings);
         $apiClient->setLanguage($currentLang);
 
-        $cache  = new Cache($apiClient);
-        $result = $cache->getBoatsList($filters);
+        $cache = new Cache($apiClient);
+
+        // /search-services does not filter by boat id: the plugin keeps the selected
+        // boats from the filtered search. A visitor's choice narrows the author's list.
+        $requestedBoatIds = self::normalizePositiveIdList($filters['ids_gi'] ?? []);
+        // The author's list comes from the page itself, or from the signed scope on
+        // a refresh; the ids of a request are the visitor's choice.
+        $authorBoatIds = self::normalizePositiveIdList(
+            !$hasUiQuery && \trim($scopeToken) === ''
+                ? ($baseAtts['ids_gi'] ?? '')
+                : ($providedScope['ids_gi'] ?? [])
+        );
+
+        if ($authorBoatIds !== []) {
+            $selectedBoatIds = $requestedBoatIds !== []
+                ? \array_values(\array_intersect($requestedBoatIds, $authorBoatIds))
+                : $authorBoatIds;
+        } else {
+            // Only the visitor chose: their control picks a single boat, and reading
+            // the catalogue page by page must not be triggered with a long list.
+            $selectedBoatIds = \array_slice($requestedBoatIds, 0, 1);
+        }
+
+        if (\count($selectedBoatIds) > SelectedBoats::MAX_IDS) {
+            \Maradigma\Support\Debugger::log('archive', 'selected_boats_truncated', [
+                'requested' => \count($selectedBoatIds),
+                'kept'      => SelectedBoats::MAX_IDS,
+            ]);
+            $selectedBoatIds = \array_slice($selectedBoatIds, 0, SelectedBoats::MAX_IDS);
+        }
+
+        $restrictToIds = $selectedBoatIds !== [] || ($authorBoatIds !== [] && $requestedBoatIds !== []);
+
+        $searchFilters = $filters;
+        unset($searchFilters['ids_gi']);
+
+        $result = $restrictToIds
+            ? self::searchSelectedBoats(
+                $cache,
+                $searchFilters,
+                $selectedBoatIds,
+                $currentLang,
+                // A visitor-only selection reads a couple of pages at most.
+                $authorBoatIds !== [] ? SelectedBoats::MAX_PAGES : SelectedBoats::MAX_VISITOR_PAGES
+            )
+            : $cache->getBoatsList($searchFilters);
 
         $lengthBounds = null;
         if (
@@ -2459,6 +2518,7 @@ final class ShortcodeRegistry
      */
     private static function resolveBoatLengthBounds(Cache $cache, array $baseAtts): ?array
     {
+        unset($baseAtts['ids_gi']);
         $scope = Sanitizer::normalizeBoatsSearchAtts($baseAtts, self::$DOC_SEARCH_BOATS_ATTRS);
         $scope['limit_services']  = 1;
         $scope['offset_services'] = 0;
@@ -2487,6 +2547,123 @@ final class ShortcodeRegistry
         }
 
         return ArchiveFilterControls::normalizeLengthBounds($shortest, $longest);
+    }
+
+    /**
+     * Search limited to the given boats ("Specific boats").
+     *
+     * Reads the filtered search in pages (each one cached like any listing) until
+     * every selected boat is found, then serves the requested listing page.
+     *
+     * @param array<string,mixed> $filters Search filters without ids_gi.
+     * @param list<int>           $boatIds
+     * @param string              $language Language of the listing (part of the cache key).
+     * @param int                 $maxPages Search pages this listing may read.
+     * @return array<string,mixed> Same shape as Cache::getBoatsList().
+     */
+    private static function searchSelectedBoats(
+        Cache $cache,
+        array $filters,
+        array $boatIds,
+        string $language,
+        int $maxPages = SelectedBoats::MAX_PAGES
+    ): array {
+        $offset = (int) ($filters['offset_services'] ?? 0);
+        $limit  = (int) ($filters['limit_services'] ?? 10);
+
+        if ($boatIds === []) {
+            return SelectedBoats::result([], $offset, $limit, []);
+        }
+
+        // The whole selection is kept under one key: reading the catalogue page by
+        // page is expensive, and it is repeated on every render otherwise (a boat
+        // that no longer matches the filters is never found).
+        $scanFilters = $filters;
+        unset($scanFilters['limit_services'], $scanFilters['offset_services']);
+        $useScanCache = \defined('MARADIGMA_CACHE_ENABLED')
+            && \constant('MARADIGMA_CACHE_ENABLED') === true
+            && !(\defined('MARADIGMA_PLUGIN_DEBUG') && \constant('MARADIGMA_PLUGIN_DEBUG'));
+        $scanKey = 'maradigma_boats_selected_' . \md5((string) \wp_json_encode([
+            'filters'  => $scanFilters,
+            'boats'    => $boatIds,
+            'language' => $language,
+            'pages'    => $maxPages,
+        ]));
+
+        if ($useScanCache) {
+            $cached = \get_transient($scanKey);
+            if (\is_array($cached)) {
+                return SelectedBoats::result(
+                    \is_array($cached['matches'] ?? null) ? $cached['matches'] : [],
+                    $offset,
+                    $limit,
+                    \is_array($cached['data'] ?? null) ? $cached['data'] : []
+                );
+            }
+        }
+
+        $matches   = [];
+        $summary   = [];
+        $complete  = true;
+        for ($page = 0; $page < $maxPages; $page++) {
+            $result = $cache->getBoatsList(\array_merge($filters, [
+                'limit_services'  => SelectedBoats::PAGE_SIZE,
+                'offset_services' => $page * SelectedBoats::PAGE_SIZE,
+            ]));
+
+            $data = \is_array($result['data'] ?? null) ? (array) $result['data'] : null;
+            $rows = \is_array($data['search_result'] ?? null) ? (array) $data['search_result'] : null;
+            if ($data === null || $rows === null) {
+                // The API failed: serve what was read, and do not keep it.
+                if ($page === 0) {
+                    return $result;
+                }
+                $complete = false;
+                break;
+            }
+
+            if ($summary === []) {
+                // Only the price range of the search is reused; the rows are picked below.
+                unset($data['search_result']);
+                $summary = $data;
+            }
+
+            foreach (SelectedBoats::pick($rows, $boatIds) as $row) {
+                $matches[SelectedBoats::idOf($row)] = $row;
+            }
+
+            $total = (int) ($data['total_results'] ?? 0);
+            if (
+                \count($matches) >= \count($boatIds)
+                || $rows === []
+                || ($page + 1) * SelectedBoats::PAGE_SIZE >= $total
+            ) {
+                break;
+            }
+        }
+
+        $matches = \array_values($matches);
+        if ((int) ($filters['order_by'] ?? 0) === 0) {
+            // Default order: the author's order.
+            $matches = SelectedBoats::sortByList($matches, $boatIds);
+        }
+
+        if (\count($matches) < \count($boatIds)) {
+            // A selected boat can be filtered out (dates, type…), unpublished, or
+            // sit past the boats this scan reads.
+            \Maradigma\Support\Debugger::log('archive', 'selected_boats_not_found', [
+                'requested' => \count($boatIds),
+                'found'     => \count($matches),
+                'complete'  => $complete,
+                'filters'   => $scanFilters,
+            ]);
+        }
+
+        if ($useScanCache && $complete) {
+            \set_transient($scanKey, ['matches' => $matches, 'data' => $summary], 10 * MINUTE_IN_SECONDS);
+        }
+
+        return SelectedBoats::result($matches, $offset, $limit, $summary);
     }
 
     /**
@@ -6909,7 +7086,6 @@ final class ShortcodeRegistry
         }
 
         $quoteEndpoint   = esc_url_raw(rest_url('maradigma/v1/quote'));
-        $bookingEndpoint = esc_url_raw(rest_url('maradigma/v1/booking'));
 
         $uid     = 'md_' . wp_rand(1000, 9999) . '_' . (string) $identifier;
         $modalId = $uid . '_modal';
@@ -6951,7 +7127,6 @@ final class ShortcodeRegistry
             data-locale="<?php echo esc_attr(str_replace('_', '-', $locale)); ?>"
             data-expand="service_prices,service_additional_services,service_unavailability_dates"
             data-quote-endpoint="<?php echo esc_attr((string) $quoteEndpoint); ?>"
-            data-booking-endpoint="<?php echo esc_attr((string) $bookingEndpoint); ?>"
             data-redirect-url-success="<?php echo esc_attr($redirectUrlSuccess); ?>"
             data-calendar-display="<?php echo esc_attr($calendarDisplay); ?>"
             data-calendar-months="<?php echo esc_attr((string) $calendarMonths); ?>"

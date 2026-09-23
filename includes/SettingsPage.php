@@ -1643,6 +1643,14 @@ final class SettingsPage
                                                 (int) ($lastCleanup['changed'] ?? 0),
                                                 (int) ($lastCleanup['failed'] ?? 0)
                                             ));
+                                            if ((int) ($lastCleanup['kept_as_draft'] ?? 0) > 0) {
+                                                echo ' | ';
+                                                echo esc_html(sprintf(
+                                                    /* translators: %d: pages unpublished instead of trashed or deleted because the boat is only unpublished in Maradigma. */
+                                                    __('kept as draft %d', 'maradigma'),
+                                                    (int) $lastCleanup['kept_as_draft']
+                                                ));
+                                            }
                                             if ((int) ($lastCleanup['images_deleted'] ?? 0) > 0 || (int) ($lastCleanup['images_failed'] ?? 0) > 0) {
                                                 echo ' ';
                                                 echo esc_html(sprintf(
@@ -1742,6 +1750,9 @@ final class SettingsPage
 
                                 <p class="description" style="margin:6px 0 10px 0;">
                                     <?php esc_html_e('Optional cleanup for managed boat pages whose boat ID no longer appears in the Maradigma API response. It only runs after a valid non-empty API list has been processed.', 'maradigma'); ?>
+                                </p>
+                                <p class="description" style="margin:0 0 10px 0;">
+                                    <?php esc_html_e('Boats that are only unpublished in Maradigma are never trashed or deleted here: their pages are unpublished, and the next sync publishes them again when the boat returns.', 'maradigma'); ?>
                                 </p>
 
                                 <label style="display:block;margin:10px 0 6px 0;font-weight:600;" for="maradigma_cleanup_obsolete">
@@ -3846,6 +3857,12 @@ final class SettingsPage
                 return __('Cleanup skipped because the boat sync did not finish successfully.', 'maradigma');
             case 'Cleanup skipped because the sync saw fewer boats than the API reported.':
                 return __('Cleanup skipped because the sync saw fewer boats than the API reported.', 'maradigma');
+            case 'Cleanup skipped because the API connection changed during the sync.':
+                return __('Cleanup skipped because the API connection changed during the sync.', 'maradigma');
+            case 'Cleanup skipped because the API connection changed since the last complete sync. Run the sync again to clean up.':
+                return __('Cleanup skipped because the API connection changed since the last complete sync. Run the sync again to clean up.', 'maradigma');
+            case 'Cleanup skipped because most synced boats are missing from the API list. Check the API key, or remove the pages by hand if this is intended.':
+                return __('Cleanup skipped because most synced boats are missing from the API list. Check the API key, or remove the pages by hand if this is intended.', 'maradigma');
         }
 
         if (str_starts_with($message, 'Obsolete-page cleanup finished:')) {

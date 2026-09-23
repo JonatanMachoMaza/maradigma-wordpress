@@ -8,6 +8,7 @@ if (!defined('ABSPATH')) {
     exit;
 }
 
+use Maradigma\Support\BoatCleanupPolicy;
 use Maradigma\Support\BoatPostSelectionPolicy;
 use Maradigma\Support\BoatSlugPolicy;
 use Maradigma\Support\MultilangAdapter;
@@ -57,6 +58,14 @@ final class BoatSyncService
     private const META_DISABLE_SYNC = '_maradigma_disable_sync';
     private const META_SYNC_BASE_SLUG = '_maradigma_sync_base_slug';
     private const META_DUPLICATE_OF = BoatPostLookup::META_DUPLICATE_OF;
+    // Set on pages the obsolete cleanup unpublished; the sync republishes them when the boat returns.
+    private const META_OBSOLETE_RETIRED = '_maradigma_obsolete_retired';
+    // Status the page had before the cleanup unpublished it.
+    private const META_OBSOLETE_STATUS = '_maradigma_obsolete_status';
+    // API connection (base URL + key) of the last complete sync.
+    private const OPTION_SOURCE_FINGERPRINT = 'maradigma_boat_sync_source_fingerprint';
+    // Boats the API listed the last time the cleanup ran.
+    private const OPTION_KNOWN_BOATS = 'maradigma_boat_sync_known_boats';
 
     // Elementor seeding tracking
     private const META_ELEMENTOR_SEEDED        = '_maradigma_elementor_seeded';
@@ -133,6 +142,7 @@ final class BoatSyncService
             'api_list_valid'        => false,
             'cleanup'               => self::makeInitialCleanupState($options),
             'duplicates'            => self::makeInitialDuplicatesState($options),
+            'source_fingerprint'    => self::getSourceFingerprint(),
 
             // config
             'options'     => $options,
@@ -548,6 +558,20 @@ final class BoatSyncService
                             delete_post_meta($postId, self::META_DUPLICATE_OF);
                             if (get_post_status($postId) === 'draft') {
                                 wp_update_post(['ID' => $postId, 'post_status' => 'publish']);
+                            }
+                        }
+
+                        if (!$disable && (string)get_post_meta($postId, self::META_OBSOLETE_RETIRED, true) !== '') {
+                            // A page the obsolete cleanup unpublished comes back with its boat,
+                            // in the status it had before.
+                            $previousStatus = (string)get_post_meta($postId, self::META_OBSOLETE_STATUS, true);
+                            delete_post_meta($postId, self::META_OBSOLETE_RETIRED);
+                            delete_post_meta($postId, self::META_OBSOLETE_STATUS);
+                            if (get_post_status($postId) === 'draft' && $previousStatus !== 'draft') {
+                                wp_update_post([
+                                    'ID'          => $postId,
+                                    'post_status' => $previousStatus !== '' ? $previousStatus : 'publish',
+                                ]);
                             }
                         }
 
@@ -1453,6 +1477,7 @@ final class BoatSyncService
             'changed'           => 0,
             'failed'            => 0,
             'skipped_protected' => 0,
+            'kept_as_draft'     => 0,
             'images_deleted'    => 0,
             'images_failed'     => 0,
             'message'           => '',
@@ -1475,6 +1500,24 @@ final class BoatSyncService
             $state['cleanup'] = self::makeInitialCleanupState($options);
         }
         $state['cleanup']['action'] = $action;
+
+        // First complete sync of a site: remember what it syncs, so a later key
+        // change is visible even if no cleanup ever ran.
+        if (!empty($state['api_list_valid'])) {
+            if ((string)get_option(self::OPTION_SOURCE_FINGERPRINT, '') === '') {
+                update_option(self::OPTION_SOURCE_FINGERPRINT, self::getSourceFingerprint(), false);
+            }
+            // While the connection is the same, every complete sync refreshes the
+            // baseline; after a key change it keeps the boats of the old catalogue.
+            $sameConnection = (string)get_option(self::OPTION_SOURCE_FINGERPRINT, '') === self::getSourceFingerprint();
+            if ($sameConnection || (int)get_option(self::OPTION_KNOWN_BOATS, 0) <= 0) {
+                $listed = count(array_unique(array_filter(array_map('strval', (array)($state['api_boat_ids'] ?? [])))));
+                $reportedTotal = (int)($state['boats_total'] ?? 0);
+                if ($listed > 0 && ($reportedTotal === 0 || $listed >= $reportedTotal)) {
+                    update_option(self::OPTION_KNOWN_BOATS, $listed, false);
+                }
+            }
+        }
 
         if ($action === 'none') {
             $state['cleanup']['status'] = 'skipped';
@@ -1508,9 +1551,54 @@ final class BoatSyncService
             return $state;
         }
 
+        // Checked last, so a sync that cleans nothing up does not spend the warning.
+        $connectionMessage = self::checkSourceFingerprint($state);
+        if ($connectionMessage !== '') {
+            $state['cleanup']['status'] = 'skipped';
+            $state['cleanup']['message'] = $connectionMessage;
+            return $state;
+        }
+
         $deleteImages = $action === 'delete' && !empty($options['cleanup_delete_images']);
         $state['cleanup'] = array_merge($state['cleanup'], self::cleanupObsoleteManagedBoatPosts($validBoatIds, $action, $deleteImages));
         return $state;
+    }
+
+    private static function getSourceFingerprint(): string
+    {
+        return ExternalApiClient::fromSettings(SettingsPage::getSettings())->getSourceFingerprint();
+    }
+
+    /**
+     * Records the API connection of a complete sync and tells whether the
+     * cleanup must wait: with another key the API answers for another
+     * catalogue, and every synced boat would look gone.
+     *
+     * @param array<string,mixed> $state
+     * @return string Skip message, or '' when the cleanup may run.
+     */
+    private static function checkSourceFingerprint(array $state): string
+    {
+        $current = self::getSourceFingerprint();
+        $runFingerprint = (string)($state['source_fingerprint'] ?? '');
+        if ($runFingerprint !== '' && $runFingerprint !== $current) {
+            return 'Cleanup skipped because the API connection changed during the sync.';
+        }
+
+        if (empty($state['api_list_valid'])) {
+            return '';
+        }
+
+        $previous = (string)get_option(self::OPTION_SOURCE_FINGERPRINT, '');
+        if ($previous !== $current) {
+            update_option(self::OPTION_SOURCE_FINGERPRINT, $current, false);
+        }
+
+        if ($previous !== '' && $previous !== $current) {
+            return 'Cleanup skipped because the API connection changed since the last complete sync. Run the sync again to clean up.';
+        }
+
+        return '';
     }
 
     /**
@@ -1529,6 +1617,8 @@ final class BoatSyncService
             'failed'            => 0,
             'skipped_protected' => 0,
             'skipped_unconfirmed' => 0,
+            'kept_as_draft'     => 0,
+            'reasons'           => [],
             'images_deleted'    => 0,
             'images_failed'     => 0,
             'message'           => '',
@@ -1558,7 +1648,10 @@ final class BoatSyncService
         ]);
 
         $postIds = is_array($query->posts) ? $query->posts : [];
-        $confirmedGone = [];
+
+        // Pass 1: the site's boats that are missing from the API list.
+        $localBoats = [];
+        $missingPosts = [];
         foreach ($postIds as $postId) {
             $postId = (int)$postId;
             if ($postId <= 0) {
@@ -1566,7 +1659,12 @@ final class BoatSyncService
             }
 
             $boatId = trim((string)get_post_meta($postId, self::META_BOAT_ID, true));
-            if ($boatId === '' || isset($validMap[$boatId])) {
+            if ($boatId === '') {
+                continue;
+            }
+
+            $localBoats[$boatId] = true;
+            if (isset($validMap[$boatId])) {
                 continue;
             }
 
@@ -1575,44 +1673,81 @@ final class BoatSyncService
                 continue;
             }
 
-            // The run's list can miss a boat (repeated pages, a boat added mid-run):
-            // only retire pages of boats Maradigma confirms are gone.
-            if (!isset($confirmedGone[$boatId])) {
-                $confirmedGone[$boatId] = self::isBoatConfirmedGone($boatId);
-            }
+            $missingPosts[$boatId][] = $postId;
+        }
 
-            if (!$confirmedGone[$boatId]) {
-                $stats['skipped_unconfirmed'] = (int)$stats['skipped_unconfirmed'] + 1;
+        // A list without most of the site's boats usually means the API key now
+        // points at another catalogue: never retire the whole site. The boats of the
+        // last cleanup are the baseline, because this run already created the pages
+        // of every boat the API lists now.
+        $knownBoats = (int)get_option(self::OPTION_KNOWN_BOATS, 0);
+        $baseline = $knownBoats > 0 ? min($knownBoats, count($localBoats)) : count($localBoats);
+        if (BoatCleanupPolicy::isMassRemoval($baseline, count($missingPosts))) {
+            $stats['status'] = 'skipped';
+            $stats['local_boats'] = $baseline;
+            $stats['missing_boats'] = count($missingPosts);
+            $stats['message'] = 'Cleanup skipped because most synced boats are missing from the API list. Check the API key, or remove the pages by hand if this is intended.';
+
+            return $stats;
+        }
+
+        // Pass 2: only retire pages of boats Maradigma confirms are gone. The run's
+        // list can miss a boat (repeated pages, a boat added mid-run).
+        $client = ExternalApiClient::fromSettings(SettingsPage::getSettings());
+        foreach ($missingPosts as $boatId => $boatPostIds) {
+            $boatId = (string)$boatId;
+            $reason = self::getConfirmedGoneReason($client, $boatId);
+            if ($reason === '') {
+                $stats['skipped_unconfirmed'] = (int)$stats['skipped_unconfirmed'] + count($boatPostIds);
                 continue;
             }
 
-            $stats['candidates'] = (int)$stats['candidates'] + 1;
+            $reasons = (array)$stats['reasons'];
+            $reasons[$reason] = (int)($reasons[$reason] ?? 0) + 1;
+            $stats['reasons'] = $reasons;
 
-            if ($deleteImages) {
+            // A boat that is only unpublished may come back: keep its pages as drafts.
+            $postAction = BoatCleanupPolicy::effectiveAction($action, $reason);
+
+            if ($deleteImages && $postAction === 'delete') {
                 $imageStats = self::deleteCachedImagesForBoatId($boatId);
                 $stats['images_deleted'] = (int)$stats['images_deleted'] + (int)$imageStats['deleted'];
                 $stats['images_failed'] = (int)$stats['images_failed'] + (int)$imageStats['failed'];
             }
 
-            $ok = false;
-            if ($action === 'trash') {
-                $ok = (bool)wp_trash_post($postId);
-            } elseif ($action === 'draft') {
-                $result = wp_update_post([
-                    'ID'          => $postId,
-                    'post_status' => 'draft',
-                ], true);
-                $ok = !is_wp_error($result) && (int)$result > 0;
-            } elseif ($action === 'delete') {
-                $ok = (bool)wp_delete_post($postId, true);
-            }
+            foreach ($boatPostIds as $postId) {
+                $stats['candidates'] = (int)$stats['candidates'] + 1;
+                if ($postAction !== $action) {
+                    $stats['kept_as_draft'] = (int)$stats['kept_as_draft'] + 1;
+                }
 
-            if ($ok) {
-                $stats['changed'] = (int)$stats['changed'] + 1;
-            } else {
-                $stats['failed'] = (int)$stats['failed'] + 1;
+                $ok = false;
+                if ($postAction === 'trash') {
+                    $ok = (bool)wp_trash_post($postId);
+                } elseif ($postAction === 'draft') {
+                    if ((string)get_post_meta($postId, self::META_OBSOLETE_STATUS, true) === '') {
+                        // Only the first run knows the status the page had.
+                        update_post_meta($postId, self::META_OBSOLETE_STATUS, (string)get_post_status($postId));
+                    }
+                    update_post_meta($postId, self::META_OBSOLETE_RETIRED, $reason);
+                    $result = wp_update_post([
+                        'ID'          => $postId,
+                        'post_status' => 'draft',
+                    ], true);
+                    $ok = !is_wp_error($result) && (int)$result > 0;
+                } elseif ($postAction === 'delete') {
+                    $ok = (bool)wp_delete_post($postId, true);
+                }
+
+                if ($ok) {
+                    $stats['changed'] = (int)$stats['changed'] + 1;
+                } else {
+                    $stats['failed'] = (int)$stats['failed'] + 1;
+                }
             }
         }
+
+        update_option(self::OPTION_KNOWN_BOATS, count($validMap), false);
 
         $stats['message'] = sprintf(
             'Obsolete-page cleanup finished: %s, candidates %d, changed %d, failed %d.',
@@ -1626,29 +1761,35 @@ final class BoatSyncService
     }
 
     /**
-     * Determines whether Maradigma confirms a boat no longer exists or is unpublished.
+     * Returns why Maradigma says a boat is gone (BoatCleanupPolicy::REASON_*),
+     * or '' when it does not confirm it.
      *
      * Any other answer (the boat is returned, an unexpected error, a network
-     * failure) counts as not confirmed, so its pages are kept.
+     * failure, a non-numeric id) counts as not confirmed, so its pages are kept.
      */
-    private static function isBoatConfirmedGone(string $boatId): bool
+    private static function getConfirmedGoneReason(ExternalApiClient $client, string $boatId): string
     {
+        if (!BoatCleanupPolicy::isNumericBoatId($boatId)) {
+            self::debug('cleanup_boat_id_not_numeric', ['boat_id' => $boatId]);
+            return '';
+        }
+
         try {
-            $response = ExternalApiClient::fromSettings(SettingsPage::getSettings())->getServiceByIdOrSlug('boats', $boatId);
+            $response = $client->getServiceByIdOrSlug('boats', $boatId);
         } catch (\Throwable $e) {
             self::debug('cleanup_boat_check_failed', ['boat_id' => $boatId, 'exception' => $e]);
-            return false;
+            return '';
         }
 
-        if (($response['status'] ?? '') !== 'error') {
-            return false;
-        }
+        $httpStatus = $client->getLastStatusCode();
+        $reason = BoatCleanupPolicy::goneReason($httpStatus, $response);
+        self::debug('cleanup_boat_check', [
+            'boat_id'     => $boatId,
+            'http_status' => $httpStatus,
+            'reason'      => $reason,
+        ]);
 
-        return in_array(
-            (string)($response['message'] ?? ''),
-            ['Service not found', 'Service deleted', 'Service is not published'],
-            true
-        );
+        return $reason;
     }
 
     /**

@@ -321,3 +321,33 @@ test("clears an unavailable selection, refreshes availability, and requotes", as
   assert.equal(requoteCalls, 1);
   assert.match(shownMessage, /no longer available/i);
 });
+
+test("renders the payment step and posts no payment method until the API gives one", () => {
+  const MaradigmaBookingModal = loadBookingModalClass();
+  const modal = Object.create(MaradigmaBookingModal.prototype);
+
+  modal.state = {
+    api: {},
+    ui: { termsOpen: false },
+    form: { payment_method: "", people: 2, additionals_selected: {} },
+  };
+  modal.globalCfg = {};
+  modal.cfg = { boatId: "2410" };
+  modal._esc = (value) => String(value);
+  modal._t = (_key, fallback) => fallback;
+  modal._svg = () => "";
+  modal._renderInlineStepTitle = () => "";
+  modal._renderSummaryAside = () => "";
+
+  // No payment method configured: the API applies the tenant's default.
+  const withoutDefault = modal._renderStep3();
+  assert.match(withoutDefault, /data-md-field="payment_method"/);
+  assert.match(withoutDefault, /value=""/);
+  assert.equal(modal.state.form.payment_method, "");
+
+  modal.state.api.payment = { default_method: { key: "redsys", name: "Redsys", group: "credit-card" } };
+  modal.state.form.payment_method = "";
+  const withDefault = modal._renderStep3();
+  assert.match(withDefault, /value="redsys"/);
+  assert.equal(modal.state.form.payment_method, "redsys");
+});

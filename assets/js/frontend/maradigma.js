@@ -45,31 +45,5 @@
                 if (quoteBox) quoteBox.textContent = 'Error calculating quote.';
             });
         }
-
-        // Booking
-        if (ev.target && ev.target.id === 'maradigma-btn-book') {
-            ev.preventDefault();
-            var form = document.getElementById('maradigma-boat-booking-form');
-            if (!form) return;
-
-            var payload = getFormData(form);
-            var msgBox = document.getElementById('maradigma-booking-messages');
-            if (msgBox) msgBox.textContent = 'Sending booking...';
-
-            postJson(MaradigmaConfig.restUrlBooking, payload).then(function (response) {
-                if (!response || !response.success) {
-                    if (msgBox) msgBox.textContent = 'Error creating booking.';
-                    return;
-                }
-                var data = response.data || {};
-                if (data.url_payment) {
-                    window.location.href = data.url_payment;
-                    return;
-                }
-                if (msgBox) msgBox.textContent = 'Booking created successfully.';
-            }).catch(function () {
-                if (msgBox) msgBox.textContent = 'Error creating booking.';
-            });
-        }
     });
 })();

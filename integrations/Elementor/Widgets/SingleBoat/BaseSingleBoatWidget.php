@@ -323,21 +323,23 @@ abstract class BaseSingleBoatWidget extends Widget_Base
         // Public expand => expected data keys
         $map = [
             'service_accounting'             => ['accounting'],
-            'service_additional_services'    => ['additionals'],
+            // The payload key is additional_services, null when the boat has no extras.
+            'service_additional_services'    => [],
             'service_property_amenities'     => ['amenities'],
             'service_admin_tools'            => ['admin_tools'],
             'service_payment_methods'        => ['payment_methods'],
             'service_descriptions'           => ['descriptions'],
             'service_equipments'             => ['equipments'],
-            'service_group_category'         => ['gc_type'],
+            'service_group_category'         => [],
             'service_images'                 => ['images'],
-            'service_ical'                   => ['ical'],
+            'service_ical'                   => ['url_ical'],
             'service_owner'                  => ['owner'],
             'service_included_items'         => ['included'],
             'service_not_included_items'     => ['not_included'],
             'service_prices'                 => ['prices'],
-            'service_price_rates'            => ['price_rates'],
-            'service_price_time_slots'       => ['price_time_slots'],
+            // Rates and time slots have no top-level key of their own.
+            'service_price_rates'            => [],
+            'service_price_time_slots'       => [],
             'service_public_urls'            => ['website_urls'],
             'service_unavailability_dates'   => ['unavailability_dates'],
             'service_real_unavailable_dates' => ['real_dates_not_available'],

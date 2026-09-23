@@ -3003,3 +3003,22 @@ msgstr ""
 #, php-format
 msgid "Increase %s"
 msgstr ""
+
+msgid "Cleanup skipped because the API connection changed during the sync."
+msgstr ""
+
+msgid "Cleanup skipped because the API connection changed since the last complete sync. Run the sync again to clean up."
+msgstr ""
+
+msgid "Cleanup skipped because most synced boats are missing from the API list. Check the API key, or remove the pages by hand if this is intended."
+msgstr ""
+
+msgid "Boats that are only unpublished in Maradigma are never trashed or deleted here: their pages are unpublished, and the next sync publishes them again when the boat returns."
+msgstr ""
+
+#, php-format
+msgid "kept as draft %d"
+msgstr ""
+
+msgid "Fleet order"
+msgstr ""

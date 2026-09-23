@@ -1618,12 +1618,11 @@
                         { key: 'limit_services', label: __('Items per page', 'maradigma'), inputType: 'number' },
                         { key: 'offset_services', label: __('Offset', 'maradigma'), inputType: 'number' },
                         { key: 'order_by', label: __('Order by', 'maradigma'), type: 'select', options: [
-                            { label: __('Relevance', 'maradigma'), value: '0' },
+                            { label: __('Fleet order', 'maradigma'), value: '0' },
                             { label: __('Price: low to high', 'maradigma'), value: '1' },
                             { label: __('Price: high to low', 'maradigma'), value: '2' },
                             { label: __('Length: low to high', 'maradigma'), value: '6' },
                             { label: __('Length: high to low', 'maradigma'), value: '5' },
-                            { label: __('Featured first', 'maradigma'), value: '3' },
                             { label: __('Newest first', 'maradigma'), value: '4' }
                         ] },
                         { key: 'card', label: __('Card template', 'maradigma'), type: 'select', options: boatCardOptions },

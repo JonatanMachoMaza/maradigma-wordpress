@@ -100,7 +100,6 @@ final class AssetsManager
                 'wpJsonBase'      => esc_url_raw(rest_url()),
                 'ajaxUrl'         => esc_url_raw(admin_url('admin-ajax.php')),
                 'restUrlQuote'    => esc_url_raw(rest_url('maradigma/v1/quote')),
-                'restUrlBooking'  => esc_url_raw(rest_url('maradigma/v1/booking')),
                 'restUrlBookingNonce' => esc_url_raw(rest_url('maradigma/v1/booking/security-token')),
                 'booking'         => self::getBookingFrontendConfig(),
             ]
