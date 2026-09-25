@@ -198,9 +198,9 @@ final class AssetsManager
     /**
      * Enqueues the frontend remote Select2 assets.
      */
-    public static function enqueueFrontendRemoteSelect2Assets(): void
+    public static function enqueueFrontendRemoteSelect2Assets(string $language = ''): void
     {
-        self::enqueueSharedRemoteSelect2('frontend', self::getVersion());
+        self::enqueueSharedRemoteSelect2('frontend', self::getVersion(), $language);
     }
 
     /**
@@ -1078,7 +1078,7 @@ final class AssetsManager
     /**
      * Enqueues shared remote select2 assets.
      */
-    private static function enqueueSharedRemoteSelect2(string $context, string $ver): void
+    private static function enqueueSharedRemoteSelect2(string $context, string $ver, string $language = ''): void
     {
         self::enqueueSelect2();
 
@@ -1113,6 +1113,7 @@ final class AssetsManager
                 'buildersAction'  => 'maradigma_front_search_builders',
                 'boatsAction'     => 'maradigma_front_search_boats',
                 'basePortsAction' => 'maradigma_front_search_base_ports',
+                'destinationsAction' => 'maradigma_front_search_destinations',
                 'boatByIdAction'  => 'maradigma_front_get_boat_by_id',
             ];
 
@@ -1137,8 +1138,10 @@ final class AssetsManager
                     'builders'          => $isEditorContext ? __('Select builders', 'maradigma') : __('Select brand', 'maradigma'),
                     'boats'             => __('Search a boat', 'maradigma'),
                     'basePorts'         => __('Select base port', 'maradigma'),
+                    'destinations'      => __('Select destination', 'maradigma'),
                 ],
                 'context' => $context,
+                'lang'    => $language,
             ]) . ';',
             'before'
         );

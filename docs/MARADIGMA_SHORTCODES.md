@@ -80,10 +80,10 @@ These attributes control **frontend UI** (filters form) and do not necessarily c
 | `show_filters` | `0/1` | `0` | Show the filters UI above the listing |
 | `autosubmit_filters` | `0/1` | `0` | Auto-submit on change (client-side) |
 | `allow_url_filters` | `0/1` | `0` | Allow `md_*` query parameters to override defaults |
-| `filters_ui_fields` | CSV | *(plugin default)* | Which filter fields appear in the main row (allowlist enforced) |
+| `filters_ui_fields` | CSV | `term,boat_capacity,min_price,max_price,featured,ins_book,date_start,date_end` | Which filter fields appear in the main row. Setting it **replaces** the default list, it does not add to it. Keys outside the allowlist below are ignored |
 | `filters_ui_fields_left` | CSV | *(empty)* | Fields that must stay in the left/main row. Useful to keep `order_by` before the apply button without losing the default right-side behavior elsewhere. |
 | `filters_ui_fields_right` | CSV | auto | Which filter fields appear aligned to the right of the filter bar. If omitted, `order_by` keeps the legacy right-side position automatically. Set it to an empty string to keep all fields in the main row order. |
-| `filters_ui_fields_offcanvas` | CSV | *(plugin default)* | Which filter fields appear inside the “More filters” offcanvas |
+| `filters_ui_fields_offcanvas` | CSV | `boat_type_id,builders,ids_gi` | Which filter fields appear inside the “More filters” offcanvas. Rendered only when `show_more_filters_button="1"` |
 | `filters_ui_layout` | `horizontal/vertical` | `horizontal` | Layout class for the filters UI |
 | `filters_ui_submit_mode` | `auto/button` | `auto` | If `button`, renders “Apply filters” button |
 | `filters_ui_show_reset` | `0/1` | `1` | Render “Reset” button |
@@ -92,29 +92,30 @@ These attributes control **frontend UI** (filters form) and do not necessarily c
 | `more_filters_offcanvas_title` | string | *(same as button)* | Offcanvas title |
 | `date_picker_mode` | `range/separate` | `range` | `range` uses one input (`md_date_range`) + hidden start/end |
 
-**Allowed UI field keys** (CSV values for `filters_ui_fields*`):
+**Allowed UI field keys.** These are the values you may list in `filters_ui_fields`, `filters_ui_fields_left`, `filters_ui_fields_right` and `filters_ui_fields_offcanvas`. Any other key is ignored.
 
-- `term`
-- `boat_capacity`
-- `featured`
-- `ins_book`
-- `order_by`
-- `min_price`
-- `max_price`  
-  *(If both are present, the UI renders a single `price_range` control internally.)*
-- `boat_type_id`
-- `builders` *(multi-select, stored as CSV)*
-- `ids_gi`
-- `date_start`
-- `date_end`
-- `boat_cabins` *(minimum cabins, `- / +` selector; `0` means no filter → `md_boat_cabins`)*
-- `boat_bathrooms` *(minimum bathrooms, `- / +` selector; `0` means no filter → `md_boat_bathrooms`)*
-- `boat_length` *(double-handle length slider in meters; the range comes from the shortest and longest boat of the listing → `md_min_boat_length` and `md_max_boat_length`, sent only when the slider is not on its full range)*
-- `boat_skipper_option` *(“With skipper” / “Without skipper” checkboxes → `md_boat_skipper_option`. “With skipper” sends `0,2`, “Without skipper” sends `1,2`; boats with an optional skipper match both choices. Ticking both or none sends no filter.)*
+| Key | What the visitor sees | URL parameter (`allow_url_filters="1"`) |
+|---|---|---|
+| `term` | Text search (model, trade name, builder, reference) | `md_term` |
+| `date_start` / `date_end` | Dates. With `date_picker_mode="range"` they are one range input | `md_date_start`, `md_date_end` |
+| `boat_capacity` | Minimum passengers, `− / +` selector (`0` = no filter) | `md_boat_capacity` |
+| `boat_cabins` | Minimum cabins, `− / +` selector (`0` = no filter) | `md_boat_cabins` |
+| `boat_bathrooms` | Minimum bathrooms, `− / +` selector (`0` = no filter) | `md_boat_bathrooms` |
+| `boat_length` | **Length** (eslora): double-handle slider in metres. Its range comes from the shortest and longest boat of the listing | `md_min_boat_length`, `md_max_boat_length` (sent only when the slider is not at its full range) |
+| `boat_skipper_option` | **With skipper / Without skipper** checkboxes. “With skipper” sends `0,2` and “Without skipper” sends `1,2`, so boats with an optional skipper match either choice; ticking both or none sends no filter | `md_boat_skipper_option` |
+| `ins_book` | **Instant booking** (online booking) toggle | `md_ins_book` |
+| `featured` | Featured boats toggle | `md_featured` |
+| `min_price` / `max_price` | Price. When both are listed the UI renders a single range slider | `md_min_price`, `md_max_price` |
+| `boat_type_id` | Boat type selector (see 2.2.1) | `md_boat_type_id` |
+| `destination` | **Destination** selector: the destinations of your boats (island, locality, region…) with the number of boats in each | `md_destination` |
+| `boat_base_port` | **Base port** selector: the base ports of your boats with the number of boats in each | `md_boat_base_port` |
+| `builders` | Builder multi-select | `md_builders` |
+| `ids_gi` | “Specific boat” selector | `md_ids_gi` |
+| `order_by` | Sort-by select. By default it is placed on the right of the bar | `md_order_by` |
 
-`boat_capacity` is also rendered as a `- / +` selector inside the offcanvas (`0` means no filter).
+> **Destination and base port as page scope.** The same keys are also listing attributes (2.2 and 2.2.2): `destination="1704"` or `boat_base_port="12"` scope the whole listing and stay applied while visitors filter and paginate — the usual pattern for one page per destination. If you scope the page *and* offer the control, the visitor's choice replaces yours, exactly like `boat_type_id`. `departure_location="destination:1704"` is the exception: it always wins over the visitor's choice, so use `destination` when you also offer the control.
 
-> Any field not in the allowlist is ignored.
+> The options of both selectors come from your whole catalogue of boats, with the number of boats in each place, and are refreshed every 10 minutes. On a listing that is already scoped (by destination, boat type, dates…), some of those places can return no boats.
 
 By default, `order_by` is rendered on the right side when included in `filters_ui_fields`.
 You do not need to set `filters_ui_fields_right="order_by"` for the default layout.
@@ -153,8 +154,14 @@ Below is a practical subset most commonly used by webmasters:
 | `departure_location` | token | `destination:1704` / `port:12` | Destination or single base port, as the Maradigma API expects it |
 | `builders` | CSV int | `10,12` | Builder ids (multi) |
 | `builders_options` | `api/search_result` | `search_result` | Builder filter source. Use `api` for the global builders list. Use `search_result` to show only builders returned by the current API search response (`available_boat_id_builders`) |
+| `boat_cabins` | int | `3` | Minimum cabins |
+| `boat_bathrooms` | int | `2` | Minimum bathrooms |
+| `boat_length` | number | `12` | Minimum length in metres. For a range use `min_boat_length` and `max_boat_length` |
+| `min_boat_length` / `max_boat_length` | number | `8` / `18` | Length range in metres |
+| `boat_skipper_option` | int/CSV | `0,2` | Skipper: `0` with skipper, `1` without skipper, `2` optional. Use `0,2` for “with skipper” and `1,2` for “without skipper” |
+| `boat_base_port` | int | `12` | Base port ID. Same as `departure_location="port:12"` |
 
-You may also use the API’s broader set of boat-specific fields (builder, model, base port, cabins, licence flags, min/max length, etc.) as documented in the code.
+The keys listed in 2.1 (`term`, `boat_capacity`, `boat_cabins`, `boat_bathrooms`, `boat_length`, `boat_skipper_option`, `ins_book`, `featured`, prices, `boat_type_id`, `destination`, `boat_base_port`, `builders`, `ids_gi`, `order_by` and the dates) can also be offered to visitors as filter controls. The canonical list of accepted attributes lives in `ShortcodeRegistry::$DOC_SEARCH_BOATS_ATTRS`.
 
 ### 2.2.1. Standard boat type IDs
 
@@ -223,6 +230,16 @@ The UI form also uses `md_*` names so the listing and filters stay in sync.
 **2) Listing with filters UI + autosubmit + URL overrides:**
 ```text
 [maradigma_boats show_filters="1" autosubmit_filters="1" allow_url_filters="1"]
+```
+
+**2 bis) Filter bar with destination, base port, length, cabins, skipper and online booking:**
+```text
+[maradigma_boats show_filters="1" allow_url_filters="1" filters_ui_fields="term,date_start,date_end,destination,boat_base_port,boat_length,boat_cabins,boat_skipper_option,ins_book"]
+```
+
+**2 ter) Compact bar plus a “More filters” drawer:**
+```text
+[maradigma_boats show_filters="1" allow_url_filters="1" filters_ui_fields="term,date_start,date_end,min_price,max_price,order_by" show_more_filters_button="1" filters_ui_fields_offcanvas="boat_type_id,builders,boat_length,boat_cabins,boat_bathrooms,boat_skipper_option,ins_book"]
 ```
 
 **3) Fixed “Featured boats” section:**

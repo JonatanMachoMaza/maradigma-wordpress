@@ -3,7 +3,6 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<base href="about:srcdoc">
 <title>MARADIGMA Shortcodes</title>
 <style>
 :root{
@@ -466,10 +465,10 @@ ul.tight li{
 <tr><td><code>show_filters</code></td><td><code>0</code></td><td>0|1</td><td>Show the filters bar.</td></tr>
 <tr><td><code>autosubmit_filters</code></td><td><code>0</code></td><td>0|1</td><td>Auto-submit filters on change.</td></tr>
 <tr><td><code>allow_url_filters</code></td><td><code>0</code></td><td>0|1</td><td>Allow URL <code>md_*</code> parameters to hydrate the filters.</td></tr>
-<tr><td><code>filters_ui_fields</code></td><td><code>term,boat_capacity,min_price,max_price,featured,ins_book,date_start,date_end</code></td><td>csv</td><td>Main filter bar fields.</td></tr>
+<tr><td><code>filters_ui_fields</code></td><td><code>term,boat_capacity,min_price,max_price,featured,ins_book,date_start,date_end</code></td><td>csv</td><td>Fields of the main filter bar (see “Filter fields a visitor can use” below). Setting it <strong>replaces</strong> the default list, it does not add to it.</td></tr>
 <tr><td><code>filters_ui_fields_left</code></td><td>empty</td><td>csv</td><td>Fields that must stay in the left/main row. Useful to keep <code>order_by</code> before the apply button without changing the default right-side behavior elsewhere.</td></tr>
 <tr><td><code>filters_ui_fields_right</code></td><td>auto</td><td>csv</td><td>Right-side filter bar fields. If omitted, <code>order_by</code> keeps the legacy right-side position automatically. Set it to an empty string to keep all fields in the main row order.</td></tr>
-<tr><td><code>filters_ui_fields_offcanvas</code></td><td><code>boat_type_id,builders,ids_gi</code></td><td>csv</td><td>Drawer fields. Every <code>filters_ui_fields*</code> attribute also accepts <code>boat_cabins</code> and <code>boat_bathrooms</code> (<code>- / +</code> selectors, <code>0</code> = no filter), <code>boat_length</code> (double-handle slider in meters; the range comes from the shortest and longest boat of the listing) and <code>boat_skipper_option</code> ("With skipper" / "Without skipper" checkboxes). Inside the drawer, <code>boat_capacity</code> is also a <code>- / +</code> selector.</td></tr>
+<tr><td><code>filters_ui_fields_offcanvas</code></td><td><code>boat_type_id,builders,ids_gi</code></td><td>csv</td><td>Drawer fields (see “Filter fields a visitor can use” below). Rendered only when <code>show_more_filters_button="1"</code>.</td></tr>
 <tr><td><code>builders_options</code></td><td><code>api</code></td><td>api|search_result</td><td>Builder filter source. Use <code>api</code> for the global builders list. Use <code>search_result</code> to show only builders returned by the current API search response (<code>available_boat_id_builders</code>).</td></tr>
 <tr><td><code>filters_ui_layout</code></td><td><code>horizontal</code></td><td>horizontal|vertical</td><td>Filter layout.</td></tr>
 <tr><td><code>filters_ui_submit_mode</code></td><td><code>auto</code></td><td>auto|button</td><td>Submission mode.</td></tr>
@@ -483,6 +482,54 @@ ul.tight li{
 <tr><td><code>q</code></td><td><code></code></td><td>legacy alias</td><td>Legacy alias present in defaults.</td></tr>
 <tr><td><code>port</code></td><td><code></code></td><td>legacy alias</td><td>Legacy alias present in defaults.</td></tr>
 <tr><td><code>people</code></td><td><code></code></td><td>legacy alias</td><td>Legacy alias present in defaults.</td></tr>
+</tbody>
+</table>
+</div>
+<h4>Filter fields a visitor can use</h4>
+<p>These are the values accepted by <code>filters_ui_fields</code>, <code>filters_ui_fields_left</code>, <code>filters_ui_fields_right</code> and <code>filters_ui_fields_offcanvas</code>. Any other key is ignored.</p>
+<div class="table-wrap">
+<table class="tbl">
+<thead><tr><th>Key</th><th>What the visitor sees</th><th>URL parameter (<code>allow_url_filters="1"</code>)</th></tr></thead>
+<tbody>
+<tr><td><code>term</code></td><td>Text search (model, trade name, builder, reference).</td><td><code>md_term</code></td></tr>
+<tr><td><code>date_start</code> / <code>date_end</code></td><td>Dates. With <code>date_picker_mode="range"</code> they are a single range input.</td><td><code>md_date_start</code>, <code>md_date_end</code></td></tr>
+<tr><td><code>boat_capacity</code></td><td>Minimum passengers, <code>− / +</code> selector (<code>0</code> = no filter).</td><td><code>md_boat_capacity</code></td></tr>
+<tr><td><code>boat_cabins</code></td><td>Minimum cabins, <code>− / +</code> selector (<code>0</code> = no filter).</td><td><code>md_boat_cabins</code></td></tr>
+<tr><td><code>boat_bathrooms</code></td><td>Minimum bathrooms, <code>− / +</code> selector (<code>0</code> = no filter).</td><td><code>md_boat_bathrooms</code></td></tr>
+<tr><td><code>boat_length</code></td><td><strong>Length</strong>: double-handle slider in meters. Its range comes from the shortest and longest boat of the listing.</td><td><code>md_min_boat_length</code>, <code>md_max_boat_length</code> (sent only when the slider is not at its full range)</td></tr>
+<tr><td><code>boat_skipper_option</code></td><td><strong>With skipper</strong> / <strong>Without skipper</strong> checkboxes. “With skipper” sends <code>0,2</code> and “Without skipper” sends <code>1,2</code>, so boats with an optional skipper match either choice; ticking both or none sends no filter.</td><td><code>md_boat_skipper_option</code></td></tr>
+<tr><td><code>ins_book</code></td><td><strong>Instant booking</strong> (online booking) toggle.</td><td><code>md_ins_book</code></td></tr>
+<tr><td><code>featured</code></td><td>Featured boats toggle.</td><td><code>md_featured</code></td></tr>
+<tr><td><code>min_price</code> / <code>max_price</code></td><td>Price. When both are listed the UI renders a single range slider.</td><td><code>md_min_price</code>, <code>md_max_price</code></td></tr>
+<tr><td><code>boat_type_id</code></td><td>Boat type selector (see the IDs below).</td><td><code>md_boat_type_id</code></td></tr>
+<tr><td><code>destination</code></td><td><strong>Destination</strong> selector: the destinations of your boats (island, locality, region…) with the number of boats in each.</td><td><code>md_destination</code></td></tr>
+<tr><td><code>boat_base_port</code></td><td><strong>Base port</strong> selector: the base ports of your boats with the number of boats in each.</td><td><code>md_boat_base_port</code></td></tr>
+<tr><td><code>builders</code></td><td>Builder multi-select.</td><td><code>md_builders</code></td></tr>
+<tr><td><code>ids_gi</code></td><td>“Specific boat” selector.</td><td><code>md_ids_gi</code></td></tr>
+<tr><td><code>order_by</code></td><td>Sort-by select. By default it is placed on the right of the bar.</td><td><code>md_order_by</code></td></tr>
+</tbody>
+</table>
+</div>
+<p class="small muted"><strong>Destination and base port as page scope.</strong> The same keys are also listing attributes: <code>destination="1704"</code> or <code>boat_base_port="12"</code> scope the whole listing and stay applied while visitors filter and paginate — the usual pattern for one page per destination. If you scope the page <em>and</em> offer the control, the visitor's choice replaces yours, exactly like <code>boat_type_id</code>; <code>departure_location="destination:1704"</code> is the exception, as it always wins over the visitor's choice. The options of both selectors come from your whole catalogue of boats, with the number of boats in each place, and are refreshed every 10 minutes; on a listing that is already scoped, some of those places can return no boats.</p>
+<h4>Search attributes of the listing</h4>
+<p>Set by the page author to scope the listing. They accept the same values as the filters above and are sent to the Maradigma API.</p>
+<div class="table-wrap">
+<table class="tbl">
+<thead><tr><th>Attribute</th><th>Type</th><th>Example</th><th>Description</th></tr></thead>
+<tbody>
+<tr><td><code>term</code></td><td>string</td><td><code>sunseeker</code></td><td>Text search on model, trade name, builder and reference. It does not search places.</td></tr>
+<tr><td><code>date_start</code> / <code>date_end</code></td><td>Y-m-d</td><td><code>2026-07-01</code></td><td>Availability range.</td></tr>
+<tr><td><code>boat_capacity</code></td><td>int</td><td><code>8</code></td><td>Minimum passengers.</td></tr>
+<tr><td><code>boat_cabins</code> / <code>boat_bathrooms</code></td><td>int</td><td><code>3</code></td><td>Minimum cabins / bathrooms.</td></tr>
+<tr><td><code>boat_length</code></td><td>number</td><td><code>12</code></td><td>Minimum length in meters. For a range use <code>min_boat_length</code> and <code>max_boat_length</code>.</td></tr>
+<tr><td><code>boat_skipper_option</code></td><td>int/csv</td><td><code>0,2</code></td><td><code>0</code> with skipper, <code>1</code> without skipper, <code>2</code> optional. Use <code>0,2</code> for “with skipper” and <code>1,2</code> for “without skipper”.</td></tr>
+<tr><td><code>boat_base_port</code></td><td>int</td><td><code>12</code></td><td>Base port ID. Same as <code>departure_location="port:12"</code>.</td></tr>
+<tr><td><code>ins_book</code></td><td>0|1</td><td><code>1</code></td><td>Only boats bookable online.</td></tr>
+<tr><td><code>featured</code></td><td>0|1</td><td><code>1</code></td><td>Featured boats only.</td></tr>
+<tr><td><code>min_price</code> / <code>max_price</code></td><td>number</td><td><code>500</code> / <code>1500</code></td><td>Price range.</td></tr>
+<tr><td><code>builders</code></td><td>csv int</td><td><code>10,12</code></td><td>Builder IDs.</td></tr>
+<tr><td><code>ids_gi</code></td><td>csv int</td><td><code>304,305</code></td><td>Only these boats (up to 20). The other filters still apply.</td></tr>
+<tr><td><code>order_by</code></td><td>int</td><td><code>1</code></td><td><code>0</code> fleet order (the order you set in Maradigma, default), <code>1</code> price low to high, <code>2</code> price high to low, <code>6</code> length low to high, <code>5</code> length high to low, <code>4</code> newest first.</td></tr>
 </tbody>
 </table>
 </div>
@@ -510,6 +557,8 @@ ul.tight li{
 <div><div class="small muted" style="margin-bottom:6px">Example: move order by before Apply</div><div class="code">[maradigma_boats show_filters="1" filters_ui_submit_mode="button" filters_ui_fields="term,builders,min_price,order_by,max_price" filters_ui_fields_left="order_by"]</div></div>
 <div><div class="small muted" style="margin-bottom:6px">Example</div><div class="code">[maradigma_boats card="clean-grid" image_token="image_main" show_more_filters_button="1" filters_ui_fields_offcanvas="boat_type_id,builders,ids_gi"]</div></div>
 <div><div class="small muted" style="margin-bottom:6px">Example</div><div class="code">[maradigma_boats show_filters="1" filters_ui_fields="term,date_start,date_end,builders,min_price,max_price" builders_options="search_result"]</div></div>
+<div><div class="small muted" style="margin-bottom:6px">Example: destination, base port, length, cabins, skipper and online booking</div><div class="code">[maradigma_boats show_filters="1" allow_url_filters="1" filters_ui_fields="term,date_start,date_end,destination,boat_base_port,boat_length,boat_cabins,boat_skipper_option,ins_book"]</div></div>
+<div><div class="small muted" style="margin-bottom:6px">Example: compact bar plus a drawer</div><div class="code">[maradigma_boats show_filters="1" allow_url_filters="1" filters_ui_fields="term,date_start,date_end,min_price,max_price,order_by" show_more_filters_button="1" filters_ui_fields_offcanvas="boat_type_id,builders,boat_length,boat_cabins,boat_bathrooms,boat_skipper_option,ins_book"]</div></div>
 </div>
 <div class="back-top"><a href="#top">Back to top</a></div>
 </div>

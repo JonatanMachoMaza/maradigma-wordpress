@@ -58,6 +58,8 @@ final class AjaxController
         add_action('wp_ajax_maradigma_front_search_boats', [__CLASS__, 'frontSearchBoats']);
         add_action('wp_ajax_nopriv_maradigma_front_search_boats', [__CLASS__, 'frontSearchBoats']);
 
+        add_action('wp_ajax_maradigma_front_search_destinations', [__CLASS__, 'frontSearchDestinations']);
+        add_action('wp_ajax_nopriv_maradigma_front_search_destinations', [__CLASS__, 'frontSearchDestinations']);
         add_action('wp_ajax_maradigma_front_search_base_ports', [__CLASS__, 'frontSearchBasePorts']);
         add_action('wp_ajax_nopriv_maradigma_front_search_base_ports', [__CLASS__, 'frontSearchBasePorts']);
 
@@ -825,6 +827,8 @@ final class AjaxController
                 'min_price'     => $readParam('md_min_price', 'min_price', ''),
                 'max_price'     => $readParam('md_max_price', 'max_price', ''),
                 'boat_type_id'  => $readParam('md_boat_type_id', 'boat_type_id', ''),
+                'destination'   => $readParam('md_destination', 'destination', ''),
+                'boat_base_port' => $readParam('md_boat_base_port', 'boat_base_port', ''),
                 'builders'      => $readParam('md_builders', 'builders', ''),
                 'builders_options' => $readSimpleParam('builders_options', 'api'),
                 'ids_gi'        => $readParam('md_ids_gi', 'ids_gi', ''),
@@ -856,6 +860,8 @@ final class AjaxController
                 'md_min_price'     => $readParam('md_min_price', 'min_price', ''),
                 'md_max_price'     => $readParam('md_max_price', 'max_price', ''),
                 'md_boat_type_id'  => $readParam('md_boat_type_id', 'boat_type_id', ''),
+                'md_destination'   => $readParam('md_destination', 'destination', ''),
+                'md_boat_base_port' => $readParam('md_boat_base_port', 'boat_base_port', ''),
                 'md_builders'      => $readParam('md_builders', 'builders', ''),
                 'md_ids_gi'        => $readParam('md_ids_gi', 'ids_gi', ''),
                 'md_date_start'    => $readParam('md_date_start', 'date_start', ''),
@@ -2457,11 +2463,12 @@ final class AjaxController
      *
      * @return list<array{id:int,value:string,text:string,place_type:string,subtitle:string,boats:int}>
      */
-    private static function getBoatDestinationCatalog(): array
+    private static function getBoatDestinationCatalog(string $language = ''): array
     {
         $transientKey = 'maradigma_boat_destinations_' . md5((string) wp_json_encode([
             (string) get_locale(),
             (string) (\Maradigma\SettingsPage::getSettings()['default_language'] ?? ''),
+            $language,
         ]));
 
         $cached = get_transient($transientKey);
@@ -2469,38 +2476,7 @@ final class AjaxController
             return $cached;
         }
 
-        $cache = new \Maradigma\Cache();
-        $pageSize = 100;
-        $boats = [];
-        $failed = false;
-
-        // Up to 2,000 boats; the list is built from the rows every page already carries.
-        for ($page = 0; $page < 20; $page++) {
-            $result = $cache->getBoatsList([
-                'id_group'             => 'boats',
-                'limit_services'       => $pageSize,
-                'offset_services'      => $page * $pageSize,
-                'only_calendarization' => false,
-                // Only the destinations of each boat are read here.
-                'get_prices'           => 0,
-            ]);
-
-            if (empty($result['success']) || !is_array($result['data']['search_result'] ?? null)) {
-                if ($page === 0) {
-                    throw new \RuntimeException('Boat list request failed.');
-                }
-                $failed = true;
-                break;
-            }
-
-            $rows = (array) $result['data']['search_result'];
-            array_push($boats, ...array_values($rows));
-
-            $total = (int) ($result['data']['total_results'] ?? 0);
-            if ($rows === [] || count($boats) >= $total) {
-                break;
-            }
-        }
+        [$boats, $failed] = self::readCatalogueBoats($language);
 
         $catalog = \Maradigma\Support\BoatDestinationCatalog::fromBoats($boats);
 
@@ -2508,6 +2484,107 @@ final class AjaxController
         set_transient($transientKey, $catalog, $failed ? MINUTE_IN_SECONDS : 10 * MINUTE_IN_SECONDS);
 
         return $catalog;
+    }
+
+    /**
+     * Reads the catalogue's boats once, for the lists the filters are built from
+     * (destinations, base ports). Up to 2,000 boats; prices are not computed.
+     *
+     * @return array{0:list<array<string,mixed>>,1:bool} Boats and whether a page failed.
+     */
+    private static function readCatalogueBoats(string $language = ''): array
+    {
+        // One build at a time: these lists are public, and the crawl reads the
+        // whole catalogue page by page.
+        $lockKey = 'maradigma_catalogue_boats_lock_' . md5($language);
+        if (get_transient($lockKey) !== false) {
+            return [[], true];
+        }
+        set_transient($lockKey, 1, 30);
+
+        $client = \Maradigma\ExternalApiClient::fromSettings(\Maradigma\SettingsPage::getSettings());
+        if ($language !== '') {
+            $client->setLanguage($language);
+        }
+
+        $cache = new \Maradigma\Cache($client);
+        $pageSize = 100;
+        $boats = [];
+        $failed = false;
+
+        for ($page = 0; $page < 20; $page++) {
+            $result = $cache->getBoatsList([
+                'id_group'             => 'boats',
+                'limit_services'       => $pageSize,
+                'offset_services'      => $page * $pageSize,
+                'only_calendarization' => false,
+                // Only each boat's destination and base port are read here.
+                'get_prices'           => 0,
+            ]);
+
+            if (empty($result['success']) || !is_array($result['data']['search_result'] ?? null)) {
+                if ($page === 0) {
+                    delete_transient($lockKey);
+                    throw new \RuntimeException('Boat list request failed.');
+                }
+                $failed = true;
+                break;
+            }
+
+            $rows = array_values((array) $result['data']['search_result']);
+            array_push($boats, ...$rows);
+
+            $total = (int) ($result['data']['total_results'] ?? 0);
+            if ($rows === [] || count($boats) >= $total) {
+                break;
+            }
+        }
+
+        delete_transient($lockKey);
+
+        return [$boats, $failed];
+    }
+
+    /**
+     * Base ports of the catalogue's boats, in Select2 order.
+     *
+     * @return list<array{id:int,value:string,text:string,boats:int}>
+     */
+    private static function getBoatBasePortCatalog(string $language = ''): array
+    {
+        $transientKey = 'maradigma_boat_base_ports_catalog_' . md5((string) wp_json_encode([
+            (string) get_locale(),
+            (string) (\Maradigma\SettingsPage::getSettings()['default_language'] ?? ''),
+            $language,
+        ]));
+
+        $cached = get_transient($transientKey);
+        if (is_array($cached)) {
+            return $cached;
+        }
+
+        [$boats, $failed] = self::readCatalogueBoats($language);
+        $catalog = \Maradigma\Support\BoatBasePortCatalog::fromBoats($boats);
+
+        // A catalogue cut short by a failed page is shown but retried soon.
+        set_transient($transientKey, $catalog, $failed ? MINUTE_IN_SECONDS : 10 * MINUTE_IN_SECONDS);
+
+        return $catalog;
+    }
+
+    /**
+     * Returns the label of a base port option: name and boats based there.
+     *
+     * @param array{id:int,value:string,text:string,boats:int} $port
+     */
+    private static function formatBasePortLabel(array $port): string
+    {
+        return sprintf(
+            /* translators: 1: base port name, 2: number of boats based there. */
+            __('%1$s — boats: %2$d', 'maradigma'),
+            (string) $port['text'],
+            (int) $port['boats']
+        );
     }
 
     /**
@@ -3052,16 +3129,87 @@ final class AjaxController
     }
 
     /**
+     * action: maradigma_front_search_destinations
+     *
+     * Destinations of the catalogue's boats, for the listing filter.
+     */
+    public static function frontSearchDestinations(): void
+    {
+        self::checkPublicAjaxSecurity();
+
+        $q = self::getSearchTerm();
+
+        try {
+            $items = [];
+            foreach (\Maradigma\Support\BoatDestinationCatalog::search(self::getBoatDestinationCatalog(self::getRequestedCatalogLanguage()), $q) as $destination) {
+                $items[] = [
+                    'id'   => $destination['value'],
+                    'text' => self::formatDestinationLabel($destination),
+                ];
+            }
+
+            wp_send_json([
+                'success'    => true,
+                'results'    => $items,
+                'pagination' => ['more' => false],
+            ]);
+        } catch (\Throwable $e) {
+            wp_send_json([
+                'success' => false,
+                'results' => [],
+                'error'   => [
+                    'code'    => 'api_error',
+                    'message' => $e->getMessage(),
+                ],
+            ]);
+        }
+    }
+
+    /**
+     * Language of the page whose selector asked, so its options are not built
+     * in the site's default language.
+     */
+    private static function getRequestedCatalogLanguage(): string
+    {
+        // phpcs:ignore WordPress.Security.NonceVerification.Recommended -- The nonce is checked by the caller.
+        $raw = isset($_REQUEST['lang']) ? sanitize_text_field(wp_unslash((string) $_REQUEST['lang'])) : '';
+        $raw = (string) preg_replace('/[^A-Za-z_-]/', '', $raw);
+
+        return $raw !== '' ? $raw : '';
+    }
+
+    /**
      * Handles the front-end search base ports request.
      */
     public static function frontSearchBasePorts(): void
     {
         self::checkPublicAjaxSecurity();
 
-        wp_send_json([
-            'success'    => true,
-            'results'    => [],
-            'pagination' => ['more' => false],
-        ]);
+        $q = self::getSearchTerm();
+
+        try {
+            $items = [];
+            foreach (\Maradigma\Support\BoatBasePortCatalog::search(self::getBoatBasePortCatalog(self::getRequestedCatalogLanguage()), $q) as $port) {
+                $items[] = [
+                    'id'   => $port['value'],
+                    'text' => self::formatBasePortLabel($port),
+                ];
+            }
+
+            wp_send_json([
+                'success'    => true,
+                'results'    => $items,
+                'pagination' => ['more' => false],
+            ]);
+        } catch (\Throwable $e) {
+            wp_send_json([
+                'success' => false,
+                'results' => [],
+                'error'   => [
+                    'code'    => 'api_error',
+                    'message' => $e->getMessage(),
+                ],
+            ]);
+        }
     }
 }

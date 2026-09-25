@@ -3022,3 +3022,13 @@ msgstr ""
 
 msgid "Fleet order"
 msgstr ""
+
+#, php-format
+msgid "%1$s — boats: %2$d"
+msgstr ""
+
+msgid "Select destination"
+msgstr ""
+
+msgid "Select base port"
+msgstr ""

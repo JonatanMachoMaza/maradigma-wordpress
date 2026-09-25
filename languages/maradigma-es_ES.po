@@ -3915,3 +3915,13 @@ msgstr "en borrador %d"
 
 msgid "Fleet order"
 msgstr "Orden de la flota"
+
+#, php-format
+msgid "%1$s — boats: %2$d"
+msgstr "%1$s — barcos: %2$d"
+
+msgid "Select destination"
+msgstr "Selecciona un destino"
+
+msgid "Select base port"
+msgstr "Selecciona un puerto base"

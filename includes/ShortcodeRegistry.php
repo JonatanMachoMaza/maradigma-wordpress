@@ -1342,6 +1342,126 @@ final class ShortcodeRegistry
                     endif;
                     break;
 
+                case 'destination':
+                    $selectedDestination = (string) self::getUiQuery('destination', $uiQuery);
+                    $selectedDestination = (string) (Sanitizer::normalizeLocationToken($selectedDestination) ?? '');
+                    $selectedDestinationLabel = ($selectedDestination !== '')
+                        ? (string) self::getUiQuery('destination_label', $uiQuery)
+                        : '';
+                    if ($selectedDestinationLabel === '') {
+                        // The script replaces this placeholder with the destination's name.
+                        $selectedDestinationLabel = '#' . $selectedDestination;
+                    }
+
+                    if ($context === 'drawer') :
+                    ?>
+                        <div class="md-field maradigma-filter">
+                            <label class="md-label"><?php \esc_html_e('Destination', 'maradigma'); ?></label>
+
+                            <select
+                                class="md-select"
+                                name="md_destination"
+                                data-md-select2="1"
+                                data-maradigma-source="destinations"
+                                data-multiple="0">
+                                <option value=""><?php \esc_html_e('Any', 'maradigma'); ?></option>
+                                <?php if ($selectedDestination !== ''): ?>
+                                    <option value="<?php echo \esc_attr($selectedDestination); ?>" selected><?php echo \esc_html($selectedDestinationLabel); ?></option>
+                                <?php endif; ?>
+                            </select>
+                        </div>
+                    <?php
+                    else :
+                    ?>
+                        <div class="md-filter-dd md-field" data-md-dd="1">
+                            <button type="button" class="md-filter-pill" data-md-dd-toggle="1" aria-expanded="false">
+                                <?php \esc_html_e('Destination', 'maradigma'); ?> <span class="md-caret">▾</span>
+                            </button>
+
+                            <div class="md-filter-menu" data-md-dd-panel="1" role="dialog" aria-modal="false">
+                                <div class="md-filter-menu__inner">
+                                    <div class="md-filter-menu__title"><?php \esc_html_e('Destination', 'maradigma'); ?></div>
+
+                                    <select
+                                        class="md-select"
+                                        name="md_destination"
+                                        data-md-select2="1"
+                                        data-maradigma-source="destinations"
+                                        data-multiple="0">
+                                        <option value=""><?php \esc_html_e('Any', 'maradigma'); ?></option>
+                                        <?php if ($selectedDestination !== ''): ?>
+                                            <option value="<?php echo \esc_attr($selectedDestination); ?>" selected><?php echo \esc_html($selectedDestinationLabel); ?></option>
+                                        <?php endif; ?>
+                                    </select>
+                                </div>
+
+                                <div class="md-filter-menu__footer">
+                                    <button type="button" class="md-dd-clear" data-md-dd-clear="1"><?php \esc_html_e('Clear', 'maradigma'); ?></button>
+                                    <button type="button" class="md-dd-apply" data-md-dd-apply="1"><?php \esc_html_e('Apply', 'maradigma'); ?></button>
+                                </div>
+                            </div>
+                        </div>
+                    <?php
+                    endif;
+                    break;
+
+                case 'boat_base_port':
+                    $selectedPort = (string) self::getUiQuery('boat_base_port', $uiQuery);
+                    // Anything else is dropped by the sanitizer, so it must not be shown as selected.
+                    $selectedPort = \ctype_digit($selectedPort) ? $selectedPort : '';
+
+                    if ($context === 'drawer') :
+                    ?>
+                        <div class="md-field maradigma-filter">
+                            <label class="md-label"><?php \esc_html_e('Base port', 'maradigma'); ?></label>
+
+                            <select
+                                class="md-select"
+                                name="md_boat_base_port"
+                                data-md-select2="1"
+                                data-maradigma-source="base_ports"
+                                data-multiple="0">
+                                <option value=""><?php \esc_html_e('Any', 'maradigma'); ?></option>
+                                <?php if ($selectedPort !== ''): ?>
+                                    <option value="<?php echo \esc_attr($selectedPort); ?>" selected><?php echo \esc_html('Base port #' . $selectedPort); ?></option>
+                                <?php endif; ?>
+                            </select>
+                        </div>
+                    <?php
+                    else :
+                    ?>
+                        <div class="md-filter-dd md-field" data-md-dd="1">
+                            <button type="button" class="md-filter-pill" data-md-dd-toggle="1" aria-expanded="false">
+                                <?php \esc_html_e('Base port', 'maradigma'); ?> <span class="md-caret">▾</span>
+                            </button>
+
+                            <div class="md-filter-menu" data-md-dd-panel="1" role="dialog" aria-modal="false">
+                                <div class="md-filter-menu__inner">
+                                    <div class="md-filter-menu__title"><?php \esc_html_e('Base port', 'maradigma'); ?></div>
+
+                                    <select
+                                        class="md-select"
+                                        name="md_boat_base_port"
+                                        data-md-select2="1"
+                                        data-maradigma-source="base_ports"
+                                        data-multiple="0">
+                                        <option value=""><?php \esc_html_e('Any', 'maradigma'); ?></option>
+                                        <?php if ($selectedPort !== ''): ?>
+                                            <option value="<?php echo \esc_attr($selectedPort); ?>" selected><?php echo \esc_html('Base port #' . $selectedPort); ?></option>
+                                        <?php endif; ?>
+                                    </select>
+                                </div>
+
+                                <div class="md-filter-menu__footer">
+                                    <button type="button" class="md-dd-clear" data-md-dd-clear="1"><?php \esc_html_e('Clear', 'maradigma'); ?></button>
+                                    <button type="button" class="md-dd-apply" data-md-dd-apply="1"><?php \esc_html_e('Apply', 'maradigma'); ?></button>
+                                </div>
+                            </div>
+                        </div>
+                    <?php
+                    endif;
+                    break;
+
                 case 'builders':
                     $selectedBuilders = $csvToArray((string) self::getUiQuery('builders', $uiQuery));
                     $selectedBuilder  = isset($selectedBuilders[0]) ? (string) $selectedBuilders[0] : '';
@@ -2001,6 +2121,8 @@ final class ShortcodeRegistry
             'min_price',
             'max_price',
             'boat_type_id',
+            'destination',
+            'boat_base_port',
             'builders',
             'ids_gi',
             'date_start',
@@ -2161,8 +2283,24 @@ final class ShortcodeRegistry
             $uiQuery['md_builders'] = \trim((string) $atts['builders']);
         }
 
-        $boundsMin = isset($atts['min_price']) ? \trim((string) $atts['min_price']) : '';
-        $boundsMax = isset($atts['max_price']) ? \trim((string) $atts['max_price']) : '';
+        if (
+            !\array_key_exists('md_destination', $uiQuery)
+            && \trim((string) ($atts['destination'] ?? '')) !== ''
+        ) {
+            $uiQuery['md_destination'] = \trim((string) $atts['destination']);
+        }
+
+        if (
+            !\array_key_exists('md_boat_base_port', $uiQuery)
+            && \trim((string) ($atts['boat_base_port'] ?? '')) !== ''
+        ) {
+            $uiQuery['md_boat_base_port'] = \trim((string) $atts['boat_base_port']);
+        }
+
+        // Ends of the price slider: the author's range, never the visitor's own
+        // values, or a shared filtered URL would leave the slider stuck on them.
+        $boundsMin = isset($baseAtts['min_price']) ? \trim((string) $baseAtts['min_price']) : '';
+        $boundsMax = isset($baseAtts['max_price']) ? \trim((string) $baseAtts['max_price']) : '';
 
         $filters = Sanitizer::normalizeBoatsSearchAtts($atts, self::$DOC_SEARCH_BOATS_ATTRS);
 
@@ -2235,7 +2373,7 @@ final class ShortcodeRegistry
         if ($showFilters) {
             AssetsManager::enqueueArchiveFiltersAssets();
 
-            $remoteSelectFields = ['boat_type_id', 'builders', 'ids_gi'];
+            $remoteSelectFields = ['boat_type_id', 'destination', 'boat_base_port', 'builders', 'ids_gi'];
             $needsRemoteSelect = false;
 
             foreach (\array_merge($uiFields, $uiOffFields) as $fieldKey) {
@@ -2246,7 +2384,7 @@ final class ShortcodeRegistry
             }
 
             if ($needsRemoteSelect) {
-                AssetsManager::enqueueFrontendRemoteSelect2Assets();
+                AssetsManager::enqueueFrontendRemoteSelect2Assets($currentLang);
             }
         }
 

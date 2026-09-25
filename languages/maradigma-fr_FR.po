@@ -3051,3 +3051,13 @@ msgstr "gardées en brouillon %d"
 
 msgid "Fleet order"
 msgstr "Ordre de la flotte"
+
+#, php-format
+msgid "%1$s — boats: %2$d"
+msgstr "%1$s — bateaux : %2$d"
+
+msgid "Select destination"
+msgstr "Choisir une destination"
+
+msgid "Select base port"
+msgstr "Choisir un port d’attache"

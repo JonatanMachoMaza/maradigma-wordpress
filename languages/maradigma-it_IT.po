@@ -3054,3 +3054,13 @@ msgstr "tenute in bozza %d"
 
 msgid "Fleet order"
 msgstr "Ordine della flotta"
+
+#, php-format
+msgid "%1$s — boats: %2$d"
+msgstr "%1$s — barche: %2$d"
+
+msgid "Select destination"
+msgstr "Seleziona una destinazione"
+
+msgid "Select base port"
+msgstr "Seleziona un porto base"

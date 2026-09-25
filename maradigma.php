@@ -3,7 +3,7 @@
  * Plugin Name: Maradigma
  * Plugin URI: https://maradigma.com/es/wordpress-plugin/
  * Description: Connect WordPress with Maradigma to sync boats, build fleet pages, display availability and prices, and accept online bookings.
- * Version: 0.1.192
+ * Version: 0.1.193
  * Requires at least: 6.0
  * Requires PHP: 8.1
  * Author: Maradigma
@@ -23,7 +23,7 @@ if (!defined('ABSPATH')) {
 /**
  * Plugin constants.
  */
-define('MARADIGMA_PLUGIN_VERSION', '0.1.192');
+define('MARADIGMA_PLUGIN_VERSION', '0.1.193');
 define('MARADIGMA_PLUGIN_FILE', __FILE__);
 define('MARADIGMA_PLUGIN_DIR', plugin_dir_path(__FILE__));
 define('MARADIGMA_PLUGIN_URL', plugin_dir_url(__FILE__));

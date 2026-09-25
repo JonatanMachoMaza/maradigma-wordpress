@@ -3051,3 +3051,13 @@ msgstr "als Entwurf behalten %d"
 
 msgid "Fleet order"
 msgstr "Flottenreihenfolge"
+
+#, php-format
+msgid "%1$s — boats: %2$d"
+msgstr "%1$s — Boote: %2$d"
+
+msgid "Select destination"
+msgstr "Reiseziel auswählen"
+
+msgid "Select base port"
+msgstr "Heimathafen auswählen"

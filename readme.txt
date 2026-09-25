@@ -4,7 +4,7 @@ Tags: boat rental, yacht charter, booking, availability, fleet management
 Requires at least: 6.0
 Tested up to: 7.1
 Requires PHP: 8.1
-Stable tag: 0.1.192
+Stable tag: 0.1.193
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -157,6 +157,11 @@ The repository includes `package.json`, `package-lock.json`, and the Vite config
 
 == Changelog ==
 
+= 0.1.193 =
+* Added **Destination** and **Base port** filters to boat listings. List `destination` or `boat_base_port` in `filters_ui_fields` (or in the "More filters" drawer) and visitors get a searchable selector. Both lists are built from your own boats — with the number of boats in each place — so they only offer places that return results.
+* Rewrote the filters section of the shortcode documentation. It now has a visible table of every filter field a visitor can use, with the control they see and the `md_*` parameter it sends, the real default values, the search attributes of the listing (including base port and skipper), and examples that use length, cabins, skipper and online booking. The fields were already there; the documentation buried them.
+* Fixed the navigation of the HTML documentation: a leftover tag in its header sent every index link and every "Back to top" link to a blank page, so the manual could not be browsed.
+* Fixed the price slider when a filtered address is shared or reloaded (`allow_url_filters="1"`): the slider took the visitor's own values as its ends, so the range could not be widened again except with "Reset".
 = 0.1.192 =
 * Stopped the public boat address (`/wp-json/maradigma/v1/boats/{id}`) from answering visitors with internal data. On request it returned the boat owner's record (e-mail, tax id), the accounting data and, on every call, the commission and the private calendar (iCal) address of the boat. It now returns only the customer-facing fields the booking modal needs. The shop cart address also returns only the fields the booking flow reads, and is no longer cached by intermediaries.
 * Made "Specific boats" work in boat listings (shortcode, Elementor widget, Gutenberg block and WPBakery). The Maradigma search cannot filter by a list of boat IDs, so the plugin now applies the selection itself: the other filters (boat type, destination, dates…) still apply, and with the default order the boats keep the order of your list.
@@ -347,6 +352,8 @@ The repository includes `package.json`, `package-lock.json`, and the Vite config
 
 == Upgrade Notice ==
 
+= 0.1.193 =
+Adds Destination and Base port filters to boat listings, rewrites the filters section of the documentation, and fixes the price slider on shared filtered addresses.
 = 0.1.192 =
 The public boat address no longer exposes owner, accounting or private calendar data. "Specific boats" now really filters listings, online booking no longer sends an invalid payment method, and the obsolete-page cleanup no longer removes the pages of boats that are only unpublished.
 

@@ -3094,3 +3094,13 @@ msgstr "kept as draft %d"
 
 msgid "Fleet order"
 msgstr "Fleet order"
+
+#, php-format
+msgid "%1$s — boats: %2$d"
+msgstr "%1$s — boats: %2$d"
+
+msgid "Select destination"
+msgstr "Select destination"
+
+msgid "Select base port"
+msgstr "Select base port"

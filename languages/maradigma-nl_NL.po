@@ -3052,3 +3052,13 @@ msgstr "als concept bewaard %d"
 
 msgid "Fleet order"
 msgstr "Volgorde van de vloot"
+
+#, php-format
+msgid "%1$s — boats: %2$d"
+msgstr "%1$s — boten: %2$d"
+
+msgid "Select destination"
+msgstr "Kies een bestemming"
+
+msgid "Select base port"
+msgstr "Kies een thuishaven"

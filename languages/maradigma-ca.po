@@ -3126,3 +3126,13 @@ msgstr "en esborrany %d"
 
 msgid "Fleet order"
 msgstr "Ordre de la flota"
+
+#, php-format
+msgid "%1$s — boats: %2$d"
+msgstr "%1$s — embarcacions: %2$d"
+
+msgid "Select destination"
+msgstr "Selecciona una destinació"
+
+msgid "Select base port"
+msgstr "Selecciona un port base"

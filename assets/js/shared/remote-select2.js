@@ -113,7 +113,8 @@ window.MaradigmaRemoteSelect2Shared = window.MaradigmaRemoteSelect2Shared || (fu
       tags: searchConfig.tagsAction || 'maradigma_admin_search_tags',
       builders: searchConfig.buildersAction || 'maradigma_admin_search_builders',
       boats: searchConfig.boatsAction || 'maradigma_admin_search_boats',
-      base_ports: searchConfig.basePortsAction || 'maradigma_admin_search_base_ports'
+      base_ports: searchConfig.basePortsAction || 'maradigma_admin_search_base_ports',
+      destinations: searchConfig.destinationsAction || 'maradigma_admin_search_destinations'
     };
   }
 
@@ -123,7 +124,8 @@ window.MaradigmaRemoteSelect2Shared = window.MaradigmaRemoteSelect2Shared || (fu
       tags: i18nConfig.tags || i18nConfig.placeholderMulti || 'Select tags',
       builders: i18nConfig.builders || i18nConfig.placeholderMulti || 'Select builders',
       boats: i18nConfig.boats || i18nConfig.placeholderSingle || 'Search a boat',
-      base_ports: i18nConfig.basePorts || i18nConfig.placeholderSingle || 'Select base port'
+      base_ports: i18nConfig.basePorts || i18nConfig.placeholderSingle || 'Select base port',
+      destinations: i18nConfig.destinations || i18nConfig.placeholderSingle || 'Select destination'
     };
   }
 
@@ -139,14 +141,20 @@ window.MaradigmaRemoteSelect2Shared = window.MaradigmaRemoteSelect2Shared || (fu
         return 'Tag #' + itemId;
       case 'base_ports':
         return 'Base port #' + itemId;
+      case 'destinations':
+        return '#' + itemId;
       default:
         return '#' + itemId;
     }
   }
 
+  function escapeForRegExp(value) {
+    return String(value).replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+  }
+
   function optionLooksLikeFallbackLabel(sourceName, optionText, optionValue) {
     var normalizedText = String(optionText || '').trim();
-    var normalizedValue = String(optionValue || '').trim();
+    var normalizedValue = escapeForRegExp(String(optionValue || '').trim());
 
     if (!normalizedText || !normalizedValue) {
       return false;
@@ -365,6 +373,7 @@ window.MaradigmaRemoteSelect2Shared = window.MaradigmaRemoteSelect2Shared || (fu
       data: {
         action: searchActionName,
         nonce: nonce,
+        lang: String(configObject.lang || ''),
         q: '',
         page: 1
       }
@@ -475,6 +484,7 @@ window.MaradigmaRemoteSelect2Shared = window.MaradigmaRemoteSelect2Shared || (fu
           return {
             action: ajaxActionName,
             nonce: nonce,
+            lang: String(configObject.lang || ''),
             q: paramsObject.term || '',
             page: paramsObject.page || 1
           };
