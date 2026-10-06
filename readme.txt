@@ -4,7 +4,7 @@ Tags: boat rental, yacht charter, booking, availability, fleet management
 Requires at least: 6.0
 Tested up to: 7.1
 Requires PHP: 8.1
-Stable tag: 0.1.193
+Stable tag: 0.1.194
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -157,6 +157,9 @@ The repository includes `package.json`, `package-lock.json`, and the Vite config
 
 == Changelog ==
 
+= 0.1.194 =
+* Fixed boat pages created from the Elementor master template not keeping its **Page Layout** (for example "Elementor Full Width") and its page settings. The plugin copied only the widgets, so those pages were drawn inside the theme's default template and looked different from the master. The Page Layout and the page settings are now copied when a boat page is created, when the master template is applied to all boats, and when a boat layout is imported into the master template. Boats marked as custom layout are still left alone. To fix pages that already exist, import the layout of a boat you like into the master template and apply it to all boats again.
+* Fixed the page settings of an imported boat layout losing their backslashes (for example in custom CSS) when they were saved to the master template.
 = 0.1.193 =
 * Added **Destination** and **Base port** filters to boat listings. List `destination` or `boat_base_port` in `filters_ui_fields` (or in the "More filters" drawer) and visitors get a searchable selector. Both lists are built from your own boats — with the number of boats in each place — so they only offer places that return results.
 * Rewrote the filters section of the shortcode documentation. It now has a visible table of every filter field a visitor can use, with the control they see and the `md_*` parameter it sends, the real default values, the search attributes of the listing (including base port and skipper), and examples that use length, cabins, skipper and online booking. The fields were already there; the documentation buried them.
@@ -352,6 +355,8 @@ The repository includes `package.json`, `package-lock.json`, and the Vite config
 
 == Upgrade Notice ==
 
+= 0.1.194 =
+Boat pages now keep the Page Layout (such as Elementor Full Width) and the page settings of the Elementor master template, so new and re-applied pages look like the master.
 = 0.1.193 =
 Adds Destination and Base port filters to boat listings, rewrites the filters section of the documentation, and fixes the price slider on shared filtered addresses.
 = 0.1.192 =

@@ -15,6 +15,7 @@ use Maradigma\Support\MultilangAdapter;
 use Maradigma\Integrations\Gutenberg\GutenbergIntegration;
 use Maradigma\Integrations\WPBakery\WPBakeryIntegration;
 use Maradigma\Support\Debugger;
+use Maradigma\Support\ElementorPageLayoutMeta;
 use Maradigma\Support\SyncRuntimePolicy;
 
 /**
@@ -2247,6 +2248,9 @@ final class BoatSyncService
         update_post_meta($postId, self::META_ELEMENTOR_SEEDED, '1');
         update_post_meta($postId, self::META_ELEMENTOR_DATA_HASH, md5($storedPostData));
         update_post_meta($postId, self::META_ELEMENTOR_TEMPLATE_HASH, md5($storedTplData));
+
+        // Page Layout (e.g. Elementor Full Width) lives outside _elementor_data.
+        ElementorPageLayoutMeta::copy($templateId, $postId);
 
         self::regenerateElementorCss($postId);
     }

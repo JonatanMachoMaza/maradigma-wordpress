@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace Maradigma\Admin;
 
+use Maradigma\Support\ElementorPageLayoutMeta;
+
 if (!defined('ABSPATH')) {
     exit;
 }
@@ -52,12 +54,9 @@ final class SettingsTemplateActions
 
         update_post_meta($masterTemplateId, '_elementor_data', wp_slash($sourceData));
 
-        $pageSettings = get_post_meta($sourcePostId, '_elementor_page_settings', true);
-        if ($pageSettings !== '' && $pageSettings !== [] && $pageSettings !== null) {
-            update_post_meta($masterTemplateId, '_elementor_page_settings', $pageSettings);
-        } else {
-            delete_post_meta($masterTemplateId, '_elementor_page_settings');
-        }
+        // The master mirrors the chosen boat: its page settings and its Page
+        // Layout (e.g. Elementor Full Width), or the lack of them.
+        ElementorPageLayoutMeta::copy($sourcePostId, $masterTemplateId, true);
 
         update_post_meta($masterTemplateId, '_elementor_edit_mode', 'builder');
         update_post_meta($masterTemplateId, '_elementor_template_type', 'page');

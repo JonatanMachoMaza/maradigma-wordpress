@@ -11,6 +11,7 @@ if (!defined('ABSPATH')) {
 use Maradigma\Integrations\Gutenberg\GutenbergIntegration;
 use Maradigma\Integrations\WPBakery\WPBakeryIntegration;
 use Maradigma\Support\Debugger;
+use Maradigma\Support\ElementorPageLayoutMeta;
 
 /**
  * Applies the selected Maradigma master template to all synced boat pages in batches.
@@ -403,6 +404,9 @@ final class BoatTemplateSyncAllService
                 $stored = (string) get_post_meta($boatPostId, '_elementor_data', true);
                 update_post_meta($boatPostId, self::META_ELEMENTOR_DATA_HASH, md5($stored));
                 update_post_meta($boatPostId, self::META_ELEMENTOR_TEMPLATE_HASH, $masterHash);
+
+                // Page Layout (e.g. Elementor Full Width) lives outside _elementor_data.
+                ElementorPageLayoutMeta::copy($masterId, $boatPostId);
 
                 self::regenerateElementorCssSafe($boatPostId);
 
