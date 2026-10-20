@@ -4,7 +4,7 @@ Tags: boat rental, yacht charter, booking, availability, fleet management
 Requires at least: 6.0
 Tested up to: 7.1
 Requires PHP: 8.1
-Stable tag: 0.1.194
+Stable tag: 0.1.195
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -157,6 +157,9 @@ The repository includes `package.json`, `package-lock.json`, and the Vite config
 
 == Changelog ==
 
+= 0.1.195 =
+* Fixed boats priced above 5,000 € a day (for example the De Antonio D60) missing from listings built with the Elementor widget. When "Min price" and "Max price" were left empty the widget filled in 0 and 5,000 and sent them to the search as real filters, even when the price slider was not shown. An empty limit now means no limit, as it already did in the shortcode. A limit only applies when you type one.
+* The price slider of a listing now takes its ends from the prices of your own boats (rounded to the slider step) instead of a fixed 0 to 5,000 €, so the most expensive boat is never left above the slider. A range typed in the widget or shortcode still wins.
 = 0.1.194 =
 * Fixed boat pages created from the Elementor master template not keeping its **Page Layout** (for example "Elementor Full Width") and its page settings. The plugin copied only the widgets, so those pages were drawn inside the theme's default template and looked different from the master. The Page Layout and the page settings are now copied when a boat page is created, when the master template is applied to all boats, and when a boat layout is imported into the master template. Boats marked as custom layout are still left alone. To fix pages that already exist, import the layout of a boat you like into the master template and apply it to all boats again.
 * Fixed the page settings of an imported boat layout losing their backslashes (for example in custom CSS) when they were saved to the master template.
@@ -355,6 +358,8 @@ The repository includes `package.json`, `package-lock.json`, and the Vite config
 
 == Upgrade Notice ==
 
+= 0.1.195 =
+Boats priced above 5,000 € a day are no longer hidden from Elementor listings, and the price slider now covers your most expensive boat.
 = 0.1.194 =
 Boat pages now keep the Page Layout (such as Elementor Full Width) and the page settings of the Elementor master template, so new and re-applied pages look like the master.
 = 0.1.193 =

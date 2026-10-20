@@ -2055,15 +2055,17 @@ final class BoatsArchiveWidget extends Widget_Base
         $minPrice = \trim((string) ($settings['min_price'] ?? ''));
         $maxPrice = \trim((string) ($settings['max_price'] ?? ''));
 
-        if ($minPrice === '' || !\is_numeric($minPrice)) {
-            $minPrice = '0';
+        // An empty price limit means no limit: it travels to the search as a filter,
+        // and the price slider already falls back to its own bounds.
+        if ($minPrice !== '' && !\is_numeric($minPrice)) {
+            $minPrice = '';
         }
 
-        if ($maxPrice === '' || !\is_numeric($maxPrice)) {
-            $maxPrice = '5000';
+        if ($maxPrice !== '' && !\is_numeric($maxPrice)) {
+            $maxPrice = '';
         }
 
-        if ((float) $maxPrice <= (float) $minPrice) {
+        if ($minPrice !== '' && $maxPrice !== '' && (float) $maxPrice <= (float) $minPrice) {
             $maxPrice = (string) ((float) $minPrice + 1000);
         }
 

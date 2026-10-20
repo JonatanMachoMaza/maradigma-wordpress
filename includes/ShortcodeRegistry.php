@@ -2446,6 +2446,24 @@ final class ShortcodeRegistry
             $lengthBounds = self::resolveBoatLengthBounds($cache, $baseAtts);
         }
 
+        // Ends of the price slider: the author's range when set, otherwise the prices
+        // of the catalog scope itself, so no boat sits above the slider.
+        if (
+            $showFilters
+            && (\trim($boundsMin) === '' || \trim($boundsMax) === '')
+            && \array_intersect(
+                ['min_price', 'max_price', 'price_range'],
+                \array_merge($uiFields, $uiLeftFields, $uiRightFields, $uiOffFields)
+            ) !== []
+        ) {
+            $priceBounds = self::resolveBoatPriceBounds($cache, $baseAtts, $template);
+
+            if ($priceBounds !== null) {
+                $boundsMin = \trim($boundsMin) === '' ? (string) $priceBounds['min'] : $boundsMin;
+                $boundsMax = \trim($boundsMax) === '' ? (string) $priceBounds['max'] : $boundsMax;
+            }
+        }
+
         $boats = [];
         if (\is_array($result['data']['search_result'] ?? null)) {
             $boats = (array) $result['data']['search_result'];
@@ -2685,6 +2703,44 @@ final class ShortcodeRegistry
         }
 
         return ArchiveFilterControls::normalizeLengthBounds($shortest, $longest);
+    }
+
+    /**
+     * Price-per-day range of the catalog scope defined by the shortcode attributes.
+     *
+     * One single-row search without price limits or dates: the search reports the lowest
+     * and highest price of every boat it matched, on the same basis min_price/max_price
+     * filter on. Ends are rounded outwards to the slider step.
+     *
+     * @param array<string,mixed> $baseAtts Shortcode attributes before any visitor override.
+     *
+     * @return array{min:int,max:int}|null Null when the search gives no usable prices.
+     */
+    private static function resolveBoatPriceBounds(Cache $cache, array $baseAtts, string $template): ?array
+    {
+        unset($baseAtts['ids_gi'], $baseAtts['min_price'], $baseAtts['max_price']);
+        $scope = Sanitizer::normalizeBoatsSearchAtts($baseAtts, self::$DOC_SEARCH_BOATS_ATTRS);
+        unset($scope['min_price'], $scope['max_price'], $scope['date_start'], $scope['date_end']);
+
+        $scope['limit_services']  = 1;
+        $scope['offset_services'] = 0;
+
+        $result = $cache->getBoatsList(self::applyUndatedPriceOrderCriteria($scope, $template));
+        $data   = \is_array($result['data'] ?? null) ? (array) $result['data'] : [];
+
+        $min = $data['min_price'] ?? null;
+        $max = $data['max_price'] ?? null;
+
+        if (!\is_numeric($min) || !\is_numeric($max) || (float) $max <= 0) {
+            return null;
+        }
+
+        $step = 10;
+
+        return [
+            'min' => (int) (\floor(\max(0.0, (float) $min) / $step) * $step),
+            'max' => (int) (\ceil((float) $max / $step) * $step),
+        ];
     }
 
     /**
