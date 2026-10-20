@@ -90,6 +90,14 @@
       "type": "string",
       "default": ""
     },
+    "portfolio": {
+      "type": "string",
+      "default": ""
+    },
+    "portfolio_label": {
+      "type": "string",
+      "default": ""
+    },
     "featured": {
       "type": "string",
       "default": ""

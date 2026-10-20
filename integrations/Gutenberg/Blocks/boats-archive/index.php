@@ -44,6 +44,7 @@ final class BoatsArchiveBlock
             'date_picker_mode',
             'term',
             'ids_gi',
+            'portfolio',
             'featured',
             'ins_book',
             'min_price',

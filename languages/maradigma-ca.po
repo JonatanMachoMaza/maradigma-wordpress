@@ -3136,3 +3136,9 @@ msgstr "Selecciona una destinació"
 
 msgid "Select base port"
 msgstr "Selecciona un port base"
+
+msgid "Portfolio"
+msgstr "Portafolis"
+
+msgid "Portfolio UUID"
+msgstr "UUID del portafolis"

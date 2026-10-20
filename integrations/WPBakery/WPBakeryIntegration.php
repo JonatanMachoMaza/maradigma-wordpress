@@ -282,6 +282,7 @@ final class WPBakeryIntegration
             self::textfield('boat_type_id', \__('Boat type ID', 'maradigma'), ''),
             self::textfield('builders', \__('Builder IDs', 'maradigma'), ''),
             self::textfield('ids_gi', \__('Specific boat IDs', 'maradigma'), ''),
+            self::textfield('portfolio', \__('Portfolio UUID', 'maradigma'), ''),
             self::checkbox('featured', \__('Featured only', 'maradigma')),
             self::checkbox('ins_book', \__('Instant booking only', 'maradigma')),
             self::number('min_price', \__('Min price', 'maradigma'), ''),

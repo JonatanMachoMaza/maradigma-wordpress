@@ -3061,3 +3061,9 @@ msgstr "Reiseziel auswählen"
 
 msgid "Select base port"
 msgstr "Heimathafen auswählen"
+
+msgid "Portfolio"
+msgstr "Portfolio"
+
+msgid "Portfolio UUID"
+msgstr "Portfolio-UUID"

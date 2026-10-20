@@ -889,6 +889,7 @@ final class GutenbergIntegration
                 'basePortsAction' => 'maradigma_admin_search_base_ports',
                 'boatByIdAction'  => 'maradigma_admin_get_boat_by_id',
                 'destinationsAction' => 'maradigma_admin_search_destinations',
+                'portfoliosAction' => 'maradigma_admin_search_portfolios',
             ],
             'context' => 'admin',
         ];

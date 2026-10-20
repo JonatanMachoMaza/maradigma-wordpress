@@ -3061,3 +3061,9 @@ msgstr "Choisir une destination"
 
 msgid "Select base port"
 msgstr "Choisir un port d’attache"
+
+msgid "Portfolio"
+msgstr "Portfolio"
+
+msgid "Portfolio UUID"
+msgstr "UUID du portfolio"

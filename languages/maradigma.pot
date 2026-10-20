@@ -3032,3 +3032,9 @@ msgstr ""
 
 msgid "Select base port"
 msgstr ""
+
+msgid "Portfolio"
+msgstr ""
+
+msgid "Portfolio UUID"
+msgstr ""

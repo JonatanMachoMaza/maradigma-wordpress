@@ -53,6 +53,17 @@ final class ArchiveScopeTest extends TestCase
         self::assertSame($scope, ArchiveScope::decode($token, self::SECRET, self::KEYS));
     }
 
+    public function testPortfolioTravelsInSignedScopeAndCannotBeReplacedByTampering(): void
+    {
+        $keys = array_column(\Maradigma\ShortcodeRegistry::$DOC_SEARCH_BOATS_ATTRS, 'attr');
+        $scope = ArchiveScope::extract(['portfolio' => '12345678-1234-4321-8123-000000000012'], $keys);
+        $token = ArchiveScope::encode($scope, self::SECRET);
+        self::assertSame(['portfolio' => '12345678-1234-4321-8123-000000000012'], ArchiveScope::decode($token, self::SECRET, $keys));
+        $parts = explode('.', $token);
+        $parts[1] = rtrim(strtr(base64_encode('{"portfolio":"12345678-1234-4321-8123-000000000099"}'), '+/', '-_'), '=');
+        self::assertSame([], ArchiveScope::decode(implode('.', $parts), self::SECRET, $keys));
+    }
+
     public function testEncodingIsStableRegardlessOfInputOrder(): void
     {
         $a = ArchiveScope::encode(ArchiveScope::extract(['tags' => '1', 'boat_type_id' => '4'], self::KEYS), self::SECRET);

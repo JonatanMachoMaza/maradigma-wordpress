@@ -322,6 +322,9 @@ class ExternalApiClient {
         $filters['offset_services'] = max(0, (int)$filters['offset_services']);
 
         try {
+            if (isset($filters['portfolio']) && trim((string) $filters['portfolio']) !== '') {
+                return \Maradigma\Support\PortfolioCatalog::search($this, trim((string) $filters['portfolio']), $filters);
+            }
             // POST form + headers + signature
             $apiResponse = $this->searchServices($filters);
 
@@ -880,6 +883,49 @@ class ExternalApiClient {
             [],
             $filters
         );
+    }
+
+    /**
+     * GET /group-portfolios with the existing tenant authentication.
+     * @param array<string,mixed> $query
+     * @return array<string,mixed>
+     */
+    public function getGroupPortfolios(array $query = []): array
+    {
+        $query = array_intersect_key($query, array_flip([
+            'id_group', 'term', 'is_pdf_enabled', 'is_bookings_enabled', 'with_counts', 'limit', 'offset',
+        ]));
+        return $this->requestJson('GET', '/group-portfolios', $query);
+    }
+
+    /**
+     * GET /group-portfolio/{uuid}; include_items=1 optionally adds a membership page.
+     * @param array<string,mixed> $query
+     * @return array<string,mixed>
+     */
+    public function getGroupPortfolio(string $uuid, array $query = []): array
+    {
+        $uuid = \Maradigma\Support\PortfolioCatalog::normalizeUuid($uuid);
+        if ($uuid === null) {
+            throw new \InvalidArgumentException('Invalid portfolio UUID.');
+        }
+        $query = array_intersect_key($query, array_flip(['include_items', 'limit', 'offset']));
+        return $this->requestJson('GET', '/group-portfolio/' . rawurlencode($uuid), $query);
+    }
+
+    /**
+     * GET /group-portfolio/{uuid}/items; rows are ordered service references.
+     * @param array<string,mixed> $query
+     * @return array<string,mixed>
+     */
+    public function getGroupPortfolioItems(string $uuid, array $query = []): array
+    {
+        $uuid = \Maradigma\Support\PortfolioCatalog::normalizeUuid($uuid);
+        if ($uuid === null) {
+            throw new \InvalidArgumentException('Invalid portfolio UUID.');
+        }
+        $query = array_intersect_key($query, array_flip(['limit', 'offset']));
+        return $this->requestJson('GET', '/group-portfolio/' . rawurlencode($uuid) . '/items', $query);
     }
 
     /**

@@ -448,6 +448,18 @@ final class BoatsArchiveWidget extends Widget_Base
             'default' => '',
         ]);
 
+        $this->add_control('portfolio', [
+            'label' => \esc_html__('Portfolio UUID', 'maradigma'),
+            'type' => Controls_Manager::TEXT,
+            'default' => '',
+        ]);
+        $this->add_control('portfolio_ui', [
+            'type' => Controls_Manager::RAW_HTML,
+            'raw' => '<div><label>' . \esc_html__('Portfolio', 'maradigma') . '</label>
+                <select class="maradigma-el-remote-select" data-maradigma-source="portfolios"
+                    data-setting-key="portfolio" data-multiple="0" style="width:100%;"></select></div>',
+        ]);
+
         $this->add_control('ids_gi_ui', [
             'type' => Controls_Manager::RAW_HTML,
             'raw'  => '<div class="maradigma-ids-gi-ui">
@@ -2117,6 +2129,7 @@ final class BoatsArchiveWidget extends Widget_Base
             'destination'      => (string) ($settings['destination'] ?? ''),
             'builders'         => (string) ($settings['builders'] ?? ''),
             'ids_gi'           => (string) ($settings['ids_gi'] ?? ''),
+            'portfolio'        => (string) ($settings['portfolio'] ?? ''),
             'date_picker_mode' => $datePickerMode,
         ];
 

@@ -26,6 +26,7 @@ final class ShortcodeRegistry
         'archive_scope',
         'md_lang',
         'id_group',
+        'portfolio',
         'limit_services',
         'offset_services',
         'card',
@@ -49,7 +50,8 @@ final class ShortcodeRegistry
      *
      * IMPORTANT:
      * - This is based on core API: filter_services() + search_group_services() + searchServices().
-     * - Do not add attributes that are not supported by the API.
+     * - Portfolio and specific boat selections are resolved by the plugin before the service search.
+     * - Other search attributes must be supported by the API.
      *
      * @var array<int,array{
      *   attr:string,
@@ -60,6 +62,13 @@ final class ShortcodeRegistry
      * }>
      */
     public static array $DOC_SEARCH_BOATS_ATTRS = [
+        [
+            'attr' => 'portfolio',
+            'type' => 'string',
+            'default' => '',
+            'description' => 'Portfolio UUID from Maradigma. Only published boats matching the other filters are shown.',
+            'notes' => 'The default order follows the portfolio. Explicit price or length ordering overrides it. An empty or inaccessible portfolio never falls back to the full catalogue.',
+        ],
 
         // ─────────────────────────────────────────────
         // Required / routing
@@ -2427,16 +2436,23 @@ final class ShortcodeRegistry
         $searchFilters = $filters;
         unset($searchFilters['ids_gi']);
 
-        $result = $restrictToIds
-            ? self::searchSelectedBoats(
-                $cache,
-                $searchFilters,
-                $selectedBoatIds,
-                $currentLang,
-                // A visitor-only selection reads a couple of pages at most.
-                $authorBoatIds !== [] ? SelectedBoats::MAX_PAGES : SelectedBoats::MAX_VISITOR_PAGES
-            )
-            : $cache->getBoatsList($searchFilters);
+        if (isset($searchFilters['portfolio']) && \trim((string) $searchFilters['portfolio']) !== '') {
+            // Resolve selections inside the portfolio scan, without the manual-list scan's page cap.
+            $result = $cache->getBoatsList($restrictToIds
+                ? \array_merge($searchFilters, ['ids_gi' => $selectedBoatIds])
+                : $searchFilters);
+        } else {
+            $result = $restrictToIds
+                ? self::searchSelectedBoats(
+                    $cache,
+                    $searchFilters,
+                    $selectedBoatIds,
+                    $currentLang,
+                    // A visitor-only selection reads a couple of pages at most.
+                    $authorBoatIds !== [] ? SelectedBoats::MAX_PAGES : SelectedBoats::MAX_VISITOR_PAGES
+                )
+                : $cache->getBoatsList($searchFilters);
+        }
 
         $lengthBounds = null;
         if (
@@ -2778,6 +2794,7 @@ final class ShortcodeRegistry
             && \constant('MARADIGMA_CACHE_ENABLED') === true
             && !(\defined('MARADIGMA_PLUGIN_DEBUG') && \constant('MARADIGMA_PLUGIN_DEBUG'));
         $scanKey = 'maradigma_boats_selected_' . \md5((string) \wp_json_encode([
+            'source'   => $cache->getSourceFingerprint(),
             'filters'  => $scanFilters,
             'boats'    => $boatIds,
             'language' => $language,

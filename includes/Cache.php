@@ -97,6 +97,15 @@ final class Cache
      */
     public function getBoatsList(array $filters = []): array
     {
+        $isPortfolio = isset($filters['portfolio']) && \trim((string) $filters['portfolio']) !== '';
+        if ($isPortfolio) {
+            // Validate before looking up transients: cached numeric selections must also fail closed.
+            $uuid = \Maradigma\Support\PortfolioCatalog::normalizeUuid((string) $filters['portfolio']);
+            if ($uuid === null) {
+                return ['success' => false, 'data' => [], 'error' => 'Invalid portfolio UUID.'];
+            }
+            $filters['portfolio'] = $uuid;
+        }
         // No-cache mode => direct call
         if (!$this->isCacheEnabled() || self::isPriceDebugEnabled()) {
             return $this->normalizeResult($this->client->getBoatsList($filters), 'success');
@@ -107,28 +116,64 @@ final class Cache
         // Ensure stable cache key
         \ksort($filters);
 
+        $keyFilters = $filters;
+        if ($isPortfolio) {
+            // One scan serves every listing page of this portfolio/filter combination.
+            unset($keyFilters['limit_services'], $keyFilters['offset_services']);
+        }
+
         $keyData = [
-            'filters'  => $filters,
+            'filters'  => $keyFilters,
             'language' => \method_exists($this->client, 'getLanguage') ? $this->client->getLanguage() : '',
             // Another API key answers for another catalogue.
             'source'   => $this->client->getSourceFingerprint(),
         ];
+        if ($isPortfolio) {
+            // Do not reuse scans produced by the earlier ID-or-UUID contract.
+            $keyData['portfolio_contract'] = 'uuid-v1';
+        }
 
         $json         = \wp_json_encode($keyData, JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES);
         $transientKey = 'maradigma_boats_list_' . \md5($json ?: \serialize($keyData));
 
         $cached = \get_transient($transientKey);
         if (\is_array($cached)) {
-            return $cached;
+            return $isPortfolio ? self::portfolioPage($cached, $filters) : $cached;
         }
 
-        $result = $this->client->getBoatsList($filters);
+        $result = $this->client->getBoatsList($isPortfolio
+            ? \array_merge($filters, ['limit_services' => PHP_INT_MAX, 'offset_services' => 0])
+            : $filters);
 
         if (!empty($result['success']) && \is_array($result['data'] ?? null)) {
             \set_transient($transientKey, $result, 10 * MINUTE_IN_SECONDS);
         }
 
-        return $this->normalizeResult($result, 'success');
+        return $isPortfolio ? self::portfolioPage($result, $filters) : $this->normalizeResult($result, 'success');
+    }
+
+    /**
+     * @param array<string,mixed> $result
+     * @param array<string,mixed> $filters
+     * @return array<string,mixed>
+     */
+    private static function portfolioPage(array $result, array $filters): array
+    {
+        if (empty($result['success'])) {
+            return $result;
+        }
+        $offset = \max(0, (int) ($filters['offset_services'] ?? 0));
+        $limit = \max(1, (int) ($filters['limit_services'] ?? 10));
+        $result['data']['search_result'] = \array_slice($result['data']['search_result'] ?? [], $offset, $limit);
+        $result['data']['limit'] = $limit;
+        $result['data']['offset'] = $offset;
+        $result['data']['calculated_page'] = (int) \floor($offset / $limit) + 1;
+        return $result;
+    }
+
+    public function getSourceFingerprint(): string
+    {
+        return $this->client->getSourceFingerprint();
     }
 
     /**

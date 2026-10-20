@@ -239,6 +239,7 @@
       boat_types:   search.boatTypesAction    || 'maradigma_elementor_search_boat_types',
       boats:        search.boatsAction        || 'maradigma_elementor_search_boats',
       builders:     search.buildersAction     || 'maradigma_elementor_search_builders',
+      portfolios:   search.portfoliosAction   || 'maradigma_elementor_search_portfolios',
       destinations: search.destinationsAction || 'maradigma_elementor_search_destinations'
     };
 
@@ -266,6 +267,12 @@
         : [];
     } else {
       existingIds = existing ? [existing] : [];
+    }
+    if (source === 'portfolios') {
+      // Keep invalid saved settings fail-closed on the server, but never offer them as choices.
+      existingIds = existingIds.filter(function (id) {
+        return /^[a-f0-9]{8}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{12}$/i.test(id);
+      });
     }
 
     $el.select2({

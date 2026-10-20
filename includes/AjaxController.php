@@ -32,6 +32,7 @@ final class AjaxController
         // AJAX para el admin (metabox de páginas con Select2)
         add_action('wp_ajax_maradigma_admin_search_boat_types', [__CLASS__, 'adminSearchBoatTypes']);
         add_action('wp_ajax_maradigma_admin_search_destinations', [__CLASS__, 'adminSearchDestinations']);
+        add_action('wp_ajax_maradigma_admin_search_portfolios', [__CLASS__, 'adminSearchPortfolios']);
         add_action('wp_ajax_maradigma_admin_search_tags', [__CLASS__, 'adminSearchTags']);
         add_action('wp_ajax_maradigma_admin_search_builders', [__CLASS__, 'adminSearchBuilders']);
         add_action('wp_ajax_maradigma_admin_get_builder_by_id', [__CLASS__, 'adminGetBuilderById']);
@@ -44,6 +45,7 @@ final class AjaxController
         add_action('wp_ajax_maradigma_elementor_search_boat_types', [__CLASS__, 'elementorSearchBoatTypes']);
         add_action('wp_ajax_maradigma_elementor_search_builders', [__CLASS__, 'elementorSearchBuilders']);
         add_action('wp_ajax_maradigma_elementor_search_destinations', [__CLASS__, 'elementorSearchDestinations']);
+        add_action('wp_ajax_maradigma_elementor_search_portfolios', [__CLASS__, 'elementorSearchPortfolios']);
         add_action('wp_ajax_maradigma_get_boat_images_count', [__CLASS__, 'elementorGetBoatImagesCount']);
 
         add_action('wp_ajax_maradigma_front_search_boat_types', [__CLASS__, 'frontSearchBoatTypes']);
@@ -1819,6 +1821,45 @@ final class AjaxController
                     'message' => $e->getMessage(),
                 ],
             ]);
+        }
+    }
+
+    /** Portfolio choices for the block editor; uses the existing admin permissions and nonce. */
+    public static function adminSearchPortfolios(): void
+    {
+        self::checkAdminAjaxSecurity();
+        self::sendPortfolioChoices();
+    }
+
+    /** Portfolio choices for Elementor; uses its existing editor permissions and nonce. */
+    public static function elementorSearchPortfolios(): void
+    {
+        if (!current_user_can('edit_posts')) {
+            wp_send_json_error(['message' => 'forbidden'], 403);
+        }
+        if (!check_ajax_referer('maradigma_elementor', 'nonce', false)) {
+            wp_send_json_error(['message' => 'bad_nonce'], 400);
+        }
+        self::sendPortfolioChoices();
+    }
+
+    /** Callers validate editor permissions and nonce before reading the tenant's portfolios. */
+    private static function sendPortfolioChoices(): void
+    {
+        try {
+            $client = ExternalApiClient::fromSettings(SettingsPage::getSettings());
+            $term = self::getSearchTerm();
+            $rows = \Maradigma\Support\PortfolioCatalog::readPages(
+                fn (int $limit, int $offset): array => $client->getGroupPortfolios([
+                    'id_group' => \Maradigma\Support\PortfolioCatalog::BOATS_GROUP_ID,
+                    'term' => $term, 'with_counts' => 0, 'limit' => $limit, 'offset' => $offset,
+                ])
+            );
+            $results = \Maradigma\Support\PortfolioCatalog::choices($rows);
+            wp_send_json(['success' => true, 'results' => $results, 'pagination' => ['more' => false]]);
+        } catch (\Throwable $e) {
+            Debugger::log('archive', 'portfolio_choices_failed', ['message' => $e->getMessage()]);
+            wp_send_json(['success' => false, 'results' => [], 'pagination' => ['more' => false]], 502);
         }
     }
 

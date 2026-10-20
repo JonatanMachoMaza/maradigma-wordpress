@@ -31,6 +31,14 @@ final class Renderer
      */
     public function renderBoatsArchive(array $attrs = []): string
     {
+        if (isset($attrs['portfolio']) && $attrs['portfolio'] !== '') {
+            $uuid = \is_string($attrs['portfolio'])
+                ? \Maradigma\Support\PortfolioCatalog::normalizeUuid($attrs['portfolio']) : null;
+            if ($uuid === null) {
+                return '';
+            }
+            $attrs['portfolio'] = $uuid;
+        }
         $attrs = Sanitizer::attrs($attrs);
         $lang  = Sanitizer::language($attrs['lang'] ?? null);
 
@@ -58,6 +66,10 @@ final class Renderer
         $attrsForKey = $attrs;
         $attrsForKey['card']      = (string) ($card['id'] ?? \Maradigma\BoatCardRepository::DEFAULT_CARD_ID);
         $attrsForKey['card_hash'] = $templateHash;
+        if (!empty($attrs['portfolio'])) {
+            $attrsForKey['portfolio_contract'] = 'uuid-v1';
+            $attrsForKey['portfolio_source'] = $this->cache->getSourceFingerprint();
+        }
 
         $htmlKey = CachePolicy::key($cacheName, $attrsForKey, $lang);
         $ttl     = CachePolicy::ttl($cacheName);

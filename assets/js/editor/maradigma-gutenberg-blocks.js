@@ -139,6 +139,8 @@
                 return search.boatsAction || '';
             case 'destinations':
                 return search.destinationsAction || '';
+            case 'portfolios':
+                return search.portfoliosAction || '';
             default:
                 return '';
         }
@@ -830,6 +832,12 @@
         var labelKey = control.labelKey || '';
         var selectedId = asString(attributes[key]).trim();
         var selectedLabel = asString(attributes[labelKey]).trim();
+        if (source === 'portfolios' && selectedId !== ''
+            && !/^[a-f0-9]{8}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{12}$/i.test(selectedId)) {
+            // Do not rewrite the saved setting: the server must reject it until replaced.
+            selectedId = '';
+            selectedLabel = '';
+        }
         var optionsState = useState([]);
         var options = optionsState[0];
         var setOptions = optionsState[1];
@@ -1592,6 +1600,8 @@
                 date_picker_mode: { type: 'string', default: 'range' },
                 term: { type: 'string', default: '' },
                 ids_gi: { type: 'string', default: '' },
+                portfolio: { type: 'string', default: '' },
+                portfolio_label: { type: 'string', default: '' },
                 featured: { type: 'string', default: '' },
                 ins_book: { type: 'string', default: '' },
                 min_price: { type: 'string', default: '' },
@@ -1731,6 +1741,7 @@
                     title: __('Listing defaults', 'maradigma'),
                     controls: [
                         { key: 'term', label: __('Search term', 'maradigma') },
+                        { key: 'portfolio', label: __('Portfolio', 'maradigma'), type: 'remote-combobox', source: 'portfolios', labelKey: 'portfolio_label' },
                         { key: 'ids_gi', label: __('Specific boats', 'maradigma'), type: 'remote-token-field', source: 'boats', labelsKey: 'ids_gi_labels_json', placeholder: __('Search boats…', 'maradigma') },
                         { key: 'featured', label: __('Featured only', 'maradigma'), type: 'select', options: [{ label: __('Default', 'maradigma'), value: '' }].concat(boolOptions) },
                         { key: 'ins_book', label: __('Instant booking only', 'maradigma'), type: 'select', options: [{ label: __('Default', 'maradigma'), value: '' }].concat(boolOptions) },

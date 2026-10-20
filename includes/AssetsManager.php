@@ -1271,6 +1271,7 @@ final class AssetsManager
                     'boatTypesAction'    => 'maradigma_elementor_search_boat_types',
                     'buildersAction'     => 'maradigma_elementor_search_builders',
                     'destinationsAction' => 'maradigma_elementor_search_destinations',
+                    'portfoliosAction'   => 'maradigma_elementor_search_portfolios',
                 ],
                 'imagesCountAction' => 'maradigma_get_boat_images_count',
                 'i18n'              => [

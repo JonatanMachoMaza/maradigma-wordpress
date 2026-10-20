@@ -112,6 +112,7 @@ window.MaradigmaRemoteSelect2Shared = window.MaradigmaRemoteSelect2Shared || (fu
       boat_types: searchConfig.boatTypesAction || 'maradigma_admin_search_boat_types',
       tags: searchConfig.tagsAction || 'maradigma_admin_search_tags',
       builders: searchConfig.buildersAction || 'maradigma_admin_search_builders',
+      portfolios: searchConfig.portfoliosAction || 'maradigma_admin_search_portfolios',
       boats: searchConfig.boatsAction || 'maradigma_admin_search_boats',
       base_ports: searchConfig.basePortsAction || 'maradigma_admin_search_base_ports',
       destinations: searchConfig.destinationsAction || 'maradigma_admin_search_destinations'
@@ -420,6 +421,12 @@ window.MaradigmaRemoteSelect2Shared = window.MaradigmaRemoteSelect2Shared || (fu
     var sourceName = String($selectElement.data('maradigma-source') || '').trim();
     if (!sourceName) {
       return;
+    }
+    if (sourceName === 'portfolios') {
+      $selectElement.find('option').filter(function () {
+        var value = String(this.value || '').trim();
+        return value !== '' && !/^[a-f0-9]{8}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{12}$/i.test(value);
+      }).remove();
     }
 
     if ($selectElement.hasClass('select2-hidden-accessible')) {

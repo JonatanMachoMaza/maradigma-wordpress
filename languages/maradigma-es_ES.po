@@ -3925,3 +3925,9 @@ msgstr "Selecciona un destino"
 
 msgid "Select base port"
 msgstr "Selecciona un puerto base"
+
+msgid "Portfolio"
+msgstr "Portfolio"
+
+msgid "Portfolio UUID"
+msgstr "UUID del portfolio"
