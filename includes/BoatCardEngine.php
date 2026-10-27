@@ -686,7 +686,7 @@ final class BoatCardEngine
         $out['checkout_schedule'] = (string) ($boat['checkout_schedule'] ?? '');
         $out['ins_book']          = (string) ($boat['ins_book'] ?? '');
         $out['ownership_is_tenant_member'] = self::truthy($boat['is_tenant_member'] ?? ($boat['ownership']['is_tenant_member'] ?? null)) ? '1' : '0';
-        $out['booking_has_rent_online']    = self::truthy($boat['booking']['has_rent_online'] ?? null) ? '1' : '0';
+        $out['booking_has_rent_online']    = BoatBookingAvailability::hasRentOnline($boat) ? '1' : '0';
         $out['prepaid_percent']   = (string) ($boat['prepaid_percent'] ?? '');
         $out['payment_methods']   = (string) ($boat['payment_methods'] ?? '');
         $out['collab_commission'] = (string) ($boat['collab_commission'] ?? '');

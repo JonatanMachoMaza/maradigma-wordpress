@@ -23,6 +23,35 @@ final class BoatBookingAvailability
         return self::isOwnBoat($boat) && self::isInstantBookingEnabled($boat);
     }
 
+    /**
+     * Whether the Maradigma API accepts online bookings for the boat.
+     *
+     * The boat detail carries the API's own answer in booking.has_rent_online. Search
+     * rows (the ones boat cards are built from) do not, so the same rule is applied to
+     * the fields they do carry: an own boat always accepts, a boat of an external owner
+     * needs an iCal calendar, and a shared boat of another member needs instant booking.
+     *
+     * @param array<string,mixed> $boat
+     */
+    public static function hasRentOnline(array $boat): bool
+    {
+        $booking = $boat['booking'] ?? null;
+
+        if (is_array($booking) && array_key_exists('has_rent_online', $booking)) {
+            return self::toBool($booking['has_rent_online']);
+        }
+
+        if (self::hasExternalOwnerId($boat)) {
+            return self::hasValidIcalUrl($boat);
+        }
+
+        if (self::isOwnBoat($boat)) {
+            return true;
+        }
+
+        return self::isTenantMember($boat) && self::isInstantBookingEnabled($boat);
+    }
+
     /** @param array<string,mixed> $boat */
     public static function canRenderCalendar(array $boat): bool
     {
