@@ -3127,3 +3127,554 @@ msgstr "Votre réservation est confirmée. Vous trouverez ci-dessous le détail 
 
 msgid "An error occurred while loading the booking information."
 msgstr "Une erreur est survenue lors du chargement des informations de réservation."
+
+#. translators: %s: Maradigma boat ID.
+#, php-format
+msgid "The boat with ID #%s is no longer available"
+msgstr "Le bateau avec l’ID #%s n’est plus disponible"
+
+msgid "This boat is no longer available in Maradigma. It may have been deleted, unpublished or is no longer shared with your account. Choose another boat or clear it."
+msgstr "Ce bateau n’est plus disponible dans Maradigma. Il a peut-être été supprimé, dépublié ou n’est plus partagé avec votre compte. Choisissez un autre bateau ou retirez-le."
+
+msgid "This page is a boat detail page"
+msgstr "Cette page est une fiche bateau"
+
+msgid "Maradigma boat"
+msgstr "Bateau Maradigma"
+
+msgid "Searching boats..."
+msgstr "Recherche de bateaux..."
+
+msgid "Type at least 2 characters to search."
+msgstr "Saisissez au moins 2 caractères pour rechercher."
+
+msgid "Clear boat"
+msgstr "Retirer le bateau"
+
+msgid "Use custom Elementor layout"
+msgstr "Utiliser une mise en page Elementor personnalisée"
+
+msgid "When enabled, sync will not overwrite this boat Elementor layout."
+msgstr "Si activé, la synchronisation n’écrasera pas la mise en page Elementor de ce bateau."
+
+msgid "Up"
+msgstr "Monter"
+
+msgid "Down"
+msgstr "Descendre"
+
+msgid "Remove"
+msgstr "Retirer"
+
+msgid "No fields selected yet."
+msgstr "Aucun champ sélectionné pour le moment."
+
+msgid "Add field"
+msgstr "Ajouter un champ"
+
+msgid "Search and select…"
+msgstr "Rechercher et sélectionner…"
+
+msgid "Enter comma-separated values."
+msgstr "Saisissez des valeurs séparées par des virgules."
+
+msgid "Calendar preview"
+msgstr "Aperçu du calendrier"
+
+msgid "Editor preview. The live calendar loads availability on the frontend."
+msgstr "Aperçu de l’éditeur. Le calendrier réel charge les disponibilités sur le site."
+
+msgid "Maradigma block"
+msgstr "Bloc Maradigma"
+
+msgid "Boat description"
+msgstr "Description du bateau"
+
+msgid "Comfortable charter boat with equipment, services and booking information."
+msgstr "Bateau de location confortable avec équipements, services et informations de réservation."
+
+msgid "Equipment"
+msgstr "Équipements"
+
+msgid "Videos"
+msgstr "Vidéos"
+
+msgid "Boat video preview"
+msgstr "Aperçu de la vidéo du bateau"
+
+msgid "Boat search"
+msgstr "Recherche de bateaux"
+
+msgid "Search form preview"
+msgstr "Aperçu du formulaire de recherche"
+
+msgid "Boat field"
+msgstr "Champ du bateau"
+
+msgid "Dynamic field value"
+msgstr "Valeur du champ dynamique"
+
+msgid "Static editor preview. The real block renders on the frontend."
+msgstr "Aperçu statique de l’éditeur. Le bloc réel s’affiche sur le site."
+
+msgid "Preview not available. The block will render on the frontend."
+msgstr "Aperçu indisponible. Le bloc s’affichera sur le site."
+
+msgid "No preview available yet."
+msgstr "Aucun aperçu disponible pour le moment."
+
+msgid "The Maradigma preview could not be loaded."
+msgstr "L’aperçu Maradigma n’a pas pu être chargé."
+
+msgid "Boat ID"
+msgstr "ID du bateau"
+
+msgid "Leave empty to use the boat linked to the current post/page."
+msgstr "Laissez vide pour utiliser le bateau lié à l’article/la page actuel(le)."
+
+msgid "Boat slug"
+msgstr "Slug du bateau"
+
+msgid "Optional. Slug has priority over Boat ID."
+msgstr "Facultatif. Le slug est prioritaire sur l’ID du bateau."
+
+msgid "Maradigma Boats Archive"
+msgstr "Archive des bateaux Maradigma"
+
+msgid "Server-rendered boat listing using the Maradigma archive shortcode."
+msgstr "Liste de bateaux générée côté serveur avec le shortcode d’archive Maradigma."
+
+msgid "Listing"
+msgstr "Liste"
+
+msgid "Offset"
+msgstr "Décalage"
+
+msgid "Card template"
+msgstr "Modèle de carte"
+
+msgid "Card image token"
+msgstr "Jeton d’image de la carte"
+
+msgid "Filters UI"
+msgstr "Interface des filtres"
+
+msgid "Show filters"
+msgstr "Afficher les filtres"
+
+msgid "Autosubmit filters"
+msgstr "Appliquer les filtres automatiquement"
+
+msgid "Allow URL filters"
+msgstr "Autoriser les filtres via l’URL"
+
+msgid "Date picker mode"
+msgstr "Mode du sélecteur de dates"
+
+msgid "Separate fields"
+msgstr "Champs séparés"
+
+msgid "Show More filters button"
+msgstr "Afficher le bouton Plus de filtres"
+
+msgid "More filters button text"
+msgstr "Texte du bouton Plus de filtres"
+
+msgid "Fields order"
+msgstr "Ordre des champs"
+
+msgid "Use the buttons to match the frontend filters order."
+msgstr "Utilisez les boutons pour définir l’ordre des filtres sur le site."
+
+msgid "Offcanvas fields order"
+msgstr "Ordre des champs du panneau latéral"
+
+msgid "These fields appear inside the More filters drawer."
+msgstr "Ces champs apparaissent dans le panneau Plus de filtres."
+
+msgid "Instant booking only"
+msgstr "Réservation instantanée uniquement"
+
+msgid "Search builders…"
+msgstr "Rechercher des constructeurs…"
+
+msgid "Maradigma Search Form"
+msgstr "Formulaire de recherche Maradigma"
+
+msgid "Search form for sending visitors to a boat listing page."
+msgstr "Formulaire de recherche qui envoie les visiteurs vers une page de liste de bateaux."
+
+msgid "Target URL"
+msgstr "URL de destination"
+
+msgid "If empty, the form submits to the current page."
+msgstr "Si vide, le formulaire est envoyé vers la page actuelle."
+
+msgid "Show search field"
+msgstr "Afficher le champ de recherche"
+
+msgid "Show pax field"
+msgstr "Afficher le champ passagers"
+
+msgid "Show date fields"
+msgstr "Afficher les champs de date"
+
+msgid "Maradigma Boat Single"
+msgstr "Fiche bateau Maradigma"
+
+msgid "Full boat template rendered by the Maradigma single shortcode/template."
+msgstr "Modèle complet du bateau généré par le shortcode/modèle de fiche Maradigma."
+
+msgid "Boat title/name."
+msgstr "Titre/nom du bateau."
+
+msgid "Display"
+msgstr "Affichage"
+
+msgid "HTML tag"
+msgstr "Balise HTML"
+
+msgid "Fallback to service name"
+msgstr "Utiliser le nom du service par défaut"
+
+msgid "Fallback"
+msgstr "Texte de remplacement"
+
+msgid "Maradigma Boat Field"
+msgstr "Champ du bateau Maradigma"
+
+msgid "Generic boat field renderer."
+msgstr "Affiche n’importe quel champ du bateau."
+
+msgid "Field key"
+msgstr "Clé du champ"
+
+msgid "Maradigma Boat Pax"
+msgstr "Passagers du bateau Maradigma"
+
+msgid "Boat capacity."
+msgstr "Capacité du bateau."
+
+msgid "Maradigma Boat Length"
+msgstr "Longueur du bateau Maradigma"
+
+msgid "Boat length."
+msgstr "Longueur du bateau."
+
+msgid "Maradigma Boat Beam"
+msgstr "Largeur du bateau Maradigma"
+
+msgid "Boat beam."
+msgstr "Largeur du bateau."
+
+msgid "Maradigma Boat Builder"
+msgstr "Constructeur du bateau Maradigma"
+
+msgid "Boat builder."
+msgstr "Constructeur du bateau."
+
+msgid "Maradigma Boat Base Port"
+msgstr "Port de base du bateau Maradigma"
+
+msgid "Boat base port."
+msgstr "Port de base du bateau."
+
+msgid "Maradigma Boat Main Image"
+msgstr "Image principale du bateau Maradigma"
+
+msgid "Boat cover image."
+msgstr "Image de couverture du bateau."
+
+msgid "Image"
+msgstr "Image"
+
+msgid "HTML attributes"
+msgstr "Attributs HTML"
+
+msgid "Prefer WP cached image"
+msgstr "Privilégier l’image enregistrée dans WordPress"
+
+msgid "Boat gallery."
+msgstr "Galerie du bateau."
+
+msgid "Gallery"
+msgstr "Galerie"
+
+msgid "Max images"
+msgstr "Nombre max. d’images"
+
+msgid "Lightbox"
+msgstr "Lightbox"
+
+msgid "Radius"
+msgstr "Arrondi"
+
+msgid "Slider autoplay"
+msgstr "Lecture automatique du carrousel"
+
+msgid "Slider navigation"
+msgstr "Navigation du carrousel"
+
+msgid "Slider pagination"
+msgstr "Pagination du carrousel"
+
+msgid "Boat videos."
+msgstr "Vidéos du bateau."
+
+msgid "Mode"
+msgstr "Mode"
+
+msgid "Max videos"
+msgstr "Nombre max. de vidéos"
+
+msgid "Extra CSS class"
+msgstr "Classe CSS supplémentaire"
+
+msgid "Configurable boat specs list."
+msgstr "Liste configurable des caractéristiques du bateau."
+
+msgid "Specs"
+msgstr "Caractéristiques"
+
+msgid "Fields CSV"
+msgstr "Champs (CSV)"
+
+msgid "Advanced items JSON"
+msgstr "Éléments avancés (JSON)"
+
+msgid "Icons map"
+msgstr "Correspondance des icônes"
+
+msgid "Boat description."
+msgstr "Description du bateau."
+
+msgid "Allow HTML"
+msgstr "Autoriser le HTML"
+
+msgid "Max words"
+msgstr "Nombre max. de mots"
+
+msgid "Boat season prices."
+msgstr "Prix par saison du bateau."
+
+msgid "Range label"
+msgstr "Format de la période"
+
+msgid "Price and VAT"
+msgstr "Prix et TVA"
+
+msgid "VAT mode"
+msgstr "Mode de TVA"
+
+msgid "Hidden, total price"
+msgstr "Masquée, prix total"
+
+msgid "Hidden, base price"
+msgstr "Masquée, prix de base"
+
+msgid "VAT position"
+msgstr "Position de la TVA"
+
+msgid "Below"
+msgstr "En dessous"
+
+msgid "Tooltip"
+msgstr "Infobulle"
+
+msgid "Symbol"
+msgstr "Symbole"
+
+msgid "ISO"
+msgstr "ISO"
+
+msgid "Boat equipments."
+msgstr "Équipements du bateau."
+
+msgid "Icon text"
+msgstr "Texte de l’icône"
+
+msgid "Sort"
+msgstr "Trier"
+
+msgid "Included items."
+msgstr "Éléments inclus."
+
+msgid "Tick text"
+msgstr "Texte de la coche"
+
+msgid "Not included items."
+msgstr "Éléments non inclus."
+
+msgid "Cross text"
+msgstr "Texte de la croix"
+
+msgid "Additional services."
+msgstr "Services supplémentaires."
+
+msgid "Blocks"
+msgstr "Blocs"
+
+msgid "Show description"
+msgstr "Afficher la description"
+
+msgid "Show quantity"
+msgstr "Afficher la quantité"
+
+msgid "Badges"
+msgstr "Badges"
+
+msgid "Required / Optional / Free"
+msgstr "Obligatoire / Optionnel / Gratuit"
+
+msgid "Per booking / Per day"
+msgstr "Par réservation / Par jour"
+
+msgid "Friendly"
+msgstr "Lisible"
+
+msgid "Raw"
+msgstr "Brut"
+
+msgid "Price source"
+msgstr "Source du prix"
+
+msgid "Prefer total formatted"
+msgstr "Privilégier le total formaté"
+
+msgid "Base"
+msgstr "Base"
+
+msgid "Raw total"
+msgstr "Total brut"
+
+msgid "Raw base"
+msgstr "Base brute"
+
+msgid "PDF download button."
+msgstr "Bouton de téléchargement du PDF."
+
+msgid "Force download"
+msgstr "Forcer le téléchargement"
+
+msgid "Availability calendar."
+msgstr "Calendrier des disponibilités."
+
+msgid "Months"
+msgstr "Mois"
+
+msgid "Booked color"
+msgstr "Couleur réservé"
+
+msgid "Option statuses CSV"
+msgstr "Statuts d’option (CSV)"
+
+msgid "Include booking status"
+msgstr "Inclure le statut de réservation"
+
+msgid "Maradigma Boat Booking Button"
+msgstr "Bouton de réservation du bateau Maradigma"
+
+msgid "Booking button and modal."
+msgstr "Bouton et fenêtre de réservation."
+
+msgid "Booking"
+msgstr "Réservation"
+
+msgid "Success URL"
+msgstr "URL de confirmation"
+
+msgid "Calendar months"
+msgstr "Mois du calendrier"
+
+msgid "Selection mode"
+msgstr "Mode de sélection"
+
+msgid "Show schedule text"
+msgstr "Afficher le texte de l’horaire"
+
+msgid "Show promo code"
+msgstr "Afficher le code promo"
+
+msgid "Show children included"
+msgstr "Afficher les enfants inclus"
+
+msgid "Free additional label"
+msgstr "Libellé des extras gratuits"
+
+msgid "Available color"
+msgstr "Couleur disponible"
+
+msgid "Button"
+msgstr "Bouton"
+
+msgid "Calendar"
+msgstr "Calendrier"
+
+msgid "Calendar display"
+msgstr "Affichage du calendrier"
+
+msgid "Description type"
+msgstr "Type de description"
+
+msgid "End date"
+msgstr "Date de fin"
+
+msgid "Form"
+msgstr "Formulaire"
+
+msgid "Gap"
+msgstr "Espacement"
+
+msgid "Horizontal"
+msgstr "Horizontal"
+
+msgid "Inline"
+msgstr "En ligne"
+
+msgid "Listing defaults"
+msgstr "Valeurs par défaut de la liste"
+
+msgid "Maradigma Boat Calendar"
+msgstr "Calendrier du bateau Maradigma"
+
+msgid "Maradigma Boat Videos"
+msgstr "Vidéos du bateau Maradigma"
+
+msgid "Offcanvas title"
+msgstr "Titre du panneau latéral"
+
+msgid "Option color"
+msgstr "Couleur option"
+
+msgid "Range"
+msgstr "Période"
+
+msgid "Row gap"
+msgstr "Espacement entre les lignes"
+
+msgid "Search term"
+msgstr "Terme de recherche"
+
+msgid "Show icons"
+msgstr "Afficher les icônes"
+
+msgid "Show legend"
+msgstr "Afficher la légende"
+
+msgid "Show price fields"
+msgstr "Afficher les champs de prix"
+
+msgid "Show reset link"
+msgstr "Afficher le lien de réinitialisation"
+
+msgid "Start date"
+msgstr "Date de début"
+
+msgid "Start month"
+msgstr "Mois de début"
+
+msgid "Submit mode"
+msgstr "Mode d’envoi"
+
+msgid "Vertical"
+msgstr "Vertical"

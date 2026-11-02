@@ -2164,7 +2164,10 @@ final class AjaxController
             $client = self::createApiClient();
             $response = $client->getServiceByIdOrSlug('boats', $idRaw);
 
-            $data = is_array($response) ? self::extractBoatDataFromServiceResponse($response) : [];
+            // Deleted, unpublished or no longer shared boats answer 4xx with an
+            // error body; never let that body pass as boat data.
+            $isGone = in_array($client->getLastStatusCode(), [403, 404, 410], true);
+            $data = (!$isGone && is_array($response)) ? self::extractBoatDataFromServiceResponse($response) : [];
 
             if (empty($data)) {
                 wp_send_json([

@@ -359,6 +359,10 @@
     margin: 2px 0 16px;
 }
 
+.maradigma-gutenberg-boat-binding-panel__unavailable {
+    margin: 0 0 10px;
+}
+
 .maradigma-gutenberg-boat-binding-panel__clear + .components-base-control {
     padding-top: 14px;
     border-top: 1px solid #e0e0e0;

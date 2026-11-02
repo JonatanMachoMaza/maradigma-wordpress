@@ -25,6 +25,7 @@
     var FormTokenField = wp.components.FormTokenField;
     var ComboboxControl = wp.components.ComboboxControl;
     var Button = wp.components.Button;
+    var Notice = wp.components.Notice || null;
     var BaseControl = wp.components.BaseControl;
     var ServerSideRender = wp.serverSideRender || null;
     var useBlockProps = wp.blockEditor.useBlockProps;
@@ -186,14 +187,26 @@
     }
 
     function fetchBoatLabelById(id) {
+        return fetchBoatById(id).then(function (result) {
+            return result.label;
+        });
+    }
+
+    /**
+     * Resolves to { label, unavailable }. "unavailable" is only true when the
+     * API confirms the boat is gone (deleted, unpublished or no longer shared),
+     * never on network or server errors.
+     */
+    function fetchBoatById(id) {
         var config = getRemoteSelectConfig();
         var ajaxUrl = asString(config.ajaxUrl).trim();
         var nonce = asString(config.nonce).trim();
         var search = config.search || {};
         var action = asString(search.boatByIdAction).trim();
+        var empty = { label: '', unavailable: false };
 
         if (!ajaxUrl || !nonce || !action || !window.fetch) {
-            return Promise.resolve('');
+            return Promise.resolve(empty);
         }
 
         var params = new URLSearchParams();
@@ -214,14 +227,31 @@
                     payload.item &&
                     asString(payload.item.text).trim() !== ''
                 ) {
-                    return asString(payload.item.text).trim();
+                    return { label: asString(payload.item.text).trim(), unavailable: false };
                 }
 
-                return '';
+                return {
+                    label: '',
+                    unavailable: !!(payload && payload.error && payload.error.code === 'not_found')
+                };
             })
             .catch(function () {
-                return '';
+                return empty;
             });
+    }
+
+    function getUnavailableBoatLabel(boatId) {
+        var i18n = getRemoteSelectConfig().i18n || {};
+        var template = asString(i18n.boatUnavailableLabel).trim() || 'The boat with ID #%s is no longer available';
+
+        return template.replace('%s', boatId);
+    }
+
+    function getUnavailableBoatNotice() {
+        var i18n = getRemoteSelectConfig().i18n || {};
+
+        return asString(i18n.boatUnavailableNotice).trim() ||
+            'This boat is no longer available in Maradigma. It may have been deleted, unpublished or is no longer shared with your account. Choose another boat or clear it.';
     }
 
     function setEditedMetaValue(editPost, meta, key, value) {
@@ -320,6 +350,9 @@
         var labelState = useState('');
         var selectedBoatLabel = labelState[0];
         var setSelectedBoatLabel = labelState[1];
+        var unavailableState = useState(false);
+        var isBoatUnavailable = unavailableState[0];
+        var setIsBoatUnavailable = unavailableState[1];
         var loadingState = useState(false);
         var isLoading = loadingState[0];
         var setIsLoading = loadingState[1];
@@ -351,15 +384,24 @@
         useEffect(function () {
             var cancelled = false;
 
+            setIsBoatUnavailable(false);
+
             if (boatId === '') {
                 setSelectedBoatLabel('');
                 return undefined;
             }
 
-            fetchBoatLabelById(boatId).then(function (label) {
-                if (!cancelled) {
-                    setSelectedBoatLabel(label || ('Boat #' + boatId));
+            fetchBoatById(boatId).then(function (result) {
+                if (cancelled) {
+                    return;
                 }
+
+                setIsBoatUnavailable(result.unavailable);
+                setSelectedBoatLabel(
+                    result.unavailable
+                        ? getUnavailableBoatLabel(boatId)
+                        : (result.label || ('Boat #' + boatId))
+                );
             });
 
             return function () {
@@ -430,6 +472,15 @@
                     ? __('Searching boats...', 'maradigma')
                     : __('Type at least 2 characters to search.', 'maradigma')
             }),
+            isBoatPage && boatId !== '' && isBoatUnavailable && Notice && el(
+                Notice,
+                {
+                    className: 'maradigma-gutenberg-boat-binding-panel__unavailable',
+                    status: 'warning',
+                    isDismissible: false
+                },
+                getUnavailableBoatNotice()
+            ),
             isBoatPage && boatId !== '' && el(
                 Button,
                 {

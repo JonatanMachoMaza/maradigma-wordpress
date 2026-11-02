@@ -59,9 +59,11 @@ final class PoToMoCompiler
     }
 
     /**
+     * Also used by ScriptTranslationsBuilder to read the same catalogs.
+     *
      * @return array<int,array{msgid:string,msgstr:string}>
      */
-    private static function parsePoFile(string $poFilePath): array
+    public static function parsePoFile(string $poFilePath): array
     {
         $lines = file($poFilePath, FILE_IGNORE_NEW_LINES);
         if ($lines === false) {

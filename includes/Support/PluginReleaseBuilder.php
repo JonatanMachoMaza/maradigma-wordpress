@@ -132,6 +132,7 @@ final class PluginReleaseBuilder
         'vendors/select2/i18n',
         'includes/Support/PluginReleaseBuilder.php',
         'includes/Support/PoToMoCompiler.php',
+        'includes/Support/ScriptTranslationsBuilder.php',
     ];
 
     /**

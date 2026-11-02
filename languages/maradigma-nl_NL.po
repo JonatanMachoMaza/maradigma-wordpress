@@ -3128,3 +3128,554 @@ msgstr "Je reservering is bevestigd. Hieronder kun je de gegevens van je boeking
 
 msgid "An error occurred while loading the booking information."
 msgstr "Er is een fout opgetreden bij het laden van de boekingsinformatie."
+
+#. translators: %s: Maradigma boat ID.
+#, php-format
+msgid "The boat with ID #%s is no longer available"
+msgstr "De boot met ID #%s is niet meer beschikbaar"
+
+msgid "This boat is no longer available in Maradigma. It may have been deleted, unpublished or is no longer shared with your account. Choose another boat or clear it."
+msgstr "Deze boot is niet meer beschikbaar in Maradigma. Mogelijk is hij verwijderd, niet meer gepubliceerd of niet meer gedeeld met je account. Kies een andere boot of verwijder hem."
+
+msgid "This page is a boat detail page"
+msgstr "Deze pagina is een bootdetailpagina"
+
+msgid "Maradigma boat"
+msgstr "Maradigma-boot"
+
+msgid "Searching boats..."
+msgstr "Boten zoeken..."
+
+msgid "Type at least 2 characters to search."
+msgstr "Typ minstens 2 tekens om te zoeken."
+
+msgid "Clear boat"
+msgstr "Boot verwijderen"
+
+msgid "Use custom Elementor layout"
+msgstr "Aangepaste Elementor-lay-out gebruiken"
+
+msgid "When enabled, sync will not overwrite this boat Elementor layout."
+msgstr "Indien ingeschakeld, overschrijft de synchronisatie de Elementor-lay-out van deze boot niet."
+
+msgid "Up"
+msgstr "Omhoog"
+
+msgid "Down"
+msgstr "Omlaag"
+
+msgid "Remove"
+msgstr "Verwijderen"
+
+msgid "No fields selected yet."
+msgstr "Nog geen velden geselecteerd."
+
+msgid "Add field"
+msgstr "Veld toevoegen"
+
+msgid "Search and select…"
+msgstr "Zoeken en selecteren…"
+
+msgid "Enter comma-separated values."
+msgstr "Voer door komma's gescheiden waarden in."
+
+msgid "Calendar preview"
+msgstr "Kalendervoorbeeld"
+
+msgid "Editor preview. The live calendar loads availability on the frontend."
+msgstr "Editorvoorbeeld. De echte kalender laadt de beschikbaarheid op de website."
+
+msgid "Maradigma block"
+msgstr "Maradigma-blok"
+
+msgid "Boat description"
+msgstr "Bootbeschrijving"
+
+msgid "Comfortable charter boat with equipment, services and booking information."
+msgstr "Comfortabele charterboot met uitrusting, diensten en boekingsinformatie."
+
+msgid "Equipment"
+msgstr "Uitrusting"
+
+msgid "Videos"
+msgstr "Video's"
+
+msgid "Boat video preview"
+msgstr "Voorbeeld van bootvideo"
+
+msgid "Boat search"
+msgstr "Boten zoeken"
+
+msgid "Search form preview"
+msgstr "Voorbeeld van zoekformulier"
+
+msgid "Boat field"
+msgstr "Bootveld"
+
+msgid "Dynamic field value"
+msgstr "Dynamische veldwaarde"
+
+msgid "Static editor preview. The real block renders on the frontend."
+msgstr "Statisch editorvoorbeeld. Het echte blok wordt op de website weergegeven."
+
+msgid "Preview not available. The block will render on the frontend."
+msgstr "Voorbeeld niet beschikbaar. Het blok wordt op de website weergegeven."
+
+msgid "No preview available yet."
+msgstr "Nog geen voorbeeld beschikbaar."
+
+msgid "The Maradigma preview could not be loaded."
+msgstr "Het Maradigma-voorbeeld kon niet worden geladen."
+
+msgid "Boat ID"
+msgstr "Boot-ID"
+
+msgid "Leave empty to use the boat linked to the current post/page."
+msgstr "Laat leeg om de boot te gebruiken die aan het huidige bericht/de huidige pagina is gekoppeld."
+
+msgid "Boat slug"
+msgstr "Boot-slug"
+
+msgid "Optional. Slug has priority over Boat ID."
+msgstr "Optioneel. De slug heeft voorrang op de boot-ID."
+
+msgid "Maradigma Boats Archive"
+msgstr "Maradigma bootarchief"
+
+msgid "Server-rendered boat listing using the Maradigma archive shortcode."
+msgstr "Op de server gegenereerde bootlijst met de Maradigma-archiefshortcode."
+
+msgid "Listing"
+msgstr "Lijst"
+
+msgid "Offset"
+msgstr "Verschuiving"
+
+msgid "Card template"
+msgstr "Kaartsjabloon"
+
+msgid "Card image token"
+msgstr "Afbeeldingstoken van de kaart"
+
+msgid "Filters UI"
+msgstr "Filterinterface"
+
+msgid "Show filters"
+msgstr "Filters tonen"
+
+msgid "Autosubmit filters"
+msgstr "Filters automatisch toepassen"
+
+msgid "Allow URL filters"
+msgstr "Filters via URL toestaan"
+
+msgid "Date picker mode"
+msgstr "Modus datumkiezer"
+
+msgid "Separate fields"
+msgstr "Aparte velden"
+
+msgid "Show More filters button"
+msgstr "Knop Meer filters tonen"
+
+msgid "More filters button text"
+msgstr "Tekst van knop Meer filters"
+
+msgid "Fields order"
+msgstr "Volgorde van velden"
+
+msgid "Use the buttons to match the frontend filters order."
+msgstr "Gebruik de knoppen om de volgorde van de filters op de website in te stellen."
+
+msgid "Offcanvas fields order"
+msgstr "Volgorde van velden in het zijpaneel"
+
+msgid "These fields appear inside the More filters drawer."
+msgstr "Deze velden verschijnen in het paneel Meer filters."
+
+msgid "Instant booking only"
+msgstr "Alleen direct boeken"
+
+msgid "Search builders…"
+msgstr "Bouwers zoeken…"
+
+msgid "Maradigma Search Form"
+msgstr "Maradigma zoekformulier"
+
+msgid "Search form for sending visitors to a boat listing page."
+msgstr "Zoekformulier dat bezoekers naar een bootoverzichtspagina stuurt."
+
+msgid "Target URL"
+msgstr "Doel-URL"
+
+msgid "If empty, the form submits to the current page."
+msgstr "Indien leeg, wordt het formulier naar de huidige pagina verzonden."
+
+msgid "Show search field"
+msgstr "Zoekveld tonen"
+
+msgid "Show pax field"
+msgstr "Veld voor passagiers tonen"
+
+msgid "Show date fields"
+msgstr "Datumvelden tonen"
+
+msgid "Maradigma Boat Single"
+msgstr "Maradigma bootdetail"
+
+msgid "Full boat template rendered by the Maradigma single shortcode/template."
+msgstr "Volledig bootsjabloon gegenereerd door de Maradigma-detailshortcode/-sjabloon."
+
+msgid "Boat title/name."
+msgstr "Titel/naam van de boot."
+
+msgid "Display"
+msgstr "Weergave"
+
+msgid "HTML tag"
+msgstr "HTML-tag"
+
+msgid "Fallback to service name"
+msgstr "Terugvallen op servicenaam"
+
+msgid "Fallback"
+msgstr "Vervangende tekst"
+
+msgid "Maradigma Boat Field"
+msgstr "Maradigma bootveld"
+
+msgid "Generic boat field renderer."
+msgstr "Toont een willekeurig bootveld."
+
+msgid "Field key"
+msgstr "Veldsleutel"
+
+msgid "Maradigma Boat Pax"
+msgstr "Maradigma bootpassagiers"
+
+msgid "Boat capacity."
+msgstr "Capaciteit van de boot."
+
+msgid "Maradigma Boat Length"
+msgstr "Maradigma bootlengte"
+
+msgid "Boat length."
+msgstr "Lengte van de boot."
+
+msgid "Maradigma Boat Beam"
+msgstr "Maradigma bootbreedte"
+
+msgid "Boat beam."
+msgstr "Breedte van de boot."
+
+msgid "Maradigma Boat Builder"
+msgstr "Maradigma bootbouwer"
+
+msgid "Boat builder."
+msgstr "Bouwer van de boot."
+
+msgid "Maradigma Boat Base Port"
+msgstr "Maradigma thuishaven van de boot"
+
+msgid "Boat base port."
+msgstr "Thuishaven van de boot."
+
+msgid "Maradigma Boat Main Image"
+msgstr "Maradigma hoofdafbeelding van de boot"
+
+msgid "Boat cover image."
+msgstr "Omslagafbeelding van de boot."
+
+msgid "Image"
+msgstr "Afbeelding"
+
+msgid "HTML attributes"
+msgstr "HTML-attributen"
+
+msgid "Prefer WP cached image"
+msgstr "In WordPress opgeslagen afbeelding verkiezen"
+
+msgid "Boat gallery."
+msgstr "Galerij van de boot."
+
+msgid "Gallery"
+msgstr "Galerij"
+
+msgid "Max images"
+msgstr "Max. afbeeldingen"
+
+msgid "Lightbox"
+msgstr "Lightbox"
+
+msgid "Radius"
+msgstr "Hoekradius"
+
+msgid "Slider autoplay"
+msgstr "Slider automatisch afspelen"
+
+msgid "Slider navigation"
+msgstr "Slidernavigatie"
+
+msgid "Slider pagination"
+msgstr "Sliderpaginering"
+
+msgid "Boat videos."
+msgstr "Video's van de boot."
+
+msgid "Mode"
+msgstr "Modus"
+
+msgid "Max videos"
+msgstr "Max. video's"
+
+msgid "Extra CSS class"
+msgstr "Extra CSS-klasse"
+
+msgid "Configurable boat specs list."
+msgstr "Configureerbare lijst met bootspecificaties."
+
+msgid "Specs"
+msgstr "Specificaties"
+
+msgid "Fields CSV"
+msgstr "Velden (CSV)"
+
+msgid "Advanced items JSON"
+msgstr "Geavanceerde items (JSON)"
+
+msgid "Icons map"
+msgstr "Pictogramtoewijzing"
+
+msgid "Boat description."
+msgstr "Beschrijving van de boot."
+
+msgid "Allow HTML"
+msgstr "HTML toestaan"
+
+msgid "Max words"
+msgstr "Max. woorden"
+
+msgid "Boat season prices."
+msgstr "Seizoensprijzen van de boot."
+
+msgid "Range label"
+msgstr "Weergave van periode"
+
+msgid "Price and VAT"
+msgstr "Prijs en btw"
+
+msgid "VAT mode"
+msgstr "Btw-modus"
+
+msgid "Hidden, total price"
+msgstr "Verborgen, totaalprijs"
+
+msgid "Hidden, base price"
+msgstr "Verborgen, basisprijs"
+
+msgid "VAT position"
+msgstr "Positie van btw"
+
+msgid "Below"
+msgstr "Eronder"
+
+msgid "Tooltip"
+msgstr "Tooltip"
+
+msgid "Symbol"
+msgstr "Symbool"
+
+msgid "ISO"
+msgstr "ISO"
+
+msgid "Boat equipments."
+msgstr "Uitrusting van de boot."
+
+msgid "Icon text"
+msgstr "Pictogramtekst"
+
+msgid "Sort"
+msgstr "Sorteren"
+
+msgid "Included items."
+msgstr "Inbegrepen items."
+
+msgid "Tick text"
+msgstr "Tekst van vinkje"
+
+msgid "Not included items."
+msgstr "Niet-inbegrepen items."
+
+msgid "Cross text"
+msgstr "Tekst van kruisje"
+
+msgid "Additional services."
+msgstr "Aanvullende diensten."
+
+msgid "Blocks"
+msgstr "Blokken"
+
+msgid "Show description"
+msgstr "Beschrijving tonen"
+
+msgid "Show quantity"
+msgstr "Aantal tonen"
+
+msgid "Badges"
+msgstr "Badges"
+
+msgid "Required / Optional / Free"
+msgstr "Verplicht / Optioneel / Gratis"
+
+msgid "Per booking / Per day"
+msgstr "Per boeking / Per dag"
+
+msgid "Friendly"
+msgstr "Leesbaar"
+
+msgid "Raw"
+msgstr "Onopgemaakt"
+
+msgid "Price source"
+msgstr "Prijsbron"
+
+msgid "Prefer total formatted"
+msgstr "Opgemaakt totaal verkiezen"
+
+msgid "Base"
+msgstr "Basis"
+
+msgid "Raw total"
+msgstr "Totaal onopgemaakt"
+
+msgid "Raw base"
+msgstr "Basis onopgemaakt"
+
+msgid "PDF download button."
+msgstr "Downloadknop voor pdf."
+
+msgid "Force download"
+msgstr "Download afdwingen"
+
+msgid "Availability calendar."
+msgstr "Beschikbaarheidskalender."
+
+msgid "Months"
+msgstr "Maanden"
+
+msgid "Booked color"
+msgstr "Kleur voor geboekt"
+
+msgid "Option statuses CSV"
+msgstr "Optiestatussen (CSV)"
+
+msgid "Include booking status"
+msgstr "Boekingsstatus opnemen"
+
+msgid "Maradigma Boat Booking Button"
+msgstr "Maradigma boekingsknop"
+
+msgid "Booking button and modal."
+msgstr "Boekingsknop en -venster."
+
+msgid "Booking"
+msgstr "Boeking"
+
+msgid "Success URL"
+msgstr "Succes-URL"
+
+msgid "Calendar months"
+msgstr "Kalendermaanden"
+
+msgid "Selection mode"
+msgstr "Selectiemodus"
+
+msgid "Show schedule text"
+msgstr "Tekst van tijdschema tonen"
+
+msgid "Show promo code"
+msgstr "Promotiecode tonen"
+
+msgid "Show children included"
+msgstr "Inbegrepen kinderen tonen"
+
+msgid "Free additional label"
+msgstr "Label voor gratis extra's"
+
+msgid "Available color"
+msgstr "Kleur voor beschikbaar"
+
+msgid "Button"
+msgstr "Knop"
+
+msgid "Calendar"
+msgstr "Kalender"
+
+msgid "Calendar display"
+msgstr "Kalenderweergave"
+
+msgid "Description type"
+msgstr "Type beschrijving"
+
+msgid "End date"
+msgstr "Einddatum"
+
+msgid "Form"
+msgstr "Formulier"
+
+msgid "Gap"
+msgstr "Tussenruimte"
+
+msgid "Horizontal"
+msgstr "Horizontaal"
+
+msgid "Inline"
+msgstr "Inline"
+
+msgid "Listing defaults"
+msgstr "Standaardwaarden van de lijst"
+
+msgid "Maradigma Boat Calendar"
+msgstr "Maradigma bootkalender"
+
+msgid "Maradigma Boat Videos"
+msgstr "Maradigma bootvideo's"
+
+msgid "Offcanvas title"
+msgstr "Titel van het zijpaneel"
+
+msgid "Option color"
+msgstr "Kleur voor optie"
+
+msgid "Range"
+msgstr "Periode"
+
+msgid "Row gap"
+msgstr "Ruimte tussen rijen"
+
+msgid "Search term"
+msgstr "Zoekterm"
+
+msgid "Show icons"
+msgstr "Pictogrammen tonen"
+
+msgid "Show legend"
+msgstr "Legenda tonen"
+
+msgid "Show price fields"
+msgstr "Prijsvelden tonen"
+
+msgid "Show reset link"
+msgstr "Resetlink tonen"
+
+msgid "Start date"
+msgstr "Startdatum"
+
+msgid "Start month"
+msgstr "Startmaand"
+
+msgid "Submit mode"
+msgstr "Verzendmodus"
+
+msgid "Vertical"
+msgstr "Verticaal"

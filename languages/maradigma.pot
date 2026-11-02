@@ -3098,3 +3098,554 @@ msgstr ""
 
 msgid "An error occurred while loading the booking information."
 msgstr ""
+
+#. translators: %s: Maradigma boat ID.
+#, php-format
+msgid "The boat with ID #%s is no longer available"
+msgstr ""
+
+msgid "This boat is no longer available in Maradigma. It may have been deleted, unpublished or is no longer shared with your account. Choose another boat or clear it."
+msgstr ""
+
+msgid "This page is a boat detail page"
+msgstr ""
+
+msgid "Maradigma boat"
+msgstr ""
+
+msgid "Searching boats..."
+msgstr ""
+
+msgid "Type at least 2 characters to search."
+msgstr ""
+
+msgid "Clear boat"
+msgstr ""
+
+msgid "Use custom Elementor layout"
+msgstr ""
+
+msgid "When enabled, sync will not overwrite this boat Elementor layout."
+msgstr ""
+
+msgid "Up"
+msgstr ""
+
+msgid "Down"
+msgstr ""
+
+msgid "Remove"
+msgstr ""
+
+msgid "No fields selected yet."
+msgstr ""
+
+msgid "Add field"
+msgstr ""
+
+msgid "Search and select…"
+msgstr ""
+
+msgid "Enter comma-separated values."
+msgstr ""
+
+msgid "Calendar preview"
+msgstr ""
+
+msgid "Editor preview. The live calendar loads availability on the frontend."
+msgstr ""
+
+msgid "Maradigma block"
+msgstr ""
+
+msgid "Boat description"
+msgstr ""
+
+msgid "Comfortable charter boat with equipment, services and booking information."
+msgstr ""
+
+msgid "Equipment"
+msgstr ""
+
+msgid "Videos"
+msgstr ""
+
+msgid "Boat video preview"
+msgstr ""
+
+msgid "Boat search"
+msgstr ""
+
+msgid "Search form preview"
+msgstr ""
+
+msgid "Boat field"
+msgstr ""
+
+msgid "Dynamic field value"
+msgstr ""
+
+msgid "Static editor preview. The real block renders on the frontend."
+msgstr ""
+
+msgid "Preview not available. The block will render on the frontend."
+msgstr ""
+
+msgid "No preview available yet."
+msgstr ""
+
+msgid "The Maradigma preview could not be loaded."
+msgstr ""
+
+msgid "Boat ID"
+msgstr ""
+
+msgid "Leave empty to use the boat linked to the current post/page."
+msgstr ""
+
+msgid "Boat slug"
+msgstr ""
+
+msgid "Optional. Slug has priority over Boat ID."
+msgstr ""
+
+msgid "Maradigma Boats Archive"
+msgstr ""
+
+msgid "Server-rendered boat listing using the Maradigma archive shortcode."
+msgstr ""
+
+msgid "Listing"
+msgstr ""
+
+msgid "Offset"
+msgstr ""
+
+msgid "Card template"
+msgstr ""
+
+msgid "Card image token"
+msgstr ""
+
+msgid "Filters UI"
+msgstr ""
+
+msgid "Show filters"
+msgstr ""
+
+msgid "Autosubmit filters"
+msgstr ""
+
+msgid "Allow URL filters"
+msgstr ""
+
+msgid "Date picker mode"
+msgstr ""
+
+msgid "Separate fields"
+msgstr ""
+
+msgid "Show More filters button"
+msgstr ""
+
+msgid "More filters button text"
+msgstr ""
+
+msgid "Fields order"
+msgstr ""
+
+msgid "Use the buttons to match the frontend filters order."
+msgstr ""
+
+msgid "Offcanvas fields order"
+msgstr ""
+
+msgid "These fields appear inside the More filters drawer."
+msgstr ""
+
+msgid "Instant booking only"
+msgstr ""
+
+msgid "Search builders…"
+msgstr ""
+
+msgid "Maradigma Search Form"
+msgstr ""
+
+msgid "Search form for sending visitors to a boat listing page."
+msgstr ""
+
+msgid "Target URL"
+msgstr ""
+
+msgid "If empty, the form submits to the current page."
+msgstr ""
+
+msgid "Show search field"
+msgstr ""
+
+msgid "Show pax field"
+msgstr ""
+
+msgid "Show date fields"
+msgstr ""
+
+msgid "Maradigma Boat Single"
+msgstr ""
+
+msgid "Full boat template rendered by the Maradigma single shortcode/template."
+msgstr ""
+
+msgid "Boat title/name."
+msgstr ""
+
+msgid "Display"
+msgstr ""
+
+msgid "HTML tag"
+msgstr ""
+
+msgid "Fallback to service name"
+msgstr ""
+
+msgid "Fallback"
+msgstr ""
+
+msgid "Maradigma Boat Field"
+msgstr ""
+
+msgid "Generic boat field renderer."
+msgstr ""
+
+msgid "Field key"
+msgstr ""
+
+msgid "Maradigma Boat Pax"
+msgstr ""
+
+msgid "Boat capacity."
+msgstr ""
+
+msgid "Maradigma Boat Length"
+msgstr ""
+
+msgid "Boat length."
+msgstr ""
+
+msgid "Maradigma Boat Beam"
+msgstr ""
+
+msgid "Boat beam."
+msgstr ""
+
+msgid "Maradigma Boat Builder"
+msgstr ""
+
+msgid "Boat builder."
+msgstr ""
+
+msgid "Maradigma Boat Base Port"
+msgstr ""
+
+msgid "Boat base port."
+msgstr ""
+
+msgid "Maradigma Boat Main Image"
+msgstr ""
+
+msgid "Boat cover image."
+msgstr ""
+
+msgid "Image"
+msgstr ""
+
+msgid "HTML attributes"
+msgstr ""
+
+msgid "Prefer WP cached image"
+msgstr ""
+
+msgid "Boat gallery."
+msgstr ""
+
+msgid "Gallery"
+msgstr ""
+
+msgid "Max images"
+msgstr ""
+
+msgid "Lightbox"
+msgstr ""
+
+msgid "Radius"
+msgstr ""
+
+msgid "Slider autoplay"
+msgstr ""
+
+msgid "Slider navigation"
+msgstr ""
+
+msgid "Slider pagination"
+msgstr ""
+
+msgid "Boat videos."
+msgstr ""
+
+msgid "Mode"
+msgstr ""
+
+msgid "Max videos"
+msgstr ""
+
+msgid "Extra CSS class"
+msgstr ""
+
+msgid "Configurable boat specs list."
+msgstr ""
+
+msgid "Specs"
+msgstr ""
+
+msgid "Fields CSV"
+msgstr ""
+
+msgid "Advanced items JSON"
+msgstr ""
+
+msgid "Icons map"
+msgstr ""
+
+msgid "Boat description."
+msgstr ""
+
+msgid "Allow HTML"
+msgstr ""
+
+msgid "Max words"
+msgstr ""
+
+msgid "Boat season prices."
+msgstr ""
+
+msgid "Range label"
+msgstr ""
+
+msgid "Price and VAT"
+msgstr ""
+
+msgid "VAT mode"
+msgstr ""
+
+msgid "Hidden, total price"
+msgstr ""
+
+msgid "Hidden, base price"
+msgstr ""
+
+msgid "VAT position"
+msgstr ""
+
+msgid "Below"
+msgstr ""
+
+msgid "Tooltip"
+msgstr ""
+
+msgid "Symbol"
+msgstr ""
+
+msgid "ISO"
+msgstr ""
+
+msgid "Boat equipments."
+msgstr ""
+
+msgid "Icon text"
+msgstr ""
+
+msgid "Sort"
+msgstr ""
+
+msgid "Included items."
+msgstr ""
+
+msgid "Tick text"
+msgstr ""
+
+msgid "Not included items."
+msgstr ""
+
+msgid "Cross text"
+msgstr ""
+
+msgid "Additional services."
+msgstr ""
+
+msgid "Blocks"
+msgstr ""
+
+msgid "Show description"
+msgstr ""
+
+msgid "Show quantity"
+msgstr ""
+
+msgid "Badges"
+msgstr ""
+
+msgid "Required / Optional / Free"
+msgstr ""
+
+msgid "Per booking / Per day"
+msgstr ""
+
+msgid "Friendly"
+msgstr ""
+
+msgid "Raw"
+msgstr ""
+
+msgid "Price source"
+msgstr ""
+
+msgid "Prefer total formatted"
+msgstr ""
+
+msgid "Base"
+msgstr ""
+
+msgid "Raw total"
+msgstr ""
+
+msgid "Raw base"
+msgstr ""
+
+msgid "PDF download button."
+msgstr ""
+
+msgid "Force download"
+msgstr ""
+
+msgid "Availability calendar."
+msgstr ""
+
+msgid "Months"
+msgstr ""
+
+msgid "Booked color"
+msgstr ""
+
+msgid "Option statuses CSV"
+msgstr ""
+
+msgid "Include booking status"
+msgstr ""
+
+msgid "Maradigma Boat Booking Button"
+msgstr ""
+
+msgid "Booking button and modal."
+msgstr ""
+
+msgid "Booking"
+msgstr ""
+
+msgid "Success URL"
+msgstr ""
+
+msgid "Calendar months"
+msgstr ""
+
+msgid "Selection mode"
+msgstr ""
+
+msgid "Show schedule text"
+msgstr ""
+
+msgid "Show promo code"
+msgstr ""
+
+msgid "Show children included"
+msgstr ""
+
+msgid "Free additional label"
+msgstr ""
+
+msgid "Available color"
+msgstr ""
+
+msgid "Button"
+msgstr ""
+
+msgid "Calendar"
+msgstr ""
+
+msgid "Calendar display"
+msgstr ""
+
+msgid "Description type"
+msgstr ""
+
+msgid "End date"
+msgstr ""
+
+msgid "Form"
+msgstr ""
+
+msgid "Gap"
+msgstr ""
+
+msgid "Horizontal"
+msgstr ""
+
+msgid "Inline"
+msgstr ""
+
+msgid "Listing defaults"
+msgstr ""
+
+msgid "Maradigma Boat Calendar"
+msgstr ""
+
+msgid "Maradigma Boat Videos"
+msgstr ""
+
+msgid "Offcanvas title"
+msgstr ""
+
+msgid "Option color"
+msgstr ""
+
+msgid "Range"
+msgstr ""
+
+msgid "Row gap"
+msgstr ""
+
+msgid "Search term"
+msgstr ""
+
+msgid "Show icons"
+msgstr ""
+
+msgid "Show legend"
+msgstr ""
+
+msgid "Show price fields"
+msgstr ""
+
+msgid "Show reset link"
+msgstr ""
+
+msgid "Start date"
+msgstr ""
+
+msgid "Start month"
+msgstr ""
+
+msgid "Submit mode"
+msgstr ""
+
+msgid "Vertical"
+msgstr ""

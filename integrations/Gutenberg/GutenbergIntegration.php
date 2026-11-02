@@ -8,6 +8,7 @@ if (!defined('ABSPATH')) {
     exit;
 }
 
+use Maradigma\AssetsManager;
 use Maradigma\BoatCardEngine;
 use Maradigma\BoatPostType;
 use Maradigma\Cache;
@@ -891,6 +892,7 @@ final class GutenbergIntegration
                 'destinationsAction' => 'maradigma_admin_search_destinations',
                 'portfoliosAction' => 'maradigma_admin_search_portfolios',
             ],
+            'i18n'    => AssetsManager::getBoatUnavailableI18n(),
             'context' => 'admin',
         ];
     }

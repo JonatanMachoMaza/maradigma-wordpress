@@ -1214,9 +1214,24 @@ final class AssetsManager
                     'i18nCustomBoats'        => __('Select boats', 'maradigma'),
                     'i18nSelectBoat'         => __('Search a boat', 'maradigma'),
                     'inputTooShort'          => __('Type at least 2 characters', 'maradigma'),
-                ],
+                ] + self::getBoatUnavailableI18n(),
             ]
         );
+    }
+
+    /**
+     * Texts the boat selectors show when the saved boat no longer exists in
+     * Maradigma or is no longer shared with the site's account.
+     *
+     * @return array{boatUnavailableLabel:string,boatUnavailableNotice:string}
+     */
+    public static function getBoatUnavailableI18n(): array
+    {
+        return [
+            /* translators: %s: Maradigma boat ID. */
+            'boatUnavailableLabel'  => __('The boat with ID #%s is no longer available', 'maradigma'),
+            'boatUnavailableNotice' => __('This boat is no longer available in Maradigma. It may have been deleted, unpublished or is no longer shared with your account. Choose another boat or clear it.', 'maradigma'),
+        ];
     }
 
     // ─────────────────────────────────────────────

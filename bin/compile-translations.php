@@ -19,6 +19,7 @@ declare(strict_types=1);
 
 use Maradigma\Autoload;
 use Maradigma\Support\PoToMoCompiler;
+use Maradigma\Support\ScriptTranslationsBuilder;
 
 if (!defined('ABSPATH') && PHP_SAPI !== 'cli') {
     exit;
@@ -89,6 +90,7 @@ function usage(): void
         '',
         'Options:',
         '  --all                 Compile all *.po files in the languages directory',
+        '                        and write the JSON catalogs for wp.i18n scripts',
         '  --po=PATH             PO path, absolute or relative to the plugin root',
         '  --mo=PATH             Optional MO output path, absolute or relative',
         '  --languages-dir=PATH  Languages directory (default: languages)',
@@ -198,6 +200,11 @@ try {
         }
 
         echo "Done. OK={$ok}, FAILED={$fail}\n";
+
+        // wp.i18n in our editor scripts reads JSON catalogs, never .mo files.
+        $jsonFiles = ScriptTranslationsBuilder::writeAll($root, $langDir);
+        echo 'Script translations: ' . count($jsonFiles) . " JSON files written\n";
+
         exit($fail > 0 ? 1 : 0);
     }
 

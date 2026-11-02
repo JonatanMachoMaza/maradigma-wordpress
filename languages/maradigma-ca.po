@@ -3202,3 +3202,554 @@ msgstr "La teva reserva està confirmada. A continuació pots revisar les dades 
 
 msgid "An error occurred while loading the booking information."
 msgstr "S'ha produït un error en carregar la informació de la reserva."
+
+#. translators: %s: Maradigma boat ID.
+#, php-format
+msgid "The boat with ID #%s is no longer available"
+msgstr "El vaixell amb l'ID #%s ja no està disponible"
+
+msgid "This boat is no longer available in Maradigma. It may have been deleted, unpublished or is no longer shared with your account. Choose another boat or clear it."
+msgstr "Aquest vaixell ja no està disponible a Maradigma. Pot ser que s'hagi eliminat, despublicat o que ja no estigui compartit amb el teu compte. Tria un altre vaixell o treu-lo."
+
+msgid "This page is a boat detail page"
+msgstr "Aquesta pàgina és la fitxa d'un vaixell"
+
+msgid "Maradigma boat"
+msgstr "Vaixell de Maradigma"
+
+msgid "Searching boats..."
+msgstr "Cercant vaixells..."
+
+msgid "Type at least 2 characters to search."
+msgstr "Escriu almenys 2 caràcters per cercar."
+
+msgid "Clear boat"
+msgstr "Treu el vaixell"
+
+msgid "Use custom Elementor layout"
+msgstr "Utilitza un disseny personalitzat d'Elementor"
+
+msgid "When enabled, sync will not overwrite this boat Elementor layout."
+msgstr "Si està activat, la sincronització no sobreescriurà el disseny d'Elementor d'aquest vaixell."
+
+msgid "Up"
+msgstr "Puja"
+
+msgid "Down"
+msgstr "Baixa"
+
+msgid "Remove"
+msgstr "Treu"
+
+msgid "No fields selected yet."
+msgstr "Encara no hi ha cap camp seleccionat."
+
+msgid "Add field"
+msgstr "Afegeix un camp"
+
+msgid "Search and select…"
+msgstr "Cerca i selecciona…"
+
+msgid "Enter comma-separated values."
+msgstr "Introdueix valors separats per comes."
+
+msgid "Calendar preview"
+msgstr "Previsualització del calendari"
+
+msgid "Editor preview. The live calendar loads availability on the frontend."
+msgstr "Previsualització de l'editor. El calendari real carrega la disponibilitat al web."
+
+msgid "Maradigma block"
+msgstr "Bloc de Maradigma"
+
+msgid "Boat description"
+msgstr "Descripció del vaixell"
+
+msgid "Comfortable charter boat with equipment, services and booking information."
+msgstr "Vaixell de lloguer còmode amb equipament, serveis i informació de reserva."
+
+msgid "Equipment"
+msgstr "Equipament"
+
+msgid "Videos"
+msgstr "Vídeos"
+
+msgid "Boat video preview"
+msgstr "Previsualització del vídeo del vaixell"
+
+msgid "Boat search"
+msgstr "Cerca de vaixells"
+
+msgid "Search form preview"
+msgstr "Previsualització del formulari de cerca"
+
+msgid "Boat field"
+msgstr "Camp del vaixell"
+
+msgid "Dynamic field value"
+msgstr "Valor del camp dinàmic"
+
+msgid "Static editor preview. The real block renders on the frontend."
+msgstr "Previsualització estàtica de l'editor. El bloc real es mostra al web."
+
+msgid "Preview not available. The block will render on the frontend."
+msgstr "Previsualització no disponible. El bloc es mostrarà al web."
+
+msgid "No preview available yet."
+msgstr "Encara no hi ha previsualització."
+
+msgid "The Maradigma preview could not be loaded."
+msgstr "No s'ha pogut carregar la previsualització de Maradigma."
+
+msgid "Boat ID"
+msgstr "ID del vaixell"
+
+msgid "Leave empty to use the boat linked to the current post/page."
+msgstr "Deixa-ho buit per utilitzar el vaixell vinculat a l'entrada/pàgina actual."
+
+msgid "Boat slug"
+msgstr "Slug del vaixell"
+
+msgid "Optional. Slug has priority over Boat ID."
+msgstr "Opcional. El slug té prioritat sobre l'ID del vaixell."
+
+msgid "Maradigma Boats Archive"
+msgstr "Maradigma Arxiu de vaixells"
+
+msgid "Server-rendered boat listing using the Maradigma archive shortcode."
+msgstr "Llistat de vaixells generat al servidor amb el shortcode d'arxiu de Maradigma."
+
+msgid "Listing"
+msgstr "Llistat"
+
+msgid "Offset"
+msgstr "Desplaçament"
+
+msgid "Card template"
+msgstr "Plantilla de targeta"
+
+msgid "Card image token"
+msgstr "Token d'imatge de la targeta"
+
+msgid "Filters UI"
+msgstr "Interfície de filtres"
+
+msgid "Show filters"
+msgstr "Mostra els filtres"
+
+msgid "Autosubmit filters"
+msgstr "Aplica els filtres automàticament"
+
+msgid "Allow URL filters"
+msgstr "Permet filtres des de l'URL"
+
+msgid "Date picker mode"
+msgstr "Mode del selector de dates"
+
+msgid "Separate fields"
+msgstr "Camps separats"
+
+msgid "Show More filters button"
+msgstr "Mostra el botó Més filtres"
+
+msgid "More filters button text"
+msgstr "Text del botó Més filtres"
+
+msgid "Fields order"
+msgstr "Ordre dels camps"
+
+msgid "Use the buttons to match the frontend filters order."
+msgstr "Utilitza els botons per ajustar l'ordre dels filtres al web."
+
+msgid "Offcanvas fields order"
+msgstr "Ordre dels camps del panell lateral"
+
+msgid "These fields appear inside the More filters drawer."
+msgstr "Aquests camps apareixen dins del panell Més filtres."
+
+msgid "Instant booking only"
+msgstr "Només reserva instantània"
+
+msgid "Search builders…"
+msgstr "Cerca astillers…"
+
+msgid "Maradigma Search Form"
+msgstr "Maradigma Formulari de cerca"
+
+msgid "Search form for sending visitors to a boat listing page."
+msgstr "Formulari de cerca que envia els visitants a una pàgina de llistat de vaixells."
+
+msgid "Target URL"
+msgstr "URL de destinació"
+
+msgid "If empty, the form submits to the current page."
+msgstr "Si és buit, el formulari s'envia a la pàgina actual."
+
+msgid "Show search field"
+msgstr "Mostra el camp de cerca"
+
+msgid "Show pax field"
+msgstr "Mostra el camp de passatgers"
+
+msgid "Show date fields"
+msgstr "Mostra els camps de data"
+
+msgid "Maradigma Boat Single"
+msgstr "Maradigma Fitxa del vaixell"
+
+msgid "Full boat template rendered by the Maradigma single shortcode/template."
+msgstr "Plantilla completa del vaixell generada pel shortcode/plantilla de fitxa de Maradigma."
+
+msgid "Boat title/name."
+msgstr "Títol/nom del vaixell."
+
+msgid "Display"
+msgstr "Visualització"
+
+msgid "HTML tag"
+msgstr "Etiqueta HTML"
+
+msgid "Fallback to service name"
+msgstr "Utilitza el nom del servei si no n'hi ha cap altre"
+
+msgid "Fallback"
+msgstr "Text alternatiu"
+
+msgid "Maradigma Boat Field"
+msgstr "Maradigma Camp del vaixell"
+
+msgid "Generic boat field renderer."
+msgstr "Mostra qualsevol camp del vaixell."
+
+msgid "Field key"
+msgstr "Clau del camp"
+
+msgid "Maradigma Boat Pax"
+msgstr "Maradigma Passatgers del vaixell"
+
+msgid "Boat capacity."
+msgstr "Capacitat del vaixell."
+
+msgid "Maradigma Boat Length"
+msgstr "Maradigma Eslora del vaixell"
+
+msgid "Boat length."
+msgstr "Eslora del vaixell."
+
+msgid "Maradigma Boat Beam"
+msgstr "Maradigma Mànega del vaixell"
+
+msgid "Boat beam."
+msgstr "Mànega del vaixell."
+
+msgid "Maradigma Boat Builder"
+msgstr "Maradigma Astiller del vaixell"
+
+msgid "Boat builder."
+msgstr "Astiller del vaixell."
+
+msgid "Maradigma Boat Base Port"
+msgstr "Maradigma Port base del vaixell"
+
+msgid "Boat base port."
+msgstr "Port base del vaixell."
+
+msgid "Maradigma Boat Main Image"
+msgstr "Maradigma Imatge principal del vaixell"
+
+msgid "Boat cover image."
+msgstr "Imatge de portada del vaixell."
+
+msgid "Image"
+msgstr "Imatge"
+
+msgid "HTML attributes"
+msgstr "Atributs HTML"
+
+msgid "Prefer WP cached image"
+msgstr "Prefereix la imatge desada a WordPress"
+
+msgid "Boat gallery."
+msgstr "Galeria del vaixell."
+
+msgid "Gallery"
+msgstr "Galeria"
+
+msgid "Max images"
+msgstr "Màxim d'imatges"
+
+msgid "Lightbox"
+msgstr "Lightbox"
+
+msgid "Radius"
+msgstr "Radi de la vora"
+
+msgid "Slider autoplay"
+msgstr "Reproducció automàtica del carrusel"
+
+msgid "Slider navigation"
+msgstr "Fletxes del carrusel"
+
+msgid "Slider pagination"
+msgstr "Paginació del carrusel"
+
+msgid "Boat videos."
+msgstr "Vídeos del vaixell."
+
+msgid "Mode"
+msgstr "Mode"
+
+msgid "Max videos"
+msgstr "Màxim de vídeos"
+
+msgid "Extra CSS class"
+msgstr "Classe CSS addicional"
+
+msgid "Configurable boat specs list."
+msgstr "Llista configurable d'especificacions del vaixell."
+
+msgid "Specs"
+msgstr "Especificacions"
+
+msgid "Fields CSV"
+msgstr "Camps (CSV)"
+
+msgid "Advanced items JSON"
+msgstr "Elements avançats (JSON)"
+
+msgid "Icons map"
+msgstr "Mapa d'icones"
+
+msgid "Boat description."
+msgstr "Descripció del vaixell."
+
+msgid "Allow HTML"
+msgstr "Permet HTML"
+
+msgid "Max words"
+msgstr "Màxim de paraules"
+
+msgid "Boat season prices."
+msgstr "Preus per temporada del vaixell."
+
+msgid "Range label"
+msgstr "Format del rang"
+
+msgid "Price and VAT"
+msgstr "Preu i IVA"
+
+msgid "VAT mode"
+msgstr "Mode d'IVA"
+
+msgid "Hidden, total price"
+msgstr "Ocult, preu total"
+
+msgid "Hidden, base price"
+msgstr "Ocult, preu base"
+
+msgid "VAT position"
+msgstr "Posició de l'IVA"
+
+msgid "Below"
+msgstr "A sota"
+
+msgid "Tooltip"
+msgstr "Tooltip"
+
+msgid "Symbol"
+msgstr "Símbol"
+
+msgid "ISO"
+msgstr "ISO"
+
+msgid "Boat equipments."
+msgstr "Equipament del vaixell."
+
+msgid "Icon text"
+msgstr "Text de la icona"
+
+msgid "Sort"
+msgstr "Ordena"
+
+msgid "Included items."
+msgstr "Elements inclosos."
+
+msgid "Tick text"
+msgstr "Text de la icona de check"
+
+msgid "Not included items."
+msgstr "Elements no inclosos."
+
+msgid "Cross text"
+msgstr "Text de la icona de creu"
+
+msgid "Additional services."
+msgstr "Serveis addicionals."
+
+msgid "Blocks"
+msgstr "Blocs"
+
+msgid "Show description"
+msgstr "Mostra la descripció"
+
+msgid "Show quantity"
+msgstr "Mostra la quantitat"
+
+msgid "Badges"
+msgstr "Etiquetes"
+
+msgid "Required / Optional / Free"
+msgstr "Obligatori / Opcional / Gratuït"
+
+msgid "Per booking / Per day"
+msgstr "Per reserva / Per dia"
+
+msgid "Friendly"
+msgstr "Llegible"
+
+msgid "Raw"
+msgstr "Sense format"
+
+msgid "Price source"
+msgstr "Origen del preu"
+
+msgid "Prefer total formatted"
+msgstr "Prefereix el total amb format"
+
+msgid "Base"
+msgstr "Base"
+
+msgid "Raw total"
+msgstr "Total sense format"
+
+msgid "Raw base"
+msgstr "Base sense format"
+
+msgid "PDF download button."
+msgstr "Botó de descàrrega del PDF."
+
+msgid "Force download"
+msgstr "Força la descàrrega"
+
+msgid "Availability calendar."
+msgstr "Calendari de disponibilitat."
+
+msgid "Months"
+msgstr "Mesos"
+
+msgid "Booked color"
+msgstr "Color de reservat"
+
+msgid "Option statuses CSV"
+msgstr "Estats d'opció (CSV)"
+
+msgid "Include booking status"
+msgstr "Inclou l'estat de reserva"
+
+msgid "Maradigma Boat Booking Button"
+msgstr "Maradigma Botó de reserva del vaixell"
+
+msgid "Booking button and modal."
+msgstr "Botó i finestra de reserva."
+
+msgid "Booking"
+msgstr "Reserva"
+
+msgid "Success URL"
+msgstr "URL d'èxit"
+
+msgid "Calendar months"
+msgstr "Mesos del calendari"
+
+msgid "Selection mode"
+msgstr "Mode de selecció"
+
+msgid "Show schedule text"
+msgstr "Mostra el text de l'horari"
+
+msgid "Show promo code"
+msgstr "Mostra el codi promocional"
+
+msgid "Show children included"
+msgstr "Mostra els infants inclosos"
+
+msgid "Free additional label"
+msgstr "Etiqueta d'extra gratuït"
+
+msgid "Available color"
+msgstr "Color disponible"
+
+msgid "Button"
+msgstr "Botó"
+
+msgid "Calendar"
+msgstr "Calendari"
+
+msgid "Calendar display"
+msgstr "Visualització del calendari"
+
+msgid "Description type"
+msgstr "Tipus de descripció"
+
+msgid "End date"
+msgstr "Data de fi"
+
+msgid "Form"
+msgstr "Formulari"
+
+msgid "Gap"
+msgstr "Separació"
+
+msgid "Horizontal"
+msgstr "Horitzontal"
+
+msgid "Inline"
+msgstr "En línia"
+
+msgid "Listing defaults"
+msgstr "Valors per defecte del llistat"
+
+msgid "Maradigma Boat Calendar"
+msgstr "Calendari del vaixell Maradigma"
+
+msgid "Maradigma Boat Videos"
+msgstr "Vídeos del vaixell Maradigma"
+
+msgid "Offcanvas title"
+msgstr "Títol del panell lateral"
+
+msgid "Option color"
+msgstr "Color d'opció"
+
+msgid "Range"
+msgstr "Rang"
+
+msgid "Row gap"
+msgstr "Separació entre files"
+
+msgid "Search term"
+msgstr "Terme de cerca"
+
+msgid "Show icons"
+msgstr "Mostra les icones"
+
+msgid "Show legend"
+msgstr "Mostra la llegenda"
+
+msgid "Show price fields"
+msgstr "Mostra els camps de preu"
+
+msgid "Show reset link"
+msgstr "Mostra l'enllaç de restabliment"
+
+msgid "Start date"
+msgstr "Data d'inici"
+
+msgid "Start month"
+msgstr "Mes inicial"
+
+msgid "Submit mode"
+msgstr "Mode d'enviament"
+
+msgid "Vertical"
+msgstr "Vertical"

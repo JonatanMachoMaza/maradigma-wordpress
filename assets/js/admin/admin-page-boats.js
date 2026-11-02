@@ -78,6 +78,11 @@
                 id: currentVal
             }
         }).done(function (data) {
+            if (isNotFoundResponse(data)) {
+                markBoatUnavailable($el, String(currentVal));
+                return;
+            }
+
             if (!data || data.success !== true || !data.item || !data.item.id) {
                 return;
             }
@@ -85,8 +90,58 @@
             // Replace the option with hydrated label
             var opt = new Option(String(data.item.text || ('Boat #' + data.item.id)), String(data.item.id), true, true);
             $el.empty().append(opt).val(String(data.item.id)).trigger('change').trigger('change.select2');
-        }).fail(function () {
-            // silent
+        }).fail(function (jqXHR) {
+            // "not found" comes back as HTTP 404, so its JSON lands here.
+            // Network/server errors stay silent.
+            if (isNotFoundResponse(jqXHR && jqXHR.responseJSON)) {
+                markBoatUnavailable($el, String(currentVal));
+            }
+        });
+    }
+
+    /**
+     * @param {*} data
+     * @return {boolean}
+     */
+    function isNotFoundResponse(data) {
+        return !!(data && data.success === false && data.error && data.error.code === 'not_found');
+    }
+
+    /**
+     * The saved boat no longer exists in Maradigma or is no longer shared with
+     * this account: label it as unavailable and warn under the select until
+     * another boat is chosen.
+     *
+     * @param {jQuery} $el
+     * @param {string} boatId
+     */
+    function markBoatUnavailable($el, boatId) {
+        var label = String(i18n.boatUnavailableLabel || 'The boat with ID #%s is no longer available').replace('%s', boatId);
+        var noticeText = i18n.boatUnavailableNotice ||
+            'This boat is no longer available in Maradigma. It may have been deleted, unpublished or is no longer shared with your account. Choose another boat or clear it.';
+
+        $el.empty().append(new Option(label, boatId, true, true)).val(boatId).trigger('change.select2');
+
+        var $previousNotice = $el.data('maradigmaUnavailableNotice');
+        if ($previousNotice) {
+            $previousNotice.remove();
+        }
+
+        var $notice = $('<p class="maradigma-boat-unavailable-notice" role="alert"></p>')
+            .text(noticeText)
+            .css({ margin: '6px 0 0', color: '#b32d2e', fontSize: '12px', lineHeight: '1.4' });
+        var $select2Container = $el.next('.select2-container');
+
+        ($select2Container.length ? $select2Container : $el).after($notice);
+        $el.data('maradigmaUnavailableNotice', $notice);
+
+        $el.off('change.maradigmaUnavailable').on('change.maradigmaUnavailable', function () {
+            if (String($el.val() || '') === boatId) {
+                return;
+            }
+
+            $notice.remove();
+            $el.removeData('maradigmaUnavailableNotice').off('change.maradigmaUnavailable');
         });
     }
 
