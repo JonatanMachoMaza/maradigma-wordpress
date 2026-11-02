@@ -3038,3 +3038,63 @@ msgstr ""
 
 msgid "Portfolio UUID"
 msgstr ""
+
+msgid "Select an option"
+msgstr ""
+
+msgid "Select one or more options"
+msgstr ""
+
+msgid "Searching…"
+msgstr ""
+
+msgid "No results found"
+msgstr ""
+
+msgid "Error loading results"
+msgstr ""
+
+msgid "Type at least 2 characters"
+msgstr ""
+
+msgid "Select boat type"
+msgstr ""
+
+msgid "Select tags"
+msgstr ""
+
+msgid "Select builders"
+msgstr ""
+
+msgid "Search a boat"
+msgstr ""
+
+msgid "e.g. 8"
+msgstr ""
+
+msgid "Rental type"
+msgstr ""
+
+msgid "Specific boat"
+msgstr ""
+
+msgid "Select month"
+msgstr ""
+
+msgid "Passengers"
+msgstr ""
+
+msgid "Booking information not found."
+msgstr ""
+
+msgid "We could not confirm the payment for this booking."
+msgstr ""
+
+msgid "From %1$s to %2$s"
+msgstr ""
+
+msgid "Your reservation is now confirmed. Below you can review your booking and payment details."
+msgstr ""
+
+msgid "An error occurred while loading the booking information."
+msgstr ""

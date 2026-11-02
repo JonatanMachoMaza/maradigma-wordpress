@@ -3142,3 +3142,63 @@ msgstr "Portafolis"
 
 msgid "Portfolio UUID"
 msgstr "UUID del portafolis"
+
+msgid "Select an option"
+msgstr "Selecciona una opció"
+
+msgid "Select one or more options"
+msgstr "Selecciona una o més opcions"
+
+msgid "Searching…"
+msgstr "Cercant…"
+
+msgid "No results found"
+msgstr "No s'han trobat resultats"
+
+msgid "Error loading results"
+msgstr "Error en carregar els resultats"
+
+msgid "Type at least 2 characters"
+msgstr "Escriu almenys 2 caràcters"
+
+msgid "Select boat type"
+msgstr "Selecciona un tipus d'embarcació"
+
+msgid "Select tags"
+msgstr "Selecciona etiquetes"
+
+msgid "Select builders"
+msgstr "Selecciona astillers"
+
+msgid "Search a boat"
+msgstr "Cerca una embarcació"
+
+msgid "e.g. 8"
+msgstr "p. ex. 8"
+
+msgid "Rental type"
+msgstr "Tipus de lloguer"
+
+msgid "Specific boat"
+msgstr "Embarcació concreta"
+
+msgid "Select month"
+msgstr "Selecciona un mes"
+
+msgid "Passengers"
+msgstr "Passatgers"
+
+msgid "Booking information not found."
+msgstr "No s'ha trobat la informació de la reserva."
+
+msgid "We could not confirm the payment for this booking."
+msgstr "No hem pogut confirmar el pagament d'aquesta reserva."
+
+msgid "From %1$s to %2$s"
+msgstr "Del %1$s al %2$s"
+
+msgid "Your reservation is now confirmed. Below you can review your booking and payment details."
+msgstr "La teva reserva està confirmada. A continuació pots revisar les dades de la reserva i del pagament."
+
+msgid "An error occurred while loading the booking information."
+msgstr "S'ha produït un error en carregar la informació de la reserva."

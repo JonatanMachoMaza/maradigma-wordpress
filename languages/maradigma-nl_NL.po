@@ -3068,3 +3068,63 @@ msgstr "Portfolio"
 
 msgid "Portfolio UUID"
 msgstr "Portfolio-UUID"
+
+msgid "Select an option"
+msgstr "Selecteer een optie"
+
+msgid "Select one or more options"
+msgstr "Selecteer een of meer opties"
+
+msgid "Searching…"
+msgstr "Zoeken…"
+
+msgid "No results found"
+msgstr "Geen resultaten gevonden"
+
+msgid "Error loading results"
+msgstr "Fout bij het laden van de resultaten"
+
+msgid "Type at least 2 characters"
+msgstr "Typ minstens 2 tekens"
+
+msgid "Select boat type"
+msgstr "Selecteer een boottype"
+
+msgid "Select tags"
+msgstr "Selecteer tags"
+
+msgid "Select builders"
+msgstr "Selecteer bouwers"
+
+msgid "Search a boat"
+msgstr "Zoek een boot"
+
+msgid "e.g. 8"
+msgstr "bijv. 8"
+
+msgid "Rental type"
+msgstr "Huurtype"
+
+msgid "Specific boat"
+msgstr "Specifieke boot"
+
+msgid "Select month"
+msgstr "Selecteer een maand"
+
+msgid "Passengers"
+msgstr "Passagiers"
+
+msgid "Booking information not found."
+msgstr "Boekingsinformatie niet gevonden."
+
+msgid "We could not confirm the payment for this booking."
+msgstr "We konden de betaling voor deze boeking niet bevestigen."
+
+msgid "From %1$s to %2$s"
+msgstr "Van %1$s tot %2$s"
+
+msgid "Your reservation is now confirmed. Below you can review your booking and payment details."
+msgstr "Je reservering is bevestigd. Hieronder kun je de gegevens van je boeking en betaling bekijken."
+
+msgid "An error occurred while loading the booking information."
+msgstr "Er is een fout opgetreden bij het laden van de boekingsinformatie."

@@ -3070,3 +3070,63 @@ msgstr "Portfolio"
 
 msgid "Portfolio UUID"
 msgstr "UUID del portfolio"
+
+msgid "Select an option"
+msgstr "Seleziona un'opzione"
+
+msgid "Select one or more options"
+msgstr "Seleziona una o più opzioni"
+
+msgid "Searching…"
+msgstr "Ricerca in corso…"
+
+msgid "No results found"
+msgstr "Nessun risultato trovato"
+
+msgid "Error loading results"
+msgstr "Errore durante il caricamento dei risultati"
+
+msgid "Type at least 2 characters"
+msgstr "Digita almeno 2 caratteri"
+
+msgid "Select boat type"
+msgstr "Seleziona un tipo di barca"
+
+msgid "Select tags"
+msgstr "Seleziona i tag"
+
+msgid "Select builders"
+msgstr "Seleziona i costruttori"
+
+msgid "Search a boat"
+msgstr "Cerca una barca"
+
+msgid "e.g. 8"
+msgstr "es. 8"
+
+msgid "Rental type"
+msgstr "Tipo di noleggio"
+
+msgid "Specific boat"
+msgstr "Barca specifica"
+
+msgid "Select month"
+msgstr "Seleziona un mese"
+
+msgid "Passengers"
+msgstr "Passeggeri"
+
+msgid "Booking information not found."
+msgstr "Informazioni sulla prenotazione non trovate."
+
+msgid "We could not confirm the payment for this booking."
+msgstr "Non è stato possibile confermare il pagamento di questa prenotazione."
+
+msgid "From %1$s to %2$s"
+msgstr "Dal %1$s al %2$s"
+
+msgid "Your reservation is now confirmed. Below you can review your booking and payment details."
+msgstr "La tua prenotazione è confermata. Qui sotto puoi controllare i dettagli della prenotazione e del pagamento."
+
+msgid "An error occurred while loading the booking information."
+msgstr "Si è verificato un errore durante il caricamento delle informazioni sulla prenotazione."
