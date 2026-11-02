@@ -178,9 +178,9 @@ namespace {
 
     if (!function_exists('wp_json_encode')) {
         /** @param mixed $value */
-        function wp_json_encode($value): string|false
+        function wp_json_encode($value, int $flags = 0, int $depth = 512): string|false
         {
-            return json_encode($value);
+            return json_encode($value, $flags, $depth);
         }
     }
 

@@ -167,13 +167,11 @@ msgstr "Clave pública (X-API-KEY)"
 msgid "Public key (API Key)"
 msgstr "Clave pública (API Key)"
 
-
 msgid "Secret key"
 msgstr "Clave secreta"
 
 msgid "Secret key (API Secret)"
 msgstr "Clave secreta (API Secret)"
-
 
 msgid "Default language"
 msgstr "Idioma por defecto"
@@ -2107,7 +2105,6 @@ msgstr "Si los barcos no aparecen, revisa las claves API y el estado de conexió
 msgid "If cache looks stale, use \"Clear plugin cache\"."
 msgstr "Si la caché parece desactualizada, usa \"Limpiar caché del plugin\"."
 
-
 msgid "Support"
 msgstr "Soporte"
 
@@ -2161,7 +2158,6 @@ msgstr "error"
 
 msgid "idle"
 msgstr "inactivo"
-
 
 msgid "All boats processed."
 msgstr "Todos los barcos han sido procesados."
@@ -3622,10 +3618,8 @@ msgstr "Reservar"
 msgid "day"
 msgstr "día"
 
-
 msgid "Availability dates"
 msgstr "Fechas de disponibilidad"
-
 
 msgid "Date end (separate mode only)"
 msgstr "Fecha fin (solo modo separado)"
@@ -4464,3 +4458,1075 @@ msgstr "Mostrar niños incluidos"
 
 msgid "Free additional label"
 msgstr "Etiqueta de extra gratuito"
+
+msgid "(Untitled boat)"
+msgstr "(Barco sin título)"
+
+msgid "Custom layout"
+msgstr "Diseño personalizado"
+
+msgid "Security check failed."
+msgstr "La comprobación de seguridad ha fallado."
+
+msgid "Countries dataset not found."
+msgstr "No se ha encontrado el listado de países."
+
+msgid "Missing required parameters: boat_id, from_date, to_date."
+msgstr "Faltan parámetros obligatorios: boat_id, from_date, to_date."
+
+msgid "Archive context could not be built."
+msgstr "No se ha podido generar el contexto del archivo."
+
+msgid "Missing required parameter: boat."
+msgstr "Falta el parámetro obligatorio: boat."
+
+msgid "Missing or invalid parameter: step."
+msgstr "Parámetro ausente o no válido: step."
+
+msgid "return_url_after_payment is required."
+msgstr "return_url_after_payment es obligatorio."
+
+msgid "Missing required parameter: group."
+msgstr "Falta el parámetro obligatorio: group."
+
+msgid "Rental terms not found."
+msgstr "No se han encontrado las condiciones de alquiler."
+
+msgid "You are not allowed to perform this action."
+msgstr "No tienes permiso para realizar esta acción."
+
+msgid "Invalid security token."
+msgstr "Token de seguridad no válido."
+
+msgid "Missing required parameter: id."
+msgstr "Falta el parámetro obligatorio: id."
+
+msgid "Boat not found in API response."
+msgstr "No se ha encontrado el barco en la respuesta de la API."
+
+msgid "You are not allowed to search builders."
+msgstr "No tienes permiso para buscar astilleros."
+
+msgid "Builder not found in API response."
+msgstr "No se ha encontrado el astillero en la respuesta de la API."
+
+msgid "Total:"
+msgstr "Total:"
+
+msgid "Quote error"
+msgstr "Error en el presupuesto"
+
+msgid "Insertar"
+msgstr "Insertar"
+
+msgid "Cerrar"
+msgstr "Cerrar"
+
+msgid "processing"
+msgstr "procesando"
+
+msgid "waiting for current worker"
+msgstr "esperando al proceso actual"
+
+msgid "waiting for WP-Cron"
+msgstr "esperando a WP-Cron"
+
+msgid "running, waiting for next kick"
+msgstr "en curso, esperando el siguiente impulso"
+
+msgid "ok"
+msgstr "ok"
+
+msgid "failed"
+msgstr "fallido"
+
+msgid "not attempted"
+msgstr "no intentado"
+
+msgid "Select boat types"
+msgstr "Selecciona tipos de barco"
+
+msgid "Select service types"
+msgstr "Selecciona tipos de servicio"
+
+msgid "Select boats"
+msgstr "Selecciona barcos"
+
+msgid "Search boats..."
+msgstr "Buscar barcos..."
+
+msgid "Search builders..."
+msgstr "Buscar astilleros..."
+
+msgid "Images available: "
+msgstr "Imágenes disponibles: "
+
+msgid "Images available: —"
+msgstr "Imágenes disponibles: —"
+
+msgid "Maradigma boat (searchable)"
+msgstr "Barco de Maradigma (con búsqueda)"
+
+msgid "Select one of your active/public boats from Maradigma. Start typing to search."
+msgstr "Selecciona uno de tus barcos activos/públicos de Maradigma. Empieza a escribir para buscar."
+
+msgid "When enabled, sync will never overwrite this boat’s Elementor layout. Boat data, images and SEO will still be synced."
+msgstr "Si está activado, la sincronización nunca sobrescribirá el diseño de Elementor de este barco. Los datos, las imágenes y el SEO del barco se seguirán sincronizando."
+
+msgid "Context not available. Panel is in read-only mode."
+msgstr "Contexto no disponible. El panel está en modo de solo lectura."
+
+msgid "Boat name"
+msgstr "Nombre del barco"
+
+msgid "Boat URL"
+msgstr "URL del barco"
+
+msgid "Slug"
+msgstr "Slug"
+
+msgid "Reference"
+msgstr "Referencia"
+
+msgid "Currency (ISO)"
+msgstr "Moneda (ISO)"
+
+msgid "Service name"
+msgstr "Nombre del servicio"
+
+msgid "Boat plate number"
+msgstr "Matrícula del barco"
+
+msgid "Boat license"
+msgstr "Licencia del barco"
+
+msgid "Group ID"
+msgstr "ID del grupo"
+
+msgid "Group content type ID"
+msgstr "ID del tipo de contenido del grupo"
+
+msgid "Main image (cached, deterministic)"
+msgstr "Imagen principal (en caché, determinista)"
+
+msgid "Main image alias"
+msgstr "Alias de la imagen principal"
+
+msgid "Exact image size token. Example: {{image_maradigma_card_471x273}}"
+msgstr "Token de tamaño de imagen exacto. Ejemplo: {{image_maradigma_card_471x273}}"
+
+msgid "Carousel HTML (legacy)"
+msgstr "HTML del carrusel (heredado)"
+
+msgid "Port"
+msgstr "Puerto"
+
+msgid "Base port ID"
+msgstr "ID del puerto base"
+
+msgid "Base port name"
+msgstr "Nombre del puerto base"
+
+msgid "Latitude"
+msgstr "Latitud"
+
+msgid "Longitude"
+msgstr "Longitud"
+
+msgid "Capacity (pax)"
+msgstr "Capacidad (pax)"
+
+msgid "Boat capacity"
+msgstr "Capacidad del barco"
+
+msgid "Overnight capacity"
+msgstr "Capacidad para pernoctar"
+
+msgid "Cabins (raw)"
+msgstr "Camarotes (sin procesar)"
+
+msgid "Beds"
+msgstr "Camas"
+
+msgid "Beds (raw)"
+msgstr "Camas (sin procesar)"
+
+msgid "Bathrooms (raw)"
+msgstr "Baños (sin procesar)"
+
+msgid "Length (m)"
+msgstr "Eslora (m)"
+
+msgid "Length (raw)"
+msgstr "Eslora (sin procesar)"
+
+msgid "Beam (m)"
+msgstr "Manga (m)"
+
+msgid "Beam (raw)"
+msgstr "Manga (sin procesar)"
+
+msgid "Year (construction)"
+msgstr "Año (construcción)"
+
+msgid "Construction year (raw)"
+msgstr "Año de construcción (sin procesar)"
+
+msgid "Year refit"
+msgstr "Año de refit"
+
+msgid "Mandatory skipper (bool)"
+msgstr "Patrón obligatorio (bool)"
+
+msgid "Bareboat (bool)"
+msgstr "Bareboat (bool)"
+
+msgid "Skipper label"
+msgstr "Etiqueta del patrón"
+
+msgid "Skipper text (raw)"
+msgstr "Texto del patrón (sin procesar)"
+
+msgid "Skipper option (raw)"
+msgstr "Opción de patrón (sin procesar)"
+
+msgid "Price from"
+msgstr "Precio desde"
+
+msgid "Price from VAT percent"
+msgstr "Porcentaje de IVA del precio desde"
+
+msgid "Price from VAT amount"
+msgstr "Importe de IVA del precio desde"
+
+msgid "Price from total (VAT included)"
+msgstr "Total del precio desde (IVA incluido)"
+
+msgid "Price from with mandatory additionals base"
+msgstr "Base del precio desde con servicios adicionales obligatorios"
+
+msgid "Price from with mandatory additionals VAT"
+msgstr "IVA del precio desde con servicios adicionales obligatorios"
+
+msgid "Price from with mandatory additionals total"
+msgstr "Total del precio desde con servicios adicionales obligatorios"
+
+msgid "Base price VAT percent"
+msgstr "Porcentaje de IVA del precio base"
+
+msgid "Base price VAT amount"
+msgstr "Importe de IVA del precio base"
+
+msgid "Base price total (VAT included)"
+msgstr "Total del precio base (IVA incluido)"
+
+msgid "Base week price"
+msgstr "Precio base por semana"
+
+msgid "Base week price VAT percent"
+msgstr "Porcentaje de IVA del precio base por semana"
+
+msgid "Base week price VAT amount"
+msgstr "Importe de IVA del precio base por semana"
+
+msgid "Base week price total (VAT included)"
+msgstr "Total del precio base por semana (IVA incluido)"
+
+msgid "Base hour price"
+msgstr "Precio base por hora"
+
+msgid "Base hour price VAT percent"
+msgstr "Porcentaje de IVA del precio base por hora"
+
+msgid "Base hour price VAT amount"
+msgstr "Importe de IVA del precio base por hora"
+
+msgid "Base hour price total (VAT included)"
+msgstr "Total del precio base por hora (IVA incluido)"
+
+msgid "Featured (bool)"
+msgstr "Destacado (bool)"
+
+msgid "Tenant member flag"
+msgstr "Indicador de miembro del tenant"
+
+msgid "Rent online flag"
+msgstr "Indicador de alquiler online"
+
+msgid "Can render booking flag"
+msgstr "Indicador de reserva disponible"
+
+msgid "Featured badge HTML (auto)"
+msgstr "HTML de la etiqueta de destacado (auto)"
+
+msgid "Instant booking badge HTML (auto)"
+msgstr "HTML de la etiqueta de reserva instantánea (auto)"
+
+msgid "Optional skipper"
+msgstr "Patrón opcional"
+
+msgid "Not scheduled"
+msgstr "No programado"
+
+msgid "Never"
+msgstr "Nunca"
+
+msgid "Lang"
+msgstr "Idioma"
+
+msgid "Images"
+msgstr "Imágenes"
+
+msgid "Cached images in Media Library"
+msgstr "Imágenes en caché en la Biblioteca de medios"
+
+msgid "Boat binding is disabled for this page by an integration."
+msgstr "Una integración ha desactivado la vinculación de barcos en esta página."
+
+msgid "Unsupported post type."
+msgstr "Tipo de contenido no compatible."
+
+msgid "Select boat"
+msgstr "Selecciona un barco"
+
+msgid "Keeps the current URL for SEO and renders the selected boat on this page."
+msgstr "Mantiene la URL actual para el SEO y muestra el barco seleccionado en esta página."
+
+msgid "Apply this boat link to the translated versions of this page"
+msgstr "Aplicar esta vinculación de barco a las versiones traducidas de esta página"
+
+msgid "Useful with Polylang/WPML when you want the same selected boat to be linked in the other language versions too."
+msgstr "Útil con Polylang/WPML cuando quieres que el mismo barco seleccionado quede vinculado también en las versiones de los otros idiomas."
+
+msgid "Use custom WPBakery layout"
+msgstr "Usar diseño personalizado de WPBakery"
+
+msgid "When enabled, sync will never overwrite this boat's WPBakery content. Boat data, images and SEO will still be synced."
+msgstr "Si está activado, la sincronización nunca sobrescribirá el contenido de WPBakery de este barco. Los datos, las imágenes y el SEO del barco se seguirán sincronizando."
+
+msgid "This taxonomy term is a boat detail page"
+msgstr "Este término de taxonomía es una página de detalle de barco"
+
+msgid "Keeps the current taxonomy URL for SEO and renders the selected boat on this term archive."
+msgstr "Mantiene la URL actual de la taxonomía para el SEO y muestra el barco seleccionado en el archivo de este término."
+
+msgid "Elementor master template updated from the selected boat layout."
+msgstr "Plantilla maestra de Elementor actualizada a partir del diseño del barco seleccionado."
+
+msgid "Please select a valid boat with Elementor layout."
+msgstr "Selecciona un barco válido con diseño de Elementor."
+
+msgid "The selected boat does not contain Elementor data to import."
+msgstr "El barco seleccionado no contiene datos de Elementor para importar."
+
+msgid "The Elementor master template could not be created or loaded."
+msgstr "No se ha podido crear ni cargar la plantilla maestra de Elementor."
+
+msgid "WPBakery"
+msgstr "WPBakery"
+
+msgid "Use the editable WPBakery master template for generated boat pages. Elementor and Gutenberg template sync will be disabled."
+msgstr "Usa la plantilla maestra editable de WPBakery para las páginas de barcos generadas. La sincronización de plantillas Elementor y Gutenberg se desactivará."
+
+msgid "Current phase:"
+msgstr "Fase actual:"
+
+msgid "Next WP-Cron run:"
+msgstr "Próxima ejecución de WP-Cron:"
+
+msgid "WPBakery template"
+msgstr "Plantilla WPBakery"
+
+msgid "Overwrite managed WPBakery layouts only"
+msgstr "Sobrescribir solo diseños WPBakery gestionados"
+
+msgid "Do not touch WPBakery content"
+msgstr "No modificar el contenido de WPBakery"
+
+msgid "Restart sync"
+msgstr "Reiniciar sincronización"
+
+msgid "Stop sync"
+msgstr "Detener sincronización"
+
+msgid "Last image sync run:"
+msgstr "Última sincronización de imágenes:"
+
+msgid "Worker state:"
+msgstr "Estado del proceso:"
+
+msgid "Async kick:"
+msgstr "Impulso asíncrono:"
+
+msgid "Edit WPBakery boat template"
+msgstr "Editar plantilla de barco WPBakery"
+
+msgid "Edit the master template with WPBakery. Existing boat pages are updated only when you apply the template below."
+msgstr "Edita la plantilla maestra con WPBakery. Las páginas de barcos existentes solo se actualizan cuando apliques la plantilla más abajo."
+
+msgid "Replace master template with an existing boat layout"
+msgstr "Reemplazar la plantilla maestra por el diseño de un barco existente"
+
+msgid "Choose a boat that already has the Elementor structure you want to reuse. This only updates the master template; boats are not overwritten until you run the apply action below."
+msgstr "Elige un barco que ya tenga la estructura de Elementor que quieres reutilizar. Esto solo actualiza la plantilla maestra; los barcos no se sobrescriben hasta que ejecutes la acción de aplicar más abajo."
+
+msgid "Source boat"
+msgstr "Barco de origen"
+
+msgid "Select a boat layout?"
+msgstr "¿Seleccionar un diseño de barco?"
+
+msgid "This will replace the current Elementor master template with the layout from the selected boat. Continue?"
+msgstr "Esto reemplazará la plantilla maestra actual de Elementor por el diseño del barco seleccionado. ¿Continuar?"
+
+msgid "Use boat layout as master template"
+msgstr "Usar el diseño del barco como plantilla maestra"
+
+msgid "This will apply the current Gutenberg master template to boat pages. Non-forced mode only overwrites managed Gutenberg layouts."
+msgstr "Esto aplicará la plantilla maestra actual de Gutenberg a las páginas de barcos. El modo no forzado solo sobrescribe diseños Gutenberg gestionados."
+
+msgid "This will apply the current WPBakery master template to boat pages. Non-forced mode only overwrites managed WPBakery layouts."
+msgstr "Esto aplicará la plantilla maestra actual de WPBakery a las páginas de barcos. El modo no forzado solo sobrescribe diseños WPBakery gestionados."
+
+msgid "This will overwrite Elementor layout on all boats except those marked as Custom layout."
+msgstr "Esto sobrescribirá el diseño Elementor en todos los barcos excepto los marcados como diseño personalizado."
+
+msgid "pages scanned"
+msgstr "páginas analizadas"
+
+msgid "unique boats"
+msgstr "barcos únicos"
+
+msgid "languages"
+msgstr "idiomas"
+
+msgid "pages updated"
+msgstr "páginas actualizadas"
+
+msgid "pages skipped"
+msgstr "páginas omitidas"
+
+msgid "pages failed"
+msgstr "páginas con error"
+
+msgid "Last run:"
+msgstr "Última ejecución:"
+
+msgid "Next scheduled run:"
+msgstr "Próxima ejecución programada:"
+
+msgid "Default boat card template restored."
+msgstr "Plantilla de tarjeta de barco por defecto restaurada."
+
+msgid "This will replace the current default card HTML with the plugin default template. Continue?"
+msgstr "Esto reemplazará el HTML actual de la tarjeta por defecto por la plantilla por defecto del plugin. ¿Continuar?"
+
+msgid "Restore default template"
+msgstr "Restaurar plantilla por defecto"
+
+msgid "Booking online"
+msgstr "Reserva online"
+
+msgid "External API"
+msgstr "API externa"
+
+msgid "Frontend errors"
+msgstr "Errores del frontend"
+
+msgid "Booking price"
+msgstr "Precio de la reserva"
+
+msgid "Boat images sync"
+msgstr "Sincronización de imágenes de barcos"
+
+msgid "Log channel"
+msgstr "Canal de registro"
+
+msgid "View log"
+msgstr "Ver registro"
+
+msgid "Waiting for another image sync worker to finish"
+msgstr "Esperando a que termine otro proceso de sincronización de imágenes"
+
+msgid "Tick paused by soft time budget during image processing"
+msgstr "Ciclo pausado por el límite de tiempo flexible durante el procesamiento de imágenes"
+
+msgid "Headings"
+msgstr "Encabezados"
+
+msgid "Main title"
+msgstr "Título principal"
+
+msgid "Title bottom spacing"
+msgstr "Espaciado inferior del título"
+
+msgid "Category title"
+msgstr "Título de categoría"
+
+msgid "Category color"
+msgstr "Color de categoría"
+
+msgid "Category spacing"
+msgstr "Espaciado de categoría"
+
+msgid "Rows and table"
+msgstr "Filas y tabla"
+
+msgid "Rows gap"
+msgstr "Separación entre filas"
+
+msgid "Row padding"
+msgstr "Relleno de fila"
+
+msgid "Cell padding"
+msgstr "Relleno de celda"
+
+msgid "Service content"
+msgstr "Contenido del servicio"
+
+msgid "Service name color"
+msgstr "Color del nombre del servicio"
+
+msgid "Description, quantity and VAT color"
+msgstr "Color de descripción, cantidad e IVA"
+
+msgid "Table header"
+msgstr "Encabezado de tabla"
+
+msgid "Link color"
+msgstr "Color del enlace"
+
+msgid "Link hover color"
+msgstr "Color del enlace al pasar el ratón"
+
+msgid "Paragraph spacing"
+msgstr "Espaciado de párrafos"
+
+msgid "Container"
+msgstr "Contenedor"
+
+msgid "Items"
+msgstr "Elementos"
+
+msgid "Icon gap"
+msgstr "Separación del icono"
+
+msgid "Icon color"
+msgstr "Color del icono"
+
+msgid "Icon size"
+msgstr "Tamaño del icono"
+
+msgid "Aspect ratio"
+msgstr "Proporción"
+
+msgid "Square (1:1)"
+msgstr "Cuadrado (1:1)"
+
+msgid "Classic (4:3)"
+msgstr "Clásico (4:3)"
+
+msgid "Photo (3:2)"
+msgstr "Foto (3:2)"
+
+msgid "Widescreen (16:9)"
+msgstr "Panorámico (16:9)"
+
+msgid "Panoramic (21:9)"
+msgstr "Ultrapanorámico (21:9)"
+
+msgid "Image fit"
+msgstr "Ajuste de imagen"
+
+msgid "Cover"
+msgstr "Cubrir"
+
+msgid "Contain"
+msgstr "Contener"
+
+msgid "Fill"
+msgstr "Rellenar"
+
+msgid "Image position"
+msgstr "Posición de la imagen"
+
+msgid "Top"
+msgstr "Arriba"
+
+msgid "Bottom"
+msgstr "Abajo"
+
+msgid "Slider controls"
+msgstr "Controles del carrusel"
+
+msgid "Arrows and dots color"
+msgstr "Color de flechas y puntos"
+
+msgid "Pagination dot size"
+msgstr "Tamaño de los puntos de paginación"
+
+msgid "Diseño"
+msgstr "Diseño"
+
+msgid "Sin barras laterales"
+msgstr "Sin barras laterales"
+
+msgid "Por defecto"
+msgstr "Por defecto"
+
+msgid "Barra lateral derecha"
+msgstr "Barra lateral derecha"
+
+msgid "Barra lateral izquierda"
+msgstr "Barra lateral izquierda"
+
+msgid "Ambas barras laterales"
+msgstr "Ambas barras laterales"
+
+msgid "Ambas barras a la izquierda"
+msgstr "Ambas barras a la izquierda"
+
+msgid "Ambas barras a la derecha"
+msgstr "Ambas barras a la derecha"
+
+msgid "Contenido contenido"
+msgstr "Contenido ajustado"
+
+msgid "Ancho completo"
+msgstr "Ancho completo"
+
+msgid "Diseño de la barra lateral"
+msgstr "Diseño de la barra lateral"
+
+msgid "Contenedor del contenido"
+msgstr "Contenedor del contenido"
+
+msgid "Widgets del pie de página"
+msgstr "Widgets del pie de página"
+
+msgid "Desactivar elementos"
+msgstr "Desactivar elementos"
+
+msgid "Título del contenido"
+msgstr "Título del contenido"
+
+msgid "GeneratePress no es el tema activo. Estos ajustes se guardan y se aplican cuando el sitio usa GeneratePress."
+msgstr "GeneratePress no es el tema activo. Estos ajustes se guardan y se aplican cuando el sitio usa GeneratePress."
+
+msgid "Estos ajustes se copian a las paginas de barcos gestionadas al aplicar la plantilla Gutenberg."
+msgstr "Estos ajustes se copian a las páginas de barcos gestionadas al aplicar la plantilla Gutenberg."
+
+msgid "Maradigma Boat Detail Template"
+msgstr "Plantilla de detalle de barco de Maradigma"
+
+msgid "Maradigma - Boat Template (Gutenberg)"
+msgstr "Maradigma - Plantilla de barco (Gutenberg)"
+
+msgid "Boats archive"
+msgstr "Archivo de barcos"
+
+msgid "Editor preview is rendered statically to keep Gutenberg responsive. The real boat listing renders on the frontend."
+msgstr "La vista previa del editor se genera de forma estática para que Gutenberg siga respondiendo con fluidez. El listado real de barcos se muestra en el frontend."
+
+#, php-format
+msgid "VAT %1$.2f%%. Total: %2$s"
+msgstr "IVA %1$.2f%%. Total: %2$s"
+
+msgid "WPBakery templates"
+msgstr "Plantillas WPBakery"
+
+msgid "Add new WPBakery template"
+msgstr "Añadir nueva plantilla WPBakery"
+
+msgid "Edit WPBakery template"
+msgstr "Editar plantilla WPBakery"
+
+msgid "New WPBakery template"
+msgstr "Nueva plantilla WPBakery"
+
+msgid "View WPBakery template"
+msgstr "Ver plantilla WPBakery"
+
+msgid "Search WPBakery templates"
+msgstr "Buscar plantillas WPBakery"
+
+msgid "No WPBakery templates found"
+msgstr "No se han encontrado plantillas WPBakery"
+
+msgid "No WPBakery templates found in trash"
+msgstr "No se han encontrado plantillas WPBakery en la papelera"
+
+msgid "Boat listing with filters and cards."
+msgstr "Listado de barcos con filtros y tarjetas."
+
+msgid "Search form that submits Maradigma filter parameters."
+msgstr "Formulario de búsqueda que envía los parámetros de filtro de Maradigma."
+
+msgid "Maradigma - Boat Detail"
+msgstr "Maradigma - Detalle del barco"
+
+msgid "Full single boat render."
+msgstr "Ficha completa de un barco."
+
+msgid "Group"
+msgstr "Grupo"
+
+msgid "Boat card template"
+msgstr "Plantilla de tarjeta de barco"
+
+msgid "Default order"
+msgstr "Orden por defecto"
+
+msgid "Show filters form"
+msgstr "Mostrar formulario de filtros"
+
+msgid "Autosubmit filters on change"
+msgstr "Enviar filtros automáticamente al cambiar"
+
+msgid "Allow URL filters override defaults"
+msgstr "Permitir que los filtros de la URL sustituyan los valores por defecto"
+
+msgid "Visible filter fields"
+msgstr "Campos de filtro visibles"
+
+msgid "Offcanvas filter fields"
+msgstr "Campos de filtro del panel lateral"
+
+msgid "Filters layout"
+msgstr "Diseño de los filtros"
+
+msgid "Show more filters button"
+msgstr "Mostrar botón de más filtros"
+
+msgid "Minimum pax"
+msgstr "Pax mínimo"
+
+msgid "Boat type ID"
+msgstr "ID del tipo de barco"
+
+msgid "Builder IDs"
+msgstr "IDs de astilleros"
+
+msgid "Specific boat IDs"
+msgstr "IDs de barcos concretos"
+
+msgid "Show search term"
+msgstr "Mostrar término de búsqueda"
+
+msgid "Show dates"
+msgstr "Mostrar fechas"
+
+msgid "Show passengers"
+msgstr "Mostrar pasajeros"
+
+msgid "Search placeholder"
+msgstr "Texto de ejemplo de la búsqueda"
+
+msgid "Maradigma - Boat Title"
+msgstr "Maradigma - Título del barco"
+
+msgid "Boat title/H1."
+msgstr "Título/H1 del barco."
+
+msgid "Maradigma - Boat Gallery"
+msgstr "Maradigma - Galería del barco"
+
+msgid "Boat image gallery."
+msgstr "Galería de imágenes del barco."
+
+msgid "Grid columns"
+msgstr "Columnas de la cuadrícula"
+
+msgid "Start image index"
+msgstr "Índice de la imagen inicial"
+
+msgid "End image index"
+msgstr "Índice de la imagen final"
+
+msgid "Preferred thumbnail size key"
+msgstr "Clave del tamaño de miniatura preferido"
+
+msgid "Prefer WP media cache"
+msgstr "Preferir caché de medios de WP"
+
+msgid "Enable lightbox"
+msgstr "Activar lightbox"
+
+msgid "Slider delay"
+msgstr "Retardo del carrusel"
+
+msgid "Slider loop"
+msgstr "Bucle del carrusel"
+
+msgid "Slider speed"
+msgstr "Velocidad del carrusel"
+
+msgid "Slider space between"
+msgstr "Espacio entre diapositivas"
+
+msgid "Slides per view desktop"
+msgstr "Diapositivas por vista en escritorio"
+
+msgid "Slides per view tablet"
+msgstr "Diapositivas por vista en tablet"
+
+msgid "Slides per view mobile"
+msgstr "Diapositivas por vista en móvil"
+
+msgid "Maradigma - Boat Videos"
+msgstr "Maradigma - Vídeos del barco"
+
+msgid "Embed"
+msgstr "Incrustado"
+
+msgid "Thumbnail link"
+msgstr "Miniatura con enlace"
+
+msgid "CSS class"
+msgstr "Clase CSS"
+
+msgid "Maradigma - Boat Specs"
+msgstr "Maradigma - Especificaciones del barco"
+
+msgid "Main boat specifications."
+msgstr "Especificaciones principales del barco."
+
+msgid "Maradigma - Boat Description"
+msgstr "Maradigma - Descripción del barco"
+
+msgid "Automatic"
+msgstr "Automático"
+
+msgid "Short"
+msgstr "Corta"
+
+msgid "Long"
+msgstr "Larga"
+
+msgid "Escape text output"
+msgstr "Escapar el texto de salida"
+
+msgid "Maradigma - Boat Prices"
+msgstr "Maradigma - Precios del barco"
+
+msgid "Rates and prices table."
+msgstr "Tabla de tarifas y precios."
+
+msgid "Maradigma - Boat Price From"
+msgstr "Maradigma - Precio desde del barco"
+
+msgid "Price block. This shortcode uses the same renderer as Boat Prices."
+msgstr "Bloque de precio. Este shortcode usa el mismo renderizado que Precios del barco."
+
+msgid "Maradigma - Boat Equipments"
+msgstr "Maradigma - Equipamiento del barco"
+
+msgid "Equipment list."
+msgstr "Lista de equipamiento."
+
+msgid "Maradigma - Boat Included"
+msgstr "Maradigma - Incluido en el barco"
+
+msgid "Included services."
+msgstr "Servicios incluidos."
+
+msgid "Maradigma - Boat Not Included"
+msgstr "Maradigma - No incluido en el barco"
+
+msgid "Not included services."
+msgstr "Servicios no incluidos."
+
+msgid "Maradigma - Boat Additional Services"
+msgstr "Maradigma - Servicios adicionales del barco"
+
+msgid "Maradigma - Boat PDF Download"
+msgstr "Maradigma - Descargar PDF del barco"
+
+msgid "Boat PDF button."
+msgstr "Botón del PDF del barco."
+
+msgid "Maradigma - Boat Calendar"
+msgstr "Maradigma - Calendario del barco"
+
+msgid "Boat availability calendar."
+msgstr "Calendario de disponibilidad del barco."
+
+msgid "Option status IDs"
+msgstr "IDs de estado de opción"
+
+msgid "Maradigma - Boat Booking"
+msgstr "Maradigma - Reserva del barco"
+
+msgid "Booking/request form."
+msgstr "Formulario de reserva/solicitud."
+
+msgid "Success redirect URL"
+msgstr "URL de redirección tras el éxito"
+
+msgid "Calendar selection mode"
+msgstr "Modo de selección del calendario"
+
+msgid "Maradigma - Boat Field"
+msgstr "Maradigma - Campo del barco"
+
+msgid "Any boat field."
+msgstr "Cualquier campo del barco."
+
+msgid "Escape output"
+msgstr "Escapar la salida"
+
+msgid "Number"
+msgstr "Número"
+
+msgid "Range mode"
+msgstr "Modo de rango"
+
+msgid "Short dates"
+msgstr "Fechas cortas"
+
+msgid "Full dates"
+msgstr "Fechas completas"
+
+msgid "Season name"
+msgstr "Nombre de la temporada"
+
+msgid "Date from ascending"
+msgstr "Fecha de inicio ascendente"
+
+msgid "Date from descending"
+msgstr "Fecha de inicio descendente"
+
+msgid "Price ascending"
+msgstr "Precio ascendente"
+
+msgid "Price descending"
+msgstr "Precio descendente"
+
+msgid "Show headers"
+msgstr "Mostrar encabezados"
+
+msgid "Excluded"
+msgstr "No incluido"
+
+msgid "Hide VAT text"
+msgstr "Ocultar texto del IVA"
+
+msgid "Use backend VAT setting"
+msgstr "Usar el ajuste de IVA del backend"
+
+msgid "Below price"
+msgstr "Debajo del precio"
+
+msgid "Hidden"
+msgstr "Oculto"
+
+msgid "Code"
+msgstr "Código"
+
+msgid "Decimals mode"
+msgstr "Modo de decimales"
+
+msgid "Always"
+msgstr "Siempre"
+
+msgid "Sort alphabetically"
+msgstr "Ordenar alfabéticamente"
+
+msgid "Show optional type badge"
+msgstr "Mostrar etiqueta de tipo (obligatorio/opcional)"
+
+msgid "Show price type badge"
+msgstr "Mostrar etiqueta de tipo de precio"
+
+msgid "Show payment badge"
+msgstr "Mostrar etiqueta de pago"
+
+msgid "Plain"
+msgstr "Simple"
+
+msgid "Price display"
+msgstr "Visualización del precio"
+
+msgid "Total HTML"
+msgstr "HTML del total"
+
+msgid "Product"
+msgstr "Producto"
+
+msgid "Search…"
+msgstr "Buscar…"
+
+msgid "No results."
+msgstr "Sin resultados."
+
+msgid "Added"
+msgstr "Añadido"
+
+msgid "Add"
+msgstr "Añadir"
+
+msgid "Load more"
+msgstr "Cargar más"
+
+msgid "Selected:"
+msgstr "Seleccionados:"
+
+msgid "None"
+msgstr "Ninguno"
+
+msgid "MaradigmaBoatsAdmin config is missing. Enqueue/admin localize is not loaded."
+msgstr "Falta la configuración de MaradigmaBoatsAdmin. No se ha cargado el enqueue/localize del admin."
+
+msgid "Maradigma - Boats settings"
+msgstr "Maradigma - Ajustes de barcos"
+
+msgid "Boats page mode"
+msgstr "Modo de la página de barcos"
+
+msgid "No special listing"
+msgstr "Sin listado especial"
+
+msgid "By type (single type)"
+msgstr "Por tipo (un solo tipo)"
+
+msgid "Multiple types"
+msgstr "Varios tipos"
+
+msgid "Custom list"
+msgstr "Lista personalizada"
+
+msgid "These settings control how this page will show boats using Maradigma."
+msgstr "Estos ajustes controlan cómo mostrará esta página los barcos de Maradigma."
+
+msgid "By type"
+msgstr "Por tipo"
+
+msgid "Select exactly one type."
+msgstr "Selecciona exactamente un tipo."
+
+msgid "Boat type id"
+msgstr "ID del tipo de barco"
+
+msgid "Boat types"
+msgstr "Tipos de barco"
+
+msgid "Select one or more types."
+msgstr "Selecciona uno o varios tipos."
+
+msgid "Custom listing"
+msgstr "Listado personalizado"
+
+msgid "Service types"
+msgstr "Tipos de servicio"
+
+msgid "Service/boat types to include."
+msgstr "Tipos de servicio/barco que se incluirán."
+
+msgid "Filter by tags."
+msgstr "Filtrar por etiquetas."
+
+msgid "Filter by builders."
+msgstr "Filtrar por astilleros."
+
+msgid "Pick specific boats (searchable)."
+msgstr "Elige barcos concretos (con búsqueda)."

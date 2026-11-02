@@ -132,13 +132,11 @@ msgstr "Clau pública (X-API-KEY)"
 msgid "Public key (API Key)"
 msgstr "Clau pública (API Key)"
 
-
 msgid "Secret key"
 msgstr "Clau secreta"
 
 msgid "Secret key (API Secret)"
 msgstr "Clau secreta (API Secret)"
-
 
 msgid "Default language"
 msgstr "Idioma per defecte"
@@ -448,8 +446,6 @@ msgstr "✔ Elementor detectat - Widgets habilitats"
 
 msgid "⚠ Elementor not detected"
 msgstr "⚠ Elementor no detectat"
-
-
 
 msgid "✔ Yoast SEO detected - SEO integration available"
 msgstr "✔ Yoast SEO detectat - Integració SEO disponible"
@@ -2341,7 +2337,6 @@ msgstr "Si els vaixells no apareixen, revisa les claus API i l’estat de connex
 msgid "If cache looks stale, use \"Clear plugin cache\"."
 msgstr "Si la memòria cau sembla desactualitzada, usa \"Neteja la memòria cau del plugin\"."
 
-
 msgid "Support"
 msgstr "Suport"
 
@@ -2395,9 +2390,6 @@ msgstr "error"
 
 msgid "idle"
 msgstr "inactiu"
-
-
-
 
 msgid "All boats processed."
 msgstr "S’han processat tots els vaixells."
@@ -2836,7 +2828,6 @@ msgstr "dia"
 
 msgid "Availability dates"
 msgstr "Dates de disponibilitat"
-
 
 msgid "Date end (separate mode only)"
 msgstr "Data de fi (només mode separat)"
@@ -3753,3 +3744,1765 @@ msgstr "Mode d'enviament"
 
 msgid "Vertical"
 msgstr "Vertical"
+
+msgid "(Untitled boat)"
+msgstr "(Embarcació sense títol)"
+
+msgid "Custom layout"
+msgstr "Disseny personalitzat"
+
+msgid "Security check failed."
+msgstr "La comprovació de seguretat ha fallat."
+
+msgid "Countries dataset not found."
+msgstr "No s'ha trobat el conjunt de dades de països."
+
+msgid "Missing required parameters: boat_id, from_date, to_date."
+msgstr "Falten paràmetres obligatoris: boat_id, from_date, to_date."
+
+msgid "Archive context could not be built."
+msgstr "No s'ha pogut construir el context de l'arxiu."
+
+msgid "Missing required parameter: boat."
+msgstr "Falta el paràmetre obligatori: boat."
+
+msgid "Missing or invalid parameter: step."
+msgstr "Paràmetre absent o no vàlid: step."
+
+msgid "return_url_after_payment is required."
+msgstr "return_url_after_payment és obligatori."
+
+msgid "Missing required parameter: group."
+msgstr "Falta el paràmetre obligatori: group."
+
+msgid "Rental terms not found."
+msgstr "No s'han trobat les condicions de lloguer."
+
+msgid "You are not allowed to perform this action."
+msgstr "No tens permís per fer aquesta acció."
+
+msgid "Invalid security token."
+msgstr "Testimoni de seguretat no vàlid."
+
+msgid "Missing required parameter: id."
+msgstr "Falta el paràmetre obligatori: id."
+
+msgid "Boat not found in API response."
+msgstr "No s'ha trobat l'embarcació a la resposta de l'API."
+
+msgid "You are not allowed to search builders."
+msgstr "No tens permís per cercar astillers."
+
+msgid "Builder not found in API response."
+msgstr "No s'ha trobat l'astiller a la resposta de l'API."
+
+msgid "Total:"
+msgstr "Total:"
+
+msgid "Quote error"
+msgstr "Error en el pressupost"
+
+msgid "Insertar"
+msgstr "Inserir"
+
+msgid "Cerrar"
+msgstr "Tanca"
+
+msgid "processing"
+msgstr "processant"
+
+msgid "waiting for current worker"
+msgstr "esperant el procés actual"
+
+msgid "waiting for WP-Cron"
+msgstr "esperant WP-Cron"
+
+msgid "running, waiting for next kick"
+msgstr "en curs, esperant el següent impuls"
+
+msgid "ok"
+msgstr "correcte"
+
+msgid "failed"
+msgstr "fallit"
+
+msgid "not attempted"
+msgstr "no intentat"
+
+msgid "Select boat types"
+msgstr "Selecciona tipus d'embarcació"
+
+msgid "Select service types"
+msgstr "Selecciona tipus de servei"
+
+msgid "Select boats"
+msgstr "Selecciona embarcacions"
+
+msgid "Search boats..."
+msgstr "Cerca embarcacions..."
+
+msgid "Search builders..."
+msgstr "Cerca astillers..."
+
+msgid "Images available: "
+msgstr "Imatges disponibles: "
+
+msgid "Images available: —"
+msgstr "Imatges disponibles: —"
+
+msgid "Maradigma boat (searchable)"
+msgstr "Embarcació de Maradigma (amb cerca)"
+
+msgid "Select one of your active/public boats from Maradigma. Start typing to search."
+msgstr "Selecciona una de les teves embarcacions actives/públiques de Maradigma. Comença a escriure per cercar."
+
+msgid "When enabled, sync will never overwrite this boat’s Elementor layout. Boat data, images and SEO will still be synced."
+msgstr "Si s'activa, la sincronització mai no sobreescriurà el disseny d'Elementor d'aquesta embarcació. Les dades, les imatges i el SEO de l'embarcació se seguiran sincronitzant."
+
+msgid "Context not available. Panel is in read-only mode."
+msgstr "Context no disponible. El tauler és en mode de només lectura."
+
+msgid "Boat name"
+msgstr "Nom de l'embarcació"
+
+msgid "Boat URL"
+msgstr "URL de l'embarcació"
+
+msgid "Slug"
+msgstr "Slug"
+
+msgid "Reference"
+msgstr "Referència"
+
+msgid "Currency (ISO)"
+msgstr "Moneda (ISO)"
+
+msgid "Service name"
+msgstr "Nom del servei"
+
+msgid "Boat plate number"
+msgstr "Matrícula de l'embarcació"
+
+msgid "Boat license"
+msgstr "Llicència de l'embarcació"
+
+msgid "Group ID"
+msgstr "ID del grup"
+
+msgid "Group content type ID"
+msgstr "ID del tipus de contingut del grup"
+
+msgid "Main image (cached, deterministic)"
+msgstr "Imatge principal (en memòria cau, determinista)"
+
+msgid "Main image alias"
+msgstr "Àlies de la imatge principal"
+
+msgid "Exact image size token. Example: {{image_maradigma_card_471x273}}"
+msgstr "Testimoni de mida d'imatge exacta. Exemple: {{image_maradigma_card_471x273}}"
+
+msgid "Carousel HTML (legacy)"
+msgstr "HTML del carrusel (antic)"
+
+msgid "Port"
+msgstr "Port"
+
+msgid "Base port ID"
+msgstr "ID del port base"
+
+msgid "Base port name"
+msgstr "Nom del port base"
+
+msgid "Latitude"
+msgstr "Latitud"
+
+msgid "Longitude"
+msgstr "Longitud"
+
+msgid "Capacity (pax)"
+msgstr "Capacitat (pax)"
+
+msgid "Boat capacity"
+msgstr "Capacitat de l'embarcació"
+
+msgid "Overnight capacity"
+msgstr "Capacitat per pernoctar"
+
+msgid "Cabins (raw)"
+msgstr "Camarots (sense format)"
+
+msgid "Beds"
+msgstr "Llits"
+
+msgid "Beds (raw)"
+msgstr "Llits (sense format)"
+
+msgid "Bathrooms (raw)"
+msgstr "Banys (sense format)"
+
+msgid "Length (m)"
+msgstr "Eslora (m)"
+
+msgid "Length (raw)"
+msgstr "Eslora (sense format)"
+
+msgid "Beam (m)"
+msgstr "Mànega (m)"
+
+msgid "Beam (raw)"
+msgstr "Mànega (sense format)"
+
+msgid "Year (construction)"
+msgstr "Any (construcció)"
+
+msgid "Construction year (raw)"
+msgstr "Any de construcció (sense format)"
+
+msgid "Year refit"
+msgstr "Any de refit"
+
+msgid "Mandatory skipper (bool)"
+msgstr "Patró obligatori (booleà)"
+
+msgid "Bareboat (bool)"
+msgstr "Sense patró (booleà)"
+
+msgid "Skipper label"
+msgstr "Etiqueta del patró"
+
+msgid "Skipper text (raw)"
+msgstr "Text del patró (sense format)"
+
+msgid "Skipper option (raw)"
+msgstr "Opció de patró (sense format)"
+
+msgid "Price from"
+msgstr "Preu des de"
+
+msgid "Price from VAT percent"
+msgstr "Percentatge d'IVA del preu des de"
+
+msgid "Price from VAT amount"
+msgstr "Import d'IVA del preu des de"
+
+msgid "Price from total (VAT included)"
+msgstr "Total del preu des de (IVA inclòs)"
+
+msgid "Price from with mandatory additionals base"
+msgstr "Base del preu des de amb serveis addicionals obligatoris"
+
+msgid "Price from with mandatory additionals VAT"
+msgstr "IVA del preu des de amb serveis addicionals obligatoris"
+
+msgid "Price from with mandatory additionals total"
+msgstr "Total del preu des de amb serveis addicionals obligatoris"
+
+msgid "Base price VAT percent"
+msgstr "Percentatge d'IVA del preu base"
+
+msgid "Base price VAT amount"
+msgstr "Import d'IVA del preu base"
+
+msgid "Base price total (VAT included)"
+msgstr "Total del preu base (IVA inclòs)"
+
+msgid "Base week price"
+msgstr "Preu base per setmana"
+
+msgid "Base week price VAT percent"
+msgstr "Percentatge d'IVA del preu base per setmana"
+
+msgid "Base week price VAT amount"
+msgstr "Import d'IVA del preu base per setmana"
+
+msgid "Base week price total (VAT included)"
+msgstr "Total del preu base per setmana (IVA inclòs)"
+
+msgid "Base hour price"
+msgstr "Preu base per hora"
+
+msgid "Base hour price VAT percent"
+msgstr "Percentatge d'IVA del preu base per hora"
+
+msgid "Base hour price VAT amount"
+msgstr "Import d'IVA del preu base per hora"
+
+msgid "Base hour price total (VAT included)"
+msgstr "Total del preu base per hora (IVA inclòs)"
+
+msgid "Featured (bool)"
+msgstr "Destacat (booleà)"
+
+msgid "Tenant member flag"
+msgstr "Indicador de membre del tenant"
+
+msgid "Rent online flag"
+msgstr "Indicador de lloguer en línia"
+
+msgid "Can render booking flag"
+msgstr "Indicador de reserva disponible"
+
+msgid "Featured badge HTML (auto)"
+msgstr "HTML de l'etiqueta de destacat (auto)"
+
+msgid "Instant booking badge HTML (auto)"
+msgstr "HTML de l'etiqueta de reserva instantània (auto)"
+
+msgid "Optional skipper"
+msgstr "Patró opcional"
+
+msgid "Main image (auto)"
+msgstr "Imatge principal (auto)"
+
+msgid "Not scheduled"
+msgstr "No programat"
+
+msgid "Never"
+msgstr "Mai"
+
+msgid "Lang"
+msgstr "Idioma"
+
+msgid "Images"
+msgstr "Imatges"
+
+msgid "Cached images in Media Library"
+msgstr "Imatges en memòria cau a la mediateca"
+
+msgid "Boat binding is disabled for this page by an integration."
+msgstr "Una integració ha desactivat la vinculació d'embarcació per a aquesta pàgina."
+
+msgid "Unsupported post type."
+msgstr "Tipus de contingut no compatible."
+
+msgid "Select boat"
+msgstr "Selecciona una embarcació"
+
+msgid "Keeps the current URL for SEO and renders the selected boat on this page."
+msgstr "Manté l'URL actual per al SEO i mostra l'embarcació seleccionada en aquesta pàgina."
+
+msgid "Apply this boat link to the translated versions of this page"
+msgstr "Aplica aquesta vinculació d'embarcació a les versions traduïdes d'aquesta pàgina"
+
+msgid "Useful with Polylang/WPML when you want the same selected boat to be linked in the other language versions too."
+msgstr "Útil amb Polylang/WPML quan vols que la mateixa embarcació seleccionada també quedi vinculada a les versions en altres idiomes."
+
+msgid "Use custom WPBakery layout"
+msgstr "Utilitza un disseny de WPBakery personalitzat"
+
+msgid "When enabled, sync will never overwrite this boat's WPBakery content. Boat data, images and SEO will still be synced."
+msgstr "Si s'activa, la sincronització mai no sobreescriurà el contingut de WPBakery d'aquesta embarcació. Les dades, les imatges i el SEO de l'embarcació se seguiran sincronitzant."
+
+msgid "This taxonomy term is a boat detail page"
+msgstr "Aquest terme de taxonomia és una pàgina de detall d'embarcació"
+
+msgid "Keeps the current taxonomy URL for SEO and renders the selected boat on this term archive."
+msgstr "Manté l'URL actual de la taxonomia per al SEO i mostra l'embarcació seleccionada en l'arxiu d'aquest terme."
+
+msgid "Elementor master template updated from the selected boat layout."
+msgstr "Plantilla mestra d'Elementor actualitzada a partir del disseny de l'embarcació seleccionada."
+
+msgid "Please select a valid boat with Elementor layout."
+msgstr "Selecciona una embarcació vàlida amb disseny d'Elementor."
+
+msgid "The selected boat does not contain Elementor data to import."
+msgstr "L'embarcació seleccionada no conté dades d'Elementor per importar."
+
+msgid "The Elementor master template could not be created or loaded."
+msgstr "No s'ha pogut crear ni carregar la plantilla mestra d'Elementor."
+
+msgid "WPBakery"
+msgstr "WPBakery"
+
+msgid "Use the editable WPBakery master template for generated boat pages. Elementor and Gutenberg template sync will be disabled."
+msgstr "Utilitza la plantilla mestra editable de WPBakery per a les pàgines d'embarcacions generades. La sincronització de plantilles d'Elementor i Gutenberg es desactivarà."
+
+msgid "Current phase:"
+msgstr "Fase actual:"
+
+msgid "Next WP-Cron run:"
+msgstr "Propera execució de WP-Cron:"
+
+msgid "WPBakery template"
+msgstr "Plantilla WPBakery"
+
+msgid "Overwrite managed WPBakery layouts only"
+msgstr "Sobreescriu només els dissenys WPBakery gestionats"
+
+msgid "Do not touch WPBakery content"
+msgstr "No modifiquis el contingut de WPBakery"
+
+msgid "Restart sync"
+msgstr "Reinicia la sincronització"
+
+msgid "Stop sync"
+msgstr "Atura la sincronització"
+
+msgid "Last image sync run:"
+msgstr "Última execució de la sincronització d'imatges:"
+
+msgid "Worker state:"
+msgstr "Estat del procés:"
+
+msgid "Async kick:"
+msgstr "Impuls asíncron:"
+
+msgid "Edit WPBakery boat template"
+msgstr "Edita la plantilla d'embarcació WPBakery"
+
+msgid "Edit the master template with WPBakery. Existing boat pages are updated only when you apply the template below."
+msgstr "Edita la plantilla mestra amb WPBakery. Les pàgines d'embarcacions existents només s'actualitzen quan apliques la plantilla més avall."
+
+msgid "Replace master template with an existing boat layout"
+msgstr "Substitueix la plantilla mestra pel disseny d'una embarcació existent"
+
+msgid "Choose a boat that already has the Elementor structure you want to reuse. This only updates the master template; boats are not overwritten until you run the apply action below."
+msgstr "Tria una embarcació que ja tingui l'estructura d'Elementor que vols reutilitzar. Això només actualitza la plantilla mestra; les embarcacions no se sobreescriuen fins que executes l'acció d'aplicar més avall."
+
+msgid "Source boat"
+msgstr "Embarcació d'origen"
+
+msgid "Select a boat layout?"
+msgstr "Seleccionar un disseny d'embarcació?"
+
+msgid "This will replace the current Elementor master template with the layout from the selected boat. Continue?"
+msgstr "Això substituirà la plantilla mestra actual d'Elementor pel disseny de l'embarcació seleccionada. Vols continuar?"
+
+msgid "Use boat layout as master template"
+msgstr "Utilitza el disseny de l'embarcació com a plantilla mestra"
+
+msgid "This will apply the current Gutenberg master template to boat pages. Non-forced mode only overwrites managed Gutenberg layouts."
+msgstr "Això aplicarà la plantilla mestra actual de Gutenberg a les pàgines d'embarcacions. El mode no forçat només sobreescriu dissenys Gutenberg gestionats."
+
+msgid "This will apply the current WPBakery master template to boat pages. Non-forced mode only overwrites managed WPBakery layouts."
+msgstr "Això aplicarà la plantilla mestra actual de WPBakery a les pàgines d'embarcacions. El mode no forçat només sobreescriu dissenys WPBakery gestionats."
+
+msgid "This will overwrite Elementor layout on all boats except those marked as Custom layout."
+msgstr "Això sobreescriurà el disseny Elementor de totes les embarcacions excepte les marcades com a disseny personalitzat."
+
+msgid "pages scanned"
+msgstr "pàgines revisades"
+
+msgid "unique boats"
+msgstr "embarcacions úniques"
+
+msgid "languages"
+msgstr "idiomes"
+
+msgid "pages updated"
+msgstr "pàgines actualitzades"
+
+msgid "pages skipped"
+msgstr "pàgines omeses"
+
+msgid "pages failed"
+msgstr "pàgines fallides"
+
+msgid "Last run:"
+msgstr "Última execució:"
+
+msgid "Next scheduled run:"
+msgstr "Propera execució programada:"
+
+msgid "Default boat card template restored."
+msgstr "S'ha restaurat la plantilla de targeta d'embarcació per defecte."
+
+msgid "This will replace the current default card HTML with the plugin default template. Continue?"
+msgstr "Això substituirà l'HTML de la targeta per defecte actual per la plantilla per defecte del plugin. Vols continuar?"
+
+msgid "Restore default template"
+msgstr "Restaura la plantilla per defecte"
+
+msgid "Booking online"
+msgstr "Reserva en línia"
+
+msgid "External API"
+msgstr "API externa"
+
+msgid "Frontend errors"
+msgstr "Errors del frontend"
+
+msgid "Booking price"
+msgstr "Preu de la reserva"
+
+msgid "Boat images sync"
+msgstr "Sincronització d'imatges d'embarcacions"
+
+msgid "Log channel"
+msgstr "Canal del registre"
+
+msgid "View log"
+msgstr "Mostra el registre"
+
+msgid "Waiting for another image sync worker to finish"
+msgstr "Esperant que finalitzi un altre procés de sincronització d'imatges"
+
+msgid "Tick paused by soft time budget during image processing"
+msgstr "Cicle pausat pel límit de temps flexible durant el processament d'imatges"
+
+msgid "Maradigma - Boats Archive"
+msgstr "Maradigma - Arxiu d'embarcacions"
+
+msgid "Card image token (image_token)"
+msgstr "Testimoni d'imatge de la targeta (image_token)"
+
+msgid "Items per page (limit_services)"
+msgstr "Elements per pàgina (limit_services)"
+
+msgid "Default order (order_by)"
+msgstr "Ordre per defecte (order_by)"
+
+msgid "Show filters form (show_filters)"
+msgstr "Mostra el formulari de filtres (show_filters)"
+
+msgid "Autosubmit on change (autosubmit_filters)"
+msgstr "Envia automàticament en canviar (autosubmit_filters)"
+
+msgid "Allow URL filters override widget defaults (allow_url_filters)"
+msgstr "Permet que els filtres de l'URL sobreescriguin els valors per defecte del widget (allow_url_filters)"
+
+msgid "Needed for GET form filters."
+msgstr "Necessari per als filtres del formulari GET."
+
+msgid "Filters UI (frontend)"
+msgstr "Interfície de filtres (frontend)"
+
+msgid "Auto (JS on change)"
+msgstr "Auto (JS en canviar)"
+
+msgid "Button (manual submit)"
+msgstr "Botó (enviament manual)"
+
+msgid "Show \"More filters\" button"
+msgstr "Mostra el botó \"Més filtres\""
+
+msgid "\"More filters\" button text"
+msgstr "Text del botó \"Més filtres\""
+
+msgid "Enabled"
+msgstr "Activat"
+
+msgid "Fields order (drag & drop)"
+msgstr "Ordre dels camps (arrossega i deixa anar)"
+
+msgid "Fields order offcanvas (drag & drop)"
+msgstr "Ordre dels camps del panell lateral (arrossega i deixa anar)"
+
+msgid "Search term (term)"
+msgstr "Terme de cerca (term)"
+
+msgid "Min pax (boat_capacity)"
+msgstr "PAX mín. (boat_capacity)"
+
+msgid "Featured only (featured)"
+msgstr "Només destacats (featured)"
+
+msgid "Instant booking only (ins_book)"
+msgstr "Només reserva instantània (ins_book)"
+
+msgid "Min price (min_price)"
+msgstr "Preu mínim (min_price)"
+
+msgid "Max price (max_price)"
+msgstr "Preu màxim (max_price)"
+
+msgid "Boat type ID (boat_type_id)"
+msgstr "ID del tipus d'embarcació (boat_type_id)"
+
+msgid "Builders (builders)"
+msgstr "Astillers (builders)"
+
+msgid "Specific boats IDs (ids_gi)"
+msgstr "ID d'embarcacions específiques (ids_gi)"
+
+msgid "Price format (cards)"
+msgstr "Format de preu (targetes)"
+
+msgid "Date selector"
+msgstr "Selector de dates"
+
+msgid "One field (date range)"
+msgstr "Un camp (rang de dates)"
+
+msgid "Two fields (start / end)"
+msgstr "Dos camps (inici / fi)"
+
+msgid "Wrapper"
+msgstr "Contenidor"
+
+msgid "Max width"
+msgstr "Amplada màxima"
+
+msgid "Alignment"
+msgstr "Alineació"
+
+msgid "Left"
+msgstr "Esquerra"
+
+msgid "Center"
+msgstr "Centre"
+
+msgid "Right"
+msgstr "Dreta"
+
+msgid "Background color"
+msgstr "Color de fons"
+
+msgid "Border radius"
+msgstr "Radi de la vora"
+
+msgid "Padding"
+msgstr "Farciment"
+
+msgid "Margin"
+msgstr "Marge"
+
+msgid "Filters form"
+msgstr "Formulari de filtres"
+
+msgid "Filter bar"
+msgstr "Barra de filtres"
+
+msgid "Fields alignment"
+msgstr "Alineació dels camps"
+
+msgid "Start"
+msgstr "Inici"
+
+msgid "End"
+msgstr "Final"
+
+msgid "Space between"
+msgstr "Espai entre elements"
+
+msgid "Sort alignment"
+msgstr "Alineació de l'ordenació"
+
+msgid "Labels"
+msgstr "Etiquetes"
+
+msgid "Text color"
+msgstr "Color del text"
+
+msgid "Bottom spacing"
+msgstr "Espaiat inferior"
+
+msgid "Inputs & selects"
+msgstr "Camps i desplegables"
+
+msgid "Normal"
+msgstr "Normal"
+
+msgid "Placeholder color"
+msgstr "Color del text d'exemple"
+
+msgid "Focus"
+msgstr "Focus"
+
+msgid "Border color"
+msgstr "Color de la vora"
+
+msgid "Focus shadow color"
+msgstr "Color de l'ombra del focus"
+
+msgid "Min height"
+msgstr "Alçada mínima"
+
+msgid "Dropdown pills"
+msgstr "Pastilles desplegables"
+
+msgid "Hover"
+msgstr "En passar el ratolí"
+
+msgid "Dropdown panels"
+msgstr "Panells desplegables"
+
+msgid "Inner padding"
+msgstr "Farciment interior"
+
+msgid "Checkboxes"
+msgstr "Caselles de selecció"
+
+msgid "Accent color"
+msgstr "Color d'accent"
+
+msgid "Buttons"
+msgstr "Botons"
+
+msgid "Hover animation"
+msgstr "Animació en passar el ratolí"
+
+msgid "Button spacing"
+msgstr "Espaiat dels botons"
+
+msgid "More filters button"
+msgstr "Botó Més filtres"
+
+msgid "Drawer / Offcanvas"
+msgstr "Calaix / Panell lateral"
+
+msgid "Overlay color"
+msgstr "Color de la capa superposada"
+
+msgid "Drawer background"
+msgstr "Fons del calaix"
+
+msgid "Width"
+msgstr "Amplada"
+
+msgid "Body padding"
+msgstr "Farciment del cos"
+
+msgid "Results grid"
+msgstr "Graella de resultats"
+
+msgid "Grid gap"
+msgstr "Separació de la graella"
+
+msgid "Top spacing"
+msgstr "Espaiat superior"
+
+msgid "These controls affect the default card selectors rendered by the shortcode/card engine."
+msgstr "Aquests controls afecten els selectors de targeta per defecte que genera el motor de shortcodes/targetes."
+
+msgid "Card image overlay"
+msgstr "Capa superposada de la imatge de la targeta"
+
+msgid "Enable image overlay"
+msgstr "Activa la capa superposada de la imatge"
+
+msgid "Overlay type"
+msgstr "Tipus de capa superposada"
+
+msgid "Solid"
+msgstr "Sòlid"
+
+msgid "Gradient"
+msgstr "Degradat"
+
+msgid "Overlay color 1"
+msgstr "Color de la capa superposada 1"
+
+msgid "Overlay color 2"
+msgstr "Color de la capa superposada 2"
+
+msgid "Gradient direction"
+msgstr "Direcció del degradat"
+
+msgid "Bottom to top"
+msgstr "De baix a dalt"
+
+msgid "Top to bottom"
+msgstr "De dalt a baix"
+
+msgid "Left to right"
+msgstr "D'esquerra a dreta"
+
+msgid "Right to left"
+msgstr "De dreta a esquerra"
+
+msgid "Overlay opacity"
+msgstr "Opacitat de la capa superposada"
+
+msgid "Overlay border radius"
+msgstr "Radi de la vora de la capa superposada"
+
+msgid "Overlay blend mode"
+msgstr "Mode de fusió de la capa superposada"
+
+msgid "Multiply"
+msgstr "Multiplica"
+
+msgid "Overlay"
+msgstr "Superposa"
+
+msgid "Darken"
+msgstr "Enfosqueix"
+
+msgid "Soft light"
+msgstr "Llum suau"
+
+msgid "Pagination"
+msgstr "Paginació"
+
+msgid "Hover / Current"
+msgstr "En passar el ratolí / Actual"
+
+msgid "Empty state"
+msgstr "Estat buit"
+
+msgid "Text alignment"
+msgstr "Alineació del text"
+
+msgid "Maradigma - Boats Search"
+msgstr "Maradigma - Cerca d'embarcacions"
+
+msgid "Target URL (results page)"
+msgstr "URL de destinació (pàgina de resultats)"
+
+msgid "If empty, submits to current page URL."
+msgstr "Si és buit, s'envia a l'URL de la pàgina actual."
+
+msgid "Show \"term\" field"
+msgstr "Mostra el camp \"term\""
+
+msgid "Show \"boat_capacity\" field"
+msgstr "Mostra el camp \"boat_capacity\""
+
+msgid "Show dates (date_start/date_end)"
+msgstr "Mostra les dates (date_start/date_end)"
+
+msgid "Pax"
+msgstr "Pax"
+
+msgid "Headings"
+msgstr "Encapçalaments"
+
+msgid "Main title"
+msgstr "Títol principal"
+
+msgid "Title color"
+msgstr "Color del títol"
+
+msgid "Title bottom spacing"
+msgstr "Espaiat inferior del títol"
+
+msgid "Category title"
+msgstr "Títol de la categoria"
+
+msgid "Category color"
+msgstr "Color de la categoria"
+
+msgid "Category spacing"
+msgstr "Espaiat de la categoria"
+
+msgid "Rows and table"
+msgstr "Files i taula"
+
+msgid "Rows gap"
+msgstr "Separació entre files"
+
+msgid "Row padding"
+msgstr "Farciment de la fila"
+
+msgid "Cell padding"
+msgstr "Farciment de la cel·la"
+
+msgid "Service content"
+msgstr "Contingut del servei"
+
+msgid "Service name color"
+msgstr "Color del nom del servei"
+
+msgid "Description, quantity and VAT color"
+msgstr "Color de la descripció, la quantitat i l'IVA"
+
+msgid "Price color"
+msgstr "Color del preu"
+
+msgid "Table header"
+msgstr "Capçalera de la taula"
+
+msgid "Popup"
+msgstr "Finestra emergent"
+
+msgid "Visible months"
+msgstr "Mesos visibles"
+
+msgid "1 month"
+msgstr "1 mes"
+
+msgid "2 months"
+msgstr "2 mesos"
+
+msgid "Date selection mode"
+msgstr "Mode de selecció de dates"
+
+msgid "Single day"
+msgstr "Un sol dia"
+
+msgid "Show entry and exit time"
+msgstr "Mostra l'hora d'entrada i de sortida"
+
+msgid "Show"
+msgstr "Mostra"
+
+msgid "Hide"
+msgstr "Amaga"
+
+msgid "Show promo code block"
+msgstr "Mostra el bloc de codi promocional"
+
+msgid "Show children onboard option"
+msgstr "Mostra l'opció de nens a bord"
+
+msgid "Free additional services label"
+msgstr "Etiqueta dels serveis addicionals gratuïts"
+
+msgid "Redirect URL after booking"
+msgstr "URL de redirecció després de la reserva"
+
+msgid "Optional. Used when the booking succeeds and no payment URL is returned by the API."
+msgstr "Opcional. S'utilitza quan la reserva es completa correctament i l'API no retorna cap URL de pagament."
+
+msgid "Theme variables"
+msgstr "Variables del tema"
+
+msgid "Main colors"
+msgstr "Colors principals"
+
+msgid "Primary color"
+msgstr "Color primari"
+
+msgid "Primary button text"
+msgstr "Text del botó primari"
+
+msgid "Ghost button background"
+msgstr "Fons del botó transparent"
+
+msgid "Ghost button text"
+msgstr "Text del botó transparent"
+
+msgid "Heading color"
+msgstr "Color dels encapçalaments"
+
+msgid "Body text color"
+msgstr "Color del text del cos"
+
+msgid "Muted text color"
+msgstr "Color del text atenuat"
+
+msgid "Surface color"
+msgstr "Color de superfície"
+
+msgid "Soft surface color"
+msgstr "Color de superfície suau"
+
+msgid "Base border color"
+msgstr "Color de la vora base"
+
+msgid "Input border color"
+msgstr "Color de la vora dels camps"
+
+msgid "Input focus color"
+msgstr "Color del focus dels camps"
+
+msgid "Pay now box background"
+msgstr "Fons del quadre Paga ara"
+
+msgid "Pay now box border"
+msgstr "Vora del quadre Paga ara"
+
+msgid "Selected payment background"
+msgstr "Fons del pagament seleccionat"
+
+msgid "Toggle link color"
+msgstr "Color de l'enllaç desplegable"
+
+msgid "Toggle link hover color"
+msgstr "Color de l'enllaç desplegable en passar el ratolí"
+
+msgid "Success color"
+msgstr "Color d'èxit"
+
+msgid "Error color"
+msgstr "Color d'error"
+
+msgid "Radius and spacing"
+msgstr "Radi i espaiat"
+
+msgid "Button radius"
+msgstr "Radi dels botons"
+
+msgid "Input radius"
+msgstr "Radi dels camps"
+
+msgid "Modal/card radius"
+msgstr "Radi del modal/targeta"
+
+msgid "Modal max width"
+msgstr "Amplada màxima del modal"
+
+msgid "Sidebar width"
+msgstr "Amplada de la barra lateral"
+
+msgid "Typography variables"
+msgstr "Variables tipogràfiques"
+
+msgid "Font family"
+msgstr "Família tipogràfica"
+
+msgid "Body font size"
+msgstr "Mida de la lletra del cos"
+
+msgid "Label font size"
+msgstr "Mida de la lletra de les etiquetes"
+
+msgid "Section title size"
+msgstr "Mida del títol de secció"
+
+msgid "Open button"
+msgstr "Botó d'obertura"
+
+msgid "Justified"
+msgstr "Justificat"
+
+msgid "Disabled / Loading"
+msgstr "Desactivat / Carregant"
+
+msgid "Modal panel"
+msgstr "Panell del modal"
+
+msgid "Modal header"
+msgstr "Capçalera del modal"
+
+msgid "Bottom border color"
+msgstr "Color de la vora inferior"
+
+msgid "Close icon color"
+msgstr "Color de la icona de tancar"
+
+msgid "Progress steps"
+msgstr "Passos del progrés"
+
+msgid "Badge background"
+msgstr "Fons de l'etiqueta"
+
+msgid "Badge text color"
+msgstr "Color del text de l'etiqueta"
+
+msgid "Active background"
+msgstr "Fons actiu"
+
+msgid "Active border"
+msgstr "Vora activa"
+
+msgid "Active badge background"
+msgstr "Fons de l'etiqueta activa"
+
+msgid "Active badge text color"
+msgstr "Color del text de l'etiqueta activa"
+
+msgid "Completed badge background"
+msgstr "Fons de l'etiqueta completada"
+
+msgid "Completed badge text color"
+msgstr "Color del text de l'etiqueta completada"
+
+msgid "Modal body"
+msgstr "Cos del modal"
+
+msgid "Step title color"
+msgstr "Color del títol del pas"
+
+msgid "Fields"
+msgstr "Camps"
+
+msgid "Label color"
+msgstr "Color de les etiquetes"
+
+msgid "Input text color"
+msgstr "Color del text dels camps"
+
+msgid "Focus border color"
+msgstr "Color de la vora amb focus"
+
+msgid "Summary card"
+msgstr "Targeta de resum"
+
+msgid "Modal buttons"
+msgstr "Botons del modal"
+
+msgid "Primary buttons"
+msgstr "Botons primaris"
+
+msgid "Ghost buttons"
+msgstr "Botons transparents"
+
+msgid "Secondary buttons"
+msgstr "Botons secundaris"
+
+msgid "Success step"
+msgstr "Pas de confirmació"
+
+msgid "Preview mode: open a post linked to a Maradigma boat to test the real booking flow."
+msgstr "Mode de previsualització: obre una entrada vinculada a una embarcació de Maradigma per provar el flux de reserva real."
+
+msgid "Months to show"
+msgstr "Mesos a mostrar"
+
+msgid "How many months are available in the month selector."
+msgstr "Quants mesos hi ha disponibles al selector de mes."
+
+msgid "Current month"
+msgstr "Mes actual"
+
+msgid "Next month"
+msgstr "Mes següent"
+
+msgid "Show \"Option\" state"
+msgstr "Mostra l'estat \"Opció\""
+
+msgid "If disabled, provisional reservations will be displayed as \"Booked\"."
+msgstr "Si es desactiva, les reserves provisionals es mostraran com a \"Reservat\"."
+
+msgid "Colors"
+msgstr "Colors"
+
+msgid "Not available color"
+msgstr "Color de no disponible"
+
+msgid "Boat context not available."
+msgstr "Context de l'embarcació no disponible."
+
+msgid "Boat identifier not available."
+msgstr "Identificador de l'embarcació no disponible."
+
+msgid "Auto (prefer long)"
+msgstr "Auto (prefereix la llarga)"
+
+msgid "Short description"
+msgstr "Descripció curta"
+
+msgid "Long description"
+msgstr "Descripció llarga"
+
+msgid "Link color"
+msgstr "Color dels enllaços"
+
+msgid "Link hover color"
+msgstr "Color dels enllaços en passar el ratolí"
+
+msgid "Paragraph spacing"
+msgstr "Espaiat entre paràgrafs"
+
+msgid "Container"
+msgstr "Contenidor"
+
+msgid "Items"
+msgstr "Elements"
+
+msgid "Column gap"
+msgstr "Separació entre columnes"
+
+msgid "Icon gap"
+msgstr "Separació de la icona"
+
+msgid "Icon color"
+msgstr "Color de la icona"
+
+msgid "Icon size"
+msgstr "Mida de la icona"
+
+msgid "Aspect ratio"
+msgstr "Relació d'aspecte"
+
+msgid "Square (1:1)"
+msgstr "Quadrat (1:1)"
+
+msgid "Classic (4:3)"
+msgstr "Clàssic (4:3)"
+
+msgid "Photo (3:2)"
+msgstr "Foto (3:2)"
+
+msgid "Widescreen (16:9)"
+msgstr "Panoràmic (16:9)"
+
+msgid "Panoramic (21:9)"
+msgstr "Ultrapanoràmic (21:9)"
+
+msgid "Image fit"
+msgstr "Ajust de la imatge"
+
+msgid "Cover"
+msgstr "Cobreix"
+
+msgid "Contain"
+msgstr "Conté"
+
+msgid "Fill"
+msgstr "Omple"
+
+msgid "Image position"
+msgstr "Posició de la imatge"
+
+msgid "Top"
+msgstr "Dalt"
+
+msgid "Bottom"
+msgstr "Baix"
+
+msgid "Slider controls"
+msgstr "Controls del carrusel"
+
+msgid "Arrows and dots color"
+msgstr "Color de les fletxes i els punts"
+
+msgid "Pagination dot size"
+msgstr "Mida dels punts de paginació"
+
+msgid "Fallback text if PDF does not exist"
+msgstr "Text alternatiu si el PDF no existeix"
+
+msgid "Optional fallback text"
+msgstr "Text alternatiu opcional"
+
+msgid "Full width"
+msgstr "Amplada completa"
+
+msgid "Cards"
+msgstr "Targetes"
+
+msgid "Item"
+msgstr "Element"
+
+msgid "Direction"
+msgstr "Direcció"
+
+msgid "Row"
+msgstr "Fila"
+
+msgid "Column"
+msgstr "Columna"
+
+msgid "Inner gap"
+msgstr "Separació interior"
+
+msgid "Icon"
+msgstr "Icona"
+
+msgid "Color"
+msgstr "Color"
+
+msgid "Spacing"
+msgstr "Espaiat"
+
+msgid "Value"
+msgstr "Valor"
+
+msgid "Select a field"
+msgstr "Selecciona un camp"
+
+msgid "Display mode"
+msgstr "Mode de visualització"
+
+msgid "Embedded video"
+msgstr "Vídeo incrustat"
+
+msgid "Thumbnail + link"
+msgstr "Miniatura + enllaç"
+
+msgid "Maximum videos"
+msgstr "Màxim de vídeos"
+
+msgid "Show video title"
+msgstr "Mostra el títol del vídeo"
+
+msgid "Columns (style)"
+msgstr "Columnes (estil)"
+
+msgid "Translate Y"
+msgstr "Desplaçament Y"
+
+msgid "Transition"
+msgstr "Transició"
+
+msgid "Duration (ms)"
+msgstr "Durada (ms)"
+
+msgid "Video / Thumbnail"
+msgstr "Vídeo / Miniatura"
+
+msgid "Media border radius"
+msgstr "Radi de la vora del contingut multimèdia"
+
+msgid "Aspect ratio (%)"
+msgstr "Relació d'aspecte (%)"
+
+msgid "56.25 = 16:9, 75 = 4:3, 100 = square"
+msgstr "56.25 = 16:9, 75 = 4:3, 100 = quadrat"
+
+msgid "Thumbnail height"
+msgstr "Alçada de la miniatura"
+
+msgid "Placeholder background"
+msgstr "Fons del marcador de posició"
+
+msgid "Placeholder text color"
+msgstr "Color del text del marcador de posició"
+
+msgid "Thumbnail overlay color"
+msgstr "Color de la capa superposada de la miniatura"
+
+msgid "Thumbnail overlay opacity"
+msgstr "Opacitat de la capa superposada de la miniatura"
+
+msgid "Videos not available."
+msgstr "Vídeos no disponibles."
+
+msgid "Diseño"
+msgstr "Disseny"
+
+msgid "Sin barras laterales"
+msgstr "Sense barres laterals"
+
+msgid "Por defecto"
+msgstr "Per defecte"
+
+msgid "Barra lateral derecha"
+msgstr "Barra lateral dreta"
+
+msgid "Barra lateral izquierda"
+msgstr "Barra lateral esquerra"
+
+msgid "Ambas barras laterales"
+msgstr "Ambdues barres laterals"
+
+msgid "Ambas barras a la izquierda"
+msgstr "Ambdues barres a l'esquerra"
+
+msgid "Ambas barras a la derecha"
+msgstr "Ambdues barres a la dreta"
+
+msgid "Contenido contenido"
+msgstr "Contingut delimitat"
+
+msgid "Ancho completo"
+msgstr "Amplada completa"
+
+msgid "Diseño de la barra lateral"
+msgstr "Disseny de la barra lateral"
+
+msgid "Contenedor del contenido"
+msgstr "Contenidor del contingut"
+
+msgid "Widgets del pie de página"
+msgstr "Widgets del peu de pàgina"
+
+msgid "Desactivar elementos"
+msgstr "Desactiva elements"
+
+msgid "Título del contenido"
+msgstr "Títol del contingut"
+
+msgid "GeneratePress no es el tema activo. Estos ajustes se guardan y se aplican cuando el sitio usa GeneratePress."
+msgstr "GeneratePress no és el tema actiu. Aquests ajustos es desen i s'apliquen quan el lloc utilitza GeneratePress."
+
+msgid "Estos ajustes se copian a las paginas de barcos gestionadas al aplicar la plantilla Gutenberg."
+msgstr "Aquests ajustos es copien a les pàgines d'embarcacions gestionades en aplicar la plantilla Gutenberg."
+
+msgid "Maradigma Boat Detail Template"
+msgstr "Maradigma Plantilla de detall de l'embarcació"
+
+msgid "Maradigma - Boat Template (Gutenberg)"
+msgstr "Maradigma - Plantilla d'embarcació (Gutenberg)"
+
+msgid "Boats archive"
+msgstr "Arxiu d'embarcacions"
+
+msgid "Editor preview is rendered statically to keep Gutenberg responsive. The real boat listing renders on the frontend."
+msgstr "La previsualització de l'editor es mostra de manera estàtica perquè Gutenberg continuï responent amb agilitat. El llistat real d'embarcacions es mostra al frontend."
+
+#, php-format
+msgid "VAT %1$.2f%%. Total: %2$s"
+msgstr "IVA %1$.2f%%. Total: %2$s"
+
+msgid "WPBakery templates"
+msgstr "Plantilles WPBakery"
+
+msgid "Add new WPBakery template"
+msgstr "Afegeix una plantilla WPBakery nova"
+
+msgid "Edit WPBakery template"
+msgstr "Edita la plantilla WPBakery"
+
+msgid "New WPBakery template"
+msgstr "Plantilla WPBakery nova"
+
+msgid "View WPBakery template"
+msgstr "Mostra la plantilla WPBakery"
+
+msgid "Search WPBakery templates"
+msgstr "Cerca plantilles WPBakery"
+
+msgid "No WPBakery templates found"
+msgstr "No s'han trobat plantilles WPBakery"
+
+msgid "No WPBakery templates found in trash"
+msgstr "No s'han trobat plantilles WPBakery a la paperera"
+
+msgid "Boat listing with filters and cards."
+msgstr "Llistat d'embarcacions amb filtres i targetes."
+
+msgid "Search form that submits Maradigma filter parameters."
+msgstr "Formulari de cerca que envia els paràmetres de filtre de Maradigma."
+
+msgid "Maradigma - Boat Detail"
+msgstr "Maradigma - Detall de l'embarcació"
+
+msgid "Full single boat render."
+msgstr "Visualització completa d'una embarcació."
+
+msgid "Group"
+msgstr "Grup"
+
+msgid "Boat card template"
+msgstr "Plantilla de targeta d'embarcació"
+
+msgid "Default order"
+msgstr "Ordre per defecte"
+
+msgid "Show filters form"
+msgstr "Mostra el formulari de filtres"
+
+msgid "Autosubmit filters on change"
+msgstr "Envia els filtres automàticament en canviar"
+
+msgid "Allow URL filters override defaults"
+msgstr "Permet que els filtres de l'URL sobreescriguin els valors per defecte"
+
+msgid "Visible filter fields"
+msgstr "Camps de filtre visibles"
+
+msgid "Offcanvas filter fields"
+msgstr "Camps de filtre del panell lateral"
+
+msgid "Filters layout"
+msgstr "Disseny dels filtres"
+
+msgid "Show more filters button"
+msgstr "Mostra el botó Més filtres"
+
+msgid "Minimum pax"
+msgstr "PAX mínim"
+
+msgid "Boat type ID"
+msgstr "ID del tipus d'embarcació"
+
+msgid "Builder IDs"
+msgstr "ID d'astillers"
+
+msgid "Specific boat IDs"
+msgstr "ID d'embarcacions específiques"
+
+msgid "Show search term"
+msgstr "Mostra el terme de cerca"
+
+msgid "Show dates"
+msgstr "Mostra les dates"
+
+msgid "Show passengers"
+msgstr "Mostra els passatgers"
+
+msgid "Search placeholder"
+msgstr "Text d'exemple de la cerca"
+
+msgid "Maradigma - Boat Title"
+msgstr "Maradigma - Títol de l'embarcació"
+
+msgid "Boat title/H1."
+msgstr "Títol/H1 de l'embarcació."
+
+msgid "Maradigma - Boat Gallery"
+msgstr "Maradigma - Galeria de l'embarcació"
+
+msgid "Boat image gallery."
+msgstr "Galeria d'imatges de l'embarcació."
+
+msgid "Grid columns"
+msgstr "Columnes de la graella"
+
+msgid "Start image index"
+msgstr "Índex de la imatge inicial"
+
+msgid "End image index"
+msgstr "Índex de la imatge final"
+
+msgid "Preferred thumbnail size key"
+msgstr "Clau de mida de miniatura preferida"
+
+msgid "Prefer WP media cache"
+msgstr "Prefereix la memòria cau de mitjans de WP"
+
+msgid "Enable lightbox"
+msgstr "Activa el lightbox"
+
+msgid "Slider delay"
+msgstr "Retard del carrusel"
+
+msgid "Slider loop"
+msgstr "Bucle del carrusel"
+
+msgid "Slider speed"
+msgstr "Velocitat del carrusel"
+
+msgid "Slider space between"
+msgstr "Espai entre diapositives del carrusel"
+
+msgid "Slides per view desktop"
+msgstr "Diapositives per vista a l'escriptori"
+
+msgid "Slides per view tablet"
+msgstr "Diapositives per vista a la tauleta"
+
+msgid "Slides per view mobile"
+msgstr "Diapositives per vista al mòbil"
+
+msgid "Maradigma - Boat Videos"
+msgstr "Maradigma - Vídeos de l'embarcació"
+
+msgid "Embed"
+msgstr "Incrustat"
+
+msgid "Thumbnail link"
+msgstr "Enllaç de miniatura"
+
+msgid "CSS class"
+msgstr "Classe CSS"
+
+msgid "Maradigma - Boat Specs"
+msgstr "Maradigma - Especificacions de l'embarcació"
+
+msgid "Main boat specifications."
+msgstr "Especificacions principals de l'embarcació."
+
+msgid "Maradigma - Boat Description"
+msgstr "Maradigma - Descripció de l'embarcació"
+
+msgid "Automatic"
+msgstr "Automàtic"
+
+msgid "Short"
+msgstr "Curta"
+
+msgid "Long"
+msgstr "Llarga"
+
+msgid "Escape text output"
+msgstr "Escapa el text de sortida"
+
+msgid "Maradigma - Boat Prices"
+msgstr "Maradigma - Preus de l'embarcació"
+
+msgid "Rates and prices table."
+msgstr "Taula de tarifes i preus."
+
+msgid "Maradigma - Boat Price From"
+msgstr "Maradigma - Preu des de de l'embarcació"
+
+msgid "Price block. This shortcode uses the same renderer as Boat Prices."
+msgstr "Bloc de preu. Aquest shortcode utilitza el mateix renderitzador que Preus de l'embarcació."
+
+msgid "Maradigma - Boat Equipments"
+msgstr "Maradigma - Equipament de l'embarcació"
+
+msgid "Equipment list."
+msgstr "Llista d'equipament."
+
+msgid "Maradigma - Boat Included"
+msgstr "Maradigma - Inclòs a l'embarcació"
+
+msgid "Included services."
+msgstr "Serveis inclosos."
+
+msgid "Maradigma - Boat Not Included"
+msgstr "Maradigma - No inclòs a l'embarcació"
+
+msgid "Not included services."
+msgstr "Serveis no inclosos."
+
+msgid "Maradigma - Boat Additional Services"
+msgstr "Maradigma - Serveis addicionals de l'embarcació"
+
+msgid "Maradigma - Boat PDF Download"
+msgstr "Maradigma - Baixada del PDF de l'embarcació"
+
+msgid "Boat PDF button."
+msgstr "Botó del PDF de l'embarcació."
+
+msgid "Maradigma - Boat Calendar"
+msgstr "Maradigma - Calendari de l'embarcació"
+
+msgid "Boat availability calendar."
+msgstr "Calendari de disponibilitat de l'embarcació."
+
+msgid "Option status IDs"
+msgstr "ID d'estat d'opció"
+
+msgid "Maradigma - Boat Booking"
+msgstr "Maradigma - Reserva de l'embarcació"
+
+msgid "Booking/request form."
+msgstr "Formulari de reserva/sol·licitud."
+
+msgid "Success redirect URL"
+msgstr "URL de redirecció en cas d'èxit"
+
+msgid "Calendar selection mode"
+msgstr "Mode de selecció del calendari"
+
+msgid "Maradigma - Boat Field"
+msgstr "Maradigma - Camp de l'embarcació"
+
+msgid "Any boat field."
+msgstr "Qualsevol camp de l'embarcació."
+
+msgid "Escape output"
+msgstr "Escapa la sortida"
+
+msgid "Number"
+msgstr "Número"
+
+msgid "Range mode"
+msgstr "Mode del rang"
+
+msgid "Short dates"
+msgstr "Dates curtes"
+
+msgid "Full dates"
+msgstr "Dates completes"
+
+msgid "Season name"
+msgstr "Nom de la temporada"
+
+msgid "Date from ascending"
+msgstr "Data d'inici ascendent"
+
+msgid "Date from descending"
+msgstr "Data d'inici descendent"
+
+msgid "Price ascending"
+msgstr "Preu ascendent"
+
+msgid "Price descending"
+msgstr "Preu descendent"
+
+msgid "Show headers"
+msgstr "Mostra els encapçalaments"
+
+msgid "Excluded"
+msgstr "No inclòs"
+
+msgid "Hide VAT text"
+msgstr "Amaga el text de l'IVA"
+
+msgid "Use backend VAT setting"
+msgstr "Utilitza la configuració d'IVA del backend"
+
+msgid "Below price"
+msgstr "Sota el preu"
+
+msgid "Hidden"
+msgstr "Amagat"
+
+msgid "Code"
+msgstr "Codi"
+
+msgid "Decimals mode"
+msgstr "Mode de decimals"
+
+msgid "Always"
+msgstr "Sempre"
+
+msgid "Sort alphabetically"
+msgstr "Ordena alfabèticament"
+
+msgid "Show optional type badge"
+msgstr "Mostra l'etiqueta de tipus opcional"
+
+msgid "Show price type badge"
+msgstr "Mostra l'etiqueta de tipus de preu"
+
+msgid "Show payment badge"
+msgstr "Mostra l'etiqueta de pagament"
+
+msgid "Plain"
+msgstr "Senzill"
+
+msgid "Price display"
+msgstr "Visualització del preu"
+
+msgid "Total HTML"
+msgstr "Total HTML"
+
+msgid "Product"
+msgstr "Producte"
+
+msgid "Search…"
+msgstr "Cerca…"
+
+msgid "No results."
+msgstr "No hi ha resultats."
+
+msgid "Added"
+msgstr "Afegit"
+
+msgid "Add"
+msgstr "Afegeix"
+
+msgid "Load more"
+msgstr "Carrega'n més"
+
+msgid "Selected:"
+msgstr "Seleccionat:"
+
+msgid "None"
+msgstr "Cap"
+
+msgid "MaradigmaBoatsAdmin config is missing. Enqueue/admin localize is not loaded."
+msgstr "Falta la configuració de MaradigmaBoatsAdmin. L'enqueue/localize d'administració no s'ha carregat."
+
+msgid "Maradigma - Boats settings"
+msgstr "Maradigma - Configuració d'embarcacions"
+
+msgid "Boats page mode"
+msgstr "Mode de la pàgina d'embarcacions"
+
+msgid "No special listing"
+msgstr "Sense llistat especial"
+
+msgid "By type (single type)"
+msgstr "Per tipus (un sol tipus)"
+
+msgid "Multiple types"
+msgstr "Diversos tipus"
+
+msgid "Custom list"
+msgstr "Llista personalitzada"
+
+msgid "These settings control how this page will show boats using Maradigma."
+msgstr "Aquesta configuració controla com aquesta pàgina mostrarà les embarcacions amb Maradigma."
+
+msgid "By type"
+msgstr "Per tipus"
+
+msgid "Select exactly one type."
+msgstr "Selecciona exactament un tipus."
+
+msgid "Boat type id"
+msgstr "ID del tipus d'embarcació"
+
+msgid "Boat types"
+msgstr "Tipus d'embarcació"
+
+msgid "Select one or more types."
+msgstr "Selecciona un o més tipus."
+
+msgid "Custom listing"
+msgstr "Llistat personalitzat"
+
+msgid "Service types"
+msgstr "Tipus de servei"
+
+msgid "Service/boat types to include."
+msgstr "Tipus de servei/embarcació que s'inclouran."
+
+msgid "Filter by tags."
+msgstr "Filtra per etiquetes."
+
+msgid "Filter by builders."
+msgstr "Filtra per astillers."
+
+msgid "Pick specific boats (searchable)."
+msgstr "Tria embarcacions específiques (amb cerca)."

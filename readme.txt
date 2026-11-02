@@ -4,7 +4,7 @@ Tags: boat rental, yacht charter, booking, availability, fleet management
 Requires at least: 6.0
 Tested up to: 7.1
 Requires PHP: 8.1
-Stable tag: 0.1.197
+Stable tag: 0.1.198
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -157,6 +157,11 @@ The repository includes `package.json`, `package-lock.json`, and the Vite config
 
 == Changelog ==
 
+= 0.1.198 =
+* Boats of an external owner can now be booked online when Maradigma marks them as rentable online and they have an iCal calendar. Without an iCal calendar they are never bookable, even when marked online, because their availability is unknown. Showing the availability calendar is a separate rule and is unchanged: these boats show it only when they have an iCal calendar.
+* The boat selector of the Gutenberg panel and the classic metabox now warns when the assigned boat was deleted, unpublished or is no longer shared in Maradigma ("The boat with ID #3006 is no longer available"), instead of silently showing "Boat #3006".
+* Translated the Gutenberg editor interface. The plugin now ships the JSON translation files that the block editor needs, and `compile-translations.php --all` generates them.
+* Completed the bundled translations (Spanish, Catalan, German, French, Italian, Dutch and British English) for every interface text, including the search and select messages of the listing filters ("Select boat type", "Searching…"), which showed in English on non-English sites.
 = 0.1.197 =
 * Fixed the card token `{{booking_has_rent_online}}` always returning 0 in boat cards. The Maradigma API only sends the online-booking answer with the boat detail, not with the rows of a listing, which is what cards are built from. When the answer is missing, the token now applies the same rule as the API: an own boat accepts online booking, a boat of an external owner needs an iCal calendar, and a shared boat of another member needs instant booking. `{{booking_can_render}}` and the "Instant booking" badge are unchanged.
 = 0.1.196 =
@@ -362,6 +367,8 @@ The repository includes `package.json`, `package-lock.json`, and the Vite config
 
 == Upgrade Notice ==
 
+= 0.1.198 =
+Third-party boats with an iCal calendar can be booked online, the editor warns about boats that are no longer available, and the interface is fully translated.
 = 0.1.197 =
 The card token {{booking_has_rent_online}} now returns the real value in boat cards instead of always 0.
 = 0.1.196 =
