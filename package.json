@@ -4,7 +4,10 @@
   "scripts": {
     "dev": "cross-env NODE_ENV=development vite build --watch",
     "build": "cross-env NODE_ENV=production vite build",
-    "test:js": "node --test tests/js/*.test.mjs"
+    "test:js": "node --test \"tests/js/*.test.mjs\""
+  },
+  "engines": {
+    "node": ">=24"
   },
   "devDependencies": {
     "cross-env": "^7.0.3",
