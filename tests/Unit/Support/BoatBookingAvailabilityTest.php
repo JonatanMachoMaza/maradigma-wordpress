@@ -40,4 +40,44 @@ final class BoatBookingAvailabilityTest extends TestCase
     {
         self::assertFalse(BoatBookingAvailability::hasRentOnline([]));
     }
+
+    public function testABoatOfAnExternalOwnerMarkedOnlineWithoutIcalIsNotBookable(): void
+    {
+        $boat = ['is_owner' => 0, 'id_owner' => 586, 'booking' => ['has_rent_online' => true]];
+
+        self::assertFalse(BoatBookingAvailability::hasRentOnline($boat));
+        self::assertFalse(BoatBookingAvailability::canRenderBooking($boat));
+    }
+
+    public function testABoatOfAnExternalOwnerWithIcalIsBookableWhenMarkedOnline(): void
+    {
+        $boat = [
+            'is_owner' => 0,
+            'id_owner' => 586,
+            'url_ical' => 'https://app.maradigma.com/api/public/ical/2/1/calendar.ics',
+            'booking'  => ['has_rent_online' => true],
+        ];
+
+        self::assertTrue(BoatBookingAvailability::canRenderBooking($boat));
+
+        $boat['booking']['has_rent_online'] = false;
+        self::assertFalse(BoatBookingAvailability::canRenderBooking($boat));
+    }
+
+    public function testABoatOfAnExternalOwnerOnlyShowsItsCalendarWithIcal(): void
+    {
+        $boat = ['is_owner' => 0, 'id_owner' => 586, 'booking' => ['has_rent_online' => false]];
+        self::assertFalse(BoatBookingAvailability::canRenderCalendar($boat));
+
+        // Showing availability does not depend on whether the boat can be booked.
+        $boat['url_ical'] = 'https://app.maradigma.com/api/public/ical/2/1/calendar.ics';
+        self::assertTrue(BoatBookingAvailability::canRenderCalendar($boat));
+    }
+
+    public function testOwnAndSharedBoatsAlwaysShowTheirCalendar(): void
+    {
+        self::assertTrue(BoatBookingAvailability::canRenderCalendar(['is_owner' => 1]));
+        self::assertTrue(BoatBookingAvailability::canRenderCalendar(['is_owner' => 0, 'is_tenant_member' => true]));
+        self::assertFalse(BoatBookingAvailability::canRenderCalendar([]));
+    }
 }

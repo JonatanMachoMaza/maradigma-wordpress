@@ -6,6 +6,10 @@ namespace Maradigma\Support;
 
 /**
  * Evaluates whether booking and calendar interfaces can be shown for a boat.
+ *
+ * Booking and showing availability are separate decisions: a boat of an external
+ * owner only shows its calendar when it has an iCal feed, and is only bookable when
+ * it is also marked as rentable online.
  */
 final class BoatBookingAvailability
 {
@@ -17,7 +21,7 @@ final class BoatBookingAvailability
         }
 
         if (self::hasExternalOwnerId($boat)) {
-            return false;
+            return self::hasRentOnline($boat);
         }
 
         return self::isOwnBoat($boat) && self::isInstantBookingEnabled($boat);
@@ -31,10 +35,17 @@ final class BoatBookingAvailability
      * the fields they do carry: an own boat always accepts, a boat of an external owner
      * needs an iCal calendar, and a shared boat of another member needs instant booking.
      *
+     * A boat of an external owner without an iCal feed never accepts online bookings,
+     * even when the API marks it as rentable online: its availability cannot be known.
+     *
      * @param array<string,mixed> $boat
      */
     public static function hasRentOnline(array $boat): bool
     {
+        if (self::hasExternalOwnerId($boat) && !self::hasValidIcalUrl($boat)) {
+            return false;
+        }
+
         $booking = $boat['booking'] ?? null;
 
         if (is_array($booking) && array_key_exists('has_rent_online', $booking)) {
@@ -42,7 +53,7 @@ final class BoatBookingAvailability
         }
 
         if (self::hasExternalOwnerId($boat)) {
-            return self::hasValidIcalUrl($boat);
+            return true;
         }
 
         if (self::isOwnBoat($boat)) {
