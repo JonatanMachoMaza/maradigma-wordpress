@@ -414,7 +414,9 @@ final class Cache
         $settings = SettingsPage::getSettings();
 
         $keyData = [
-            'scope'   => $scope,
+            'scope'    => $scope,
+            'language' => $this->client->getLanguage(),
+            'source'   => $this->client->getSourceFingerprint(),
         ];
 
         $transientKey = $this->buildTransientKey('maradigma_service_types_', $keyData);
@@ -450,7 +452,10 @@ final class Cache
 
         $settings = SettingsPage::getSettings();
 
-        $keyData = [];
+        $keyData = [
+            'language' => $this->client->getLanguage(),
+            'source'   => $this->client->getSourceFingerprint(),
+        ];
 
         $transientKey = $this->buildTransientKey('maradigma_boat_builders_', $keyData);
 
@@ -485,7 +490,10 @@ final class Cache
 
         $settings = SettingsPage::getSettings();
 
-        $keyData = [ ];
+        $keyData = [
+            'language' => $this->client->getLanguage(),
+            'source'   => $this->client->getSourceFingerprint(),
+        ];
 
         $transientKey = $this->buildTransientKey('maradigma_boat_base_ports_', $keyData);
 

@@ -344,6 +344,39 @@ final class BoatUrlResolverTest extends TestCase
         self::assertSame('lancha', $motorboat['boat_type_slug']);
     }
 
+    public function testGermanStandardBoatTypesUseFixedRouteSlugsEvenWithSpanishApiNames(): void
+    {
+        // The API may answer the German catalogue with Spanish names.
+        BoatUrlResolver::storeBoatTypeCatalog('de', [
+            ['id' => 2, 'name' => 'Yates'],
+            ['id' => 3, 'name' => 'Lanchas'],
+            ['id' => 5, 'name' => 'Neumáticas'],
+            ['id' => 41, 'name' => 'Catamarán'],
+        ]);
+
+        $slugs = [];
+        foreach ([2, 3, 5, 41] as $id) {
+            $slugs[] = BoatUrlResolver::enrichBoatType(['id_group_content_type' => $id], 'de')['boat_type_slug'];
+        }
+
+        self::assertSame(['yachten', 'motorboot', 'schlauchboote', 'katamaran'], $slugs);
+    }
+
+    public function testStandardTypeSlugOverridesStaleSlugStoredOnSyncedPayload(): void
+    {
+        $storedPayload = [
+            'id_group_content_type' => 2,
+            'boat_type' => ['id' => 2, 'name' => 'Yates', 'slug' => 'yates'],
+            'boat_type_slug' => 'yates',
+            'destinations' => [['text' => 'Ibiza', 'slug' => 'ibiza', 'place_type' => 'island']],
+        ];
+
+        self::assertSame(
+            'boot-mieten/ibiza/yachten',
+            BoatUrlResolver::resolveBasePath('boot-mieten/{{destination}}/{{boat_type}}', $storedPayload, 'boats', 'de', true)
+        );
+    }
+
     public function testCatalogEnrichmentUsesListPayloadWhenDetailOmitsBoatType(): void
     {
         BoatUrlResolver::storeBoatTypeCatalog('es', [

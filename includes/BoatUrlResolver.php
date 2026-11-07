@@ -39,6 +39,33 @@ final class BoatUrlResolver
         'port' => 100,
     ];
 
+    /**
+     * Fixed SEO route slugs for the standard Maradigma boat types, keyed by
+     * language and type id. They keep URLs stable when the API returns a type
+     * name in another language. German slugs match the category terms that client
+     * sites use (/yachten/, /motorboot/, /schlauchboote/, /katamaran/).
+     *
+     * @var array<string,array<int,string>>
+     */
+    private const STANDARD_BOAT_TYPE_SLUGS = [
+        'es' => [
+            '1' => 'super-yate', '2' => 'yate', '3' => 'lancha', '4' => 'velero',
+            '5' => 'neumatica', '29' => 'juguete-acuatico', '41' => 'catamaran',
+        ],
+        'en' => [
+            '1' => 'super-yacht', '2' => 'yacht', '3' => 'motorboat', '4' => 'sailboat',
+            '5' => 'rib', '29' => 'water-toy', '41' => 'catamaran',
+        ],
+        'ca' => [
+            '1' => 'superiot', '2' => 'iot', '3' => 'llanxa', '4' => 'veler',
+            '5' => 'semirigida', '29' => 'joguina-aquatica', '41' => 'catamara',
+        ],
+        'de' => [
+            '1' => 'superyachten', '2' => 'yachten', '3' => 'motorboot', '4' => 'segelboote',
+            '5' => 'schlauchboote', '29' => 'wasserspielzeug', '41' => 'katamaran',
+        ],
+    ];
+
     /** @var array<string,array<string,array{name:string,slug:string}>> */
     private static array $boatTypeCatalog = [];
 
@@ -440,6 +467,22 @@ final class BoatUrlResolver
      */
     public static function getBoatTypeSlug(array $boat, string $language = ''): string
     {
+        // Standard types always use the fixed localized slug, so posts synced
+        // before a slug table change (or while the API answered in another
+        // language) get the right URL without a resync.
+        $typeId = trim((string) ($boat['id_group_content_type'] ?? $boat['boat_type_id'] ?? ''));
+        $normalizedLanguage = $typeId !== '' ? self::normalizeLanguage($language) : '';
+        if ($typeId !== '' && isset(self::STANDARD_BOAT_TYPE_SLUGS[$normalizedLanguage][$typeId])) {
+            $standardSlug = self::makeBoatTypeRouteSlug(
+                $typeId,
+                self::getBoatTypeName($boat, $normalizedLanguage),
+                $normalizedLanguage
+            );
+            if ($standardSlug !== '') {
+                return $standardSlug;
+            }
+        }
+
         $type = $boat['boat_type'] ?? null;
         if (is_array($type)) {
             $explicitSlug = trim((string) ($type['slug'] ?? ''));
@@ -637,22 +680,7 @@ final class BoatUrlResolver
      */
     private static function makeBoatTypeRouteSlug(string $id, string $name, string $language): string
     {
-        $standardSlugs = [
-            'es' => [
-                '1' => 'super-yate', '2' => 'yate', '3' => 'lancha', '4' => 'velero',
-                '5' => 'neumatica', '29' => 'juguete-acuatico', '41' => 'catamaran',
-            ],
-            'en' => [
-                '1' => 'super-yacht', '2' => 'yacht', '3' => 'motorboat', '4' => 'sailboat',
-                '5' => 'rib', '29' => 'water-toy', '41' => 'catamaran',
-            ],
-            'ca' => [
-                '1' => 'superiot', '2' => 'iot', '3' => 'llanxa', '4' => 'veler',
-                '5' => 'semirigida', '29' => 'joguina-aquatica', '41' => 'catamara',
-            ],
-        ];
-
-        $slug = $standardSlugs[$language][$id] ?? self::slugify($name);
+        $slug = self::STANDARD_BOAT_TYPE_SLUGS[$language][$id] ?? self::slugify($name);
 
         if (function_exists('apply_filters')) {
             $slug = (string) apply_filters('maradigma_boat_type_route_slug', $slug, $id, $name, $language);

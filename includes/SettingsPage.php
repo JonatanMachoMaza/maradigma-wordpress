@@ -86,8 +86,9 @@ final class SettingsPage
         $iconUrl  = MARADIGMA_PLUGIN_URL . 'assets/img/maradigma-icon-20x20.png';
         $position = 58;
 
-        // Main page
-        self::$adminPageHook = add_menu_page(
+        // Main page. add_menu_page()/add_submenu_page() return false when the current
+        // user lacks $capability (e.g. editors), so normalise to ?string.
+        $adminPageHook = add_menu_page(
             $pageTitle,
             $menuTitle,
             $capability,
@@ -96,9 +97,10 @@ final class SettingsPage
             $iconUrl,
             $position
         );
+        self::$adminPageHook = is_string($adminPageHook) ? $adminPageHook : null;
 
         // Boats from API (submenu)
-        self::$adminApiBoatsHook = add_submenu_page(
+        $adminApiBoatsHook = add_submenu_page(
             $menuSlug,
             __('Available boats', 'maradigma'),
             __('Available boats', 'maradigma'),
@@ -106,6 +108,7 @@ final class SettingsPage
             'maradigma-api-boats',
             [AvailableBoatsPage::class, 'render']
         );
+        self::$adminApiBoatsHook = is_string($adminApiBoatsHook) ? $adminApiBoatsHook : null;
 
         // Make "Settings" explicit as a submenu item
         add_submenu_page(

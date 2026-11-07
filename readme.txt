@@ -4,7 +4,7 @@ Tags: boat rental, yacht charter, booking, availability, fleet management
 Requires at least: 6.0
 Tested up to: 7.1
 Requires PHP: 8.1
-Stable tag: 0.1.198
+Stable tag: 0.1.199
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -157,6 +157,10 @@ The repository includes `package.json`, `package-lock.json`, and the Vite config
 
 == Changelog ==
 
+= 0.1.199 =
+* Fixed a fatal error ("Cannot assign false to property SettingsPage::$adminApiBoatsHook") that broke the WordPress dashboard for users without the `manage_options` capability, such as editors. Administrators and the public site were not affected.
+* German boat URLs now use German boat type segments (`/yachten/`, `/motorboot/`, `/schlauchboote/`, `/katamaran/`, `/segelboote/`, `/superyachten/`, `/wasserspielzeug/`) instead of the Spanish names (`/yates/`, `/lanchas/`…). Standard boat types always use the fixed localized slug of their type ID, so existing boat pages get the right URL without a new sync, and the old URLs redirect with a 301 to the new ones.
+* The cached boat type, builder and base port lists now take the language and the API key into account, so one language can no longer serve its names to another.
 = 0.1.198 =
 * Boats of an external owner can now be booked online when Maradigma marks them as rentable online and they have an iCal calendar. Without an iCal calendar they are never bookable, even when marked online, because their availability is unknown. Showing the availability calendar is a separate rule and is unchanged: these boats show it only when they have an iCal calendar.
 * The boat selector of the Gutenberg panel and the classic metabox now warns when the assigned boat was deleted, unpublished or is no longer shared in Maradigma ("The boat with ID #3006 is no longer available"), instead of silently showing "Boat #3006".
@@ -367,6 +371,8 @@ The repository includes `package.json`, `package-lock.json`, and the Vite config
 
 == Upgrade Notice ==
 
+= 0.1.199 =
+Fixes a dashboard fatal error for non-administrator users and translates the boat type segment of German boat URLs, with 301 redirects from the old URLs.
 = 0.1.198 =
 Third-party boats with an iCal calendar can be booked online, the editor warns about boats that are no longer available, and the interface is fully translated.
 = 0.1.197 =
