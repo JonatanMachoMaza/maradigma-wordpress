@@ -5530,3 +5530,6 @@ msgstr "Filtrar por astilleros."
 
 msgid "Pick specific boats (searchable)."
 msgstr "Elige barcos concretos (con búsqueda)."
+
+msgid "This boat cannot be booked online. Please send a booking request instead."
+msgstr "Este barco no se puede reservar online. Envía una solicitud de reserva."

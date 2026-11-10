@@ -12,6 +12,7 @@ use WP_REST_Request;
 use WP_REST_Response;
 use Maradigma\Settings;
 use Maradigma\ExternalApiClient;
+use Maradigma\Support\BoatBookingAvailability;
 use Maradigma\Support\Debugger;
 use Maradigma\Support\PublicBookingGuard;
 use RuntimeException;
@@ -1332,6 +1333,30 @@ final class AjaxController
             maradigma_debug_log('[handleBookingOnline] detected request language: ' . $reqLang);
 
             $client->setLanguage($reqLang);
+
+            $bookable = BoatBookingAvailability::acceptsBookingRequest(
+                $post['booking']['id_group_item'],
+                static function (string $boatId) use ($reqLang): ?array {
+                    $details = (new \Maradigma\Cache())->getBoatDetails($boatId, $reqLang, [], []);
+
+                    return is_array($details['data'] ?? null) ? $details['data'] : null;
+                }
+            );
+            if (!$bookable) {
+                PublicBookingGuard::abortIdempotentWrite($claim);
+                Debugger::log('booking-online', 'booking_online_not_bookable', [
+                    'step' => $step,
+                    'id_group_item' => $post['booking']['id_group_item'],
+                ]);
+
+                return new WP_REST_Response([
+                    'success' => false,
+                    'error' => [
+                        'code' => 'boat_not_bookable_online',
+                        'message' => __('This boat cannot be booked online. Please send a booking request instead.', 'maradigma'),
+                    ],
+                ], 403);
+            }
 
             maradigma_debug_log('[handleBookingOnline] language sent to external API: ' . $reqLang);
             Debugger::log('booking-online', 'booking_online_request', [

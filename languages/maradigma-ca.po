@@ -5506,3 +5506,6 @@ msgstr "Filtra per astillers."
 
 msgid "Pick specific boats (searchable)."
 msgstr "Tria embarcacions específiques (amb cerca)."
+
+msgid "This boat cannot be booked online. Please send a booking request instead."
+msgstr "Aquest vaixell no es pot reservar en línia. Envia una sol·licitud de reserva."

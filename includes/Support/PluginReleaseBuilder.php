@@ -66,6 +66,7 @@ final class PluginReleaseBuilder
         '.git',
         '.github',
         '.agents',
+        '.claude',
         '.idea',
         '.vscode',
         '.codebase-memory',

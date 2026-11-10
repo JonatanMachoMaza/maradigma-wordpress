@@ -4,7 +4,7 @@ Tags: boat rental, yacht charter, booking, availability, fleet management
 Requires at least: 6.0
 Tested up to: 7.1
 Requires PHP: 8.1
-Stable tag: 0.1.199
+Stable tag: 0.1.200
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -156,6 +156,10 @@ The repository includes `package.json`, `package-lock.json`, and the Vite config
 6. Boat synchronization workflow and status.
 
 == Changelog ==
+
+= 0.1.200 =
+* Boats of an external owner now follow their own "Instant booking on the website" setting, which you choose when you add or edit the boat in Maradigma. Before, they could be booked online as soon as they had an iCal calendar, because Maradigma marks them as rentable online for that reason alone. With the setting on and an iCal calendar they can be booked and paid online; with it off they keep showing their iCal availability and can only be requested. Without an iCal calendar they are never bookable online, as before.
+* The booking endpoint now checks on the server that the boat can be booked online, with the same rule as the "Book now" button, before it calls Maradigma. A request for any other boat is refused with a translated message and never reaches the payment.
 
 = 0.1.199 =
 * Fixed a fatal error ("Cannot assign false to property SettingsPage::$adminApiBoatsHook") that broke the WordPress dashboard for users without the `manage_options` capability, such as editors. Administrators and the public site were not affected.
@@ -371,6 +375,8 @@ The repository includes `package.json`, `package-lock.json`, and the Vite config
 
 == Upgrade Notice ==
 
+= 0.1.200 =
+Third-party boats can only be booked online when their "Instant booking on the website" setting is on, and the booking endpoint now refuses boats that are not bookable online.
 = 0.1.199 =
 Fixes a dashboard fatal error for non-administrator users and translates the boat type segment of German boat URLs, with 301 redirects from the old URLs.
 = 0.1.198 =

@@ -39,6 +39,8 @@ final class PluginReleaseBuilderTest extends TestCase
         $this->writeFixture('languages/maradigma-es_ES.po', 'translation-source');
         $this->writeFixture('languages/maradigma.pot', 'translation-template');
         $this->writeFixture('.agents/skills/maradigma-release/SKILL.md', 'development-agent-skill');
+        $this->writeFixture('.claude/settings.local.json', '{}');
+        $this->writeFixture('.claude/worktrees/feature/maradigma.php', '<?php');
         $this->writeFixture('vendor/autoload.php', '<?php');
 
         $builder = new PluginReleaseBuilder($this->pluginRoot, $mainFile, 'maradigma');
@@ -56,6 +58,9 @@ final class PluginReleaseBuilderTest extends TestCase
             self::assertFalse($zip->locateName('maradigma/languages/maradigma-es_ES.po'));
             self::assertFalse($zip->locateName('maradigma/languages/maradigma.pot'));
             self::assertFalse($zip->locateName('maradigma/.agents/skills/maradigma-release/SKILL.md'));
+            self::assertFalse($zip->locateName('maradigma/.claude/'));
+            self::assertFalse($zip->locateName('maradigma/.claude/settings.local.json'));
+            self::assertFalse($zip->locateName('maradigma/.claude/worktrees/feature/maradigma.php'));
             self::assertFalse($zip->locateName('maradigma/vendor/autoload.php'));
         } finally {
             $zip->close();

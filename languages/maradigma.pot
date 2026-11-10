@@ -6289,3 +6289,6 @@ msgstr ""
 #: assets/js/editor/editor-maradigma-sidebar.js:432
 msgid "Pick specific boats (searchable)."
 msgstr ""
+
+msgid "This boat cannot be booked online. Please send a booking request instead."
+msgstr ""

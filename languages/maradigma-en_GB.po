@@ -5505,3 +5505,6 @@ msgstr "Filter by builders."
 
 msgid "Pick specific boats (searchable)."
 msgstr "Pick specific boats (searchable)."
+
+msgid "This boat cannot be booked online. Please send a booking request instead."
+msgstr "This boat cannot be booked online. Please send a booking request instead."

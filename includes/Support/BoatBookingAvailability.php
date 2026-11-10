@@ -9,7 +9,8 @@ namespace Maradigma\Support;
  *
  * Booking and showing availability are separate decisions: a boat of an external
  * owner only shows its calendar when it has an iCal feed, and is only bookable when
- * it is also marked as rentable online.
+ * the tenant also turned on instant booking for it (ins_book), the setting it chooses
+ * when it adds or edits the boat.
  */
 final class BoatBookingAvailability
 {
@@ -20,11 +21,34 @@ final class BoatBookingAvailability
             return self::isInstantBookingEnabled($boat);
         }
 
+        // The API marks a boat of an external owner as rentable online whenever it has
+        // an iCal feed, so its own instant booking setting decides.
         if (self::hasExternalOwnerId($boat)) {
-            return self::hasRentOnline($boat);
+            return self::isInstantBookingEnabled($boat) && self::hasRentOnline($boat);
         }
 
         return self::isOwnBoat($boat) && self::isInstantBookingEnabled($boat);
+    }
+
+    /**
+     * Checks a booking request on the server with the same rule as the booking button.
+     *
+     * The booking modal only appears for bookable boats, but the booking endpoint is
+     * public and the API would take the payment of a boat the tenant only wants
+     * requested. A boat that cannot be loaded is never bookable.
+     *
+     * @param callable(string):(array<string,mixed>|null) $loadBoat Loads the boat detail by ID.
+     */
+    public static function acceptsBookingRequest(string $boatId, callable $loadBoat): bool
+    {
+        $boatId = trim($boatId);
+        if ($boatId === '' || !ctype_digit($boatId) || (int) $boatId < 1) {
+            return false;
+        }
+
+        $boat = $loadBoat($boatId);
+
+        return is_array($boat) && self::canRenderBooking($boat);
     }
 
     /**
