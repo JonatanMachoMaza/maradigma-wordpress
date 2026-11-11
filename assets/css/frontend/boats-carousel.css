@@ -10,11 +10,23 @@
 .maradigma-boats-carousel {
   --md-carousel-per-view: var(--md-carousel-per-view-mobile, 1.2);
   --md-carousel-gap-size: var(--md-carousel-gap, 16px);
+  /* Room around the cards inside the scroller, which clips whatever overflows it:
+     a little on the sides for focus outlines, more above and below for shadows. */
   --md-carousel-edge: 6px;
+  --md-carousel-shadow-space: 40px;
+  --md-carousel-start: var(--md-carousel-edge);
+  --md-carousel-end: var(--md-carousel-edge);
   --md-carousel-button-size: 44px;
 
   position: relative;
   width: 100%;
+}
+
+/* bleed="1": the scroller reaches the edges of the screen while the first card
+   stays aligned with the content. The script measures both distances. */
+.maradigma-boats-carousel--bleed {
+  --md-carousel-start: var(--md-carousel-bleed-start, var(--md-carousel-edge));
+  --md-carousel-end: var(--md-carousel-bleed-end, var(--md-carousel-edge));
 }
 
 @media (min-width: 768px) {
@@ -33,27 +45,30 @@
   position: relative;
 }
 
-/* The edge padding keeps card shadows and hover outlines visible inside the
-   scroller; the negative margin keeps the cards aligned with the page. */
+/* The padding gives card shadows and outlines room inside the scroller; the
+   negative margin of the same size keeps the cards where the page puts the
+   carousel, so 100% below is exactly the width of the carousel. */
 .maradigma-boats-carousel__track {
   display: grid;
   grid-auto-flow: column;
   grid-auto-columns: calc(
-    (100% - 2 * var(--md-carousel-edge) - (var(--md-carousel-per-view) - 1) * var(--md-carousel-gap-size))
+    (100% - (var(--md-carousel-per-view) - 1) * var(--md-carousel-gap-size))
     / var(--md-carousel-per-view)
   );
   gap: var(--md-carousel-gap-size);
   align-items: stretch;
 
-  margin: calc(-1 * var(--md-carousel-edge));
-  padding: var(--md-carousel-edge);
+  margin-block: calc(-1 * var(--md-carousel-shadow-space));
+  margin-inline: calc(-1 * var(--md-carousel-start)) calc(-1 * var(--md-carousel-end));
+  padding-block: var(--md-carousel-shadow-space);
+  padding-inline: var(--md-carousel-start) var(--md-carousel-end);
   list-style: none;
 
   overflow-x: auto;
   overflow-y: hidden;
   overscroll-behavior-x: contain;
   scroll-snap-type: x mandatory;
-  scroll-padding-inline: var(--md-carousel-edge);
+  scroll-padding-inline: var(--md-carousel-start) var(--md-carousel-end);
   -webkit-overflow-scrolling: touch;
   scrollbar-width: none;
 }
@@ -75,10 +90,13 @@
   scroll-snap-align: start;
 }
 
-.maradigma-boats-carousel__slide > * {
+/* Cards fill their slide, so they all share the height of the tallest one even
+   when a theme sizes boat cards to their content (height: fit-content). */
+.maradigma-boats-carousel .maradigma-boats-carousel__slide > * {
   flex: 1 1 auto;
   min-width: 0;
   width: 100%;
+  min-height: 100%;
 }
 
 /* Placeholder cards while the next batch loads */

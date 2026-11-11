@@ -2,6 +2,7 @@ import assert from "node:assert/strict";
 import test from "node:test";
 
 import {
+  bleedOffsets,
   buildPageUrl,
   cardsAhead,
   cardsPerView,
@@ -31,6 +32,16 @@ test("counts the whole cards still hidden on the right", () => {
   assert.equal(cardsAhead({ ...layout, scrollWidth: 2352, scrollLeft: 600 }), 1);
 });
 
+test("bleed widens the scroller to both screen edges in reading order", () => {
+  // A 1232px carousel at 39px from the left edge of a 1310px viewport.
+  assert.deepEqual(bleedOffsets({ left: 39, right: 1271, viewportWidth: 1310 }), { start: 39, end: 39 });
+
+  // Right-to-left pages start on the right.
+  assert.deepEqual(bleedOffsets({ left: 20, right: 1250, viewportWidth: 1310, rtl: true }), { start: 60, end: 20 });
+
+  // Already at the edges, or wider than the viewport: never negative.
+  assert.deepEqual(bleedOffsets({ left: -8, right: 1320, viewportWidth: 1310 }), { start: 0, end: 0 });
+});
 test("stops asking for boats at the last page or at the maximum", () => {
   assert.equal(hasMoreBoats({ page: 1, totalPages: 3, loaded: 8, max: 0 }), true);
   assert.equal(hasMoreBoats({ page: 3, totalPages: 3, loaded: 24, max: 0 }), false);

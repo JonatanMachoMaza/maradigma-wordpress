@@ -4,7 +4,7 @@ Tags: boat rental, yacht charter, booking, availability, fleet management
 Requires at least: 6.0
 Tested up to: 7.1
 Requires PHP: 8.1
-Stable tag: 0.1.201
+Stable tag: 0.1.202
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -158,6 +158,10 @@ The repository includes `package.json`, `package-lock.json`, and the Vite config
 6. Boat synchronization workflow and status.
 
 == Changelog ==
+
+= 0.1.202 =
+* Boats carousel: every card is as tall as the tallest one, also with themes that size boat cards to their content, and the card shadows are no longer cut off by the edges of the carousel. The cards of one view now fill the carousel's width exactly.
+* New `bleed="1"` attribute for the boats carousel: in a full-width section the row of cards reaches both edges of the screen while the first card stays aligned with the content. It is off by default; leave it off in columns or next to a sidebar.
 
 = 0.1.201 =
 * New `[maradigma_boats_carousel]` shortcode: a carousel of boat cards for home pages and landing sections. It takes the same selection as `[maradigma_boats]` (featured boats with `featured="1"`, a portfolio with `portfolio="UUID"`, a boat type, a destination…) and the same card templates. The page only renders the first batch of boats; the next batches load while the visitor moves through the carousel, so a long selection does not slow down the page. It is a native scroller with scroll snap that works with swipe and keyboard, needs no carousel library, and its cards per view, gap, batch size and maximum number of boats are set with attributes. See `docs/MARADIGMA_SHORTCODES.md`.
@@ -380,6 +384,8 @@ The repository includes `package.json`, `package-lock.json`, and the Vite config
 
 == Upgrade Notice ==
 
+= 0.1.202 =
+Boats carousel cards share the same height and keep their shadows, and the new `bleed="1"` attribute lets the carousel reach both edges of the screen.
 = 0.1.201 =
 Adds the `[maradigma_boats_carousel]` shortcode, a boats carousel that loads its boats in batches as visitors move through it.
 = 0.1.200 =

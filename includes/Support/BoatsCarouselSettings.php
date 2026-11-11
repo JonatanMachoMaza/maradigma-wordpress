@@ -35,6 +35,7 @@ final class BoatsCarouselSettings
         'batch',
         'max_boats',
         'navigation',
+        'bleed',
         'label',
         'class',
         'empty_message',
@@ -49,6 +50,7 @@ final class BoatsCarouselSettings
      *     batch: int,
      *     max_boats: int,
      *     navigation: bool,
+     *     bleed: bool,
      *     label: string,
      *     class: string,
      *     empty_message: string
@@ -79,6 +81,7 @@ final class BoatsCarouselSettings
             'batch'         => $batch,
             'max_boats'     => $maxBoats,
             'navigation'    => !self::isOff($atts['navigation'] ?? null),
+            'bleed'         => self::isOn($atts['bleed'] ?? null),
             'label'         => self::text($atts['label'] ?? null),
             'class'         => self::classList($atts['class'] ?? null),
             'empty_message' => self::text($atts['empty_message'] ?? null),
@@ -169,6 +172,16 @@ final class BoatsCarouselSettings
         }
 
         return \in_array(\strtolower(\trim((string) $value)), ['0', 'false', 'no', 'off'], true);
+    }
+
+    /** @param mixed $value */
+    private static function isOn($value): bool
+    {
+        if (!\is_scalar($value)) {
+            return false;
+        }
+
+        return \in_array(\strtolower(\trim((string) $value)), ['1', 'true', 'yes', 'on'], true);
     }
 
     /** @param mixed $value */

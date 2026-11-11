@@ -371,6 +371,7 @@ A horizontal carousel of boat cards for home pages and landing sections. It acce
 [maradigma_boats_carousel portfolio="12345678-1234-4321-8123-000000000012" card="external"]
 [maradigma_boats_carousel boat_type_id="41" slides_desktop="3" slides_mobile="1.25" gap="8"]
 [maradigma_boats_carousel featured="1" max_boats="12" label="Featured boats" class="home-boats"]
+[maradigma_boats_carousel featured="1" card="external" slides_mobile="1.25" bleed="1"]
 ```
 
 | Attribute | Default | Description |
@@ -384,6 +385,7 @@ A horizontal carousel of boat cards for home pages and landing sections. It acce
 | `batch` | `8` | Boats per request (1-24). Defaults to two desktop views |
 | `max_boats` | `0` | Maximum boats in the carousel; `0` shows the whole selection (up to 200) |
 | `navigation` | `1` | Previous/next buttons. `0` hides them; swiping and keyboard scrolling still work |
+| `bleed` | `0` | `1` lets the row of cards reach both edges of the screen, so the cards before and after the view peek in from the edges, while the first card stays aligned with the content. For full-width page sections; leave it off in columns or next to a sidebar |
 | `label` | "Boats" | Accessible name of the carousel |
 | `class` | | Extra CSS classes |
 | `empty_message` | | Text when the selection has no boats. Without it the carousel prints nothing |
@@ -391,6 +393,7 @@ A horizontal carousel of boat cards for home pages and landing sections. It acce
 Notes:
 
 - Every part has a BEM class for themes: `.maradigma-boats-carousel`, `__viewport`, `__track`, `__slide`, `__slide--placeholder` (cards shown while a batch loads), `__button`, `__button--prev`, `__button--next`. Cards per view and gap are the custom properties `--md-carousel-per-view-mobile|tablet|desktop` and `--md-carousel-gap`.
+- Cards in a carousel share the height of the tallest one, and their shadows have room above and below (`--md-carousel-shadow-space`, `40px` by default) without moving the carousel.
 - After each batch the carousel dispatches `maradigma:boats-carousel-loaded` with `{ page, added }`.
 - For carousels added to the page after it loads, call `window.MaradigmaBoatsCarousel.init(container)`.
 - A portfolio is resolved through the boat search on the server, so the first request with a cold cache can take longer on very large fleets, as in `[maradigma_boats]`.

@@ -10,6 +10,7 @@
  * inside root (default: document), for content added after page load.
  */
 import {
+  bleedOffsets,
   buildPageUrl,
   cardsAhead,
   cardsPerView,
@@ -108,6 +109,7 @@ import {
       const first = track.firstElementChild;
       const styles = window.getComputedStyle(track);
       const gap = parseFloat(styles.columnGap || styles.gap || '0') || 0;
+      const padding = (parseFloat(styles.paddingLeft) || 0) + (parseFloat(styles.paddingRight) || 0);
 
       return {
         clientWidth: track.clientWidth,
@@ -115,7 +117,34 @@ import {
         scrollLeft: track.scrollLeft,
         slideWidth: first ? first.getBoundingClientRect().width : 0,
         gap,
+        // Width of one view: the carousel itself, without the room around the cards.
+        viewWidth: Math.max(0, track.clientWidth - padding),
       };
+    }
+
+    /** Cards per view and arrow distance count only the cards inside the carousel. */
+    function viewLayout() {
+      const current = layout();
+      return { ...current, clientWidth: current.viewWidth };
+    }
+
+    const bleeds = root.classList.contains('maradigma-boats-carousel--bleed');
+
+    function updateBleed() {
+      if (!bleeds) {
+        return;
+      }
+
+      const box = root.getBoundingClientRect();
+      const offsets = bleedOffsets({
+        left: box.left,
+        right: box.right,
+        viewportWidth: document.documentElement.clientWidth,
+        rtl: window.getComputedStyle(root).direction === 'rtl',
+      });
+
+      root.style.setProperty('--md-carousel-bleed-start', offsets.start + 'px');
+      root.style.setProperty('--md-carousel-bleed-end', offsets.end + 'px');
     }
 
     function moreBoats() {
@@ -167,7 +196,7 @@ import {
       const sign = window.getComputedStyle(track).direction === 'rtl' ? -1 : 1;
 
       track.scrollBy({
-        left: sign * direction * scrollDistance(layout()),
+        left: sign * direction * scrollDistance(viewLayout()),
         behavior: prefersReducedMotion() ? 'auto' : 'smooth',
       });
     }
@@ -243,7 +272,7 @@ import {
         loading: state.loading,
         interacted: state.interacted,
         ahead: cardsAhead(current),
-        perView: cardsPerView(current),
+        perView: cardsPerView({ ...current, clientWidth: current.viewWidth }),
         page: state.page,
         totalPages: state.totalPages,
         loaded: slides().length,
@@ -300,11 +329,31 @@ import {
     });
 
     if (typeof window.ResizeObserver === 'function') {
-      new window.ResizeObserver(() => updateButtons()).observe(track);
+      const observer = new window.ResizeObserver(() => {
+        updateBleed();
+        updateButtons();
+      });
+      observer.observe(track);
+      observer.observe(root);
     } else {
       window.addEventListener('resize', updateButtons, { passive: true });
     }
 
+    if (bleeds) {
+      // The distances to the screen edges change with the window even when the
+      // carousel keeps its width (a centered container at its maximum width).
+      let bleedFrame = 0;
+      window.addEventListener('resize', () => {
+        if (!bleedFrame) {
+          bleedFrame = window.requestAnimationFrame(() => {
+            bleedFrame = 0;
+            updateBleed();
+          });
+        }
+      }, { passive: true });
+    }
+
+    updateBleed();
     updateButtons();
     maybeLoadMore();
   }

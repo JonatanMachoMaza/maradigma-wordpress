@@ -666,6 +666,7 @@ ul.tight li{
 <tr><td><code>batch</code></td><td><code>8</code></td><td>int</td><td>Boats per request (1-24). Defaults to two desktop views.</td></tr>
 <tr><td><code>max_boats</code></td><td><code>0</code></td><td>int</td><td>Maximum boats in the carousel; <code>0</code> shows the whole selection (up to 200).</td></tr>
 <tr><td><code>navigation</code></td><td><code>1</code></td><td>0|1</td><td>Previous/next buttons. Swiping and keyboard scrolling work without them.</td></tr>
+<tr><td><code>bleed</code></td><td><code>0</code></td><td>0|1</td><td><code>1</code> lets the row of cards reach both edges of the screen, so the cards before and after the view peek in from the edges, while the first card stays aligned with the content. For full-width page sections; leave it off in columns or next to a sidebar.</td></tr>
 <tr><td><code>label</code></td><td><code>Boats</code></td><td>string</td><td>Accessible name of the carousel.</td></tr>
 <tr><td><code>class</code></td><td><code></code></td><td>string</td><td>Extra CSS classes.</td></tr>
 <tr><td><code>empty_message</code></td><td><code></code></td><td>string</td><td>Text when the selection has no boats. Without it the carousel prints nothing.</td></tr>
@@ -674,6 +675,7 @@ ul.tight li{
 </div>
 <ul class="tight" style="margin-top:14px">
 <li>BEM classes for themes: <code>.maradigma-boats-carousel</code>, <code>__viewport</code>, <code>__track</code>, <code>__slide</code>, <code>__slide--placeholder</code>, <code>__button</code>, <code>__button--prev</code>, <code>__button--next</code>. Cards per view and gap are the custom properties <code>--md-carousel-per-view-mobile|tablet|desktop</code> and <code>--md-carousel-gap</code>.</li>
+<li>Cards in a carousel share the height of the tallest one, and their shadows have room above and below (<code>--md-carousel-shadow-space</code>, <code>40px</code> by default) without moving the carousel.</li>
 <li>After each batch the carousel dispatches <code>maradigma:boats-carousel-loaded</code> with <code>{ page, added }</code>. For carousels added after page load, call <code>window.MaradigmaBoatsCarousel.init(container)</code>.</li>
 </ul>
 <div class="grid-2" style="margin-top:14px">
@@ -681,6 +683,7 @@ ul.tight li{
 <div><div class="small muted" style="margin-bottom:6px">Portfolio</div><div class="code">[maradigma_boats_carousel portfolio="12345678-1234-4321-8123-000000000012" card="external"]</div></div>
 <div><div class="small muted" style="margin-bottom:6px">Layout</div><div class="code">[maradigma_boats_carousel boat_type_id="41" slides_desktop="3" slides_mobile="1.25" gap="8"]</div></div>
 <div><div class="small muted" style="margin-bottom:6px">Capped</div><div class="code">[maradigma_boats_carousel featured="1" max_boats="12" label="Featured boats"]</div></div>
+<div><div class="small muted" style="margin-bottom:6px">Edge to edge</div><div class="code">[maradigma_boats_carousel featured="1" card="external" slides_mobile="1.25" bleed="1"]</div></div>
 </div>
 <div class="back-top"><a href="#top">Back to top</a></div>
 </div>

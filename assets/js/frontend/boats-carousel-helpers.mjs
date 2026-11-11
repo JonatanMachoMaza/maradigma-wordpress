@@ -59,6 +59,24 @@ export function cardsAhead({ scrollWidth, scrollLeft, clientWidth, slideWidth, g
 }
 
 /**
+ * Distances from the carousel to the edges of the screen, for bleed="1".
+ *
+ * The scroller is widened by these distances so it reaches both edges while the
+ * first card stays aligned with the content. "start" and "end" follow the reading
+ * direction, as the CSS logical properties that use them.
+ *
+ * @param {{left:number, right:number, viewportWidth:number, rtl?:boolean}} box
+ *        left/right of the carousel's bounding box and the viewport width without scrollbar.
+ * @returns {{start:number, end:number}}
+ */
+export function bleedOffsets({ left, right, viewportWidth, rtl = false }) {
+  const toLeft = Math.max(0, Math.round(Number(left) || 0));
+  const toRight = Math.max(0, Math.round((Number(viewportWidth) || 0) - (Number(right) || 0)));
+
+  return rtl ? { start: toRight, end: toLeft } : { start: toLeft, end: toRight };
+}
+
+/**
  * Whether the carousel can still receive boats from the server.
  *
  * @param {{page:number, totalPages:number, loaded:number, max:number}} state

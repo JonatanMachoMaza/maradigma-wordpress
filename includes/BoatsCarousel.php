@@ -62,7 +62,11 @@ final class BoatsCarousel
         $filters  = (array) ($context['filters'] ?? []);
         $label    = $settings['label'] !== '' ? $settings['label'] : \__('Boats', 'maradigma');
         // maradigma-boats keeps the rules that themes and the plugin already apply around boat cards.
-        $classes  = \trim('maradigma-boats maradigma-boats-carousel ' . $settings['class']);
+        $classes  = \trim(
+            'maradigma-boats maradigma-boats-carousel '
+            . ($settings['bleed'] ? 'maradigma-boats-carousel--bleed ' : '')
+            . $settings['class']
+        );
 
         $data = [
             'data-md-boats-carousel'         => '1',
