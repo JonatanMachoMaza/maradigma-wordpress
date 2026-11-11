@@ -4,7 +4,7 @@ Tags: boat rental, yacht charter, booking, availability, fleet management
 Requires at least: 6.0
 Tested up to: 7.1
 Requires PHP: 8.1
-Stable tag: 0.1.202
+Stable tag: 0.1.203
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -158,6 +158,9 @@ The repository includes `package.json`, `package-lock.json`, and the Vite config
 6. Boat synchronization workflow and status.
 
 == Changelog ==
+
+= 0.1.203 =
+* Boats carousel with `bleed="1"`: the row of cards no longer passes the edge of the screen by a pixel when the carousel sits at a fractional position, which could give the page a horizontal scrollbar.
 
 = 0.1.202 =
 * Boats carousel: every card is as tall as the tallest one, also with themes that size boat cards to their content, and the card shadows are no longer cut off by the edges of the carousel. The cards of one view now fill the carousel's width exactly.
@@ -384,6 +387,8 @@ The repository includes `package.json`, `package-lock.json`, and the Vite config
 
 == Upgrade Notice ==
 
+= 0.1.203 =
+Fixes a one-pixel overflow of the boats carousel with `bleed="1"` that could add a horizontal scrollbar to the page.
 = 0.1.202 =
 Boats carousel cards share the same height and keep their shadows, and the new `bleed="1"` attribute lets the carousel reach both edges of the screen.
 = 0.1.201 =

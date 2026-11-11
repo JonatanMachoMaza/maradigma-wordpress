@@ -41,7 +41,13 @@ test("bleed widens the scroller to both screen edges in reading order", () => {
 
   // Already at the edges, or wider than the viewport: never negative.
   assert.deepEqual(bleedOffsets({ left: -8, right: 1320, viewportWidth: 1310 }), { start: 0, end: 0 });
+
+  // A carousel at half pixels (Coral Yachting: 31.5px to 1263.5px of 1295px) is
+  // rounded down, so the scroller stays inside the screen instead of passing it by 1px.
+  assert.deepEqual(bleedOffsets({ left: 31.5, right: 1263.5, viewportWidth: 1295 }), { start: 31, end: 31 });
+  assert.deepEqual(bleedOffsets({ left: 20.5, right: 1250.25, viewportWidth: 1310, rtl: true }), { start: 59, end: 20 });
 });
+
 test("stops asking for boats at the last page or at the maximum", () => {
   assert.equal(hasMoreBoats({ page: 1, totalPages: 3, loaded: 8, max: 0 }), true);
   assert.equal(hasMoreBoats({ page: 3, totalPages: 3, loaded: 24, max: 0 }), false);
