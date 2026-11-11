@@ -212,6 +212,20 @@ final class AssetsManager
     }
 
     /**
+     * Enqueues the boats carousel script. Its styles come with the frontend bundle.
+     */
+    public static function enqueueBoatsCarouselAssets(): void
+    {
+        wp_enqueue_script(
+            'maradigma-boats-carousel',
+            trailingslashit(MARADIGMA_PLUGIN_URL) . self::getJsBasePath() . '/frontend/boats-carousel' . self::getJsSuffix() . '.js',
+            [],
+            self::getVersion(),
+            true
+        );
+    }
+
+    /**
      * Enqueues Swiper assets.
      */
     public static function enqueueSwiperAssets(): void

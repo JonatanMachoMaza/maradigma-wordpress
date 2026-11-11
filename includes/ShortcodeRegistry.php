@@ -443,6 +443,7 @@ final class ShortcodeRegistry
         add_shortcode('maradigma_related_boats', [__CLASS__, 'renderRelatedBoats']);
         add_shortcode('maradigma_boats_related', [__CLASS__, 'renderRelatedBoats']);
         add_shortcode('maradigma_barcos_relacionados', [__CLASS__, 'renderRelatedBoats']);
+        add_shortcode('maradigma_boats_carousel', [BoatsCarousel::class, 'render']);
 
         add_shortcode('maradigma_boat', [__CLASS__, 'renderSingleBoat']);
 
@@ -2886,6 +2887,36 @@ final class ShortcodeRegistry
      */
     public static function renderBoatsArchiveResults(array $archiveContext): string
     {
+        $cards = self::renderBoatsArchiveCards($archiveContext);
+
+        \ob_start();
+
+        if ($cards !== []) : ?>
+            <div class="maradigma-boats maradigma-boats-archive" data-maradigma="boats" data-md-boats-archive-results="1">
+                <?php
+                // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- Each card was sanitized with BoatCardEngine::getAllowedHtml() in renderBoatsArchiveCards().
+                echo \implode("\n", $cards);
+                ?>
+            </div>
+        <?php else : ?>
+            <div data-md-boats-archive-results="1">
+                <p><?php \esc_html_e('No boats found.', 'maradigma'); ?></p>
+            </div>
+        <?php endif;
+
+        return (string) \ob_get_clean();
+    }
+
+    /**
+     * Renders the cards of an archive context, one sanitized HTML string per boat,
+     * in the order of the search. Shared by the listing and the boats carousel.
+     *
+     * @param array<string,mixed> $archiveContext
+     *
+     * @return list<string>
+     */
+    public static function renderBoatsArchiveCards(array $archiveContext): array
+    {
         $boats                = (array) ($archiveContext['boats'] ?? []);
         $template             = (string) ($archiveContext['template'] ?? '');
         $context              = (array) ($archiveContext['context'] ?? []);
@@ -2897,175 +2928,163 @@ final class ShortcodeRegistry
 
         $engine = new \Maradigma\BoatCardEngine();
 
-        \ob_start();
+        $cards = [];
 
-        if (!empty($boats)) : ?>
-            <div class="maradigma-boats maradigma-boats-archive" data-maradigma="boats" data-md-boats-archive-results="1">
-                <?php foreach ($boats as $boat) : ?>
-                    <?php
-                    if (!\is_array($boat)) {
-                        continue;
-                    }
+        foreach ($boats as $boat) {
+            if (!\is_array($boat)) {
+                continue;
+            }
 
-                    $boatId = \trim((string) ($boat['id'] ?? $boat['id_gi'] ?? $boat['id_group_item'] ?? ''));
+            $boatId = \trim((string) ($boat['id'] ?? $boat['id_gi'] ?? $boat['id_group_item'] ?? ''));
 
-                    if (
-                        $boatId !== ''
-                        && isset($permalinkByBoatId[$boatId])
-                        && \is_string($permalinkByBoatId[$boatId])
-                        && $permalinkByBoatId[$boatId] !== ''
-                    ) {
-                        $boat['url'] = $permalinkByBoatId[$boatId];
-                    } else {
-                        $slug = \trim((string) ($boat['slug'] ?? $boat['service_slug'] ?? ''));
-                        if ($slug !== '') {
-                            $boat['url'] = \home_url('/' . $baseSlug . '/' . \sanitize_title($slug) . '/');
-                        } else {
-                            $boat['url'] = '#';
+            if (
+                $boatId !== ''
+                && isset($permalinkByBoatId[$boatId])
+                && \is_string($permalinkByBoatId[$boatId])
+                && $permalinkByBoatId[$boatId] !== ''
+            ) {
+                $boat['url'] = $permalinkByBoatId[$boatId];
+            } else {
+                $slug = \trim((string) ($boat['slug'] ?? $boat['service_slug'] ?? ''));
+                if ($slug !== '') {
+                    $boat['url'] = \home_url('/' . $baseSlug . '/' . \sanitize_title($slug) . '/');
+                } else {
+                    $boat['url'] = '#';
+                }
+            }
+
+            if (
+                $boatId !== ''
+                && isset($linkedWpBoatMap[$boatId]['thumbnail_url'])
+                && \is_string($linkedWpBoatMap[$boatId]['thumbnail_url'])
+                && \trim((string) $linkedWpBoatMap[$boatId]['thumbnail_url']) !== ''
+            ) {
+                $linkedThumbnailUrl = \trim((string) $linkedWpBoatMap[$boatId]['thumbnail_url']);
+
+                $boat['__linked_wp_post_thumbnail_url'] = $linkedThumbnailUrl;
+                $boat['image_main'] = $linkedThumbnailUrl;
+                $boat['image_token'] = $linkedThumbnailUrl;
+                $boat['thumbnail_url'] = $linkedThumbnailUrl;
+            }
+
+            if (
+                $boatId !== ''
+                && empty($boat['__linked_wp_post_thumbnail_url'])
+                && \class_exists(\Maradigma\Support\Debugger::class)
+            ) {
+                \Maradigma\Support\Debugger::log('boat-images-sync', 'archive_card_missing_linked_thumbnail', [
+                    'boat_id'              => $boatId,
+                    'service_name'         => (string) ($boat['service_name'] ?? ''),
+                    'slug'                 => (string) ($boat['slug'] ?? $boat['service_slug'] ?? ''),
+                    'current_lang'         => $currentLang,
+                    'has_linked_map_row'   => isset($linkedWpBoatMap[$boatId]),
+                    'linked_map_row'       => isset($linkedWpBoatMap[$boatId]) ? $linkedWpBoatMap[$boatId] : null,
+                    'has_permalink_row'    => isset($permalinkByBoatId[$boatId]),
+                    'resolved_card_url'    => (string) ($boat['url'] ?? ''),
+                    'prefer_wp_images'     => !empty($context['prefer_wp_images']),
+                    'has_payload_image'    => !empty($boat['image_main']) || !empty($boat['image_url']) || !empty($boat['main_image_url']) || !empty($boat['cover_url']) || !empty($boat['thumbnail_url']),
+                ]);
+            }
+
+            $html = $engine->render($template, $boat, $context);
+
+            $finalFallbackImage = self::resolveBoatCardFallbackImage($boat, $context);
+
+            if ($finalFallbackImage !== '') {
+                $html = (string) \preg_replace_callback(
+                    '/<img\b[^>]*>/i',
+                    static function (array $match) use ($finalFallbackImage): string {
+                        $img = (string) ($match[0] ?? '');
+
+                        if (!\preg_match('/\bclass=(["\'])(?:(?!\1).)*\bmaradigma-boat-card__img\b(?:(?!\1).)*\1/i', $img)) {
+                            return $img;
                         }
-                    }
 
-                    if (
-                        $boatId !== ''
-                        && isset($linkedWpBoatMap[$boatId]['thumbnail_url'])
-                        && \is_string($linkedWpBoatMap[$boatId]['thumbnail_url'])
-                        && \trim((string) $linkedWpBoatMap[$boatId]['thumbnail_url']) !== ''
-                    ) {
-                        $linkedThumbnailUrl = \trim((string) $linkedWpBoatMap[$boatId]['thumbnail_url']);
+                        if (\preg_match('/\bsrc=(["\'])(.*?)\1/i', $img, $srcMatch)) {
+                            $currentSrc = \trim((string) ($srcMatch[2] ?? ''));
 
-                        $boat['__linked_wp_post_thumbnail_url'] = $linkedThumbnailUrl;
-                        $boat['image_main'] = $linkedThumbnailUrl;
-                        $boat['image_token'] = $linkedThumbnailUrl;
-                        $boat['thumbnail_url'] = $linkedThumbnailUrl;
-                    }
+                            if ($currentSrc !== '') {
+                                return $img;
+                            }
 
-                    if (
-                        $boatId !== ''
-                        && empty($boat['__linked_wp_post_thumbnail_url'])
-                        && \class_exists(\Maradigma\Support\Debugger::class)
-                    ) {
-                        \Maradigma\Support\Debugger::log('boat-images-sync', 'archive_card_missing_linked_thumbnail', [
-                            'boat_id'              => $boatId,
-                            'service_name'         => (string) ($boat['service_name'] ?? ''),
-                            'slug'                 => (string) ($boat['slug'] ?? $boat['service_slug'] ?? ''),
-                            'current_lang'         => $currentLang,
-                            'has_linked_map_row'   => isset($linkedWpBoatMap[$boatId]),
-                            'linked_map_row'       => isset($linkedWpBoatMap[$boatId]) ? $linkedWpBoatMap[$boatId] : null,
-                            'has_permalink_row'    => isset($permalinkByBoatId[$boatId]),
-                            'resolved_card_url'    => (string) ($boat['url'] ?? ''),
-                            'prefer_wp_images'     => !empty($context['prefer_wp_images']),
-                            'has_payload_image'    => !empty($boat['image_main']) || !empty($boat['image_url']) || !empty($boat['main_image_url']) || !empty($boat['cover_url']) || !empty($boat['thumbnail_url']),
-                        ]);
-                    }
+                            return (string) \preg_replace(
+                                '/\bsrc=(["\'])(.*?)\1/i',
+                                'src=$1' . \esc_url($finalFallbackImage) . '$1',
+                                $img,
+                                1
+                            );
+                        }
 
-                    $html = $engine->render($template, $boat, $context);
-
-                    $finalFallbackImage = self::resolveBoatCardFallbackImage($boat, $context);
-
-                    if ($finalFallbackImage !== '') {
-                        $html = (string) \preg_replace_callback(
-                            '/<img\b[^>]*>/i',
-                            static function (array $match) use ($finalFallbackImage): string {
-                                $img = (string) ($match[0] ?? '');
-
-                                if (!\preg_match('/\bclass=(["\'])(?:(?!\1).)*\bmaradigma-boat-card__img\b(?:(?!\1).)*\1/i', $img)) {
-                                    return $img;
-                                }
-
-                                if (\preg_match('/\bsrc=(["\'])(.*?)\1/i', $img, $srcMatch)) {
-                                    $currentSrc = \trim((string) ($srcMatch[2] ?? ''));
-
-                                    if ($currentSrc !== '') {
-                                        return $img;
-                                    }
-
-                                    return (string) \preg_replace(
-                                        '/\bsrc=(["\'])(.*?)\1/i',
-                                        'src=$1' . \esc_url($finalFallbackImage) . '$1',
-                                        $img,
-                                        1
-                                    );
-                                }
-
-                                return (string) \preg_replace(
-                                    '/<img\b/i',
-                                    '<img src="' . \esc_url($finalFallbackImage) . '"',
-                                    $img,
-                                    1
-                                );
-                            },
-                            $html
+                        return (string) \preg_replace(
+                            '/<img\b/i',
+                            '<img src="' . \esc_url($finalFallbackImage) . '"',
+                            $img,
+                            1
                         );
+                    },
+                    $html
+                );
+            }
+
+            $allowed   = \Maradigma\BoatCardEngine::getAllowedHtml();
+            $cleanHtml = \wp_kses($html, $allowed);
+            $cleanHtml = self::repairBoatCardImageWrapStyles($cleanHtml, $finalFallbackImage);
+
+            if ($boatId !== '' && \class_exists(\Maradigma\Support\Debugger::class)) {
+                $extractCardImgSrc = static function (string $markup): string {
+                    if (!\preg_match_all('/<img\b[^>]*>/i', $markup, $matches)) {
+                        return '';
                     }
 
-                    $allowed   = \Maradigma\BoatCardEngine::getAllowedHtml();
-                    $cleanHtml = \wp_kses($html, $allowed);
-                    $cleanHtml = self::repairBoatCardImageWrapStyles($cleanHtml, $finalFallbackImage);
+                    foreach ((array) ($matches[0] ?? []) as $imgTag) {
+                        $imgTag = (string) $imgTag;
 
-                    if ($boatId !== '' && \class_exists(\Maradigma\Support\Debugger::class)) {
-                        $extractCardImgSrc = static function (string $markup): string {
-                            if (!\preg_match_all('/<img\b[^>]*>/i', $markup, $matches)) {
-                                return '';
-                            }
-
-                            foreach ((array) ($matches[0] ?? []) as $imgTag) {
-                                $imgTag = (string) $imgTag;
-
-                                if (!\preg_match('/\bclass=(["\'])(?:(?!\1).)*\bmaradigma-boat-card__img\b(?:(?!\1).)*\1/i', $imgTag)) {
-                                    continue;
-                                }
-
-                                if (\preg_match('/\bsrc=(["\'])(.*?)\1/i', $imgTag, $srcMatch)) {
-                                    return \trim((string) ($srcMatch[2] ?? ''));
-                                }
-
-                                return '';
-                            }
-
-                            return '';
-                        };
-
-                        $rawImgSrc   = $extractCardImgSrc($html);
-                        $cleanImgSrc = $extractCardImgSrc($cleanHtml);
-
-                        if ($cleanImgSrc === '') {
-                            \Maradigma\Support\Debugger::log('boat-images-sync', 'archive_card_empty_final_image_src', [
-                                'card_id'                              => (string) ($card['id'] ?? ''),
-                                'card_hash'                            => (string) ($card['hash'] ?? ''),
-                                'boat_id'                              => $boatId,
-                                'service_name'                         => (string) ($boat['service_name'] ?? ''),
-                                'slug'                                 => (string) ($boat['slug'] ?? $boat['service_slug'] ?? ''),
-                                'current_lang'                         => $currentLang,
-                                'resolved_card_url'                    => (string) ($boat['url'] ?? ''),
-                                'has_linked_map_row'                   => isset($linkedWpBoatMap[$boatId]),
-                                'linked_map_row'                       => isset($linkedWpBoatMap[$boatId]) ? $linkedWpBoatMap[$boatId] : null,
-                                'has_permalink_row'                    => isset($permalinkByBoatId[$boatId]),
-                                'linked_thumbnail_in_payload'          => (string) ($boat['__linked_wp_post_thumbnail_url'] ?? ''),
-                                'payload_image_main'                   => (string) ($boat['image_main'] ?? ''),
-                                'payload_image_token'                  => (string) ($boat['image_token'] ?? ''),
-                                'payload_thumbnail_url'                => (string) ($boat['thumbnail_url'] ?? ''),
-                                'raw_img_src'                          => $rawImgSrc,
-                                'clean_img_src'                        => $cleanImgSrc,
-                                'raw_has_image_main_placeholder'       => \strpos($html, '{{image_main}}') !== false,
-                                'raw_has_image_token_placeholder'      => \strpos($html, '{{image_token}}') !== false,
-                                'template_has_image_main_placeholder'  => \strpos($template, '{{image_main}}') !== false,
-                                'template_has_image_token_placeholder' => \strpos($template, '{{image_token}}') !== false,
-                            ]);
+                        if (!\preg_match('/\bclass=(["\'])(?:(?!\1).)*\bmaradigma-boat-card__img\b(?:(?!\1).)*\1/i', $imgTag)) {
+                            continue;
                         }
+
+                        if (\preg_match('/\bsrc=(["\'])(.*?)\1/i', $imgTag, $srcMatch)) {
+                            return \trim((string) ($srcMatch[2] ?? ''));
+                        }
+
+                        return '';
                     }
 
-                    // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- Card markup was sanitized with BoatCardEngine::getAllowedHtml() immediately above.
-                    echo $cleanHtml;
-                    ?>
-                <?php endforeach; ?>
-            </div>
-        <?php else : ?>
-            <div data-md-boats-archive-results="1">
-                <p><?php \esc_html_e('No boats found.', 'maradigma'); ?></p>
-            </div>
-        <?php endif;
+                    return '';
+                };
 
-        return (string) \ob_get_clean();
+                $rawImgSrc   = $extractCardImgSrc($html);
+                $cleanImgSrc = $extractCardImgSrc($cleanHtml);
+
+                if ($cleanImgSrc === '') {
+                    \Maradigma\Support\Debugger::log('boat-images-sync', 'archive_card_empty_final_image_src', [
+                        'card_id'                              => (string) ($card['id'] ?? ''),
+                        'card_hash'                            => (string) ($card['hash'] ?? ''),
+                        'boat_id'                              => $boatId,
+                        'service_name'                         => (string) ($boat['service_name'] ?? ''),
+                        'slug'                                 => (string) ($boat['slug'] ?? $boat['service_slug'] ?? ''),
+                        'current_lang'                         => $currentLang,
+                        'resolved_card_url'                    => (string) ($boat['url'] ?? ''),
+                        'has_linked_map_row'                   => isset($linkedWpBoatMap[$boatId]),
+                        'linked_map_row'                       => isset($linkedWpBoatMap[$boatId]) ? $linkedWpBoatMap[$boatId] : null,
+                        'has_permalink_row'                    => isset($permalinkByBoatId[$boatId]),
+                        'linked_thumbnail_in_payload'          => (string) ($boat['__linked_wp_post_thumbnail_url'] ?? ''),
+                        'payload_image_main'                   => (string) ($boat['image_main'] ?? ''),
+                        'payload_image_token'                  => (string) ($boat['image_token'] ?? ''),
+                        'payload_thumbnail_url'                => (string) ($boat['thumbnail_url'] ?? ''),
+                        'raw_img_src'                          => $rawImgSrc,
+                        'clean_img_src'                        => $cleanImgSrc,
+                        'raw_has_image_main_placeholder'       => \strpos($html, '{{image_main}}') !== false,
+                        'raw_has_image_token_placeholder'      => \strpos($html, '{{image_token}}') !== false,
+                        'template_has_image_main_placeholder'  => \strpos($template, '{{image_main}}') !== false,
+                        'template_has_image_token_placeholder' => \strpos($template, '{{image_token}}') !== false,
+                    ]);
+                }
+            }
+            $cards[] = $cleanHtml;
+        }
+
+        return $cards;
     }
 
     /**

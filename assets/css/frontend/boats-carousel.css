@@ -1,0 +1,173 @@
+/* =========================================================
+   Boats carousel ([maradigma_boats_carousel])
+
+   A native horizontal scroller with scroll snap. Cards per view
+   and gap come from the shortcode as custom properties:
+   --md-carousel-per-view-mobile|tablet|desktop and --md-carousel-gap.
+   Themes can restyle every BEM class below.
+   ========================================================= */
+
+.maradigma-boats-carousel {
+  --md-carousel-per-view: var(--md-carousel-per-view-mobile, 1.2);
+  --md-carousel-gap-size: var(--md-carousel-gap, 16px);
+  --md-carousel-edge: 6px;
+  --md-carousel-button-size: 44px;
+
+  position: relative;
+  width: 100%;
+}
+
+@media (min-width: 768px) {
+  .maradigma-boats-carousel {
+    --md-carousel-per-view: var(--md-carousel-per-view-tablet, 2.5);
+  }
+}
+
+@media (min-width: 1024px) {
+  .maradigma-boats-carousel {
+    --md-carousel-per-view: var(--md-carousel-per-view-desktop, 4);
+  }
+}
+
+.maradigma-boats-carousel__viewport {
+  position: relative;
+}
+
+/* The edge padding keeps card shadows and hover outlines visible inside the
+   scroller; the negative margin keeps the cards aligned with the page. */
+.maradigma-boats-carousel__track {
+  display: grid;
+  grid-auto-flow: column;
+  grid-auto-columns: calc(
+    (100% - 2 * var(--md-carousel-edge) - (var(--md-carousel-per-view) - 1) * var(--md-carousel-gap-size))
+    / var(--md-carousel-per-view)
+  );
+  gap: var(--md-carousel-gap-size);
+  align-items: stretch;
+
+  margin: calc(-1 * var(--md-carousel-edge));
+  padding: var(--md-carousel-edge);
+  list-style: none;
+
+  overflow-x: auto;
+  overflow-y: hidden;
+  overscroll-behavior-x: contain;
+  scroll-snap-type: x mandatory;
+  scroll-padding-inline: var(--md-carousel-edge);
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none;
+}
+
+.maradigma-boats-carousel__track::-webkit-scrollbar {
+  display: none;
+}
+
+.maradigma-boats-carousel__track:focus-visible {
+  outline: 3px solid var(--mrd-focus, #2563eb);
+  outline-offset: 2px;
+}
+
+.maradigma-boats-carousel__slide {
+  display: flex;
+  min-width: 0;
+  margin: 0;
+  padding: 0;
+  scroll-snap-align: start;
+}
+
+.maradigma-boats-carousel__slide > * {
+  flex: 1 1 auto;
+  min-width: 0;
+  width: 100%;
+}
+
+/* Placeholder cards while the next batch loads */
+.maradigma-boats-carousel__slide--placeholder {
+  min-height: 320px;
+  border-radius: var(--mrd-radius, 16px);
+  background: linear-gradient(90deg, #eef1f4 0%, #f7f9fa 50%, #eef1f4 100%);
+  background-size: 200% 100%;
+  animation: maradigma-carousel-placeholder 1.2s ease-in-out infinite;
+}
+
+@keyframes maradigma-carousel-placeholder {
+  from { background-position: 100% 0; }
+  to { background-position: -100% 0; }
+}
+
+/* Previous / next buttons */
+.maradigma-boats-carousel__button {
+  position: absolute;
+  top: 50%;
+  z-index: 2;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: var(--md-carousel-button-size);
+  height: var(--md-carousel-button-size);
+  margin: 0;
+  padding: 0;
+  border: 0;
+  border-radius: 50%;
+  background: #fff;
+  color: #111827;
+  box-shadow: 0 4px 16px rgba(17, 24, 39, 0.18);
+  cursor: pointer;
+  transform: translateY(-50%);
+  transition: opacity 0.18s ease, visibility 0.18s ease, transform 0.18s ease;
+}
+
+.maradigma-boats-carousel__button--prev {
+  left: 8px;
+}
+
+.maradigma-boats-carousel__button--next {
+  right: 8px;
+}
+
+.maradigma-boats-carousel__button:hover {
+  transform: translateY(-50%) scale(1.06);
+}
+
+.maradigma-boats-carousel__button:focus-visible {
+  outline: 3px solid var(--mrd-focus, #2563eb);
+  outline-offset: 2px;
+}
+
+.maradigma-boats-carousel__button[disabled] {
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+}
+
+.maradigma-boats-carousel:not(.is-scrollable) .maradigma-boats-carousel__button {
+  display: none;
+}
+
+.maradigma-boats-carousel.is-loading .maradigma-boats-carousel__button--next {
+  cursor: progress;
+}
+
+.maradigma-boats-carousel__empty {
+  margin: 0;
+}
+
+@media (min-width: 1280px) {
+  .maradigma-boats-carousel__button--prev {
+    left: calc(-1 * var(--md-carousel-button-size) / 2);
+  }
+
+  .maradigma-boats-carousel__button--next {
+    right: calc(-1 * var(--md-carousel-button-size) / 2);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .maradigma-boats-carousel__slide--placeholder {
+    animation: none;
+  }
+
+  .maradigma-boats-carousel__button {
+    transition: none;
+  }
+}

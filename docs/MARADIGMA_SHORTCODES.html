@@ -397,6 +397,7 @@ ul.tight li{
 <a href="#sc-maradigma_boats"><strong>[maradigma_boats]</strong><br><span class="muted">Boat archive/listing shortcode with filters, pagination, card template selection, and AJAX-ready rendering.</span></a>
 <a href="#sc-maradigma_boat_card"><strong>[maradigma_boat_card]</strong><br><span class="muted">Render one boat using the editable Boat Card template system.</span></a>
 <a href="#sc-maradigma_related_boats"><strong>[maradigma_related_boats]</strong><br><span class="muted">Render related boat cards from the current boat context.</span></a>
+<a href="#sc-maradigma_boats_carousel"><strong>[maradigma_boats_carousel]</strong><br><span class="muted">Boats carousel that loads its boats in batches as the visitor moves through it.</span></a>
 <a href="#sc-maradigma_boat"><strong>[maradigma_boat]</strong><br><span class="muted">Render a single boat using the overridable PHP template.</span></a>
 <a href="#sc-maradigma_boat_specs"><strong>[maradigma_boat_specs]</strong><br><span class="muted">Render a boat specs block from defaults, CSV fields, or custom JSON configuration.</span></a>
 <a href="#sc-maradigma_boat_prices"><strong>[maradigma_boat_prices]</strong><br><span class="muted">Seasonal/base prices with cards/table layout and VAT display options.</span></a>
@@ -419,6 +420,7 @@ ul.tight li{
 <span class="chip">maradigma_related_boats</span>
 <span class="chip">maradigma_boats_related</span>
 <span class="chip">maradigma_barcos_relacionados</span>
+<span class="chip">maradigma_boats_carousel</span>
 <span class="chip">maradigma_boat</span>
 <span class="chip">maradigma_boat_specs</span>
 <span class="chip">maradigma_boat_prices</span>
@@ -638,6 +640,47 @@ ul.tight li{
 <div><div class="small muted" style="margin-bottom:6px">Example</div><div class="code">[maradigma_related_boats limit="5" priorities="price,pax"]</div></div>
 <div><div class="small muted" style="margin-bottom:6px">Example</div><div class="code">[maradigma_related_boats id="2773" priority="pax,price,base_port"]</div></div>
 <div><div class="small muted" style="margin-bottom:6px">Example</div><div class="code">[maradigma_related_boats card="compact" image_token="image_maradigma_card_471x273"]</div></div>
+</div>
+<div class="back-top"><a href="#top">Back to top</a></div>
+</div>
+
+<div class="panel shortcode anchor-target" id="sc-maradigma_boats_carousel">
+<h3>[maradigma_boats_carousel]</h3>
+<p>A horizontal carousel of boat cards for home pages and landing sections. It accepts the same search attributes as <code>[maradigma_boats]</code> (<code>featured</code>, <code>portfolio</code>, <code>ids_gi</code>, <code>boat_type_id</code>, <code>destination</code>, <code>ins_book</code>, <code>order_by</code>…) and the same <code>card</code> and <code>image_token</code>, and loads its boats in batches while the visitor moves through it.</p>
+<ul class="tight">
+<li>The page only renders the first batch: one search, however many boats the selection has.</li>
+<li>Nothing more is requested until the visitor uses the carousel. From then on the next batch is requested while fewer than two views of cards are left ahead, so it is usually ready before the visitor reaches it.</li>
+<li>The selection travels signed with the requests, so visitors cannot change which boats the carousel shows.</li>
+<li>It is a native horizontal scroller (CSS scroll snap): swiping works on touch screens and it neither needs nor loads Swiper, so it does not clash with a theme that loads its own.</li>
+</ul>
+<div class="table-wrap" style="margin-top:14px">
+<table class="tbl">
+<thead><tr><th>Attribute</th><th>Default</th><th>Type</th><th>Description</th></tr></thead>
+<tbody>
+<tr><td>any <code>[maradigma_boats]</code> search attribute</td><td><code></code></td><td>mixed</td><td>Which boats it shows. <code>order_by</code> defaults to <code>0</code>, the fleet order set in Maradigma; with <code>portfolio</code> that keeps the portfolio order.</td></tr>
+<tr><td><code>card</code> / <code>image_token</code></td><td><code>plugin default</code></td><td>string</td><td>Boat Card template and image, as in <code>[maradigma_boats]</code>.</td></tr>
+<tr><td><code>slides_mobile</code></td><td><code>1.2</code></td><td>number</td><td>Cards per view below 768px. Decimals show part of the next card.</td></tr>
+<tr><td><code>slides_tablet</code></td><td><code>2.5</code></td><td>number</td><td>Cards per view from 768px.</td></tr>
+<tr><td><code>slides_desktop</code></td><td><code>4</code></td><td>number</td><td>Cards per view from 1024px.</td></tr>
+<tr><td><code>gap</code></td><td><code>16</code></td><td>int</td><td>Space between cards in px (0-64).</td></tr>
+<tr><td><code>batch</code></td><td><code>8</code></td><td>int</td><td>Boats per request (1-24). Defaults to two desktop views.</td></tr>
+<tr><td><code>max_boats</code></td><td><code>0</code></td><td>int</td><td>Maximum boats in the carousel; <code>0</code> shows the whole selection (up to 200).</td></tr>
+<tr><td><code>navigation</code></td><td><code>1</code></td><td>0|1</td><td>Previous/next buttons. Swiping and keyboard scrolling work without them.</td></tr>
+<tr><td><code>label</code></td><td><code>Boats</code></td><td>string</td><td>Accessible name of the carousel.</td></tr>
+<tr><td><code>class</code></td><td><code></code></td><td>string</td><td>Extra CSS classes.</td></tr>
+<tr><td><code>empty_message</code></td><td><code></code></td><td>string</td><td>Text when the selection has no boats. Without it the carousel prints nothing.</td></tr>
+</tbody>
+</table>
+</div>
+<ul class="tight" style="margin-top:14px">
+<li>BEM classes for themes: <code>.maradigma-boats-carousel</code>, <code>__viewport</code>, <code>__track</code>, <code>__slide</code>, <code>__slide--placeholder</code>, <code>__button</code>, <code>__button--prev</code>, <code>__button--next</code>. Cards per view and gap are the custom properties <code>--md-carousel-per-view-mobile|tablet|desktop</code> and <code>--md-carousel-gap</code>.</li>
+<li>After each batch the carousel dispatches <code>maradigma:boats-carousel-loaded</code> with <code>{ page, added }</code>. For carousels added after page load, call <code>window.MaradigmaBoatsCarousel.init(container)</code>.</li>
+</ul>
+<div class="grid-2" style="margin-top:14px">
+<div><div class="small muted" style="margin-bottom:6px">Featured boats</div><div class="code">[maradigma_boats_carousel featured="1"]</div></div>
+<div><div class="small muted" style="margin-bottom:6px">Portfolio</div><div class="code">[maradigma_boats_carousel portfolio="12345678-1234-4321-8123-000000000012" card="external"]</div></div>
+<div><div class="small muted" style="margin-bottom:6px">Layout</div><div class="code">[maradigma_boats_carousel boat_type_id="41" slides_desktop="3" slides_mobile="1.25" gap="8"]</div></div>
+<div><div class="small muted" style="margin-bottom:6px">Capped</div><div class="code">[maradigma_boats_carousel featured="1" max_boats="12" label="Featured boats"]</div></div>
 </div>
 <div class="back-top"><a href="#top">Back to top</a></div>
 </div>

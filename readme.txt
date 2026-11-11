@@ -4,7 +4,7 @@ Tags: boat rental, yacht charter, booking, availability, fleet management
 Requires at least: 6.0
 Tested up to: 7.1
 Requires PHP: 8.1
-Stable tag: 0.1.200
+Stable tag: 0.1.201
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -89,6 +89,8 @@ Yes. Add the fleet listing shortcode to a page, post, or compatible builder elem
 
 The shortcode supports filters, sorting, pagination, configurable filter placement, and editable boat-card templates. A complete shortcode reference is included in `docs/MARADIGMA_SHORTCODES.md`.
 
+For a home page or landing section, `[maradigma_boats_carousel featured="1"]` shows the same cards in a carousel that loads its boats in batches as visitors move through it.
+
 = Can I display a single boat inside a page template or builder layout? =
 
 Yes. The plugin provides a full single-boat shortcode and field-specific shortcodes.
@@ -156,6 +158,9 @@ The repository includes `package.json`, `package-lock.json`, and the Vite config
 6. Boat synchronization workflow and status.
 
 == Changelog ==
+
+= 0.1.201 =
+* New `[maradigma_boats_carousel]` shortcode: a carousel of boat cards for home pages and landing sections. It takes the same selection as `[maradigma_boats]` (featured boats with `featured="1"`, a portfolio with `portfolio="UUID"`, a boat type, a destination…) and the same card templates. The page only renders the first batch of boats; the next batches load while the visitor moves through the carousel, so a long selection does not slow down the page. It is a native scroller with scroll snap that works with swipe and keyboard, needs no carousel library, and its cards per view, gap, batch size and maximum number of boats are set with attributes. See `docs/MARADIGMA_SHORTCODES.md`.
 
 = 0.1.200 =
 * Boats of an external owner now follow their own "Instant booking on the website" setting, which you choose when you add or edit the boat in Maradigma. Before, they could be booked online as soon as they had an iCal calendar, because Maradigma marks them as rentable online for that reason alone. With the setting on and an iCal calendar they can be booked and paid online; with it off they keep showing their iCal availability and can only be requested. Without an iCal calendar they are never bookable online, as before.
@@ -375,6 +380,8 @@ The repository includes `package.json`, `package-lock.json`, and the Vite config
 
 == Upgrade Notice ==
 
+= 0.1.201 =
+Adds the `[maradigma_boats_carousel]` shortcode, a boats carousel that loads its boats in batches as visitors move through it.
 = 0.1.200 =
 Third-party boats can only be booked online when their "Instant booking on the website" setting is on, and the booking endpoint now refuses boats that are not bookable online.
 = 0.1.199 =

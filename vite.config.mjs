@@ -121,6 +121,24 @@ function noUiSliderUmdVendorPlugin(rootDir) {
   };
 }
 
+/**
+ * Wraps the given entries in a function so the helpers bundled into them stay out
+ * of the global scope: WordPress loads these files as classic scripts, where
+ * top-level declarations of different minified files would overwrite each other.
+ */
+function isolatedClassicScriptsPlugin(entryNames) {
+  return {
+    name: 'maradigma-isolated-classic-scripts',
+    renderChunk(code, chunk) {
+      if (!chunk.isEntry || !entryNames.includes(chunk.name)) {
+        return null;
+      }
+
+      return { code: `(function(){\n${code}\n})();\n`, map: null };
+    },
+  };
+}
+
 export default defineConfig(({ mode }) => {
   const rootDir = process.cwd();
   const isProd = mode === 'production';
@@ -150,6 +168,7 @@ export default defineConfig(({ mode }) => {
           'frontend/maradigma': path.resolve(rootDir, 'assets/js/frontend/maradigma.js'),
           'frontend/maradigma-booking-modal': path.resolve(rootDir, 'assets/js/frontend/maradigma-booking-modal.js'),
           'frontend/archive-filters': path.resolve(rootDir, 'assets/js/frontend/archive-filters.js'),
+          'frontend/boats-carousel': path.resolve(rootDir, 'assets/js/frontend/boats-carousel.js'),
 
           'admin/admin-page-boats': path.resolve(rootDir, 'assets/js/admin/admin-page-boats.js'),
           'admin/boats-cards': path.resolve(rootDir, 'assets/js/admin/boats-cards.js'),
@@ -199,6 +218,7 @@ export default defineConfig(({ mode }) => {
       flatpickrUmdVendorPlugin(rootDir),
       swiperUmdVendorPlugin(rootDir),
       noUiSliderUmdVendorPlugin(rootDir),
+      isolatedClassicScriptsPlugin(['frontend/boats-carousel']),
     ],
   };
 });

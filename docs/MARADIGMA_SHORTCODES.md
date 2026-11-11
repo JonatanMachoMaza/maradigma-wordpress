@@ -26,6 +26,7 @@ It explains:
    2.5. [Examples](#25-examples)  
    2.6. [`[maradigma_boat_card]` - Single boat card](#26-maradigma_boat_card---single-boat-card)
    2.7. [`[maradigma_related_boats]` - Related boat cards](#27-maradigma_related_boats---related-boat-cards)
+   2.8. [`[maradigma_boats_carousel]` - Boats carousel](#28-maradigma_boats_carousel---boats-carousel)
 3. [`[maradigma_boat]` — Single boat page](#3-maradigma_boat--single-boat-page)  
    3.1. [API detail options](#31-api-detail-options)
    3.2. [Overriding the template](#32-overriding-the-template)
@@ -44,6 +45,7 @@ It explains:
 | `[maradigma_boats]` | Boats catalog/listing (supports filters UI + pagination) |
 | `[maradigma_boat_card]` | Render one boat using the editable Boat Card template system |
 | `[maradigma_related_boats]` | Render related boats using the editable Boat Card template system |
+| `[maradigma_boats_carousel]` | Boats carousel that loads its boats in batches as the visitor moves through it |
 | `[maradigma_boat]` | Single boat rendering via PHP template |
 | `[maradigma_boat_field]` | Print any boat field returned by the API (raw/number/price) |
 | `[maradigma_boat_prices]` | Render seasonal/base prices with cards/table layout and VAT display options |
@@ -354,6 +356,44 @@ Behavior notes:
 - The shortcode first tries local synced boat posts and their stored `_maradigma_boat_payload`.
 - If no local candidates exist, it falls back to the API boats list through the plugin cache layer.
 - In multilingual sites, synced boat pages are de-duplicated by Maradigma boat ID and the current language is preferred.
+
+### 2.8. `[maradigma_boats_carousel]` - Boats carousel
+
+A horizontal carousel of boat cards for home pages and landing sections. It accepts the same search attributes as `[maradigma_boats]` (`featured`, `portfolio`, `ids_gi`, `boat_type_id`, `destination`, `ins_book`, `order_by`…) and the same `card` and `image_token`, and loads its boats in batches while the visitor moves through it:
+
+- The page only renders the first batch: one search, however many boats the selection has.
+- Nothing more is requested until the visitor uses the carousel. From then on the next batch is requested while fewer than two views of cards are left ahead, so it is usually ready before the visitor reaches it; otherwise the arrow waits for it.
+- The selection travels signed with the requests, so visitors cannot change which boats the carousel shows.
+- It is a native horizontal scroller (CSS scroll snap): swiping works on touch screens and it neither needs nor loads Swiper, so it does not clash with a theme that loads its own.
+
+```text
+[maradigma_boats_carousel featured="1"]
+[maradigma_boats_carousel portfolio="12345678-1234-4321-8123-000000000012" card="external"]
+[maradigma_boats_carousel boat_type_id="41" slides_desktop="3" slides_mobile="1.25" gap="8"]
+[maradigma_boats_carousel featured="1" max_boats="12" label="Featured boats" class="home-boats"]
+```
+
+| Attribute | Default | Description |
+|---|---|---|
+| any `[maradigma_boats]` search attribute | | Which boats it shows. `order_by` defaults to `0`, the fleet order set in Maradigma; with `portfolio` that keeps the portfolio order |
+| `card` / `image_token` | plugin default | Boat Card template and image, as in `[maradigma_boats]` |
+| `slides_mobile` | `1.2` | Cards per view below 768px. Decimals show part of the next card |
+| `slides_tablet` | `2.5` | Cards per view from 768px |
+| `slides_desktop` | `4` | Cards per view from 1024px |
+| `gap` | `16` | Space between cards in px (0-64) |
+| `batch` | `8` | Boats per request (1-24). Defaults to two desktop views |
+| `max_boats` | `0` | Maximum boats in the carousel; `0` shows the whole selection (up to 200) |
+| `navigation` | `1` | Previous/next buttons. `0` hides them; swiping and keyboard scrolling still work |
+| `label` | "Boats" | Accessible name of the carousel |
+| `class` | | Extra CSS classes |
+| `empty_message` | | Text when the selection has no boats. Without it the carousel prints nothing |
+
+Notes:
+
+- Every part has a BEM class for themes: `.maradigma-boats-carousel`, `__viewport`, `__track`, `__slide`, `__slide--placeholder` (cards shown while a batch loads), `__button`, `__button--prev`, `__button--next`. Cards per view and gap are the custom properties `--md-carousel-per-view-mobile|tablet|desktop` and `--md-carousel-gap`.
+- After each batch the carousel dispatches `maradigma:boats-carousel-loaded` with `{ page, added }`.
+- For carousels added to the page after it loads, call `window.MaradigmaBoatsCarousel.init(container)`.
+- A portfolio is resolved through the boat search on the server, so the first request with a cold cache can take longer on very large fleets, as in `[maradigma_boats]`.
 
 ---
 
