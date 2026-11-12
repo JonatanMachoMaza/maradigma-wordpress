@@ -61,12 +61,15 @@ final class BoatsCarousel
         $attsUsed = (array) ($context['atts'] ?? []);
         $filters  = (array) ($context['filters'] ?? []);
         $label    = $settings['label'] !== '' ? $settings['label'] : \__('Boats', 'maradigma');
+        // Both bleed modes measure the distances to the screen edges; --bleed-full also
+        // spreads the cards of one view over the whole screen.
+        $bleed = match ($settings['bleed']) {
+            'full'  => 'maradigma-boats-carousel--bleed maradigma-boats-carousel--bleed-full ',
+            'edges' => 'maradigma-boats-carousel--bleed ',
+            default => '',
+        };
         // maradigma-boats keeps the rules that themes and the plugin already apply around boat cards.
-        $classes  = \trim(
-            'maradigma-boats maradigma-boats-carousel '
-            . ($settings['bleed'] ? 'maradigma-boats-carousel--bleed ' : '')
-            . $settings['class']
-        );
+        $classes  = \trim('maradigma-boats maradigma-boats-carousel ' . $bleed . $settings['class']);
 
         $data = [
             'data-md-boats-carousel'         => '1',

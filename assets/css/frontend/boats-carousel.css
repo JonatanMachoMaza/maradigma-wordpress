@@ -16,6 +16,10 @@
   --md-carousel-shadow-space: 40px;
   --md-carousel-start: var(--md-carousel-edge);
   --md-carousel-end: var(--md-carousel-edge);
+  /* How far the scroller reaches past the carousel on each side: as far as the
+     room inside it, except with bleed="full". */
+  --md-carousel-reach-start: var(--md-carousel-start);
+  --md-carousel-reach-end: var(--md-carousel-end);
   --md-carousel-button-size: 44px;
 
   position: relative;
@@ -27,6 +31,21 @@
 .maradigma-boats-carousel--bleed {
   --md-carousel-start: var(--md-carousel-bleed-start, var(--md-carousel-edge));
   --md-carousel-end: var(--md-carousel-bleed-end, var(--md-carousel-edge));
+}
+
+/* bleed="full": the carousel takes the whole width of the screen, as in a
+   full-width section. From 768px the cards of one view fill the screen from edge
+   to edge; on phones the first card keeps the margin of the content. */
+.maradigma-boats-carousel--bleed-full {
+  --md-carousel-reach-start: var(--md-carousel-bleed-start, 0px);
+  --md-carousel-reach-end: var(--md-carousel-bleed-end, 0px);
+  --md-carousel-end: 0px;
+}
+
+@media (min-width: 768px) {
+  .maradigma-boats-carousel--bleed-full {
+    --md-carousel-start: 0px;
+  }
 }
 
 @media (min-width: 768px) {
@@ -47,7 +66,9 @@
 
 /* The padding gives card shadows and outlines room inside the scroller; the
    negative margin of the same size keeps the cards where the page puts the
-   carousel, so 100% below is exactly the width of the carousel. */
+   carousel, so 100% below is exactly the width of the carousel. With
+   bleed="full" the margin reaches further than the padding, so 100% is the
+   width of the screen. */
 .maradigma-boats-carousel__track {
   display: grid;
   grid-auto-flow: column;
@@ -59,7 +80,7 @@
   align-items: stretch;
 
   margin-block: calc(-1 * var(--md-carousel-shadow-space));
-  margin-inline: calc(-1 * var(--md-carousel-start)) calc(-1 * var(--md-carousel-end));
+  margin-inline: calc(-1 * var(--md-carousel-reach-start)) calc(-1 * var(--md-carousel-reach-end));
   padding-block: var(--md-carousel-shadow-space);
   padding-inline: var(--md-carousel-start) var(--md-carousel-end);
   list-style: none;
@@ -135,12 +156,19 @@
   transition: opacity 0.18s ease, visibility 0.18s ease, transform 0.18s ease;
 }
 
+/* The buttons follow the reading direction: in right-to-left pages "previous"
+   sits on the right, "next" on the left, and their chevrons turn round
+   (WordPress marks those pages with dir="rtl"). */
 .maradigma-boats-carousel__button--prev {
-  left: 8px;
+  inset-inline-start: 8px;
 }
 
 .maradigma-boats-carousel__button--next {
-  right: 8px;
+  inset-inline-end: 8px;
+}
+
+[dir="rtl"] .maradigma-boats-carousel__button svg {
+  transform: scaleX(-1);
 }
 
 .maradigma-boats-carousel__button:hover {
@@ -172,12 +200,21 @@
 
 @media (min-width: 1280px) {
   .maradigma-boats-carousel__button--prev {
-    left: calc(-1 * var(--md-carousel-button-size) / 2);
+    inset-inline-start: calc(-1 * var(--md-carousel-button-size) / 2);
   }
 
   .maradigma-boats-carousel__button--next {
-    right: calc(-1 * var(--md-carousel-button-size) / 2);
+    inset-inline-end: calc(-1 * var(--md-carousel-button-size) / 2);
   }
+}
+
+/* A full-width carousel keeps its buttons near the edges of the screen. */
+.maradigma-boats-carousel--bleed-full .maradigma-boats-carousel__button--prev {
+  inset-inline-start: calc(16px - var(--md-carousel-reach-start));
+}
+
+.maradigma-boats-carousel--bleed-full .maradigma-boats-carousel__button--next {
+  inset-inline-end: calc(16px - var(--md-carousel-reach-end));
 }
 
 @media (prefers-reduced-motion: reduce) {

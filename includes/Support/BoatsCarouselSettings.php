@@ -50,7 +50,7 @@ final class BoatsCarouselSettings
      *     batch: int,
      *     max_boats: int,
      *     navigation: bool,
-     *     bleed: bool,
+     *     bleed: ''|'edges'|'full',
      *     label: string,
      *     class: string,
      *     empty_message: string
@@ -81,7 +81,7 @@ final class BoatsCarouselSettings
             'batch'         => $batch,
             'max_boats'     => $maxBoats,
             'navigation'    => !self::isOff($atts['navigation'] ?? null),
-            'bleed'         => self::isOn($atts['bleed'] ?? null),
+            'bleed'         => self::bleed($atts['bleed'] ?? null),
             'label'         => self::text($atts['label'] ?? null),
             'class'         => self::classList($atts['class'] ?? null),
             'empty_message' => self::text($atts['empty_message'] ?? null),
@@ -174,14 +174,30 @@ final class BoatsCarouselSettings
         return \in_array(\strtolower(\trim((string) $value)), ['0', 'false', 'no', 'off'], true);
     }
 
-    /** @param mixed $value */
-    private static function isOn($value): bool
+    /**
+     * How far the carousel reaches past its place in the page.
+     *
+     * "edges" (bleed="1"): the row of cards reaches both edges of the screen while
+     * the first card stays aligned with the content. "full" (bleed="full"): the
+     * carousel takes the whole width of the screen, as in a full-width section.
+     *
+     * @param mixed $value
+     *
+     * @return ''|'edges'|'full'
+     */
+    private static function bleed($value): string
     {
         if (!\is_scalar($value)) {
-            return false;
+            return '';
         }
 
-        return \in_array(\strtolower(\trim((string) $value)), ['1', 'true', 'yes', 'on'], true);
+        $value = \strtolower(\trim((string) $value));
+
+        if ($value === 'full') {
+            return 'full';
+        }
+
+        return \in_array($value, ['1', 'true', 'yes', 'on'], true) ? 'edges' : '';
     }
 
     /** @param mixed $value */

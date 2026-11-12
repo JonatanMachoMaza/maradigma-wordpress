@@ -18,22 +18,27 @@ final class BoatsCarouselSettingsTest extends TestCase
         self::assertSame(8, $settings['batch']);
         self::assertSame(0, $settings['max_boats']);
         self::assertTrue($settings['navigation']);
-        self::assertFalse($settings['bleed']);
+        self::assertSame('', $settings['bleed']);
         self::assertSame('', $settings['label']);
         self::assertSame('', $settings['class']);
     }
 
-    public function testBleedIsOptIn(): void
+    public function testBleedIsOptInAndCanTakeTheWholeScreen(): void
     {
-        foreach (['1', 'true', 'yes', 'ON'] as $on) {
-            self::assertTrue(BoatsCarouselSettings::fromAtts(['bleed' => $on])['bleed']);
+        foreach (['1', 'true', 'yes', 'ON'] as $edges) {
+            self::assertSame('edges', BoatsCarouselSettings::fromAtts(['bleed' => $edges])['bleed']);
         }
 
-        foreach (['0', '', 'full', 'no'] as $off) {
-            self::assertFalse(BoatsCarouselSettings::fromAtts(['bleed' => $off])['bleed']);
+        foreach (['full', ' FULL '] as $full) {
+            self::assertSame('full', BoatsCarouselSettings::fromAtts(['bleed' => $full])['bleed']);
         }
 
-        self::assertArrayNotHasKey('bleed', BoatsCarouselSettings::searchAtts(['bleed' => '1'], 8));
+        foreach (['0', '', 'no', 'wide'] as $off) {
+            self::assertSame('', BoatsCarouselSettings::fromAtts(['bleed' => $off])['bleed']);
+        }
+
+        self::assertSame('', BoatsCarouselSettings::fromAtts(['bleed' => ['full']])['bleed']);
+        self::assertArrayNotHasKey('bleed', BoatsCarouselSettings::searchAtts(['bleed' => 'full'], 8));
     }
 
     public function testCardsPerViewAcceptDecimalsAndStayInRange(): void
