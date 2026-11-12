@@ -79,6 +79,31 @@ export function bleedOffsets({ left, right, viewportWidth, rtl = false }) {
 }
 
 /**
+ * Whether arrows beside the cards fit on screen, for arrows="chevron".
+ *
+ * Each side needs the room between the first or last card of the view and the
+ * edge of the screen to hold an arrow and its space from the cards. Arrows that do
+ * not fit are hidden instead of covering the cards or passing the screen edge.
+ *
+ * @param {{left:number, right:number, viewportWidth:number, need:number}} view
+ *        left/right of the cards of one view, the viewport width without scrollbar,
+ *        and the room one arrow needs.
+ * @returns {boolean}
+ */
+export function arrowsFitBeside({ left, right, viewportWidth, need }) {
+  const room = Math.max(0, Number(need) || 0);
+  if (room === 0) {
+    return false;
+  }
+
+  // Half a pixel of tolerance for views at fractional positions.
+  const toLeft = Number(left) || 0;
+  const toRight = (Number(viewportWidth) || 0) - (Number(right) || 0);
+
+  return toLeft >= room - 0.5 && toRight >= room - 0.5;
+}
+
+/**
  * Whether the carousel can still receive boats from the server.
  *
  * @param {{page:number, totalPages:number, loaded:number, max:number}} state

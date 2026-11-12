@@ -373,7 +373,10 @@ A horizontal carousel of boat cards for home pages and landing sections. It acce
 [maradigma_boats_carousel featured="1" max_boats="12" label="Featured boats" class="home-boats"]
 [maradigma_boats_carousel featured="1" card="external" slides_mobile="1.25" bleed="1"]
 [maradigma_boats_carousel featured="1" card="external" slides_mobile="1.25" bleed="full"]
+[maradigma_boats_carousel card="external" slides_mobile="1.25" slides_tablet="1.25" gap_mobile="8" gap_tablet="8" bleed="full" max_width="1776" shadow_space="84" arrows="chevron" class="block-post-type-list" track_class="product-cards-list" slide_class="maradigma-boats"]
 ```
+
+The last example reuses the classes of a theme's own card list (here the `ltw-aqua` theme), so the theme's card styles and hover effect apply to the carousel as well, and follows the layout of that theme's own slider: closer cards below 1024px and thin arrows beside the view.
 
 | Attribute | Default | Description |
 |---|---|---|
@@ -383,18 +386,26 @@ A horizontal carousel of boat cards for home pages and landing sections. It acce
 | `slides_tablet` | `2.5` | Cards per view from 768px |
 | `slides_desktop` | `4` | Cards per view from 1024px |
 | `gap` | `16` | Space between cards in px (0-64) |
+| `gap_mobile` | `gap` | Space between cards below 768px, in px (0-64) |
+| `gap_tablet` | `gap` | Space between cards from 768px to 1023px, in px (0-64) |
 | `batch` | `8` | Boats per request (1-24). Defaults to two desktop views |
 | `max_boats` | `0` | Maximum boats in the carousel; `0` shows the whole selection (up to 200) |
 | `navigation` | `1` | Previous/next buttons. `0` hides them; swiping and keyboard scrolling still work |
+| `arrows` | `circle` | Look of the buttons. `circle`: white round buttons over the edges of the carousel. `chevron`: thin arrows without a background, 25px beside the first and last card of the view; they only show while the screen leaves them that room (for example in the side gutters of `bleed="full"` with `max_width`), and never cover the cards |
 | `bleed` | `0` | `1` lets the row of cards reach both edges of the screen, so the cards before and after the view peek in from the edges, while the first card stays aligned with the content. `full` makes the carousel as wide as the screen, as in a full-width section: from 768px the cards of one view fill the screen from edge to edge, and on phones the first card keeps the margin of the content. For full-width page sections; leave it off in columns or next to a sidebar |
+| `max_width` | `0` | With `bleed="full"`, the widest the view of cards gets, in px (up to 4000). On wider screens the view stays centered, the cards before and after it peek in from the sides and the buttons sit beside it. `0` uses the whole screen |
+| `shadow_space` | `40` | Room above and below the cards, in px (0-200), for their shadows and for hover effects that lift a card or open a panel under it. It does not move the carousel or cover the content around it |
 | `label` | "Boats" | Accessible name of the carousel |
-| `class` | | Extra CSS classes |
+| `class` | | Extra CSS classes of the carousel |
+| `track_class` | | Extra CSS classes of the list of cards |
+| `slide_class` | | Extra CSS classes of the element around each card. With `class` and `track_class` they let a theme's own card list styles apply to the carousel |
 | `empty_message` | | Text when the selection has no boats. Without it the carousel prints nothing |
 
 Notes:
 
-- Every part has a BEM class for themes: `.maradigma-boats-carousel`, `__viewport`, `__track`, `__slide`, `__slide--placeholder` (cards shown while a batch loads), `__button`, `__button--prev`, `__button--next`. Cards per view and gap are the custom properties `--md-carousel-per-view-mobile|tablet|desktop` and `--md-carousel-gap`.
-- Cards in a carousel share the height of the tallest one, and their shadows have room above and below (`--md-carousel-shadow-space`, `40px` by default) without moving the carousel.
+- Every part has a BEM class for themes: `.maradigma-boats-carousel`, `__viewport`, `__track`, `__slide`, `__slide--placeholder` (cards shown while a batch loads), `__button`, `__button--prev`, `__button--next`. Cards per view and gap are the custom properties `--md-carousel-per-view-mobile|tablet|desktop`, `--md-carousel-gap` and `--md-carousel-gap-mobile|tablet`.
+- Cards in a carousel share the height of the tallest one, and their shadows have room above and below (`shadow_space`, `40px` by default) without moving the carousel.
+- The previous and next buttons stay visible, dimmed, when there is nothing more to show in their direction.
 - After each batch the carousel dispatches `maradigma:boats-carousel-loaded` with `{ page, added }`.
 - For carousels added to the page after it loads, call `window.MaradigmaBoatsCarousel.init(container)`.
 - A portfolio is resolved through the boat search on the server, so the first request with a cold cache can take longer on very large fleets, as in `[maradigma_boats]`.

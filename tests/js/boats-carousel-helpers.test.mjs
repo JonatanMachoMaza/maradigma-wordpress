@@ -2,6 +2,7 @@ import assert from "node:assert/strict";
 import test from "node:test";
 
 import {
+  arrowsFitBeside,
   bleedOffsets,
   buildPageUrl,
   cardsAhead,
@@ -46,6 +47,21 @@ test("bleed widens the scroller to both screen edges in reading order", () => {
   // rounded down, so the scroller stays inside the screen instead of passing it by 1px.
   assert.deepEqual(bleedOffsets({ left: 31.5, right: 1263.5, viewportWidth: 1295 }), { start: 31, end: 31 });
   assert.deepEqual(bleedOffsets({ left: 20.5, right: 1250.25, viewportWidth: 1310, rtl: true }), { start: 59, end: 20 });
+});
+
+test("chevron arrows show only while they fit beside the cards", () => {
+  // Coral Yachting at 1920px: a 1776px view centered in 1905px leaves 64.5px a side,
+  // room for a 25px arrow 25px away from the cards.
+  assert.equal(arrowsFitBeside({ left: 64.5, right: 1840.5, viewportWidth: 1905, need: 50 }), true);
+  assert.equal(arrowsFitBeside({ left: 49.6, right: 1855.4, viewportWidth: 1905, need: 50 }), true);
+
+  // A view that fills the screen (1310px, phones) or leaves room on one side only.
+  assert.equal(arrowsFitBeside({ left: 0, right: 1295, viewportWidth: 1295, need: 50 }), false);
+  assert.equal(arrowsFitBeside({ left: 24, right: 375, viewportWidth: 375, need: 50 }), false);
+  assert.equal(arrowsFitBeside({ left: 80, right: 1280, viewportWidth: 1310, need: 50 }), false);
+
+  // Nothing to place.
+  assert.equal(arrowsFitBeside({ left: 100, right: 900, viewportWidth: 1000, need: 0 }), false);
 });
 
 test("stops asking for boats at the last page or at the maximum", () => {

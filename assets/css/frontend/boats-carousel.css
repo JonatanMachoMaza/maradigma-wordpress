@@ -3,13 +3,14 @@
 
    A native horizontal scroller with scroll snap. Cards per view
    and gap come from the shortcode as custom properties:
-   --md-carousel-per-view-mobile|tablet|desktop and --md-carousel-gap.
+   --md-carousel-per-view-mobile|tablet|desktop, --md-carousel-gap and
+   --md-carousel-gap-mobile|tablet (phones and tablets fall back to the gap).
    Themes can restyle every BEM class below.
    ========================================================= */
 
 .maradigma-boats-carousel {
   --md-carousel-per-view: var(--md-carousel-per-view-mobile, 1.2);
-  --md-carousel-gap-size: var(--md-carousel-gap, 16px);
+  --md-carousel-gap-size: var(--md-carousel-gap-mobile, var(--md-carousel-gap, 16px));
   /* Room around the cards inside the scroller, which clips whatever overflows it:
      a little on the sides for focus outlines, more above and below for shadows. */
   --md-carousel-edge: 6px;
@@ -23,6 +24,8 @@
   --md-carousel-button-size: 44px;
 
   position: relative;
+  /* The layers of the slides and buttons stay inside the carousel. */
+  isolation: isolate;
   width: 100%;
 }
 
@@ -35,33 +38,46 @@
 
 /* bleed="full": the carousel takes the whole width of the screen, as in a
    full-width section. From 768px the cards of one view fill the screen from edge
-   to edge; on phones the first card keeps the margin of the content. */
+   to edge; on phones the first card keeps the margin of the content.
+   max_width (--md-carousel-max-width) caps the view on wide screens: it stays
+   centered and the cards before and after it peek in from the side gutters. */
 .maradigma-boats-carousel--bleed-full {
   --md-carousel-reach-start: var(--md-carousel-bleed-start, 0px);
   --md-carousel-reach-end: var(--md-carousel-bleed-end, 0px);
+  --md-carousel-gutter: max(
+    0px,
+    calc((var(--md-carousel-screen, 100vw) - var(--md-carousel-max-width, 99999px)) / 2)
+  );
   --md-carousel-end: 0px;
 }
 
 @media (min-width: 768px) {
   .maradigma-boats-carousel--bleed-full {
-    --md-carousel-start: 0px;
+    --md-carousel-start: var(--md-carousel-gutter);
+    --md-carousel-end: var(--md-carousel-gutter);
   }
 }
 
 @media (min-width: 768px) {
   .maradigma-boats-carousel {
     --md-carousel-per-view: var(--md-carousel-per-view-tablet, 2.5);
+    --md-carousel-gap-size: var(--md-carousel-gap-tablet, var(--md-carousel-gap, 16px));
   }
 }
 
 @media (min-width: 1024px) {
   .maradigma-boats-carousel {
     --md-carousel-per-view: var(--md-carousel-per-view-desktop, 4);
+    --md-carousel-gap-size: var(--md-carousel-gap, 16px);
   }
 }
 
+/* flow-root keeps the track's negative margins inside: without it they collapse
+   through the viewport and the carousel, whose boxes then grow over the content
+   above and below and take its clicks. */
 .maradigma-boats-carousel__viewport {
   position: relative;
+  display: flow-root;
 }
 
 /* The padding gives card shadows and outlines room inside the scroller; the
@@ -92,6 +108,14 @@
   scroll-padding-inline: var(--md-carousel-start) var(--md-carousel-end);
   -webkit-overflow-scrolling: touch;
   scrollbar-width: none;
+
+  /* The room above and below the cards overlaps the content around the carousel:
+     only the cards take clicks, the rest goes through to the page. */
+  pointer-events: none;
+}
+
+.maradigma-boats-carousel__track > * {
+  pointer-events: auto;
 }
 
 .maradigma-boats-carousel__track::-webkit-scrollbar {
@@ -103,12 +127,41 @@
   outline-offset: 2px;
 }
 
+/* Each slide is a layer of its own, raised while it is hovered or focused so the
+   card can overlap its neighbours. */
 .maradigma-boats-carousel__slide {
+  position: relative;
+  z-index: 0;
   display: flex;
   min-width: 0;
   margin: 0;
   padding: 0;
   scroll-snap-align: start;
+}
+
+.maradigma-boats-carousel__slide:hover,
+.maradigma-boats-carousel__slide:focus-within {
+  z-index: 1;
+}
+
+/* The track lets clicks through, so each slide also takes the gap after it, below
+   its card: a swipe or a wheel turn that starts between two cards (or before the
+   first one) still moves the carousel. The last slide stops at its edge so the
+   carousel does not scroll any further. */
+.maradigma-boats-carousel__slide::before {
+  content: "";
+  position: absolute;
+  z-index: -1;
+  inset-block: 0;
+  inset-inline: 0 calc(-1 * var(--md-carousel-gap-size));
+}
+
+.maradigma-boats-carousel__slide:first-child::before {
+  inset-inline-start: calc(-1 * var(--md-carousel-start));
+}
+
+.maradigma-boats-carousel__slide:last-child::before {
+  inset-inline-end: 0;
 }
 
 /* Cards fill their slide, so they all share the height of the tallest one even
@@ -134,11 +187,12 @@
   to { background-position: -100% 0; }
 }
 
-/* Previous / next buttons */
+/* Previous / next buttons, above the cards even when a theme raises a hovered
+   card (the buttons can sit over the cards that peek in from the sides). */
 .maradigma-boats-carousel__button {
   position: absolute;
   top: 50%;
-  z-index: 2;
+  z-index: 10;
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -153,7 +207,7 @@
   box-shadow: 0 4px 16px rgba(17, 24, 39, 0.18);
   cursor: pointer;
   transform: translateY(-50%);
-  transition: opacity 0.18s ease, visibility 0.18s ease, transform 0.18s ease;
+  transition: opacity 0.18s ease, transform 0.18s ease;
 }
 
 /* The buttons follow the reading direction: in right-to-left pages "previous"
@@ -180,9 +234,10 @@
   outline-offset: 2px;
 }
 
+/* A button with nothing to show in its direction stays in place, dimmed. */
 .maradigma-boats-carousel__button[disabled] {
-  opacity: 0;
-  visibility: hidden;
+  opacity: 0.35;
+  cursor: default;
   pointer-events: none;
 }
 
@@ -208,13 +263,62 @@
   }
 }
 
-/* A full-width carousel keeps its buttons near the edges of the screen. */
+/* A full-width carousel keeps its buttons near the edges of the screen, or beside
+   the view in the side gutters when max_width leaves room for them there. */
 .maradigma-boats-carousel--bleed-full .maradigma-boats-carousel__button--prev {
-  inset-inline-start: calc(16px - var(--md-carousel-reach-start));
+  inset-inline-start: calc(
+    max(16px, var(--md-carousel-gutter) - var(--md-carousel-button-size) - 16px)
+    - var(--md-carousel-reach-start)
+  );
 }
 
 .maradigma-boats-carousel--bleed-full .maradigma-boats-carousel__button--next {
-  inset-inline-end: calc(16px - var(--md-carousel-reach-end));
+  inset-inline-end: calc(
+    max(16px, var(--md-carousel-gutter) - var(--md-carousel-button-size) - 16px)
+    - var(--md-carousel-reach-end)
+  );
+}
+
+/* arrows="chevron": thin arrows without a background, beside the cards and
+   --md-carousel-arrow-space away from them, as in many full-width sliders. They
+   only show while the screen leaves them that room (the script then adds
+   .has-arrow-room); otherwise the carousel moves by swiping or scrolling, and
+   no arrow ever sits over the cards or past the edge of the screen. */
+.maradigma-boats-carousel--arrows-chevron {
+  --md-carousel-button-size: 25px;
+  --md-carousel-arrow-space: 25px;
+}
+
+.maradigma-boats-carousel--arrows-chevron .maradigma-boats-carousel__button {
+  height: 44px;
+  border-radius: 4px;
+  background: transparent;
+  color: #4a4a4a;
+  box-shadow: none;
+}
+
+.maradigma-boats-carousel--arrows-chevron .maradigma-boats-carousel__button:hover {
+  transform: translateY(-50%);
+}
+
+/* The first and last card of the view sit --md-carousel-start / -end inside the
+   scroller, which reaches --md-carousel-reach-start / -end past the carousel. */
+.maradigma-boats-carousel--arrows-chevron .maradigma-boats-carousel__button--prev {
+  inset-inline-start: calc(
+    var(--md-carousel-start) - var(--md-carousel-reach-start)
+    - var(--md-carousel-arrow-space) - var(--md-carousel-button-size)
+  );
+}
+
+.maradigma-boats-carousel--arrows-chevron .maradigma-boats-carousel__button--next {
+  inset-inline-end: calc(
+    var(--md-carousel-end) - var(--md-carousel-reach-end)
+    - var(--md-carousel-arrow-space) - var(--md-carousel-button-size)
+  );
+}
+
+.maradigma-boats-carousel--arrows-chevron:not(.has-arrow-room) .maradigma-boats-carousel__button {
+  display: none;
 }
 
 @media (prefers-reduced-motion: reduce) {

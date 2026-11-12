@@ -15,12 +15,75 @@ final class BoatsCarouselSettingsTest extends TestCase
 
         self::assertSame(['mobile' => 1.2, 'tablet' => 2.5, 'desktop' => 4.0], $settings['per_view']);
         self::assertSame(16, $settings['gap']);
+        self::assertNull($settings['gap_mobile']);
+        self::assertNull($settings['gap_tablet']);
         self::assertSame(8, $settings['batch']);
         self::assertSame(0, $settings['max_boats']);
         self::assertTrue($settings['navigation']);
+        self::assertSame('circle', $settings['arrows']);
         self::assertSame('', $settings['bleed']);
+        self::assertSame(0, $settings['max_width']);
+        self::assertSame(40, $settings['shadow_space']);
         self::assertSame('', $settings['label']);
         self::assertSame('', $settings['class']);
+        self::assertSame('', $settings['track_class']);
+        self::assertSame('', $settings['slide_class']);
+    }
+
+    public function testMaxWidthRoomForShadowsAndListClassesAreNormalized(): void
+    {
+        $settings = BoatsCarouselSettings::fromAtts([
+            'max_width'    => '1776',
+            'shadow_space' => '84',
+            'track_class'  => 'product-cards-list "><script>',
+            'slide_class'  => ' maradigma-boats  maradigma-boats ',
+        ]);
+
+        self::assertSame(1776, $settings['max_width']);
+        self::assertSame(84, $settings['shadow_space']);
+        self::assertSame('product-cards-list script', $settings['track_class']);
+        self::assertSame('maradigma-boats', $settings['slide_class']);
+
+        self::assertSame(4000, BoatsCarouselSettings::fromAtts(['max_width' => '99999'])['max_width']);
+        self::assertSame(0, BoatsCarouselSettings::fromAtts(['max_width' => 'wide'])['max_width']);
+        self::assertSame(200, BoatsCarouselSettings::fromAtts(['shadow_space' => '500'])['shadow_space']);
+        self::assertSame(0, BoatsCarouselSettings::fromAtts(['shadow_space' => '0'])['shadow_space']);
+        self::assertSame(40, BoatsCarouselSettings::fromAtts(['shadow_space' => '-5'])['shadow_space']);
+
+        $search = BoatsCarouselSettings::searchAtts([
+            'max_width'    => '1776',
+            'shadow_space' => '84',
+            'track_class'  => 'product-cards-list',
+            'slide_class'  => 'maradigma-boats',
+        ], 8);
+        foreach (['max_width', 'shadow_space', 'track_class', 'slide_class'] as $attribute) {
+            self::assertArrayNotHasKey($attribute, $search);
+        }
+    }
+
+    public function testPhonesAndTabletsCanHaveTheirOwnGapAndTheArrowsCanBeChevrons(): void
+    {
+        $settings = BoatsCarouselSettings::fromAtts(['gap_mobile' => '8', 'gap_tablet' => ' 0 ', 'arrows' => ' Chevron ']);
+
+        self::assertSame(8, $settings['gap_mobile']);
+        self::assertSame(0, $settings['gap_tablet']);
+        self::assertSame(16, $settings['gap']);
+        self::assertSame('chevron', $settings['arrows']);
+
+        self::assertSame(64, BoatsCarouselSettings::fromAtts(['gap_mobile' => '90'])['gap_mobile']);
+        foreach (['', 'wide', '-4', '1.5'] as $invalid) {
+            self::assertNull(BoatsCarouselSettings::fromAtts(['gap_mobile' => $invalid])['gap_mobile']);
+        }
+        self::assertNull(BoatsCarouselSettings::fromAtts(['gap_tablet' => ['8']])['gap_tablet']);
+
+        foreach (['', 'circle', 'arrows', '1'] as $circle) {
+            self::assertSame('circle', BoatsCarouselSettings::fromAtts(['arrows' => $circle])['arrows']);
+        }
+
+        $search = BoatsCarouselSettings::searchAtts(['gap_mobile' => '8', 'gap_tablet' => '8', 'arrows' => 'chevron'], 8);
+        foreach (['gap_mobile', 'gap_tablet', 'arrows'] as $attribute) {
+            self::assertArrayNotHasKey($attribute, $search);
+        }
     }
 
     public function testBleedIsOptInAndCanTakeTheWholeScreen(): void
@@ -125,6 +188,22 @@ final class BoatsCarouselSettingsTest extends TestCase
         self::assertSame(
             '--md-carousel-per-view-mobile:1.25;--md-carousel-per-view-tablet:3;--md-carousel-per-view-desktop:4;--md-carousel-gap:8px',
             BoatsCarouselSettings::styleVariables($settings)
+        );
+
+        // The room for shadows and the maximum width are only written when set.
+        $full = BoatsCarouselSettings::fromAtts(['bleed' => 'full', 'max_width' => '1776', 'shadow_space' => '84']);
+        self::assertSame(
+            '--md-carousel-per-view-mobile:1.2;--md-carousel-per-view-tablet:2.5;--md-carousel-per-view-desktop:4;--md-carousel-gap:16px'
+            . ';--md-carousel-shadow-space:84px;--md-carousel-max-width:1776px',
+            BoatsCarouselSettings::styleVariables($full)
+        );
+
+        // Phones and tablets only get a gap of their own when it is set.
+        $gaps = BoatsCarouselSettings::fromAtts(['gap_mobile' => '8', 'gap_tablet' => '0']);
+        self::assertSame(
+            '--md-carousel-per-view-mobile:1.2;--md-carousel-per-view-tablet:2.5;--md-carousel-per-view-desktop:4;--md-carousel-gap:16px'
+            . ';--md-carousel-gap-mobile:8px;--md-carousel-gap-tablet:0px',
+            BoatsCarouselSettings::styleVariables($gaps)
         );
     }
 }

@@ -68,8 +68,10 @@ final class BoatsCarousel
             'edges' => 'maradigma-boats-carousel--bleed ',
             default => '',
         };
+        $chevrons = $settings['navigation'] && $settings['arrows'] === 'chevron';
+        $arrows   = $chevrons ? 'maradigma-boats-carousel--arrows-chevron ' : '';
         // maradigma-boats keeps the rules that themes and the plugin already apply around boat cards.
-        $classes  = \trim('maradigma-boats maradigma-boats-carousel ' . $bleed . $settings['class']);
+        $classes  = \trim('maradigma-boats maradigma-boats-carousel ' . $bleed . $arrows . $settings['class']);
 
         $data = [
             'data-md-boats-carousel'         => '1',
@@ -84,6 +86,8 @@ final class BoatsCarousel
             'data-md-carousel-page'          => '1',
             'data-md-carousel-total-pages'   => (string) \max(1, (int) ($context['total_pages'] ?? 1)),
             'data-md-carousel-max'           => (string) $settings['max_boats'],
+            // The slides of the next batches get the same extra classes as the first ones.
+            'data-md-carousel-slide-class'   => $settings['slide_class'],
         ];
 
         $attributes = '';
@@ -91,9 +95,14 @@ final class BoatsCarousel
             $attributes .= ' ' . $name . '="' . \esc_attr($value) . '"';
         }
 
+        // track_class and slide_class let a theme give the carousel the classes of its own
+        // card lists, so its card styles and hover effects apply here as well.
+        $trackClass = \trim('maradigma-boats-carousel__track ' . $settings['track_class']);
+        $slideClass = \trim('maradigma-boats-carousel__slide ' . $settings['slide_class']);
+
         $slides = '';
         foreach ($cards as $cardHtml) {
-            $slides .= '<li class="maradigma-boats-carousel__slide">' . $cardHtml . '</li>';
+            $slides .= '<li class="' . \esc_attr($slideClass) . '">' . $cardHtml . '</li>';
         }
 
         \ob_start();
@@ -107,7 +116,7 @@ final class BoatsCarousel
             echo $attributes;
             ?>>
             <div class="maradigma-boats-carousel__viewport">
-                <ul class="maradigma-boats-carousel__track" role="list" data-md-carousel-track>
+                <ul class="<?php echo \esc_attr($trackClass); ?>" role="list" data-md-carousel-track>
                     <?php
                     // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- Slides wrap cards sanitized in renderBoatsArchiveCards().
                     echo $slides;
@@ -116,10 +125,18 @@ final class BoatsCarousel
             </div>
             <?php if ($settings['navigation']) : ?>
                 <button type="button" class="maradigma-boats-carousel__button maradigma-boats-carousel__button--prev" data-md-carousel-prev aria-label="<?php echo \esc_attr__('Previous', 'maradigma'); ?>" disabled>
-                    <svg viewBox="0 0 24 24" width="24" height="24" aria-hidden="true" focusable="false"><path d="M15 5l-7 7 7 7" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                    <?php if ($chevrons) : ?>
+                        <svg viewBox="0 0 25 44" width="25" height="44" aria-hidden="true" focusable="false"><path d="M18 34L6 22L18 10" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                    <?php else : ?>
+                        <svg viewBox="0 0 24 24" width="24" height="24" aria-hidden="true" focusable="false"><path d="M15 5l-7 7 7 7" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                    <?php endif; ?>
                 </button>
                 <button type="button" class="maradigma-boats-carousel__button maradigma-boats-carousel__button--next" data-md-carousel-next aria-label="<?php echo \esc_attr__('Next', 'maradigma'); ?>">
-                    <svg viewBox="0 0 24 24" width="24" height="24" aria-hidden="true" focusable="false"><path d="M9 5l7 7-7 7" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                    <?php if ($chevrons) : ?>
+                        <svg viewBox="0 0 25 44" width="25" height="44" aria-hidden="true" focusable="false"><path d="M7 10L19 22L7 34" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                    <?php else : ?>
+                        <svg viewBox="0 0 24 24" width="24" height="24" aria-hidden="true" focusable="false"><path d="M9 5l7 7-7 7" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                    <?php endif; ?>
                 </button>
             <?php endif; ?>
         </section>

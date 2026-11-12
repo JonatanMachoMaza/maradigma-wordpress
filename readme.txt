@@ -4,7 +4,7 @@ Tags: boat rental, yacht charter, booking, availability, fleet management
 Requires at least: 6.0
 Tested up to: 7.1
 Requires PHP: 8.1
-Stable tag: 0.1.204
+Stable tag: 0.1.205
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -158,6 +158,15 @@ The repository includes `package.json`, `package-lock.json`, and the Vite config
 6. Boat synchronization workflow and status.
 
 == Changelog ==
+
+= 0.1.205 =
+* Boats carousel: new `max_width` for `bleed="full"`. On wider screens the view of cards stays centered at that width and the cards before and after it peek in from the sides.
+* Boats carousel: new `arrows="chevron"`, thin arrows without a background beside the first and last card of the view. They only show while the screen leaves them room there and never cover the cards.
+* Boats carousel: new `gap_mobile` and `gap_tablet` for a different space between cards on phones and tablets.
+* Boats carousel: new `shadow_space`, `track_class` and `slide_class`, so a theme's own card list styles and hover effects (a card that lifts, a panel under it) apply to the carousel with room to show.
+* Boats carousel: the previous button stays visible, dimmed, at the start, as the next button at the end.
+* Boats carousel: the content right above and below the carousel can be clicked again; the room for card shadows took those clicks since 0.1.201. Swiping or scrolling between two cards still moves the carousel.
+* Boats carousel: the buttons stay above a card that a theme raises on hover.
 
 = 0.1.204 =
 * New `bleed="full"` value for the boats carousel: the carousel takes the whole width of the screen, as in a full-width section. From 768px the cards of one view fill the screen from edge to edge; on phones the first card keeps the margin of the content. `bleed="1"` still keeps the first card aligned with the content.
@@ -391,6 +400,8 @@ The repository includes `package.json`, `package-lock.json`, and the Vite config
 
 == Upgrade Notice ==
 
+= 0.1.205 =
+Boats carousel: maximum width for full-width carousels, thin arrows beside the cards, gaps for phones and tablets, theme card list classes, and the content around the carousel can be clicked again.
 = 0.1.204 =
 Adds `bleed="full"` to the boats carousel, so it can take the whole width of the screen with the cards of one view from edge to edge.
 = 0.1.203 =

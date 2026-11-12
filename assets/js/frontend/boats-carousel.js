@@ -10,6 +10,7 @@
  * inside root (default: document), for content added after page load.
  */
 import {
+  arrowsFitBeside,
   bleedOffsets,
   buildPageUrl,
   cardsAhead,
@@ -83,6 +84,10 @@ import {
       scope: root.dataset.mdCarouselScope || '',
     };
     const endpoint = root.dataset.mdCarouselUrl || '';
+    // Sanitized on the server; the slides of the next batches get the same classes.
+    const slideClass = ['maradigma-boats-carousel__slide', root.dataset.mdCarouselSlideClass || '']
+      .join(' ')
+      .trim();
 
     const state = {
       page: Math.max(1, toInt(root.dataset.mdCarouselPage, 1)),
@@ -136,15 +141,40 @@ import {
       }
 
       const box = root.getBoundingClientRect();
+      const screenWidth = document.documentElement.clientWidth;
       const offsets = bleedOffsets({
         left: box.left,
         right: box.right,
-        viewportWidth: document.documentElement.clientWidth,
+        viewportWidth: screenWidth,
         rtl: window.getComputedStyle(root).direction === 'rtl',
       });
 
       root.style.setProperty('--md-carousel-bleed-start', offsets.start + 'px');
       root.style.setProperty('--md-carousel-bleed-end', offsets.end + 'px');
+      // bleed="full" with max_width centers the view in the screen without its scrollbar.
+      root.style.setProperty('--md-carousel-screen', screenWidth + 'px');
+    }
+
+    const chevrons = root.classList.contains('maradigma-boats-carousel--arrows-chevron');
+
+    /** arrows="chevron": the arrows show only while they fit beside the cards. */
+    function updateArrowRoom() {
+      if (!chevrons || !prevButton) {
+        return;
+      }
+
+      const box = track.getBoundingClientRect();
+      const styles = window.getComputedStyle(track);
+      const rootStyles = window.getComputedStyle(root);
+      const need = (parseFloat(rootStyles.getPropertyValue('--md-carousel-button-size')) || 0)
+        + (parseFloat(rootStyles.getPropertyValue('--md-carousel-arrow-space')) || 0);
+
+      root.classList.toggle('has-arrow-room', arrowsFitBeside({
+        left: box.left + (parseFloat(styles.paddingLeft) || 0),
+        right: box.right - (parseFloat(styles.paddingRight) || 0),
+        viewportWidth: document.documentElement.clientWidth,
+        need,
+      }));
     }
 
     function moreBoats() {
@@ -233,7 +263,7 @@ import {
 
         fresh.forEach((card) => {
           const slide = document.createElement('li');
-          slide.className = 'maradigma-boats-carousel__slide';
+          slide.className = slideClass;
           slide.appendChild(card);
           track.appendChild(slide);
         });
@@ -331,6 +361,7 @@ import {
     if (typeof window.ResizeObserver === 'function') {
       const observer = new window.ResizeObserver(() => {
         updateBleed();
+        updateArrowRoom();
         updateButtons();
       });
       observer.observe(track);
@@ -339,7 +370,7 @@ import {
       window.addEventListener('resize', updateButtons, { passive: true });
     }
 
-    if (bleeds) {
+    if (bleeds || chevrons) {
       // The distances to the screen edges change with the window even when the
       // carousel keeps its width (a centered container at its maximum width).
       let bleedFrame = 0;
@@ -348,12 +379,14 @@ import {
           bleedFrame = window.requestAnimationFrame(() => {
             bleedFrame = 0;
             updateBleed();
+            updateArrowRoom();
           });
         }
       }, { passive: true });
     }
 
     updateBleed();
+    updateArrowRoom();
     updateButtons();
     maybeLoadMore();
   }

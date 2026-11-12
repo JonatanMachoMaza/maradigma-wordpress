@@ -25,6 +25,10 @@ final class BoatsCarouselSettings
     public const MAX_GAP = 64;
     public const MAX_BATCH = 24;
     public const MAX_BOATS = 200;
+    /** Room above and below the cards for their shadows and hover effects, in px. */
+    public const DEFAULT_SHADOW_SPACE = 40;
+    public const MAX_SHADOW_SPACE = 200;
+    public const MAX_WIDTH = 4000;
 
     /** Attributes owned by the carousel; they never reach the boat search. */
     public const ATTRIBUTES = [
@@ -32,12 +36,19 @@ final class BoatsCarouselSettings
         'slides_tablet',
         'slides_desktop',
         'gap',
+        'gap_mobile',
+        'gap_tablet',
         'batch',
         'max_boats',
         'navigation',
+        'arrows',
         'bleed',
+        'max_width',
+        'shadow_space',
         'label',
         'class',
+        'track_class',
+        'slide_class',
         'empty_message',
     ];
 
@@ -47,12 +58,19 @@ final class BoatsCarouselSettings
      * @return array{
      *     per_view: array{mobile: float, tablet: float, desktop: float},
      *     gap: int,
+     *     gap_mobile: int|null,
+     *     gap_tablet: int|null,
      *     batch: int,
      *     max_boats: int,
      *     navigation: bool,
+     *     arrows: 'circle'|'chevron',
      *     bleed: ''|'edges'|'full',
+     *     max_width: int,
+     *     shadow_space: int,
      *     label: string,
      *     class: string,
+     *     track_class: string,
+     *     slide_class: string,
      *     empty_message: string
      * }
      */
@@ -78,12 +96,20 @@ final class BoatsCarouselSettings
         return [
             'per_view'      => $perView,
             'gap'           => self::intInRange($atts['gap'] ?? null, self::DEFAULT_GAP, 0, self::MAX_GAP),
+            // Phones and tablets use gap unless they have a gap of their own.
+            'gap_mobile'    => self::optionalGap($atts['gap_mobile'] ?? null),
+            'gap_tablet'    => self::optionalGap($atts['gap_tablet'] ?? null),
             'batch'         => $batch,
             'max_boats'     => $maxBoats,
             'navigation'    => !self::isOff($atts['navigation'] ?? null),
+            'arrows'        => self::arrows($atts['arrows'] ?? null),
             'bleed'         => self::bleed($atts['bleed'] ?? null),
+            'max_width'     => self::intInRange($atts['max_width'] ?? null, 0, 0, self::MAX_WIDTH),
+            'shadow_space'  => self::intInRange($atts['shadow_space'] ?? null, self::DEFAULT_SHADOW_SPACE, 0, self::MAX_SHADOW_SPACE),
             'label'         => self::text($atts['label'] ?? null),
             'class'         => self::classList($atts['class'] ?? null),
+            'track_class'   => self::classList($atts['track_class'] ?? null),
+            'slide_class'   => self::classList($atts['slide_class'] ?? null),
             'empty_message' => self::text($atts['empty_message'] ?? null),
         ];
     }
@@ -119,17 +145,46 @@ final class BoatsCarouselSettings
     /**
      * CSS custom properties of the layout, for the carousel's style attribute.
      *
-     * @param array{per_view: array{mobile: float, tablet: float, desktop: float}, gap: int} $settings
+     * The gaps of phones and tablets, the room for shadows and the maximum width are
+     * only written when they differ from the stylesheet defaults.
+     *
+     * @param array{
+     *     per_view: array{mobile: float, tablet: float, desktop: float},
+     *     gap: int,
+     *     gap_mobile?: int|null,
+     *     gap_tablet?: int|null,
+     *     shadow_space?: int,
+     *     max_width?: int
+     * } $settings
      */
     public static function styleVariables(array $settings): string
     {
-        return \sprintf(
+        $style = \sprintf(
             '--md-carousel-per-view-mobile:%s;--md-carousel-per-view-tablet:%s;--md-carousel-per-view-desktop:%s;--md-carousel-gap:%dpx',
             self::formatNumber($settings['per_view']['mobile']),
             self::formatNumber($settings['per_view']['tablet']),
             self::formatNumber($settings['per_view']['desktop']),
             $settings['gap']
         );
+
+        foreach (['mobile', 'tablet'] as $size) {
+            $gap = $settings['gap_' . $size] ?? null;
+            if ($gap !== null) {
+                $style .= \sprintf(';--md-carousel-gap-%s:%dpx', $size, $gap);
+            }
+        }
+
+        $shadowSpace = $settings['shadow_space'] ?? self::DEFAULT_SHADOW_SPACE;
+        if ($shadowSpace !== self::DEFAULT_SHADOW_SPACE) {
+            $style .= \sprintf(';--md-carousel-shadow-space:%dpx', $shadowSpace);
+        }
+
+        $maxWidth = $settings['max_width'] ?? 0;
+        if ($maxWidth > 0) {
+            $style .= \sprintf(';--md-carousel-max-width:%dpx', $maxWidth);
+        }
+
+        return $style;
     }
 
     /** @param mixed $value */
@@ -162,6 +217,34 @@ final class BoatsCarouselSettings
         }
 
         return \max($min, \min($max, (int) $value));
+    }
+
+    /**
+     * Gap of one screen size, or null to use the general gap.
+     *
+     * @param mixed $value
+     */
+    private static function optionalGap($value): ?int
+    {
+        $gap = self::intInRange($value, -1, 0, self::MAX_GAP);
+
+        return $gap < 0 ? null : $gap;
+    }
+
+    /**
+     * Look of the previous / next buttons.
+     *
+     * "circle" (default): white round buttons over the edges of the carousel.
+     * "chevron": thin arrows without a background beside the cards, shown only when
+     * the screen leaves room for them there.
+     *
+     * @param mixed $value
+     *
+     * @return 'circle'|'chevron'
+     */
+    private static function arrows($value): string
+    {
+        return \is_scalar($value) && \strtolower(\trim((string) $value)) === 'chevron' ? 'chevron' : 'circle';
     }
 
     /** @param mixed $value */
