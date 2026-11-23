@@ -1309,6 +1309,13 @@ function ensureSkeletonStylesInjected() {
   // AUTOSUBMIT
   // ------------------------------------------------------------
 
+  function setArchivePage($formElement, pageNumber) {
+    var $pageInput = $formElement.find('input[name="md_page"], input[data-md-original-name="md_page"]').first();
+    if ($pageInput.length) {
+      $pageInput.attr('name', 'md_page').val(String(pageNumber));
+    }
+  }
+
   function submitFiltersForm($formElement, optionsObject) {
     optionsObject = optionsObject || {};
 
@@ -1319,14 +1326,8 @@ function ensureSkeletonStylesInjected() {
       return null;
     }
 
-    var resetPageToFirst = optionsObject.resetPage !== false;
-
-    var $pageInput = $formElement.find('input[name="md_page"], input[data-md-original-name="md_page"]').first();
-    if ($pageInput.length && resetPageToFirst) {
-      if (!$pageInput.attr('name')) {
-        $pageInput.attr('name', 'md_page');
-      }
-      $pageInput.val('1');
+    if (optionsObject.resetPage !== false) {
+      setArchivePage($formElement, 1);
     }
 
     sanitizeFormBeforeSubmit($formElement);
@@ -1420,28 +1421,6 @@ function ensureSkeletonStylesInjected() {
           var maybePromise = submitFiltersForm($formElement, {
             resetPage: true,
             scrollToResults: false
-          });
-
-          if (isPromiseLike(maybePromise)) {
-            maybePromise.catch(function () {});
-          }
-        }
-      });
-
-      $formElement.on('submit.mdSanitizeBeforeNativeSubmit', function (submitEventObject) {
-        if (isArchiveLoading(getArchiveRootFromForm($formElement))) {
-          submitEventObject.preventDefault();
-          return;
-        }
-
-        sanitizeFormBeforeSubmit($formElement);
-
-        if (isAjaxArchiveEnabled($formElement)) {
-          submitEventObject.preventDefault();
-
-          var maybePromise = requestArchiveUpdate($formElement, {
-            scrollToResults: true,
-            fallbackToNative: false
           });
 
           if (isPromiseLike(maybePromise)) {
@@ -2385,14 +2364,7 @@ function ensureSkeletonStylesInjected() {
         }
 
         if (!syntheticFormUsed) {
-          var $pageInput = $formElement.find('input[name="md_page"], input[data-md-original-name="md_page"]').first();
-
-          if ($pageInput.length) {
-            if (!$pageInput.attr('name')) {
-              $pageInput.attr('name', 'md_page');
-            }
-            $pageInput.val(String(targetPage));
-          }
+          setArchivePage($formElement, targetPage);
         }
 
         var maybePromise = submitFiltersForm($formElement, {
@@ -2643,6 +2615,7 @@ function ensureSkeletonStylesInjected() {
         return;
       }
 
+      setArchivePage($formElement, 1);
       sanitizeFormBeforeSubmit($formElement);
 
       if (isAjaxArchiveEnabled($formElement)) {

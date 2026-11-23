@@ -4,7 +4,7 @@ Tags: boat rental, yacht charter, booking, availability, fleet management
 Requires at least: 6.0
 Tested up to: 7.1
 Requires PHP: 8.1
-Stable tag: 0.1.205
+Stable tag: 0.1.206
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -158,6 +158,10 @@ The repository includes `package.json`, `package-lock.json`, and the Vite config
 6. Boat synchronization workflow and status.
 
 == Changelog ==
+
+= 0.1.206 =
+* Boat listings return to page one when visitors submit new filters or choose a different sort order.
+* Boat card templates can use `calendar_can_render` alongside `booking_can_render` to distinguish instant booking, requests with a calendar, and requests without a calendar.
 
 = 0.1.205 =
 * Boats carousel: new `max_width` for `bleed="full"`. On wider screens the view of cards stays centered at that width and the cards before and after it peek in from the sides.
@@ -399,6 +403,9 @@ The repository includes `package.json`, `package-lock.json`, and the Vite config
 * Improved readme documentation for the current feature set.
 
 == Upgrade Notice ==
+
+= 0.1.206 =
+Fixes the page reset when applying listing filters or sort order and adds a calendar availability flag for custom boat card templates.
 
 = 0.1.205 =
 Boats carousel: maximum width for full-width carousels, thin arrows beside the cards, gaps for phones and tablets, theme card list classes, and the content around the carousel can be clicked again.

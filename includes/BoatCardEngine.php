@@ -157,6 +157,7 @@ final class BoatCardEngine
         'status',
         'is_owner',
         'booking_can_render',
+        'calendar_can_render',
         'has_managed_service',
         'sort_order',
 
@@ -415,6 +416,7 @@ final class BoatCardEngine
             '{{ownership_is_tenant_member}}' => __('Tenant member flag', 'maradigma'),
             '{{booking_has_rent_online}}'    => __('Rent online flag', 'maradigma'),
             '{{booking_can_render}}'         => __('Can render booking flag', 'maradigma'),
+            '{{calendar_can_render}}'        => __('Calendar', 'maradigma'),
             '{{badge_featured_html}}' => __('Featured badge HTML (auto)', 'maradigma'),
             '{{badge_instant_booking_html}}' => __('Instant booking badge HTML (auto)', 'maradigma'),
             '{{wp_locale}}'           => __('WordPress locale', 'maradigma'),
@@ -732,6 +734,7 @@ final class BoatCardEngine
         $out['status']              = (string) ($boat['status'] ?? '');
         $out['is_owner']            = self::truthy($boat['is_owner'] ?? null) ? '1' : '0';
         $out['booking_can_render']  = BoatBookingAvailability::canRenderBooking($boat) ? '1' : '0';
+        $out['calendar_can_render'] = BoatBookingAvailability::canRenderCalendar($boat) ? '1' : '0';
         $out['has_managed_service'] = !empty($boat['has_managed_service']) ? '1' : '0';
         $out['sort_order']          = (string) ($boat['sort_order'] ?? '');
 
