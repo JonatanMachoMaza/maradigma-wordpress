@@ -41,7 +41,7 @@ final class BoatPermalinks
      *
      * Increment this value whenever an update changes the generated regexes.
      */
-    private const REWRITE_SCHEMA_VERSION = '2';
+    private const REWRITE_SCHEMA_VERSION = '3';
 
     /**
      * Registers the component's WordPress hooks.
@@ -165,7 +165,54 @@ final class BoatPermalinks
             return $permalink;
         }
 
+        if (self::usesWpmlLanguageUrls()) {
+            return self::buildWpmlBoatUrl($lang, $baseSlug . '/' . $postSlug);
+        }
+
         return trailingslashit(trailingslashit($langRootUrl) . $baseSlug . '/' . $postSlug);
+    }
+
+    /**
+     * WPML takes the language folder off the request before WordPress matches
+     * rewrite rules, so boat rules and root paths carry no language prefix
+     * under WPML. Links get the language from buildWpmlBoatUrl().
+     */
+    private static function usesWpmlLanguageUrls(): bool
+    {
+        return defined('ICL_SITEPRESS_VERSION') && !function_exists('pll_home_url');
+    }
+
+    /**
+     * Builds a boat URL in the boat's language from WPML's URL settings.
+     *
+     * WPML's home_url() carries the language of the current request, and its
+     * URL conversion does not run inside post_type_link, so the language part
+     * is added here: a folder, the `lang` parameter, or nothing for the default
+     * language without its own folder.
+     */
+    private static function buildWpmlBoatUrl(string $lang, string $path): string
+    {
+        $url = trailingslashit(trailingslashit((string) get_option('home')) . trim($path, '/'));
+
+        $default = strtolower(trim((string) apply_filters('wpml_default_language', null)));
+        $negotiation = (int) apply_filters('wpml_setting', 1, 'language_negotiation_type');
+        $urls = apply_filters('wpml_setting', [], 'urls');
+        $defaultHasFolder = is_array($urls) && !empty($urls['directory_for_default_language']);
+
+        if ($lang === '' || ($lang === $default && !$defaultHasFolder)) {
+            return $url;
+        }
+
+        if ($negotiation === 1) {
+            return trailingslashit(trailingslashit((string) get_option('home')) . $lang . '/' . trim($path, '/'));
+        }
+
+        if ($negotiation === 3) {
+            return add_query_arg('lang', $lang, $url);
+        }
+
+        // One domain per language.
+        return (string) apply_filters('wpml_permalink', $url, $lang, true);
     }
 
     /**
@@ -494,7 +541,7 @@ final class BoatPermalinks
         $lang = strtolower(trim($lang));
         $lang = (string) (preg_split('/[_-]/', $lang)[0] ?? $lang);
 
-        if ($lang === '') {
+        if ($lang === '' || self::usesWpmlLanguageUrls()) {
             return '/';
         }
 

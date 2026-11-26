@@ -122,7 +122,7 @@ namespace Maradigma\Tests\Unit {
 
             self::assertSame(1, $GLOBALS['boatPermalinksTestFlushes']);
             self::assertSame(
-                '2',
+                '3',
                 $GLOBALS['boatPermalinksTestOptions']['maradigma_boat_rewrite_schema'] ?? null
             );
 
@@ -154,7 +154,7 @@ namespace Maradigma\Tests\Unit {
 
             self::assertSame(1, $GLOBALS['boatPermalinksTestFlushes']);
             self::assertSame(
-                '2',
+                '3',
                 $GLOBALS['boatPermalinksTestOptions']['maradigma_boat_rewrite_schema'] ?? null
             );
         }

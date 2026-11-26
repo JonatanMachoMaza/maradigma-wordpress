@@ -4,7 +4,7 @@ Tags: boat rental, yacht charter, booking, availability, fleet management
 Requires at least: 6.0
 Tested up to: 7.1
 Requires PHP: 8.1
-Stable tag: 0.1.206
+Stable tag: 0.1.207
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -158,6 +158,9 @@ The repository includes `package.json`, `package-lock.json`, and the Vite config
 6. Boat synchronization workflow and status.
 
 == Changelog ==
+
+= 0.1.207 =
+* Boat pages on WPML sites: links carry the language the way WPML is set up (no folder for the default language, a language folder, or the `lang` parameter), and the boat pages open under those addresses.
 
 = 0.1.206 =
 * Boat listings return to page one when visitors submit new filters or choose a different sort order.
@@ -403,6 +406,9 @@ The repository includes `package.json`, `package-lock.json`, and the Vite config
 * Improved readme documentation for the current feature set.
 
 == Upgrade Notice ==
+
+= 0.1.207 =
+Fixes boat page addresses on WPML sites.
 
 = 0.1.206 =
 Fixes the page reset when applying listing filters or sort order and adds a calendar availability flag for custom boat card templates.
