@@ -4,7 +4,7 @@ Tags: boat rental, yacht charter, booking, availability, fleet management
 Requires at least: 6.0
 Tested up to: 7.1
 Requires PHP: 8.1
-Stable tag: 0.1.207
+Stable tag: 0.1.208
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -158,6 +158,9 @@ The repository includes `package.json`, `package-lock.json`, and the Vite config
 6. Boat synchronization workflow and status.
 
 == Changelog ==
+
+= 0.1.208 =
+* Boat pages sync: choose which site languages get boat pages. The default language is always included, and a new language is included automatically while every language stays selected. Developers can also use the `maradigma_boat_page_languages` filter.
 
 = 0.1.207 =
 * Boat pages on WPML sites: links carry the language the way WPML is set up (no folder for the default language, a language folder, or the `lang` parameter), and the boat pages open under those addresses.
@@ -406,6 +409,9 @@ The repository includes `package.json`, `package-lock.json`, and the Vite config
 * Improved readme documentation for the current feature set.
 
 == Upgrade Notice ==
+
+= 0.1.208 =
+Choose the languages that get synchronized boat pages.
 
 = 0.1.207 =
 Fixes boat page addresses on WPML sites.

@@ -5509,3 +5509,9 @@ msgstr "Tria embarcacions específiques (amb cerca)."
 
 msgid "This boat cannot be booked online. Please send a booking request instead."
 msgstr "Aquest vaixell no es pot reservar en línia. Envia una sol·licitud de reserva."
+
+msgid "Boat page languages"
+msgstr "Idiomes de les pàgines de vaixell"
+
+msgid "The next sync creates and updates boat pages only in these languages. The default language is always included. Pages already created in other languages are kept: move them to the trash from Boats if you no longer want them."
+msgstr "La propera sincronització crea i actualitza pàgines de vaixell només en aquests idiomes. L'idioma per defecte sempre s'hi inclou. Les pàgines ja creades en altres idiomes es conserven: envia-les a la paperera des de Vaixells si ja no les vols."

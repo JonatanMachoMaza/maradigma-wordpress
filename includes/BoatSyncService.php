@@ -9,6 +9,7 @@ if (!defined('ABSPATH')) {
 }
 
 use Maradigma\Support\BoatCleanupPolicy;
+use Maradigma\Support\BoatPageLanguages;
 use Maradigma\Support\BoatPostSelectionPolicy;
 use Maradigma\Support\BoatSlugPolicy;
 use Maradigma\Support\MultilangAdapter;
@@ -1459,7 +1460,22 @@ final class BoatSyncService
         $langs = MultilangAdapter::getActiveLanguages();
         if (empty($langs)) $langs = [$sourceLang];
 
-        $langs = array_values(array_unique(array_merge([$sourceLang], $langs)));
+        $langs = BoatPageLanguages::select(
+            array_map('strval', $langs),
+            $sourceLang,
+            BoatPageLanguages::normalize($settings['boat_pages_languages'] ?? [])
+        );
+
+        /**
+         * Filters the languages that get a synchronized boat page.
+         *
+         * @param list<string> $langs      Languages, source language first.
+         * @param string       $sourceLang Source language.
+         */
+        $filtered = apply_filters('maradigma_boat_page_languages', $langs, $sourceLang);
+        if (is_array($filtered)) {
+            $langs = BoatPageLanguages::select(BoatPageLanguages::normalize($filtered), $sourceLang, []);
+        }
 
         return [$langs, $sourceLang];
     }

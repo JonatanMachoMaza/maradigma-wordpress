@@ -5433,3 +5433,9 @@ msgstr "Kies specifieke boten (doorzoekbaar)."
 
 msgid "This boat cannot be booked online. Please send a booking request instead."
 msgstr "Deze boot kan niet online worden geboekt. Stuur in plaats daarvan een boekingsaanvraag."
+
+msgid "Boat page languages"
+msgstr "Talen van bootpagina's"
+
+msgid "The next sync creates and updates boat pages only in these languages. The default language is always included. Pages already created in other languages are kept: move them to the trash from Boats if you no longer want them."
+msgstr "De volgende synchronisatie maakt en werkt bootpagina's alleen in deze talen bij. De standaardtaal is altijd inbegrepen. Pagina's die al in andere talen zijn gemaakt blijven bestaan: verplaats ze vanuit Boten naar de prullenbak als je ze niet meer wilt."

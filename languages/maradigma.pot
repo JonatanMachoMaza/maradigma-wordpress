@@ -6292,3 +6292,9 @@ msgstr ""
 
 msgid "This boat cannot be booked online. Please send a booking request instead."
 msgstr ""
+
+msgid "Boat page languages"
+msgstr ""
+
+msgid "The next sync creates and updates boat pages only in these languages. The default language is always included. Pages already created in other languages are kept: move them to the trash from Boats if you no longer want them."
+msgstr ""

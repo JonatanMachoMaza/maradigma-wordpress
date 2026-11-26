@@ -5533,3 +5533,9 @@ msgstr "Elige barcos concretos (con búsqueda)."
 
 msgid "This boat cannot be booked online. Please send a booking request instead."
 msgstr "Este barco no se puede reservar online. Envía una solicitud de reserva."
+
+msgid "Boat page languages"
+msgstr "Idiomas de las páginas de barco"
+
+msgid "The next sync creates and updates boat pages only in these languages. The default language is always included. Pages already created in other languages are kept: move them to the trash from Boats if you no longer want them."
+msgstr "La próxima sincronización crea y actualiza páginas de barco solo en estos idiomas. El idioma por defecto siempre se incluye. Las páginas ya creadas en otros idiomas se conservan: envíalas a la papelera desde Barcos si ya no las quieres."

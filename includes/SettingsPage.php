@@ -18,6 +18,7 @@ use Maradigma\Admin\SettingsNotices;
 use Maradigma\Admin\SettingsSyncActions;
 use Maradigma\Admin\SettingsTemplateActions;
 use Maradigma\Admin\SettingsTemplateStats;
+use Maradigma\Support\BoatPageLanguages;
 use Maradigma\Support\MultilangAdapter;
 
 /**
@@ -555,6 +556,21 @@ final class SettingsPage
 
         $output['boat_layout_builder'] = $boatLayoutBuilder;
 
+        // Boat page languages: only present in the form while a multilingual
+        // plugin is active, so keep the saved choice otherwise. Saves made in
+        // code keep the given list as it is.
+        if (!empty($input['boat_pages_languages_form'])) {
+            $output['boat_pages_languages'] = BoatPageLanguages::forStorage(
+                MultilangAdapter::getActiveLanguages(),
+                MultilangAdapter::getDefaultLanguage(),
+                BoatPageLanguages::normalize($input['boat_pages_languages'] ?? [])
+            );
+        } elseif (array_key_exists('boat_pages_languages', $input)) {
+            $output['boat_pages_languages'] = BoatPageLanguages::normalize($input['boat_pages_languages']);
+        } else {
+            $output['boat_pages_languages'] = BoatPageLanguages::normalize($output['boat_pages_languages'] ?? []);
+        }
+
         // ─────────────────────────────────────────────
         // PRO uninstall flags
         // IMPORTANT: do NOT reset when field is not present in current form (tabs)
@@ -648,6 +664,8 @@ final class SettingsPage
         if (!in_array($settings['boat_layout_builder'], ['elementor', 'gutenberg', 'wpbakery'], true)) {
             $settings['boat_layout_builder'] = 'elementor';
         }
+
+        $settings['boat_pages_languages'] = BoatPageLanguages::normalize($settings['boat_pages_languages'] ?? []);
 
         $settings['booking_payment_intro_texts'] = self::normalizeLocalizedTextMap($settings['booking_payment_intro_texts'] ?? []);
 
@@ -1448,6 +1466,51 @@ final class SettingsPage
                                         </label>
                                     </td>
                                 </tr>
+                                <?php
+                                $boatPageActiveLanguages = BoatPageLanguages::normalize(MultilangAdapter::getActiveLanguages());
+                                $boatPageSourceLanguage  = strtolower(trim(MultilangAdapter::getDefaultLanguage()));
+                                $boatPageLanguages       = BoatPageLanguages::select(
+                                    $boatPageActiveLanguages,
+                                    $boatPageSourceLanguage,
+                                    BoatPageLanguages::normalize($settings['boat_pages_languages'] ?? [])
+                                );
+                                ?>
+                                <?php if (count($boatPageActiveLanguages) > 1) : ?>
+                                    <tr>
+                                        <th scope="row">
+                                            <?php esc_html_e('Boat page languages', 'maradigma'); ?>
+                                        </th>
+                                        <td>
+                                            <input
+                                                type="hidden"
+                                                name="<?php echo esc_attr(self::OPTION_KEY); ?>[boat_pages_languages_form]"
+                                                value="1" />
+                                            <fieldset style="display:flex;flex-wrap:wrap;gap:6px 18px;">
+                                                <?php foreach ($boatPageActiveLanguages as $boatPageLanguage) : ?>
+                                                    <?php $isSourceLanguage = $boatPageLanguage === $boatPageSourceLanguage; ?>
+                                                    <label>
+                                                        <?php if ($isSourceLanguage) : ?>
+                                                            <input
+                                                                type="hidden"
+                                                                name="<?php echo esc_attr(self::OPTION_KEY); ?>[boat_pages_languages][]"
+                                                                value="<?php echo esc_attr($boatPageLanguage); ?>" />
+                                                        <?php endif; ?>
+                                                        <input
+                                                            type="checkbox"
+                                                            name="<?php echo esc_attr(self::OPTION_KEY); ?>[boat_pages_languages][]"
+                                                            value="<?php echo esc_attr($boatPageLanguage); ?>"
+                                                            <?php checked(in_array($boatPageLanguage, $boatPageLanguages, true)); ?>
+                                                            <?php disabled($isSourceLanguage); ?> />
+                                                        <?php echo esc_html(strtoupper($boatPageLanguage)); ?>
+                                                    </label>
+                                                <?php endforeach; ?>
+                                            </fieldset>
+                                            <p class="description">
+                                                <?php esc_html_e('The next sync creates and updates boat pages only in these languages. The default language is always included. Pages already created in other languages are kept: move them to the trash from Boats if you no longer want them.', 'maradigma'); ?>
+                                            </p>
+                                        </td>
+                                    </tr>
+                                <?php endif; ?>
                             <?php endif; ?>
 
                             <?php do_action('maradigma_settings_tab_after_connection_fields', $settings); ?>
