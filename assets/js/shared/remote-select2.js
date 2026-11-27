@@ -302,13 +302,16 @@ window.MaradigmaRemoteSelect2Shared = window.MaradigmaRemoteSelect2Shared || (fu
         return String(this.value || '').trim() === normalizedId;
       }).first();
 
+      var shouldSelect = currentValues.indexOf(normalizedId) !== -1;
+      var hydratedOption = new Option(normalizedText, normalizedId, shouldSelect, shouldSelect);
+
+      // Select2 keeps the item it read from an option, so changing the text of
+      // that option would leave the old label on the chip. Use a new option.
       if ($existingOption.length) {
-        $existingOption.text(normalizedText);
+        $existingOption.replaceWith(hydratedOption);
         return;
       }
 
-      var shouldSelect = currentValues.indexOf(normalizedId) !== -1;
-      var hydratedOption = new Option(normalizedText, normalizedId, shouldSelect, shouldSelect);
       $selectElement.append(hydratedOption);
     }
 
