@@ -4,7 +4,7 @@ Tags: boat rental, yacht charter, booking, availability, fleet management
 Requires at least: 6.0
 Tested up to: 7.1
 Requires PHP: 8.1
-Stable tag: 0.1.209
+Stable tag: 0.1.210
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -158,6 +158,9 @@ The repository includes `package.json`, `package-lock.json`, and the Vite config
 6. Boat synchronization workflow and status.
 
 == Changelog ==
+
+= 0.1.210 =
+* Boat filters: boat type names come in the language of the page, also on sites whose plugin settings name another default language.
 
 = 0.1.209 =
 * Boat filters: a boat type, builder or other choice preselected on a listing shows its name instead of a placeholder such as "Type #41".
@@ -412,6 +415,9 @@ The repository includes `package.json`, `package-lock.json`, and the Vite config
 * Improved readme documentation for the current feature set.
 
 == Upgrade Notice ==
+
+= 0.1.210 =
+Boat type filters use the language of the page.
 
 = 0.1.209 =
 Shows the name of preselected boat types and builders in the filters.

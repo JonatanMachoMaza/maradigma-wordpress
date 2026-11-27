@@ -2964,6 +2964,11 @@ final class AjaxController
 
         try {
             $client   = self::createApiClient();
+            // Name the types in the language of the page that asks.
+            $language = self::getRequestedCatalogLanguage();
+            if ($language !== '') {
+                $client->setLanguage($language);
+            }
             $response = $client->getServiceTypes('boats');
 
             $items = [];
