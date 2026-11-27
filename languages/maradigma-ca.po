@@ -5515,3 +5515,12 @@ msgstr "Idiomes de les pàgines de vaixell"
 
 msgid "The next sync creates and updates boat pages only in these languages. The default language is always included. Pages already created in other languages are kept: move them to the trash from Boats if you no longer want them."
 msgstr "La propera sincronització crea i actualitza pàgines de vaixell només en aquests idiomes. L'idioma per defecte sempre s'hi inclou. Les pàgines ja creades en altres idiomes es conserven: envia-les a la paperera des de Vaixells si ja no les vols."
+
+msgid "Rank Math detected - SEO integration available"
+msgstr "Rank Math detectat: integració SEO disponible"
+
+msgid "Rank Math not detected"
+msgstr "Rank Math no detectat"
+
+msgid "SEO title and description (Yoast SEO / Rank Math)"
+msgstr "Títol i descripció SEO (Yoast SEO / Rank Math)"

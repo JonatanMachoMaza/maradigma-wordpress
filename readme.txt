@@ -4,7 +4,7 @@ Tags: boat rental, yacht charter, booking, availability, fleet management
 Requires at least: 6.0
 Tested up to: 7.1
 Requires PHP: 8.1
-Stable tag: 0.1.210
+Stable tag: 0.1.211
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -29,7 +29,7 @@ Main capabilities:
 * Link WooCommerce products to Maradigma boats when WooCommerce is installed and active.
 * Provide compatibility layers for GeneratePress, GenerateBlocks, and Gutenverse where those products are active.
 * Support multilingual sites using WPML or Polylang.
-* Integrate synchronized boat metadata with Yoast SEO when Yoast SEO is installed and active.
+* Integrate synchronized boat metadata with Yoast SEO or Rank Math when either is installed and active.
 
 An active Maradigma account and valid API credentials are required to retrieve fleet data and use the connected booking features.
 
@@ -115,9 +115,9 @@ Yes, when WooCommerce is installed and active. Public WooCommerce products can b
 
 Yes. The plugin includes compatibility layers for WPML and Polylang and can synchronize language-specific boat pages and metadata according to the active multilingual configuration.
 
-= Does it work with Yoast SEO? =
+= Does it work with Yoast SEO and Rank Math? =
 
-When Yoast SEO is installed and active, the plugin can synchronize or generate boat metadata according to the configured SEO options.
+Yes. When Yoast SEO or Rank Math is installed and active, each sync fills the SEO title and description of the boat pages from the SEO templates in the plugin settings, and keeps the canonical URL on the boat's current address. Titles and descriptions edited by hand in the SEO plugin are kept. Rank Math variables such as `%sep%` can be used in the templates.
 
 = Can synchronized boat URLs include their destination and boat type? =
 
@@ -158,6 +158,9 @@ The repository includes `package.json`, `package-lock.json`, and the Vite config
 6. Boat synchronization workflow and status.
 
 == Changelog ==
+
+= 0.1.211 =
+* Rank Math: each sync fills the SEO title and description of boat pages from the plugin's SEO templates, keeps values edited by hand, and keeps the canonical URL on the boat's current address. The settings show whether Rank Math is detected.
 
 = 0.1.210 =
 * Boat filters: boat type names come in the language of the page, also on sites whose plugin settings name another default language.
@@ -415,6 +418,9 @@ The repository includes `package.json`, `package-lock.json`, and the Vite config
 * Improved readme documentation for the current feature set.
 
 == Upgrade Notice ==
+
+= 0.1.211 =
+Adds Rank Math support for boat page titles, descriptions and canonical URLs.
 
 = 0.1.210 =
 Boat type filters use the language of the page.

@@ -6298,3 +6298,12 @@ msgstr ""
 
 msgid "The next sync creates and updates boat pages only in these languages. The default language is always included. Pages already created in other languages are kept: move them to the trash from Boats if you no longer want them."
 msgstr ""
+
+msgid "Rank Math detected - SEO integration available"
+msgstr ""
+
+msgid "Rank Math not detected"
+msgstr ""
+
+msgid "SEO title and description (Yoast SEO / Rank Math)"
+msgstr ""

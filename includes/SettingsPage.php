@@ -1118,6 +1118,7 @@ final class SettingsPage
         $compat = [
             'elementor' => did_action('elementor/loaded'),
             'yoast'     => defined('WPSEO_VERSION') || class_exists('\WPSEO_Options'),
+            'rank_math' => SeoIntegration::isRankMathActive(),
 
             // Provider
             'multilang_provider' => MultilangAdapter::detectProvider(),
@@ -1767,7 +1768,7 @@ final class SettingsPage
                                 </label>
 
                                 <label style="display:block;margin:10px 0 6px 0;font-weight:600;">
-                                    <?php esc_html_e('Yoast SEO', 'maradigma'); ?>
+                                    <?php esc_html_e('SEO title and description (Yoast SEO / Rank Math)', 'maradigma'); ?>
                                 </label>
                                 <select name="sync[yoast_mode]">
                                     <option value="fix_multilang" selected><?php esc_html_e('Fix multi-language values (recommended)', 'maradigma'); ?></option>
@@ -2401,6 +2402,14 @@ final class SettingsPage
                                 echo !empty($compat['yoast'])
                                     ? '<span aria-hidden="true">&#10004;</span> ' . esc_html__('Yoast SEO detected - SEO integration available', 'maradigma')
                                     : '<span aria-hidden="true">&#9888;</span> ' . esc_html__('Yoast SEO not detected', 'maradigma');
+                                ?>
+                            </li>
+
+                            <li class="<?php echo !empty($compat['rank_math']) ? 'is-ok' : 'is-off'; ?>">
+                                <?php
+                                echo !empty($compat['rank_math'])
+                                    ? '<span aria-hidden="true">&#10004;</span> ' . esc_html__('Rank Math detected - SEO integration available', 'maradigma')
+                                    : '<span aria-hidden="true">&#9888;</span> ' . esc_html__('Rank Math not detected', 'maradigma');
                                 ?>
                             </li>
 

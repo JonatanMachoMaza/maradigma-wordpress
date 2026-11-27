@@ -10,13 +10,15 @@ if (!defined('ABSPATH')) {
 use Maradigma\Support\RuntimeContext;
 
 /**
- * Yoast SEO integration for maradigma_boat CPT.
+ * Yoast SEO and Rank Math integration for maradigma_boat CPT.
  *
  * Goals:
- * - On sync: write Yoast meta title/desc computed from templates (plugin settings),
- *   BUT never override if user already set Yoast meta manually.
- * - On frontend: provide fallback via Yoast filters ONLY when current value is not meaningful
- *   AND user has not set Yoast meta manually.
+ * - On sync: write the SEO title/description computed from templates (plugin settings)
+ *   to Yoast's meta and, when Rank Math is active, to Rank Math's meta,
+ *   BUT never override a value the user set manually.
+ * - On frontend: provide fallback via Yoast / Rank Math filters ONLY when the current value
+ *   is not meaningful AND the user has not set the meta manually.
+ * - Keep the canonical URL on the boat's current dynamic route.
  *
  * Notes:
  * - Uses boat payload stored in: _maradigma_boat_payload (JSON)
@@ -49,6 +51,14 @@ final class SeoIntegration
     private const META_MD_YOAST_DESC_HASH  = '_maradigma_yoast_desc_hash';
 
     /**
+     * Rank Math post meta keys, and what Maradigma generated last time in them.
+     */
+    private const RANK_MATH_TITLE_META = 'rank_math_title';
+    private const RANK_MATH_DESC_META  = 'rank_math_description';
+    private const META_MD_RANK_MATH_TITLE_HASH = '_maradigma_rank_math_title_hash';
+    private const META_MD_RANK_MATH_DESC_HASH  = '_maradigma_rank_math_desc_hash';
+
+    /**
      * Registers the component's WordPress hooks.
      */
     public static function init(): void
@@ -61,6 +71,56 @@ final class SeoIntegration
         // OG tags
         \add_filter('wpseo_opengraph_title', [__CLASS__, 'filterYoastOgTitle'], 20, 1);
         \add_filter('wpseo_opengraph_desc', [__CLASS__, 'filterYoastOgDesc'], 20, 1);
+
+        // Rank Math (its Open Graph tags reuse the title and description)
+        \add_filter('rank_math/frontend/title', [__CLASS__, 'filterRankMathTitle'], 20, 1);
+        \add_filter('rank_math/frontend/description', [__CLASS__, 'filterRankMathDescription'], 20, 1);
+        \add_filter('rank_math/frontend/canonical', [__CLASS__, 'filterRankMathCanonical'], 20, 1);
+    }
+
+    /**
+     * Determines whether Rank Math is active.
+     */
+    public static function isRankMathActive(): bool
+    {
+        return \defined('RANK_MATH_VERSION') || \class_exists('RankMath');
+    }
+
+    /**
+     * Keeps the Rank Math canonical on the boat's current dynamic route.
+     *
+     * @param mixed $current
+     * @return mixed
+     */
+    public static function filterRankMathCanonical($current)
+    {
+        return \is_string($current) ? self::filterYoastCanonical($current) : $current;
+    }
+
+    /**
+     * Rank Math title fallback for a boat post.
+     *
+     * @param mixed $current
+     * @return mixed
+     */
+    public static function filterRankMathTitle($current)
+    {
+        return \is_string($current)
+            ? self::filterSeoValue($current, self::RANK_MATH_TITLE_META, 'seo_title_template')
+            : $current;
+    }
+
+    /**
+     * Rank Math description fallback for a boat post.
+     *
+     * @param mixed $current
+     * @return mixed
+     */
+    public static function filterRankMathDescription($current)
+    {
+        return \is_string($current)
+            ? self::filterSeoValue($current, self::RANK_MATH_DESC_META, 'seo_meta_description_template')
+            : $current;
     }
 
     /**
@@ -150,8 +210,47 @@ final class SeoIntegration
             return;
         }
 
-        $currentTitleMeta = (string) \get_post_meta($postId, self::YOAST_TITLE_META, true);
-        $currentDescMeta  = (string) \get_post_meta($postId, self::YOAST_DESC_META, true);
+        self::writeGeneratedMeta(
+            $postId,
+            $mode,
+            $computedTitle,
+            $computedDesc,
+            [self::YOAST_TITLE_META, self::META_MD_YOAST_TITLE_HASH],
+            [self::YOAST_DESC_META, self::META_MD_YOAST_DESC_HASH]
+        );
+
+        if (self::isRankMathActive()) {
+            self::writeGeneratedMeta(
+                $postId,
+                $mode,
+                $computedTitle,
+                $computedDesc,
+                [self::RANK_MATH_TITLE_META, self::META_MD_RANK_MATH_TITLE_HASH],
+                [self::RANK_MATH_DESC_META, self::META_MD_RANK_MATH_DESC_HASH]
+            );
+        }
+    }
+
+    /**
+     * Writes a generated title and description to one SEO plugin's meta,
+     * following the sync mode and keeping values the user set manually.
+     *
+     * @param array{0:string,1:string} $titleKeys Title meta key and its Maradigma hash key.
+     * @param array{0:string,1:string} $descKeys  Description meta key and its Maradigma hash key.
+     */
+    private static function writeGeneratedMeta(
+        int $postId,
+        string $mode,
+        string $computedTitle,
+        string $computedDesc,
+        array $titleKeys,
+        array $descKeys
+    ): void {
+        [$titleMeta, $titleHashMeta] = $titleKeys;
+        [$descMeta, $descHashMeta] = $descKeys;
+
+        $currentTitleMeta = (string) \get_post_meta($postId, $titleMeta, true);
+        $currentDescMeta  = (string) \get_post_meta($postId, $descMeta, true);
 
         $looksMultilang = static function (string $v): bool {
             $v = \trim($v);
@@ -160,8 +259,8 @@ final class SeoIntegration
         };
 
         // ✅ Determine if current meta was previously generated by Maradigma
-        $storedTitleHash = (string) \get_post_meta($postId, self::META_MD_YOAST_TITLE_HASH, true);
-        $storedDescHash  = (string) \get_post_meta($postId, self::META_MD_YOAST_DESC_HASH, true);
+        $storedTitleHash = (string) \get_post_meta($postId, $titleHashMeta, true);
+        $storedDescHash  = (string) \get_post_meta($postId, $descHashMeta, true);
 
         $currentTitleHash = \md5(\trim($currentTitleMeta));
         $currentDescHash  = \md5(\trim($currentDescMeta));
@@ -202,13 +301,13 @@ final class SeoIntegration
         }
 
         if ($canWriteTitle) {
-            \update_post_meta($postId, self::YOAST_TITLE_META, $computedTitle);
-            \update_post_meta($postId, self::META_MD_YOAST_TITLE_HASH, \md5(\trim($computedTitle)));
+            \update_post_meta($postId, $titleMeta, $computedTitle);
+            \update_post_meta($postId, $titleHashMeta, \md5(\trim($computedTitle)));
         }
 
         if ($canWriteDesc) {
-            \update_post_meta($postId, self::YOAST_DESC_META, $computedDesc);
-            \update_post_meta($postId, self::META_MD_YOAST_DESC_HASH, \md5(\trim($computedDesc)));
+            \update_post_meta($postId, $descMeta, $computedDesc);
+            \update_post_meta($postId, $descHashMeta, \md5(\trim($computedDesc)));
         }
     }
 
@@ -221,55 +320,7 @@ final class SeoIntegration
      */
     public static function filterYoastTitle(string $current): string
     {
-        $postId = self::getCurrentPostId();
-        if ($postId <= 0 || !self::isBoatPost($postId)) {
-            return $current;
-        }
-
-        // If user set Yoast title manually, do not touch
-        if (self::hasManualYoastMeta($postId, self::YOAST_TITLE_META)) {
-            return $current;
-        }
-
-        // If Yoast already has a meaningful title (resolved), do not override
-        if (self::isMeaningfulYoastValue($current)) {
-            return $current;
-        }
-
-        $boatData = self::getBoatPayloadFromPost($postId);
-        if ($boatData === null) {
-            return $current;
-        }
-
-        $settings = SettingsPage::getSettings();
-
-        // ✅ Frontend must use real language (Polylang/WPML) - RuntimeContext should do that.
-        $lang = RuntimeContext::detectCurrentLanguage();
-        if (\trim($lang) === '') {
-            $lang = RuntimeContext::getPluginDefaultLanguage();
-        }
-        $lang = \strtolower(\trim($lang));
-        if ($lang === '') {
-            $lang = 'en';
-        }
-
-        $fallback = (string) ($settings['default_language'] ?? 'en');
-        $fallback = \strtolower(\trim($fallback));
-        if ($fallback === '') {
-            $fallback = 'en';
-        }
-
-        $tplRaw = (string) ($settings['seo_title_template'] ?? '');
-        $tpl = SettingsPage::pickLocalizedValue($tplRaw, $lang, $fallback);
-
-        if (\trim($tpl) === '') {
-            return $current;
-        }
-
-        $tokens = self::buildSeoTokenValues($boatData, $lang);
-        $computed = self::renderTemplateToPlainText($tpl, $tokens);
-
-        return $computed !== '' ? $computed : $current;
+        return self::filterSeoValue($current, self::YOAST_TITLE_META, 'seo_title_template');
     }
 
     /**
@@ -277,17 +328,26 @@ final class SeoIntegration
      */
     public static function filterYoastMetadesc(string $current): string
     {
+        return self::filterSeoValue($current, self::YOAST_DESC_META, 'seo_meta_description_template');
+    }
+
+    /**
+     * Fallback SEO value for a boat post: the plugin template, only when the
+     * user set no value manually and the SEO plugin produced nothing useful.
+     */
+    private static function filterSeoValue(string $current, string $manualMetaKey, string $templateSetting): string
+    {
         $postId = self::getCurrentPostId();
         if ($postId <= 0 || !self::isBoatPost($postId)) {
             return $current;
         }
 
-        // If user set Yoast metadesc manually, do not touch
-        if (self::hasManualYoastMeta($postId, self::YOAST_DESC_META)) {
+        // If the user set the value manually, do not touch
+        if (self::hasManualYoastMeta($postId, $manualMetaKey)) {
             return $current;
         }
 
-        // If Yoast already has a meaningful description, do not override
+        // If the SEO plugin already has a meaningful value (resolved), do not override
         if (self::isMeaningfulYoastValue($current)) {
             return $current;
         }
@@ -299,7 +359,7 @@ final class SeoIntegration
 
         $settings = SettingsPage::getSettings();
 
-        // ✅ Frontend must use real language (Polylang/WPML)
+        // Frontend must use real language (Polylang/WPML) - RuntimeContext does that.
         $lang = RuntimeContext::detectCurrentLanguage();
         if (\trim($lang) === '') {
             $lang = RuntimeContext::getPluginDefaultLanguage();
@@ -315,7 +375,7 @@ final class SeoIntegration
             $fallback = 'en';
         }
 
-        $tplRaw = (string) ($settings['seo_meta_description_template'] ?? '');
+        $tplRaw = (string) ($settings[$templateSetting] ?? '');
         $tpl = SettingsPage::pickLocalizedValue($tplRaw, $lang, $fallback);
 
         if (\trim($tpl) === '') {

@@ -5539,3 +5539,12 @@ msgstr "Idiomas de las páginas de barco"
 
 msgid "The next sync creates and updates boat pages only in these languages. The default language is always included. Pages already created in other languages are kept: move them to the trash from Boats if you no longer want them."
 msgstr "La próxima sincronización crea y actualiza páginas de barco solo en estos idiomas. El idioma por defecto siempre se incluye. Las páginas ya creadas en otros idiomas se conservan: envíalas a la papelera desde Barcos si ya no las quieres."
+
+msgid "Rank Math detected - SEO integration available"
+msgstr "Rank Math detectado: integración SEO disponible"
+
+msgid "Rank Math not detected"
+msgstr "Rank Math no detectado"
+
+msgid "SEO title and description (Yoast SEO / Rank Math)"
+msgstr "Título y descripción SEO (Yoast SEO / Rank Math)"
