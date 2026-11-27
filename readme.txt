@@ -4,7 +4,7 @@ Tags: boat rental, yacht charter, booking, availability, fleet management
 Requires at least: 6.0
 Tested up to: 7.1
 Requires PHP: 8.1
-Stable tag: 0.1.211
+Stable tag: 0.1.212
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -158,6 +158,9 @@ The repository includes `package.json`, `package-lock.json`, and the Vite config
 6. Boat synchronization workflow and status.
 
 == Changelog ==
+
+= 0.1.212 =
+* Multilingual settings such as the SEO templates accept commas inside each language's text: "es:…,en:…" is split only where the next language code starts, and a value that does not start with a language code is used for every language.
 
 = 0.1.211 =
 * Rank Math: each sync fills the SEO title and description of boat pages from the plugin's SEO templates, keeps values edited by hand, and keeps the canonical URL on the boat's current address. The settings show whether Rank Math is detected.
@@ -418,6 +421,9 @@ The repository includes `package.json`, `package-lock.json`, and the Vite config
 * Improved readme documentation for the current feature set.
 
 == Upgrade Notice ==
+
+= 0.1.212 =
+Multilingual SEO templates can contain commas.
 
 = 0.1.211 =
 Adds Rank Math support for boat page titles, descriptions and canonical URLs.

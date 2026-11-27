@@ -3606,13 +3606,18 @@ final class SettingsPage
             return '';
         }
 
-        // If not multilingual syntax, return as-is
-        if (strpos($raw, ':') === false) {
+        // Multilingual syntax starts with a language code: "es:…,en:…".
+        // Anything else is one value for every language.
+        $langPrefix = '[a-z]{2,3}(?:[-_][a-z]{2,4})?\s*:';
+        if (preg_match('/^' . $langPrefix . '/i', $raw) !== 1) {
             return $raw;
         }
 
+        // Split only where the next language starts, so values may contain commas.
+        $parts = preg_split('/,(?=\s*' . $langPrefix . ')/i', $raw) ?: [$raw];
+
         $map = [];
-        foreach (explode(',', $raw) as $part) {
+        foreach ($parts as $part) {
             $part = trim($part);
             if ($part === '' || strpos($part, ':') === false) {
                 continue;
